@@ -1,0 +1,24 @@
+// /* after changing this file run 'npm run webpack:build' */
+
+// /***************************
+// put Sass variables here:
+// eg $input-color: red;
+// ****************************/
+// // Override Bootstrap variables
+// @import 'bootstrap-variables';
+// // Import Bootstrap source files from node_modules
+// @import '~bootstrap/scss/bootstrap';
+
+/* jhipster-needle-scss-add-vendor JHipster will add new css style */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~font-awesome/css/font-awesome.css';
+@import '~flickity/dist/flickity.min.css';
+@import '~angular-bootstrap-md/assets/scss/bootstrap/bootstrap.scss';
+@import '~angular-bootstrap-md/assets/scss/mdb.scss';
+@import '~owl.carousel/dist/assets/owl.carousel.css';
+@import '~owl.carousel/dist/assets/owl.theme.default.css';
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/themes/nova-light/theme.css';
+@import '~primeng/resources/primeng.min.css';
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.snow.css';

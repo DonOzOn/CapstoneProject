@@ -1,0 +1,325 @@
+<div class="container">
+    <div class="row mb-2">
+        <div class="col-12 text-left pt-3">
+            <h3>Soạn tin đăng</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]="profileForm">
+
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6>I.Thông tin cơ bản</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
+                                                <div class="col-md-6 p-0">
+                                                    <!-- Tên dự án -->
+                                                    <div class="row col-md-12 m-0 p-0 mb-3">
+                                                        <div class="col-md-5 ">
+                                                            <label class="m-0 py-1">Tên dự án</label>
+
+                                                        </div>
+                                                        <div class="col-md-7 p-0">
+                                                            <span class="ui-float-label">
+                                                                                <input id="float-input" type="text" formControlName="projectname" size="30" pInputText> 
+                                                                                <label for="float-input">Tên dự án</label>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Loại hình -->
+                                                    <div class="row col-md-12 m-0 p-0 mb-2">
+                                                        <div class="col-md-5 py-1">
+                                                            <label class="m-0">Loại hình<label style="color: Red;">*</label></label>
+
+                                                        </div>
+                                                        <div class="col-md-7 p-0">
+                                                            <span class="ui-float-label">
+                                                                    <p-selectButton [options]="types" formControlName="type" [(ngModel)]="selectedType"></p-selectButton>
+                                                                </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Loại BĐS -->
+                                                    <div class="row col-md-12 m-0 p-0 mb-2">
+                                                        <div class="col-md-5 py-1">
+                                                            <label class="m-0">Loại BĐS<label style="color: Red;">*</label></label>
+
+                                                        </div>
+                                                        <div class="col-md-7 p-0">
+                                                            <p-dropdown [options]="typeBDS" [(ngModel)]="selectedBDS" formControlName="typeBDS" placeholder="" optionLabel="name" [showClear]="true" size="100"></p-dropdown>
+
+                                                        </div>
+                                                    </div>
+                                                    <!-- Loại BĐS -->
+                                                    <div class="row col-md-12 m-0 p-0 mb-2">
+                                                        <div class="col-md-5 py-1">
+
+                                                        </div>
+                                                        <div class="col-md-7 p-0">
+                                                            <p-dropdown [options]="typeBDS" [(ngModel)]="selectedBDS" formControlName="typeBDS" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <!-- Tỉnh/Thành phố -->
+                                                    <div class="row col-md-12 m-0 p-0 mb-2">
+                                                        <div class="col-md-5 py-1">
+                                                            <label class="m-0">Tỉnh/Thành phố<label style="color: Red;">*</label></label>
+
+                                                        </div>
+                                                        <div class="col-md-7 p-0">
+                                                            <p-dropdown [options]="typeBDS" [(ngModel)]="selectedBDS" formControlName="typeBDS" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Quận/Huyện -->
+                                                    <div class="row col-md-12 m-0 p-0 mb-2">
+                                                        <div class="col-md-5 py-1">
+                                                            <label class="m-0">Quận/Huyện<label style="color: Red;">*</label></label>
+
+                                                        </div>
+                                                        <div class="col-md-7 p-0">
+                                                            <p-dropdown [options]="typeBDS" [(ngModel)]="selectedBDS" formControlName="typeBDS" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Xã/Phường -->
+                                                    <div class="row col-md-12 m-0 p-0 mb-2">
+                                                        <div class="col-md-5 py-1">
+                                                            <label class="m-0">Xã/Phường<label style="color: Red;">*</label></label>
+
+                                                        </div>
+                                                        <div class="col-md-7 p-0">
+                                                            <p-dropdown [options]="typeBDS" [(ngModel)]="selectedBDS" formControlName="typeBDS" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Địa chỉ -->
+                                                    <div class="row col-md-12 m-0 p-0 mb-2">
+                                                        <div class="col-md-5 ">
+                                                            <label class="m-0 py-1">Địa chỉ</label>
+
+                                                        </div>
+                                                        <div class="col-md-7 p-0">
+                                                            <span class="ui-float-label">
+                                                            <input id="float-input" type="text" formControlName="projectname" size="30" pInputText> 
+                                                            <label for="float-input">Địa chỉ</label>
+                                                             </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6>II. Thông tin mô tả</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
+                                                <div class="col-md-6 p-0">
+                                                    <!-- Giá tiền -->
+                                                    <div class="row col-md-12 m-0 p-0 mb-3">
+                                                        <div class="col-md-5 ">
+                                                            <label class="m-0 py-1">Giá tiền </label>
+
+                                                        </div>
+                                                        <div class="col-md-7 p-0">
+                                                            <span class="ui-float-label">
+                                                                                        <input id="float-input" type="text" formControlName="projectname" size="30" pInputText> 
+                                                                                        <label for="float-input">Giá tiền </label>
+                                                                    </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Diện tích -->
+                                                    <div class="row col-md-12 m-0 p-0 mb-3">
+                                                        <div class="col-md-5 ">
+                                                            <label class="m-0 py-1">Diện tích</label>
+
+                                                        </div>
+                                                        <div class="col-md-7 p-0">
+                                                            <span class="ui-float-label">
+                                                                <input id="float-input" type="text" formControlName="projectname" size="30" pInputText> 
+                                                                <label for="float-input">Diện tích </label>
+                                                                </span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <!-- Hướng nhà-->
+                                                    <div class="row col-md-12 m-0 p-0 mb-2">
+                                                        <div class="col-md-5 py-1">
+                                                            <label class="m-0">Hướng nhà</label>
+
+                                                        </div>
+                                                        <div class="col-md-7 p-0">
+                                                            <p-dropdown [options]="typeBDS" [(ngModel)]="selectedBDS" formControlName="typeBDS" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Tình trạng pháp lí-->
+                                                    <div class="row col-md-12 m-0 p-0 mb-2">
+                                                        <div class="col-md-5 py-1">
+                                                            <label class="m-0">Tình trạng pháp lí</label>
+
+                                                        </div>
+                                                        <div class="col-md-7 p-0">
+                                                            <p-dropdown [options]="typeBDS" [(ngModel)]="selectedBDS" formControlName="typeBDS" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <!-- Tiêu đề -->
+                                            <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
+                                                <div class="col-md-2 px-3">
+                                                    <label class="m-0 py-1">Tiêu đề<label style="color: Red;">*</label></label>
+
+                                                </div>
+                                                <div class="col-md-10 pl-4">
+                                                    <span class="ui-float-label pl-2 ml-2">
+                                                                     <input id="float-input" type="text" formControlName="projectname" style="width: 100%;" pInputText> 
+                                                                      <label class="pl-2" for="float-input">Tiêu đề</label>
+                                                                      </span>
+                                                </div>
+                                            </div>
+                                            <!-- Mô tả -->
+                                            <div class="row col-md-12 mt-3 m-0 p-0 d-flex justify-content-left">
+                                                <div class="col-md-2 px-3">
+                                                    <label class="m-0 py-1">Mô tả<label style="color: Red;">*</label></label>
+
+                                                </div>
+                                                <div class="col-md-10 pl-4">
+                                                    <span class="ui-float-label pl-2 ml-2">
+                                                         <p-editor [(ngModel)]="text1" formControlName="title" [style]="{'height':'320px'}"></p-editor>
+                                                            <button pButton type="button" label="Clear" icon="pi pi-times" (click)="text1=null"></button>
+                                                        </span>
+                                                </div>
+
+                                            </div>
+                                            <!-- Upload hình ảnh -->
+                                            <div class="row col-md-12 mt-3 m-0 p-0 d-flex justify-content-left">
+                                                <div class="col-md-2 px-3">
+                                                    <label class="m-0 py-1">Upload ảnh</label>
+
+                                                </div>
+                                                <div class="col-md-10 pl-4">
+                                                    <span class="ui-float-label pl-2 ml-2">
+                                                                <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
+                                                                multiple="multiple" accept="image/*" maxFileSize="1000000">
+                                                            <ng-template pTemplate="content">
+                                                                <ul *ngIf="uploadedFiles.length">
+                                                                    <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                                                                </ul>
+                                                            </ng-template>
+                                                        </p-fileUpload>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6>III.Thông tin tiện ích</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="row col-md-12 ml-2 m-0 p-0 d-flex justify-content-left">
+                                                <div class="col-md-6 p-0">
+                                                    <!-- Tiện ích-->
+                                                    <div class="col-md-12 m-0 p-0 mb-3">
+                                                        <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox name="group2" value="Technology" label="Trường học" [(ngModel)]="selectedCategories" formControlName="one" inputId="technology"></p-checkbox>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox name="group2" value="Finance" label="Bệnh viện" [(ngModel)]="selectedCategories" formControlName="two" inputId="finance"></p-checkbox>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox name="group2" value="Sports" label="Siêu thị" [(ngModel)]="selectedCategories" formControlName="three" inputId="sports"></p-checkbox>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox name="group2" value="Entertainment" label="Sân bóng" [(ngModel)]="selectedCategories" formControlName="four" inputId="entertainment"></p-checkbox>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-md-6 p-0">
+                                                    <!-- Tiện ích -->
+                                                    <div class="col-md-12 m-0 p-0 mb-2">
+                                                        <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox name="group2" value="Technology" label="Rạp phim" [(ngModel)]="selectedCategories" formControlName="one" inputId="technology"></p-checkbox>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox name="group2" value="Finance" label="Nhà hàng" [(ngModel)]="selectedCategories" formControlName="two" inputId="finance"></p-checkbox>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox name="group2" value="Sports" label="Sân bay" [(ngModel)]="selectedCategories" formControlName="three" inputId="sports"></p-checkbox>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox name="group2" value="Entertainment" label="Xe buýt" [(ngModel)]="selectedCategories" formControlName="four" inputId="entertainment"></p-checkbox>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <button pButton type="button" label="Đăng tin" style="width: 200px;height: 50px;"></button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <div class="card" style="background-color: gray ; height: 130px;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card-body">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
