@@ -2,6 +2,7 @@ package com.realestatebrokerage.service.dto;
 
 import com.realestatebrokerage.config.Constants;
 
+import com.realestatebrokerage.domain.Address;
 import com.realestatebrokerage.domain.Authority;
 import com.realestatebrokerage.domain.User;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 
 import javax.validation.constraints.*;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,6 +32,15 @@ public class UserDTO {
 
     @Size(max = 50)
     private String lastName;
+
+    private LocalDateTime dob;
+
+    @Size(max = 50)
+    private String phone;
+
+    private boolean gender = false;
+
+    private Address address;
 
     @Email
     @Size(min = 5, max = 254)
@@ -62,6 +73,12 @@ public class UserDTO {
         this.login = user.getLogin();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
+        this.phone = user.getPhone();
+        this.gender = user.getGender();
+        this.dob = user.getDob();
+        if(user.getAddress() != null){
+            this.address = user.getAddress();
+        }
         this.email = user.getEmail();
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();
@@ -73,6 +90,38 @@ public class UserDTO {
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
+    }
+
+    public LocalDateTime getDob() {
+        return dob;
+    }
+
+    public void setDob(LocalDateTime dob) {
+        this.dob = dob;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public boolean getGender() {
+        return gender;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public Long getId() {
