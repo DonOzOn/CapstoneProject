@@ -27,7 +27,7 @@
     "ngx-infinite-scroll": "8.0.0",
     "ngx-webstorage": "4.0.1",
     "rxjs": "6.5.2",
-    "swagger-ui": "2.2.10",
+    "swagger-ui": "3.23.11",
     "zone.js": "0.10.2",
     "@angular/animations": "^8.2.11",
     "@angular/cdk": "^8.2.3",
