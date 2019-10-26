@@ -1,66 +1,59 @@
+import { Router } from '@angular/router';
+import { LoginService } from './../../core/login/login.service';
 import { Component, OnInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-interface Country {
-  name: string;
-  flag: string;
-  area: number;
-  population: number;
-}
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
+import { AccountService } from 'app/core/auth/account.service';
+import { LoginModalService } from 'app/core/login/login-modal.service';
+import { JhiEventManager } from 'ng-jhipster';
+import { Account } from 'app/core/user/account.model';
 
-const COUNTRIES: Country[] = [
-  {
-    name: 'Russia',
-    flag: 'f/f3/Flag_of_Russia.svg',
-    area: 17075200,
-    population: 146989754
-  },
-  {
-    name: 'Canada',
-    flag: 'c/cf/Flag_of_Canada.svg',
-    area: 9976140,
-    population: 36624199
-  },
-  {
-    name: 'United States',
-    flag: 'a/a4/Flag_of_the_United_States.svg',
-    area: 9629091,
-    population: 324459463
-  },
-  {
-    name: 'China',
-    flag: 'f/fa/Flag_of_the_People%27s_Republic_of_China.svg',
-    area: 9596960,
-    population: 1409517397
-  }
-];
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  countries = COUNTRIES;
-  index = 0;
-  constructor(private modalService: NgbModal) {}
-  closeResult: string;
-  ngOnInit() {}
-  open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-      result => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      reason => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
+  account: Account;
+  authSubscription: Subscription;
+  modalRef: NgbModalRef;
+  constructor(
+    private loginService: LoginService,
+    private accountService: AccountService,
+    private loginModalService: LoginModalService,
+    private eventManager: JhiEventManager,
+    private router: Router
+    ) {}
+  ngOnInit() {
+    this.accountService.identity().subscribe((account: Account) => {
+      this.account = account;
+    });
+    this.registerAuthenticationSuccess();
   }
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
+  registerAuthenticationSuccess() {
+    this.authSubscription = this.eventManager.subscribe('authenticationSuccess', message => {
+      this.accountService.identity().subscribe(account => {
+        this.account = account;
+      });
+    });
+  }
+
+  isAuthenticated() {
+    return this.accountService.isAuthenticated();
+  }
+
+  login() {
+    this.modalRef = this.loginModalService.open();
+  }
+
+  // tslint:disable-next-line: use-lifecycle-interface
+  ngOnDestroy() {
+    if (this.authSubscription) {
+      this.eventManager.destroy(this.authSubscription);
     }
+  }
+  logout() {
+    this.loginService.logout();
+    this.router.navigate(['/login']);
   }
 }

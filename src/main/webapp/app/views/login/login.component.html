@@ -1,58 +1,136 @@
-<div class="container p-0 m-0">
-    <div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
-        <div class="card card-signin my-5">
-            <div class="card-body">
-                <h5 class="card-title text-center">Sign In</h5>
-                <!-- Default form login -->
-                <form class="text-center" action="#!">
-                    <!-- Email -->
-                    <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+<!-- <div class="container-fluid "> -->
+<!-- <div class="modal-header">
+    <h4 class="modal-title">Sign in</h4>
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="getDismissReason('closed')"><span aria-hidden="true">x</span>
+                </button>
+</div> -->
+<div class="container-fluid">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-12" *ngIf="size == true">
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
+                        <div class="card card-signin my-5">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Đăng nhập</h5>
+                                <div class="alert alert-danger" *ngIf="authenticationError">
+                                    <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                                </div>
+                                <!-- Default form login -->
+                                <form class="form text-left" role="form" (ngSubmit)="login()" [formGroup]="loginForm">
+                                    <!-- login name -->
+                                    <div class="form-group">
+                                        <label class="username-label" for="username">Tên tài khoản</label>
+                                        <input type="text" class="form-control mb-4" name="username" id="username" placeholder="Tên tài khoản" formControlName="username">
+                                    </div>
 
-                    <!-- Password -->
-                    <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+                                    <div class="form-group">
+                                        <label for="password">Mật khẩu</label>
+                                        <input type="password" class="form-control mb-4" name="password" id="password" placeholder="Mật khẩu" formControlName="password">
+                                    </div>
+                                    <div class="d-flex justify-content-around">
+                                        <!-- Remember password -->
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="rememberMe">
+                                                                    <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" formControlName="rememberMe">
+                                                                    <span>Nhớ mật khẩu</span>
+                                                                </label>
+                                        </div>
+                                        <div>
+                                            <!-- Forgot password -->
+                                            <a (click)="requestResetPassword()">Quên mật khẩu?</a>
+                                        </div>
+                                    </div>
 
-                    <div class="d-flex justify-content-around">
-                        <div>
-                            <!-- Remember me -->
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-                                <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+                                    <!-- Sign in button -->
+                                    <button class="btn btn-info btn-block my-4" type="submit">Đăng nhập</button>
+
+                                    <!-- Register -->
+                                    <div class="rpw d-flex justify-content-center mb-4">
+                                        <p>Bạn chưa có tài khoản?
+                                            <a (click)="register()">Đăng kí</a>
+                                        </p>
+                                    </div>
+                                    <div class="row d-flex justify-content-center">
+                                        <!-- Social login -->
+                                        <p>hoặc Đăng nhập với:</p>
+                                    </div>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="mx-2" role="button"><i class="fab fa-facebook light-blue-text"></i></a>
+                                        <a href="#" class="mx-2" role="button"><i class="fab fa-google-plus light-blue-text"></i></a>
+                                    </div>
+                                </form>
+                                <!-- Default form login -->
+
                             </div>
-                        </div>
-                        <div>
-                            <!-- Forgot password -->
-                            <a href="">Forgot password?</a>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5" *ngIf="size == false">
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
+                        <div class="card card-signin my-5">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Đăng nhập</h5>
+                                <div class="alert alert-danger" *ngIf="authenticationError">
+                                    <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                                </div>
+                                <!-- Default form login -->
+                                <form class="form text-left" role="form" (ngSubmit)="login()" [formGroup]="loginForm">
+                                    <!-- login name -->
+                                    <div class="form-group">
+                                        <label class="username-label" for="username">Tên tài khoản</label>
+                                        <input type="text" class="form-control mb-4" name="username" id="username" placeholder="Tên tài khoản" formControlName="username">
+                                    </div>
 
-                    <!-- Sign in button -->
-                    <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+                                    <div class="form-group">
+                                        <label for="password">Mật khẩu</label>
+                                        <input type="password" class="form-control mb-4" name="password" id="password" placeholder="Mật khẩu" formControlName="password">
+                                    </div>
+                                    <div class="d-flex justify-content-around">
+                                        <!-- Remember password -->
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="rememberMe">
+                                                            <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" formControlName="rememberMe">
+                                                            <span>Nhớ mật khẩu</span>
+                                                        </label>
+                                        </div>
+                                        <div>
+                                            <!-- Forgot password -->
+                                            <a (click)="requestResetPassword()">Quên mật khẩu?</a>
+                                        </div>
+                                    </div>
 
-                    <!-- Register -->
+                                    <!-- Sign in button -->
+                                    <button class="btn btn-info btn-block my-4" type="submit">Đăng nhập</button>
 
-                    <p>Not a member?
-                        <a href="#" (click)="open(content)">Register</a>
-                        <ng-template #content let-modal>
-                            <div class="modal-body">
-                                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                <app-register></app-register>
+                                    <!-- Register -->
+                                    <div class="rpw d-flex justify-content-center mb-4">
+                                        <p>Bạn chưa có tài khoản?
+                                            <a (click)="register()">Đăng kí</a>
+                                        </p>
+                                    </div>
+                                    <div class="row d-flex justify-content-center">
+                                        <!-- Social login -->
+                                        <p>hoặc Đăng nhập với:</p>
+                                    </div>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="mx-2" role="button"><i class="fab fa-facebook light-blue-text"></i></a>
+                                        <a href="#" class="mx-2" role="button"><i class="fab fa-google-plus light-blue-text"></i></a>
+                                    </div>
+                                </form>
+                                <!-- Default form login -->
+
                             </div>
-                        </ng-template>
-                    </p>
-
-                    <!-- Social login -->
-                    <p>or sign in with:</p>
-
-                    <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
-                    <a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>
-                    <a href="#" class="mx-2" role="button"><i class="fab fa-linkedin-in light-blue-text"></i></a>
-                    <a href="#" class="mx-2" role="button"><i class="fab fa-github light-blue-text"></i></a>
-
-                </form>
-                <!-- Default form login -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- </div> -->

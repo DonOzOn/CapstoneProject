@@ -59,8 +59,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "phone", length = 50)
     private String phone;
 
-    @Size(max = 50)
-    @Column(name = "DOB", length = 50)
+
+    @Column(name = "DOB")
     private LocalDateTime dob;
 
     @Column(name = "gender")

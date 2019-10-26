@@ -1,7 +1,7 @@
+import { RegisterComponent } from './views/register/register.component';
 import './vendor.ts';
-
 import { CoreModule } from './core/core.module';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MDBBootstrapModule, ButtonsModule, PopoverModule, TooltipModule, IconsModule } from 'angular-bootstrap-md';
 import { HomeModule } from './views/home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -21,9 +21,19 @@ import { ErrorComponent } from './views/error/error.component';
 import { PostProductModule } from './views/postproduct/postproduct.module';
 import { UsermanageModule } from './views/usermanage/usermanage.module';
 import { LayoutModule } from './layout/layout.module';
+import { LoginComponent } from './views/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RealestatebrokerageSharedModule } from './shared/shared.module';
+import { RealestatebrokerageSharedLibsModule } from './shared/shared-libs.module';
+import { RealestatebrokerageAccountModule } from './views/account/account.module';
 
 @NgModule({
-  declarations: [AppComponent, ErrorComponent],
+  declarations: [
+    AppComponent, 
+    ErrorComponent,
+    LoginComponent,
+    RegisterComponent
+  ],
   imports: [
     HomeModule,
     BrowserModule,
@@ -35,7 +45,6 @@ import { LayoutModule } from './layout/layout.module';
     MDBBootstrapModule.forRoot(),
     ListproductModule,
     ProductModule,
-    MDBBootstrapModule.forRoot(),
     ReviewModule,
     NewsModule,
     FengShuiModule,
@@ -44,7 +53,16 @@ import { LayoutModule } from './layout/layout.module';
     ReviewModule,
     CoreModule,
     PostProductModule,
-    UsermanageModule
+    UsermanageModule,
+    IconsModule,
+    TooltipModule,
+    PopoverModule,
+    ButtonsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RealestatebrokerageSharedModule,
+    RealestatebrokerageSharedLibsModule,
+    RealestatebrokerageAccountModule
   ],
   providers: [],
   bootstrap: [AppComponent]
