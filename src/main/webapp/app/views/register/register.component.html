@@ -1,62 +1,176 @@
-<div class="container p-0 m-0">
-    <div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
-        <div class="card card-signin my-5">
-            <div class="card-body">
-                <h5 class="card-title text-center">Sign Up</h5>
-                <!-- Default form register -->
-                <form class="text-center" action="#!">
-                    <div class="form-row mb-4">
-                        <div class="col">
-                            <!-- First name -->
-                            <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="First name">
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-sm-5 col-md-5 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+
+                    <h5 class="card-title text-center">Đăng ký</h5>
+                    <div class="row justify-content-center">
+
+                        <div class="alert alert-success" *ngIf="success">
+                            <strong>Registration saved!</strong> Please check your email for confirmation.
                         </div>
-                        <div class="col">
-                            <!-- Last name -->
-                            <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Last name">
+
+                        <div class="alert alert-danger" *ngIf="error">
+                            <strong>Registration failed!</strong> Please try again later.
                         </div>
+
+                        <div class="alert alert-danger" *ngIf="errorUserExists">
+                            <strong>Login name already registered!</strong> Please choose another one.
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="errorEmailExists">
+                            <strong>Email is already in use!</strong> Please choose another one.
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="doNotMatch">
+                            The password and its confirmation do not match!
+                        </div>
+
                     </div>
+                    <!-- Default form register -->
+                    <form class="text-left" name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
+                        <!-- First Name -->
+                        <div class="form-group">
+                            <div class="form-row mb-4">
+                                <div class="col">
+                                    <!-- First name -->
+                                    <label class="form-control-label" for="firstName">Họ</label>
+                                    <input formControlName="firstName" type="text" id="firstName" name="firstName" class="form-control" placeholder="Họ">
+                                    <div *ngIf="registerForm.get('firstName').invalid && (registerForm.get('firstName').dirty || registerForm.get('firstName').touched)">
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('firstName').errors.required">
+                                                    Họ không được để trống.
+                                                </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('firstName').errors.minlength">
+                                                    Họ it nhất có 1 một kí tự.
+                                                </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('firstName').errors.maxlength">
+                                                    Họ dài  nhất có 50 kí tự.
+                                                </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Last name -->
+                        <div class="form-group">
+                            <div class="form-row mb-4">
+                                <div class="col">
+                                    <label class="form-control-label" for="lastName">Tên</label>
+                                    <input type="text" formControlName="lastName" id="lastName" name="lastName" class="form-control" placeholder="Tên">
+                                    <div *ngIf="registerForm.get('lastName').invalid && (registerForm.get('lastName').dirty || registerForm.get('lastName').touched)">
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('lastName').errors.required">
+                                                    Tên không được để trống.
+                                                </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('lastName').errors.minlength">
+                                                    Tên it nhất có 1 một kí tự.
+                                                </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('lastName').errors.maxlength">
+                                                    Tên dài nhất có 50 kí tự.
+                                                </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- login name -->
+                        <div class="form-group">
+                            <div class="form-row mb-4">
+                                <div class="col">
+                                    <label class="form-control-label" for="login">Tên tài khoản</label>
+                                    <input type="text" formControlName="login" id="login" name="login" class="form-control" placeholder="Tên tài khoản">
+                                    <div *ngIf="registerForm.get('login').invalid && (registerForm.get('login').dirty || registerForm.get('login').touched)">
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('login').errors.required">
+                                                        Tên tài khoản không được để trống.
+                                                    </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('login').errors.minlength">
+                                                        Tên tài khoản ít nhất có 1 kí tự.
+                                                    </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('login').errors.maxlength">
+                                                        Tên tài khoản dài nhất có 50 một kí tự.
+                                                </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('login').errors.pattern">
+                                                        Tên tài khoản chỉ có thể chứa các chữ cái và chữ số.
+                                                </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- E-mail -->
+                        <div class="form-group">
+                            <div class="form-row mb-4">
+                                <div class="col">
+                                    <label class="form-control-label" for="email">Email</label>
+                                    <input type="email" formControlName="email" id="email" name="email" class="form-control" placeholder="Email">
+                                    <div *ngIf="registerForm.get('email').invalid && (registerForm.get('email').dirty || registerForm.get('email').touched)">
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.required">
+                                                            Email không được để trống.
+                                                        </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.invalid">
+                                                            Email không hợp lệ.
+                                                        </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.minlength">
+                                                              Email it nhất có 5 một kí tự.
+                                                        </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.maxlength">
+                                                              Email dài nhất có 100 kí tự.
+                                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                    <!-- E-mail -->
-                    <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail">
+                        <!-- Password -->
+                        <div class="form-group">
+                            <div class="form-row mb-4">
+                                <div class="col">
+                                    <label class="form-control-label" for="password">Mật khẩu</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" formControlName="password">
+                                    <div *ngIf="registerForm.get('password').invalid && (registerForm.get('password').dirty || registerForm.get('password').touched)">
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('password').errors.required">
+                                                            Mật khẩu không được để trống.
+                                                        </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('password').errors.minlength">
+                                                            Mật khẩu it nhất có 4 kí tự.
+                                                        </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('password').errors.maxlength">
+                                                        Mật khẩu dài nhất có 50 kí tự.
+                                                        </small>
+                                    </div>
+                                    <jhi-password-strength-bar [passwordToCheck]="registerForm.get('password').value"></jhi-password-strength-bar>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- xác nhận mật khẩu -->
+                        <div class="form-group">
+                            <div class="form-row mb-4">
+                                <div class="col">
+                                    <label class="form-control-label" for="confirmPassword">Xác nhận mật khẩu</label>
+                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Xác nhận mật khẩu" formControlName="confirmPassword">
+                                    <div *ngIf="registerForm.get('confirmPassword').invalid && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched)">
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword').errors.required">
+                                                            Xác nhận mật khẩu không được để trống.
+                                                        </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword').errors.minlength">
+                                                            Xác nhận mật khẩu it nhất có 4 kí tự.
+                                                        </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword').errors.maxlength">
+                                                            Xác nhận mật khẩu dài nhất có 50 kí tự.
+                                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Sign up button -->
+                        <button class="btn btn-info my-4 btn-block" type="submit" [disabled]="registerForm.invalid">Đăng ký</button>
+                        <hr>
 
-                    <!-- Password -->
-                    <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
-                    <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-        At least 8 characters and 1 digit
-    </small>
+                        <!-- Terms of service -->
+                        <p>By clicking
+                            <em>Sign up</em> you agree to our
+                            <a href="" target="_blank">terms of service</a>
 
-                    <!-- Phone number -->
-                    <input type="text" id="defaultRegisterPhonePassword" class="form-control" placeholder="Phone number" aria-describedby="defaultRegisterFormPhoneHelpBlock">
-                    <small id="defaultRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
-        Optional - for two step authentication
-    </small>
-
-                    <!-- Newsletter -->
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter">
-                        <label class="custom-control-label" for="defaultRegisterFormNewsletter">Subscribe to our newsletter</label>
-                    </div>
-
-                    <!-- Sign up button -->
-                    <button class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
-
-                    <!-- Social register -->
-                    <p>or sign up with:</p>
-
-                    <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
-                    <a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>
-                    <a href="#" class="mx-2" role="button"><i class="fab fa-linkedin-in light-blue-text"></i></a>
-                    <a href="#" class="mx-2" role="button"><i class="fab fa-github light-blue-text"></i></a>
-
-                    <hr>
-
-                    <!-- Terms of service -->
-                    <p>By clicking
-                        <em>Sign up</em> you agree to our
-                        <a href="" target="_blank">terms of service</a>
-
-                </form>
-                <!-- Default form register -->
+                    </form>
+                    <!-- Default form register -->
+                </div>
             </div>
         </div>
     </div>

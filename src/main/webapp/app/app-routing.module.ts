@@ -1,19 +1,28 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules, PreloadingStrategy } from '@angular/router';
 import { ErrorComponent } from './views/error/error.component';
+import { LoginComponent } from './views/login/login.component';
+import { RegisterComponent } from './views/register/register.component';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule)
   },
-  // {
-  //   path: 'login',
-  //   component: LoginComponent,
-  //   data: {
-  //     title: 'Đăng nhập'
-  //   }
-  // },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: {
+      title: 'Đăng nhập'
+    }
+  },
+    {
+    path: 'register',
+    component: RegisterComponent,
+    data: {
+      title: 'Đăng kí'
+    }
+  },
   {
     path: 'search',
     loadChildren: () => import('./views/search/search.module').then(m => m.SearchModule)
@@ -30,7 +39,6 @@ const routes: Routes = [
     path: 'news',
     loadChildren: () => import('./views/news/news.module').then(m => m.NewsModule)
   },
-
   {
     path: 'fengshui',
     loadChildren: () => import('./views/fengshui/fengshui.module').then(m => m.FengShuiModule)
@@ -54,6 +62,10 @@ const routes: Routes = [
   {
     path: 'usermanage',
     loadChildren: () => import('./views/usermanage/usermanage.module').then(m => m.UsermanageModule)
+  },
+  {
+    path: 'account',
+    loadChildren: () => import('./views/account/account.module').then(m => m.RealestatebrokerageAccountModule)
   },
   {
     path: '404',

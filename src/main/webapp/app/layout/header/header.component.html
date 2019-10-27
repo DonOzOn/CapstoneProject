@@ -9,7 +9,7 @@
                                 <img width="35" height="35" src="/content/img/600px-Godot_icon.svg.png" class="d-inline-block align-top" alt=""> BĐS
                             </span>
             </div>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <div class="collapse navbar-collapse" [ngSwitch]="isAuthenticated()" id="navbarTogglerDemo01">
                 <!-- <div class="col-md-7"> -->
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0 justify-content-center">
                     <li class="nav-item">
@@ -122,31 +122,23 @@
                         <a class="nav-link" [routerLink]="[ '/review']">Diễn đàn</a>
                     </li>
                 </ul>
-                <label *ngIf="index == 1" href="#" (click)="open(content)">
+                <label *ngSwitchCase="false" [routerLink]="[ '/login']">
                                 Đăng nhập
                         </label>
-                <div uib-dropdown class="dropdown" *ngIf="index == 0">
+                <div class="dropdown" *ngSwitchCase="true">
                     <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   Dropdown button
                                 </button> -->
-                    <label class="dropdown-toggle" *ngIf="index == 0" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Username
+                    <label class="dropdown-toggle" *ngIf="account" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{account.login}}
                                 </label>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" [routerLink]="[ '/usermanage']">Quản lí tài khoản</a>
                         <a class="dropdown-item" [routerLink]="[ '/notification']">Thông báo</a>
-                        <a class="dropdown-item" href="#">Đăng xuất</a>
+                        <a class="dropdown-item" [routerLink]="[ '/notification']">Mật khẩu</a>
+                        <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
                     </div>
                 </div>
-
-                <ng-template #content let-modal>
-                    <div class="modal-body">
-                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                        <app-login></app-login>
-                    </div>
-                </ng-template>
                 <button type="button" class="btn btn-outline-primary" [routerLink]="[ '/postproduct']">Đăng tin</button>
             </div>
         </nav>
