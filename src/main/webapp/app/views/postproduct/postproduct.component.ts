@@ -112,13 +112,15 @@ export class PostproductComponent implements OnInit {
     });
   }
 
-    /*  get all product type */
-    getProductType() {
+  /*  get all product type */
+  getProductType() {
       this.productPostTypeService.filterType().subscribe((res: any) => {
         this.listProductType = res.body;
         this.selectedProductTypeChild();
       });
     }
+
+  /* get product type child when select product type */
   selectedProductTypeChild() {
     if (this.productPostForm.value.productTypeID != null) {
       this.productPostTypeService.filterTypeChild(this.productPostForm.value.productTypeID).subscribe((res: any) => {
