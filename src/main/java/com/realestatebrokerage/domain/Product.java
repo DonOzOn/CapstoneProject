@@ -71,28 +71,21 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Column(name = "status", nullable = false)
     private boolean status = false;
 
-    public Product(Product product) {
-        this.id= product.getId();
-        this.price= product.getPrice();
-        this.area= product.getArea();
-        if(product.getDirection() !=null){
-            this.direction=product.getDirection();
-        }
-        if(product.getLegalStatus() !=null){
-            this.legalStatus=product.getLegalStatus();
-        }
-        this.numberFloor= product.getNumberFloor();
-        this.numberBathroom= product.getNumberBathroom();
-        this.numberBedroom= product.getNumberBedroom();
-        if(product.getProductTypeChild() !=null){
-            this.productTypeChild=product.getProductTypeChild();
-        }
-        if(product.getProductType() !=null){
-            this.productType=product.getProductType();
-        }
-        this.status= product.getStatus();
+    public Product() {
     }
 
+    public Product(@Size(max = 50) String price, @Size(max = 50) String area, Direction direction, LegalStatus legalStatus, @Size(min = 1, max = 50) int numberFloor, @Size(min = 1, max = 50) int numberBathroom, @Size(min = 1, max = 50) int numberBedroom, ProductTypeChild productTypeChild, ProductType productType, @NotNull boolean status) {
+        this.price = price;
+        this.area = area;
+        this.direction = direction;
+        this.legalStatus = legalStatus;
+        this.numberFloor = numberFloor;
+        this.numberBathroom = numberBathroom;
+        this.numberBedroom = numberBedroom;
+        this.productTypeChild = productTypeChild;
+        this.productType = productType;
+        this.status = status;
+    }
 
     public Long getId() {
         return id;
@@ -174,7 +167,7 @@ public class Product extends AbstractAuditingEntity implements Serializable {
         this.productType = productType;
     }
 
-    public boolean getStatus() {
+    public boolean isStatus() {
         return status;
     }
 

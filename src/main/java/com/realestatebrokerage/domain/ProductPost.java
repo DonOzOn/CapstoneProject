@@ -29,6 +29,10 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @JoinColumn(referencedColumnName = "id", name = "user_id")
     private User user;
 
+    @Size(min=1, max = 50)
+    @Column(name = "project_name", length = 200)
+    private String projectName;
+
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", name = "product_post_type_id")
     private ProductPostType productPostType;
@@ -37,15 +41,15 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @Column(name = "product_post_title", length = 50)
     private String productPostTitle;
 
-    @Size( max = 50)
     @Column(name = "total_like")
     private int totalLike;
 
-    @Size(max = 50)
+    @Column(name = "type_deal")
+    private int typeDeal;
+
     @Column(name = "total_report")
     private int totalReport;
 
-    @Size(max = 50)
     @Column(name = "total_share")
     private int totalShare;
 
@@ -60,6 +64,10 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @ManyToOne
     @JoinColumn(name="district_code",referencedColumnName="code")
     private District district;
+
+    @Size(max = 50)
+    @Column(name = "address")
+    private String address;
 
     @Size(min=1, max = 50)
     @Column(name = "short_description", length = 200)
@@ -80,16 +88,19 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     public ProductPost() {
     }
 
-    public ProductPost(User user, ProductPostType productPostType, @Size(min = 1, max = 50) String productPostTitle, @Size(max = 50) int totalLike, @Size(max = 50) int totalReport, @Size(max = 50) int totalShare, Ward ward, Province province, District district, @Size(min = 1, max = 50) String shortDescription, @Size(min = 1, max = 50) String content, Product product, @NotNull boolean status) {
+    public ProductPost(User user, @Size(min = 1, max = 50) String projectName, ProductPostType productPostType, @Size(min = 1, max = 50) String productPostTitle, int totalLike, int typeDeal, int totalReport, int totalShare, Ward ward, Province province, District district, @Size(max = 50) String address, @Size(min = 1, max = 50) String shortDescription, @Size(min = 1, max = 50) String content, Product product, @NotNull boolean status) {
         this.user = user;
+        this.projectName = projectName;
         this.productPostType = productPostType;
         this.productPostTitle = productPostTitle;
         this.totalLike = totalLike;
+        this.typeDeal = typeDeal;
         this.totalReport = totalReport;
         this.totalShare = totalShare;
         this.ward = ward;
         this.province = province;
         this.district = district;
+        this.address = address;
         this.shortDescription = shortDescription;
         this.content = content;
         this.product = product;
@@ -110,6 +121,14 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public ProductPostType getProductPostType() {
@@ -134,6 +153,14 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
 
     public void setTotalLike(int totalLike) {
         this.totalLike = totalLike;
+    }
+
+    public int getTypeDeal() {
+        return typeDeal;
+    }
+
+    public void setTypeDeal(int typeDeal) {
+        this.typeDeal = typeDeal;
     }
 
     public int getTotalReport() {
@@ -174,6 +201,14 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
 
     public void setDistrict(District district) {
         this.district = district;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getShortDescription() {

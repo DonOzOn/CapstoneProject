@@ -13,10 +13,15 @@ public class Ward {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "type")
+    private String type;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "district_code", referencedColumnName = "code")
     private District district;
+
+
 
     public String getCode() {
         return code;
@@ -40,5 +45,13 @@ public class Ward {
 
     public void setDistrict(District district) {
         this.district = district;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -24,7 +24,7 @@ import java.util.Set;
 @Entity
 @Table(name = "product_type_child")
 
-public class ProductTypeChild extends AbstractAuditingEntity implements Serializable {
+public class ProductTypeChild {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,17 +40,12 @@ public class ProductTypeChild extends AbstractAuditingEntity implements Serializ
     @Column(name = "product_type_child_name", length = 50)
     private String productTypeChildName;
 
-    @NotNull
-    @Column(name = "status", nullable = false)
-    private boolean status = false;
+    public ProductTypeChild() {
+    }
 
-    public ProductTypeChild(ProductTypeChild productTypeChild) {
-        this.id= productTypeChild.getId();
-        if(productTypeChild.getProductType() !=null){
-            this.productType=productTypeChild.getProductType();
-        }
-        this.productTypeChildName= productTypeChild.getProductTypeChildName();
-        this.status= productTypeChild.getStatus();
+    public ProductTypeChild(ProductType productType, @Size(max = 50) String productTypeChildName) {
+        this.productType = productType;
+        this.productTypeChildName = productTypeChildName;
     }
 
     public Long getId() {
@@ -75,13 +70,5 @@ public class ProductTypeChild extends AbstractAuditingEntity implements Serializ
 
     public void setProductTypeChildName(String productTypeChildName) {
         this.productTypeChildName = productTypeChildName;
-    }
-
-    public boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 }

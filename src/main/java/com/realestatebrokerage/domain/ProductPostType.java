@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "product_post_type")
-public class ProductPostType extends AbstractAuditingEntity implements Serializable {
+public class ProductPostType{
 
     private static final long serialVersionUID = 1L;
 
@@ -22,14 +22,11 @@ public class ProductPostType extends AbstractAuditingEntity implements Serializa
     @Column(name = "product_post_type_name", length = 50)
     private String productPostTypeName;
 
-    @NotNull
-    @Column(name = "status", nullable = false)
-    private boolean status = false;
+    public ProductPostType() {
+    }
 
-    public ProductPostType(ProductPostType productPostType) {
-        this.id= productPostType.getId();
-        this.productPostTypeName= productPostType.getProductPostTypeName();
-        this.status= productPostType.getStatus();
+    public ProductPostType(@Size(max = 50) String productPostTypeName) {
+        this.productPostTypeName = productPostTypeName;
     }
 
     public Long getId() {
@@ -46,13 +43,5 @@ public class ProductPostType extends AbstractAuditingEntity implements Serializa
 
     public void setProductPostTypeName(String productPostTypeName) {
         this.productPostTypeName = productPostTypeName;
-    }
-
-    public boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 }
