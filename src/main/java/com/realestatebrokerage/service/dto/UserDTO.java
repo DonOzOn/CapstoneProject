@@ -2,16 +2,14 @@ package com.realestatebrokerage.service.dto;
 
 import com.realestatebrokerage.config.Constants;
 
-import com.realestatebrokerage.domain.Address;
-import com.realestatebrokerage.domain.Authority;
-import com.realestatebrokerage.domain.User;
+import com.realestatebrokerage.domain.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import javax.validation.constraints.*;
 import java.time.Instant;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -33,18 +31,21 @@ public class UserDTO {
     @Size(max = 50)
     private String lastName;
 
-    private LocalDateTime dob;
-
-    @Size(max = 50)
-    private String phone;
-
-    private boolean gender = false;
-
-    private Address address;
-
     @Email
     @Size(min = 5, max = 254)
     private String email;
+
+    private LocalDate dob;
+
+    private String phone;
+
+    private boolean gender;
+
+    private Ward ward;
+
+    private Province province;
+
+    private District district;
 
     @Size(max = 256)
     private String imageUrl;
@@ -73,13 +74,17 @@ public class UserDTO {
         this.login = user.getLogin();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-        this.phone = user.getPhone();
-        this.gender = user.getGender();
-        this.dob = user.getDob();
-        if(user.getAddress() != null){
-            this.address = user.getAddress();
-        }
         this.email = user.getEmail();
+        this.dob = user.getDob();
+        this.gender = user.isGender();
+        this.phone = user.getPhone();
+        if(user.getProvince() != null){
+            this.province = user.getProvince();
+        }
+        if(user.getDistrict() != null){
+            this.district = user.getDistrict();
+        }
+
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();
         this.langKey = user.getLangKey();
@@ -92,11 +97,11 @@ public class UserDTO {
             .collect(Collectors.toSet());
     }
 
-    public LocalDateTime getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(LocalDateTime dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
@@ -108,7 +113,7 @@ public class UserDTO {
         this.phone = phone;
     }
 
-    public boolean getGender() {
+    public boolean isGender() {
         return gender;
     }
 
@@ -116,12 +121,28 @@ public class UserDTO {
         this.gender = gender;
     }
 
-    public Address getAddress() {
-        return address;
+    public Ward getWard() {
+        return ward;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setWard(Ward ward) {
+        this.ward = ward;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
     }
 
     public Long getId() {

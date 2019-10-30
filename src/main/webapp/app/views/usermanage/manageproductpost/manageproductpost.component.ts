@@ -3,10 +3,10 @@ import { SelectItem } from 'primeng/api';
 import { CarService } from 'app/core/service/car.service';
 
 export interface Car {
-  vin;
-  year;
-  brand;
-  color;
+  vin: any;
+  year: any;
+  brand: any;
+  color: any;
 }
 @Component({
   selector: 'app-manageproductpost',
@@ -49,7 +49,7 @@ export class ManageproductpostComponent implements OnInit {
     event.preventDefault();
   }
 
-  onSortChange(event) {
+  onSortChange(event: { value: any; }) {
     const value = event.value;
 
     if (value.indexOf('!') === 0) {

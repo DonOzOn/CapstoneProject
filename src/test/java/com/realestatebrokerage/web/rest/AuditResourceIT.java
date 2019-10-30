@@ -1,9 +1,9 @@
 package com.realestatebrokerage.web.rest;
 
 import com.realestatebrokerage.RealestatebrokerageApp;
+import com.realestatebrokerage.domain.PersistentAuditEvent;
 import io.github.jhipster.config.JHipsterProperties;
 import com.realestatebrokerage.config.audit.AuditEventConverter;
-import com.realestatebrokerage.domain.PersistentAuditEvent;
 import com.realestatebrokerage.repository.PersistenceAuditEventRepository;
 
 import com.realestatebrokerage.service.AuditEventService;

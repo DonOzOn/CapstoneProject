@@ -1,27 +1,21 @@
 package com.realestatebrokerage.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "district")
-public class District {
-
+@Table(name = "province")
+public class Province {
     @Id
     private String code;
 
     @Column(name = "name")
     private String name;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "province_code", referencedColumnName = "code")
-    private Province province;
-
     @Column(name = "type")
     private String type;
-
 
     public String getCode() {
         return code;
@@ -37,14 +31,6 @@ public class District {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Province getProvince() {
-        return province;
-    }
-
-    public void setProvince(Province province) {
-        this.province = province;
     }
 
     public String getType() {

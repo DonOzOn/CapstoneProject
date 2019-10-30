@@ -76,7 +76,12 @@
 
                                                         </div>
                                                         <div class="col-md-7 p-0">
-                                                            <p-dropdown [options]="typeBDS" [(ngModel)]="selectedBDS" formControlName="typeBDS" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>
+                                                            <ng-select [items]="listProvince" bindLabel="name" bindValue="code" placeholder="--- Chọn Tỉnh/Thành ---" formControlName="typeBDS">
+                                                                <ng-template ng-option-tmp let-item="item">
+                                                                    {{item.name}}
+                                                                </ng-template>
+                                                            </ng-select>
+
                                                         </div>
                                                     </div>
                                                     <!-- Quận/Huyện -->

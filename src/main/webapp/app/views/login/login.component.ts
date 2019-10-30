@@ -30,15 +30,15 @@ export class LoginComponent implements OnInit {
     private router: Router,
     public activeModal: NgbModal,
     private fb: FormBuilder
-    ) {}
+  ) { }
   ngOnInit() {
     this.size = false;
-    if (this.router.url.startsWith('/account/activate?key=')){
+    if (this.router.url.startsWith('/account/activate?key=')) {
       this.size = true;
     }
   }
-  
   // tslint:disable-next-line: use-lifecycle-interface
+  // tslint:disable-next-line: use-life-cycle-interface
   ngAfterViewInit() {
     setTimeout(() => this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#username'), 'focus', []), 0);
   }

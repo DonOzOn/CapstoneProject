@@ -1,48 +1,37 @@
 package com.realestatebrokerage.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "ward")
-public class Ward extends AbstractAuditingEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class Ward {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String code;
 
+    @Column(name = "name")
+    private String name;
+
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", name = "district_id")
+    @JoinColumn(name = "district_code", referencedColumnName = "code")
     private District district;
 
-    @Column(length = 50, name = "ward_name")
-    private String wardName;
-
-    @Column(name = "type", length = 60)
-    private String type;
-
-
-    public Ward() {
+    public String getCode() {
+        return code;
     }
 
-    public Ward(Ward ward){
-        this.id = ward.getId();
-        this.wardName = ward.getWardName();
-        if (ward.getDistrict() != null) {
-            this.district = ward.getDistrict();
-        }
-        this.type = district.getType();
-
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public Long getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public District getDistrict() {
@@ -51,21 +40,5 @@ public class Ward extends AbstractAuditingEntity implements Serializable {
 
     public void setDistrict(District district) {
         this.district = district;
-    }
-
-    public String getWardName() {
-        return wardName;
-    }
-
-    public void setWardName(String wardName) {
-        this.wardName = wardName;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

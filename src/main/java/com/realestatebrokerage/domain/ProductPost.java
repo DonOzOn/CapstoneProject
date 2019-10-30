@@ -49,9 +49,17 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @Column(name = "total_share")
     private int totalShare;
 
-    @OneToOne
-    @JoinColumn(referencedColumnName = "id", name = "address_id")
-    private Address address;
+    @ManyToOne
+    @JoinColumn(name="ward_code",referencedColumnName="code")
+    private Ward ward;
+
+    @ManyToOne
+    @JoinColumn(name="province_code",referencedColumnName="code")
+    private Province province;
+
+    @ManyToOne
+    @JoinColumn(name="district_code",referencedColumnName="code")
+    private District district;
 
     @Size(min=1, max = 50)
     @Column(name = "short_description", length = 200)
@@ -69,27 +77,23 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @Column(name = "status", nullable = false)
     private boolean status = false;
 
-    public ProductPost(ProductPost productPost) {
-        this.id= productPost.getId();
-        if(productPost.getUsers() !=null){
-            this.user=productPost.getUsers();
-        }
-        if(productPost.getProductPostType()!=null){
-            this.productPostType=productPost.getProductPostType();
-        }
-        this.productPostTitle= productPost.getProductPostTitle();
-        this.totalLike= productPost.getTotalLike();
-        this.totalReport= productPost.getTotalReport();
-        this.totalShare= productPost.getTotalShare();
-        if(productPost.getAddress()!=null){
-            this.address=productPost.getAddress();
-        }
-        this.shortDescription= productPost.getShortDescription();
-        this.content= productPost.getContent();
-        if(productPost.getProduct()!=null){
-            this.product=productPost.getProduct();
-        }
-        this.status= product.getStatus();
+    public ProductPost() {
+    }
+
+    public ProductPost(User user, ProductPostType productPostType, @Size(min = 1, max = 50) String productPostTitle, @Size(max = 50) int totalLike, @Size(max = 50) int totalReport, @Size(max = 50) int totalShare, Ward ward, Province province, District district, @Size(min = 1, max = 50) String shortDescription, @Size(min = 1, max = 50) String content, Product product, @NotNull boolean status) {
+        this.user = user;
+        this.productPostType = productPostType;
+        this.productPostTitle = productPostTitle;
+        this.totalLike = totalLike;
+        this.totalReport = totalReport;
+        this.totalShare = totalShare;
+        this.ward = ward;
+        this.province = province;
+        this.district = district;
+        this.shortDescription = shortDescription;
+        this.content = content;
+        this.product = product;
+        this.status = status;
     }
 
     public Long getId() {
@@ -100,11 +104,11 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
         this.id = id;
     }
 
-    public User getUsers() {
+    public User getUser() {
         return user;
     }
 
-    public void setUsers(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -148,12 +152,28 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
         this.totalShare = totalShare;
     }
 
-    public Address getAddress() {
-        return address;
+    public Ward getWard() {
+        return ward;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setWard(Ward ward) {
+        this.ward = ward;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
     }
 
     public String getShortDescription() {
@@ -180,7 +200,7 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
         this.product = product;
     }
 
-    public boolean getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
