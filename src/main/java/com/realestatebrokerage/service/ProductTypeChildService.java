@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class ProductTypeChildService {
-    private final Logger log = LoggerFactory.getLogger(WardService.class);
+    private final Logger log = LoggerFactory.getLogger(ProductTypeChildService.class);
     @Autowired
     private ProductTypeChildRepository productTypeChildRepository;
 

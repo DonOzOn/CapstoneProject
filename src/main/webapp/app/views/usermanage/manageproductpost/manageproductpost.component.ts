@@ -27,7 +27,7 @@ export class ManageproductpostComponent implements OnInit {
   sortField: string;
 
   sortOrder: number;
-  constructor(private carService: CarService) {}
+  constructor(private carService: CarService) { }
 
   ngOnInit() {
     this.getlistCar();
@@ -39,7 +39,6 @@ export class ManageproductpostComponent implements OnInit {
   }
   getlistCar() {
     this.carService.getListCar().subscribe(res => {
-      console.log(res);
       this.cars = res.data.rows;
     });
   }

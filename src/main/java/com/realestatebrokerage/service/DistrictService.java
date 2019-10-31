@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 public class DistrictService {
-    private final Logger log = LoggerFactory.getLogger(WardService.class);
+    private final Logger log = LoggerFactory.getLogger(DistrictService.class);
     @Autowired
     private DistrictRepository districtRepository;
 

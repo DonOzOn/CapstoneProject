@@ -1,9 +1,11 @@
 import { OnInit, Component, ElementRef, Renderer } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { AddressService } from 'app/core/address/address.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { ProductPostTypeService } from 'app/core/product-post-type/product-post-type.service';
+import { DirectionService } from 'app/core/direction/direction.service';
+import { LegalStatusService } from 'app/core/legal-status/legal-status.service';
+import { UtilitiesService } from 'app/core/utilities/utilities.service';
 
 @Component({
   selector: 'app-postproduct',
@@ -11,34 +13,29 @@ import { ProductPostTypeService } from 'app/core/product-post-type/product-post-
   styleUrls: ['./postproduct.component.scss']
 })
 export class PostproductComponent implements OnInit {
-  profileForm = new FormGroup({
-    projectname: new FormControl(),
-    type: new FormControl(),
-    typeBDS: new FormControl(),
-    title: new FormControl(),
-    one: new FormControl(),
-    two: new FormControl(),
-    three: new FormControl(),
-    four: new FormControl()
-  });
   /*  Item select button  */
   selectedType: string;
   types: SelectItem[];
+  selectedUtility: string[] = [];
+  text1 = '<div>Hello!</div><div>Welcom to BDS</div><div><br></div>';
   formAddress = this.fb.group({
     address: [null, Validators.required],
     provinceCode: [null, Validators.required],
     districtCode: [null, Validators.required],
     wardCode: [null, Validators.required]
   });
-  /*  List provinces, district, ward */
+  /*  List provinces, district, ward, direction */
   listProvinces = [];
   listDistrict = [];
   listWard = [];
+  listDirection = [];
+  listUtilities = [];
+  listLegalStatus = [];
   /*  List product type and product type child  */
   listProductTypeChild: [];
   listProductType: [];
-  text1 = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
   uploadedFiles: any[] = [];
+  countContent: any = 0;
   /*  Form product post */
   productPostForm = this.fb.group({
     projectName: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
@@ -50,16 +47,28 @@ export class PostproductComponent implements OnInit {
     wardCode: [null],
     productTypeID: [null, Validators.required],
     productTypeChildID: [null, Validators.required],
-    typeBDS: [null],
-    projectname: [null],
-    title: [null],
-    one: [null],
-    two: [null],
-    three: [null],
-    four: [null]
+    // eslint-disable-next-line
+    price: [null, [Validators.maxLength(50), Validators.pattern('^[0-9]*$')]],
+    area: [null, [Validators.maxLength(50), Validators.pattern('^[0-9]*$')]],
+    directionID: [null],
+    legalStatusID: [null, Validators.required],
+    projectPostTitle: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
+    content: [this.text1, Validators.maxLength(255)],
+    imageChoose: [null],
+    utilitiesID1: [null],
+    utilitiesID2: [null],
+    utilitiesID3: [null],
+    utilitiesID4: [null],
+    utilitiesID5: [null],
+    utilitiesID6: [null],
+    utilitiesID7: [null],
+    utilitiesID8: [null],
   });
   constructor(
     private addressService: AddressService,
+    private directionService: DirectionService,
+    private legalStatusService: LegalStatusService,
+    private utilitiesService: UtilitiesService,
     private fb: FormBuilder,
     private productPostTypeService: ProductPostTypeService,
     private elementRef: ElementRef,
@@ -74,6 +83,9 @@ export class PostproductComponent implements OnInit {
   ngOnInit() {
     this.getProvince();
     this.getProductType();
+    this.getDirection();
+    this.getLegalStatus();
+    this.getUtility();
   }
 
   /*  add picture to list */
@@ -114,11 +126,11 @@ export class PostproductComponent implements OnInit {
 
   /*  get all product type */
   getProductType() {
-      this.productPostTypeService.filterType().subscribe((res: any) => {
-        this.listProductType = res.body;
-        this.selectedProductTypeChild();
-      });
-    }
+    this.productPostTypeService.filterType().subscribe((res: any) => {
+      this.listProductType = res.body;
+      this.selectedProductTypeChild();
+    });
+  }
 
   /* get product type child when select product type */
   selectedProductTypeChild() {
@@ -128,5 +140,51 @@ export class PostproductComponent implements OnInit {
         this.productPostForm.controls.productTypeChildID.reset();
       });
     }
+  }
+
+  /**
+   * Get list direction
+   */
+  getDirection() {
+    this.directionService.getDirection().subscribe((res: any) => {
+      this.listDirection = res.body;
+    });
+  }
+
+  /**
+   * Get list legal status
+   */
+  getLegalStatus() {
+    this.legalStatusService.getLegalStatus().subscribe((res: any) => {
+      this.listLegalStatus = res.body;
+    });
+  }
+
+  /**
+   * Count content length
+   */
+  countContentNumber() {
+    if (this.productPostForm.value.content.length != null) {
+      this.countContent = this.productPostForm.value.content.length;
+    } else {
+      this.countContent = 0;
+    }
+  }
+
+  /**
+   * Get list utility
+   */
+  getUtility() {
+    this.utilitiesService.getUtilities().subscribe((res: any) => {
+      this.listUtilities = res.body;
+    });
+  }
+
+  /**
+   * checkItemChecked
+   */
+  checkItemChecked() {
+    // eslint-disable-next-line
+    console.log('checked value', this.productPostForm.value.utilitiesID);
   }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class ProvinceService {
-    private final Logger log = LoggerFactory.getLogger(WardService.class);
+    private final Logger log = LoggerFactory.getLogger(ProvinceService.class);
 
     @Autowired
     private ProvinceRepository provinceRepository;

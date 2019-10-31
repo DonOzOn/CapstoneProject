@@ -27,13 +27,18 @@ public class ProductPostTypeResource {
     private ProductTypeChildService productTypeChildService;
 
 
-
+    /**
+     * Get product type
+     * */
     @GetMapping("/product-type")
     public ResponseEntity<List<ProductType>> getProductType() {
         log.debug("get list province : {}");
         return new ResponseEntity<>(productTypeService.findAll(), HttpStatus.OK);
     }
 
+    /**
+     * Get product type child
+     * */
     @GetMapping("/product-type-child")
     public ResponseEntity<List<ProductTypeChild>> getProductTypeChild(Long productType) {
         log.debug("get list district by province code: {}",productType);

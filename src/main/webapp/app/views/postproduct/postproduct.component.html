@@ -182,52 +182,77 @@
                                             <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
                                                 <div class="col-md-6 p-0">
                                                     <!-- Giá tiền -->
-                                                    <div class="row col-md-12 m-0 p-0 mb-3">
+                                                    <div class="row col-md-12 m-0 p-0 mb-4">
                                                         <div class="col-md-5 ">
-                                                            <label class="m-0 py-1">Giá tiền </label>
-
+                                                            <label class="m-0 py-1">Giá tiền(VNĐ)</label>
                                                         </div>
                                                         <div class="col-md-7 p-0">
                                                             <span class="ui-float-label">
-                                                                                        <input id="float-input" type="text" formControlName="projectname" size="30" pInputText> 
-                                                                                        <label for="float-input">Giá tiền </label>
-                                                                    </span>
+                                                                <input id="float-input" type="text" formControlName="price" size="30" pInputText> 
+                                                                <label for="float-input">Giá tiền </label>
+                                                             </span>
+                                                            <div *ngIf="productPostForm.get('price').invalid && (productPostForm.get('price').dirty || productPostForm.get('price').touched)">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('price').errors.pattern">
+                                                                       Giá tiền không hợp lệ.
+                                                                  </small>
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('price').errors.maxlength">
+                                                                        Giá tiền dài nhất có 50 kí tự.
+                                                                </small>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <!-- Diện tích -->
-                                                    <div class="row col-md-12 m-0 p-0 mb-3">
+                                                    <div class="row col-md-12 m-0 p-0 mb-4">
                                                         <div class="col-md-5 ">
-                                                            <label class="m-0 py-1">Diện tích</label>
-
+                                                            <label class="m-0 py-1">Diện tích(m<sup>2</sup>)</label>
                                                         </div>
                                                         <div class="col-md-7 p-0">
                                                             <span class="ui-float-label">
-                                                                <input id="float-input" type="text" formControlName="projectname" size="30" pInputText> 
+                                                                <input id="float-input" type="text" formControlName="area" size="30" pInputText> 
                                                                 <label for="float-input">Diện tích </label>
                                                                 </span>
+                                                            <div *ngIf="productPostForm.get('area').invalid && (productPostForm.get('area').dirty || productPostForm.get('area').touched)">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('area').errors.pattern">
+                                                                           Diện tích không hợp lệ.
+                                                                      </small>
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('area').errors.maxlength">
+                                                                            Diện tích dài nhất có 50 kí tự.
+                                                                    </small>
+                                                            </div>
                                                         </div>
                                                     </div>
 
                                                 </div>
                                                 <div class="col-md-6">
                                                     <!-- Hướng nhà-->
-                                                    <div class="row col-md-12 m-0 p-0 mb-2">
-                                                        <div class="col-md-5 py-1">
+                                                    <div class="row col-md-12 m-0 p-0 mb-4">
+                                                        <div class="col-md-5 py-1 px-0">
                                                             <label class="m-0">Hướng nhà</label>
 
                                                         </div>
                                                         <div class="col-md-7 p-0">
-                                                            <p-dropdown [options]="typeBDS" [(ngModel)]="selectedBDS" formControlName="typeBDS" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>
+                                                            <ng-select [items]="listDirection" bindLabel="directionName" bindValue="id" placeholder="--- Chọn Hướng nhà ---" formControlName="directionID">
+                                                                <ng-template ng-option-tmp let-item="item">
+                                                                    {{item.directionName}}
+                                                                </ng-template>
+                                                            </ng-select>
                                                         </div>
                                                     </div>
                                                     <!-- Tình trạng pháp lí-->
-                                                    <div class="row col-md-12 m-0 p-0 mb-2">
-                                                        <div class="col-md-5 py-1">
-                                                            <label class="m-0">Tình trạng pháp lí</label>
+                                                    <div class="row col-md-12 m-0 p-0 mb-4">
+                                                        <div class="col-md-5 py-1 px-0">
+                                                            <label class="m-0">Tình trạng pháp lí<label style="color: Red;">*</label></label>
 
                                                         </div>
                                                         <div class="col-md-7 p-0">
-                                                            <p-dropdown [options]="typeBDS" [(ngModel)]="selectedBDS" formControlName="typeBDS" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>
+                                                            <ng-select [items]="listLegalStatus" bindLabel="legalStatusName" bindValue="id" placeholder="--- Tình trạng pháp lý ---" formControlName="legalStatusID">
+                                                                <ng-template ng-option-tmp let-item="item">
+                                                                    {{item.legalStatusName}}
+                                                                </ng-template>
+                                                            </ng-select>
+                                                            <div *ngIf="productPostForm.controls.legalStatusID.invalid && (productPostForm.controls.legalStatusID.dirty || productPostForm.controls.legalStatusID.touched)">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.controls.legalStatusID.errors?.required"> Tình trạng pháp lý không được để trống</small>
+                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -241,9 +266,18 @@
                                                 </div>
                                                 <div class="col-md-10 pl-4">
                                                     <span class="ui-float-label pl-2 ml-2">
-                                                        <input id="float-input" type="text" formControlName="projectname" style="width: 100%;" pInputText> 
+                                                        <input id="float-input" type="text" formControlName="projectPostTitle" style="width: 100%;" pInputText> 
                                                         <label class="pl-2" for="float-input">Tiêu đề</label>
                                                         </span>
+                                                    <div class="pl-3" *ngIf="productPostForm.controls.projectPostTitle.invalid && (productPostForm.controls.projectPostTitle.dirty || productPostForm.controls.projectPostTitle.touched)">
+                                                        <small class="form-text text-danger" *ngIf="productPostForm.controls.projectPostTitle.errors?.required"> Tiêu đề không được để trống</small>
+                                                        <small class="form-text text-danger" *ngIf="productPostForm.get('projectPostTitle').errors.minlength">
+                                                                Tiêu đề ít nhất có 1 kí tự.
+                                                            </small>
+                                                        <small class="form-text text-danger" *ngIf="productPostForm.get('projectPostTitle').errors.maxlength">
+                                                                Tiêu đề dài nhất có 100 một kí tự.
+                                                        </small>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- Mô tả -->
@@ -254,9 +288,13 @@
                                                 </div>
                                                 <div class="col-md-10 pl-4">
                                                     <span class="ui-float-label pl-2 ml-2">
-                                                         <p-editor [(ngModel)]="text1" formControlName="title" [style]="{'height':'320px'}"></p-editor>
-                                                            <button pButton type="button" label="Clear" icon="pi pi-times" (click)="text1=null"></button>
+                                                         <p-editor formControlName="content" [(ngModel)]="text1"  (onTextChange)="countContentNumber()" [style]="{'height':'320px'}"></p-editor>
+                                                            <button pButton type="button" label="Clear" icon="pi pi-times" (click)="countContent=0"></button>
                                                         </span>
+                                                    <label class="pl-3">{{countContent}}/255</label>
+                                                    <!-- <small class="form-text text-danger" *ngIf="productPostForm.get('content').errors.maxlength">
+                                                                Mô tải dài nhất có 255 một kí tự.
+                                                    </small> -->
                                                 </div>
 
                                             </div>
@@ -268,8 +306,8 @@
                                                 </div>
                                                 <div class="col-md-10 pl-4">
                                                     <span class="ui-float-label pl-2 ml-2">
-                                                                <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
-                                                                multiple="multiple" accept="image/*" maxFileSize="1000000">
+                                                                <p-fileUpload name="demo[]"
+                                                                multiple="multiple" accept="image/*" fileLimit= "10" maxFileSize="1000000">
                                                             <ng-template pTemplate="content">
                                                                 <ul *ngIf="uploadedFiles.length">
                                                                     <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
@@ -300,18 +338,9 @@
                                                 <div class="col-md-6 p-0">
                                                     <!-- Tiện ích-->
                                                     <div class="col-md-12 m-0 p-0 mb-3">
-                                                        <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                                        <div class="ui-g" style="width:250px;margin-bottom:10px" *ngFor="let item of listUtilities.slice(0,4)">
                                                             <div class="ui-g-12">
-                                                                <p-checkbox name="group2" value="Technology" label="Trường học" [(ngModel)]="selectedCategories" formControlName="one" inputId="technology"></p-checkbox>
-                                                            </div>
-                                                            <div class="ui-g-12">
-                                                                <p-checkbox name="group2" value="Finance" label="Bệnh viện" [(ngModel)]="selectedCategories" formControlName="two" inputId="finance"></p-checkbox>
-                                                            </div>
-                                                            <div class="ui-g-12">
-                                                                <p-checkbox name="group2" value="Sports" label="Siêu thị" [(ngModel)]="selectedCategories" formControlName="three" inputId="sports"></p-checkbox>
-                                                            </div>
-                                                            <div class="ui-g-12">
-                                                                <p-checkbox name="group2" value="Entertainment" label="Sân bóng" [(ngModel)]="selectedCategories" formControlName="four" inputId="entertainment"></p-checkbox>
+                                                                <p-checkbox name="groupname" [formControl]="productPostForm.controls['utilitiesID']" (onChange)="checkItemChecked()" value="{{listUtilities.id}}" label="{{item.utilitiesName}}" inputId="technology"></p-checkbox>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -321,19 +350,11 @@
                                                 <div class="col-md-6 p-0">
                                                     <!-- Tiện ích -->
                                                     <div class="col-md-12 m-0 p-0 mb-2">
-                                                        <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                                        <div class="ui-g" style="width:250px;margin-bottom:10px" *ngFor="let item of listUtilities.slice(4,8)">
                                                             <div class="ui-g-12">
-                                                                <p-checkbox name="group2" value="Technology" label="Rạp phim" [(ngModel)]="selectedCategories" formControlName="one" inputId="technology"></p-checkbox>
+                                                                <p-checkbox name="groupname" [formControl]="productPostForm.controls['utilitiesID']" (onChange)="checkItemChecked()" value="{{listUtilities.id}}" label="{{item.utilitiesName}}" inputId="no"></p-checkbox>
                                                             </div>
-                                                            <div class="ui-g-12">
-                                                                <p-checkbox name="group2" value="Finance" label="Nhà hàng" [(ngModel)]="selectedCategories" formControlName="two" inputId="finance"></p-checkbox>
-                                                            </div>
-                                                            <div class="ui-g-12">
-                                                                <p-checkbox name="group2" value="Sports" label="Sân bay" [(ngModel)]="selectedCategories" formControlName="three" inputId="sports"></p-checkbox>
-                                                            </div>
-                                                            <div class="ui-g-12">
-                                                                <p-checkbox name="group2" value="Entertainment" label="Xe buýt" [(ngModel)]="selectedCategories" formControlName="four" inputId="entertainment"></p-checkbox>
-                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
