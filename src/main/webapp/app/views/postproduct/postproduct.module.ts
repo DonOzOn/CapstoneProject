@@ -18,6 +18,7 @@ import { CodeHighlighterModule } from 'primeng/components/codehighlighter/codehi
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { NgSelectModule } from '@ng-select/ng-select';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [PostproductComponent],
@@ -39,7 +40,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     CodeHighlighterModule,
     SplitButtonModule,
     CheckboxModule,
-    NgSelectModule
+    NgSelectModule,
+    ConfirmDialogModule
   ],
   providers: [],
   exports: [PostproductComponent]

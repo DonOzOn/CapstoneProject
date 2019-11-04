@@ -4,9 +4,19 @@
             <h3>Soạn tin đăng</h3>
         </div>
     </div>
+    <div class="row mb-2">
+        <div class="col-12 text-left pt-3">
+            <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
+                <p-footer>
+                    <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy" (click)="cd.reject()"></button>
+                    <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Lưu lại" (click)="cd.accept()"></button>
+                </p-footer>
+            </p-confirmDialog>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
-            <form [formGroup]="productPostForm">
+            <form [formGroup]="productPostForm" (ngSubmit)="postProduct()">
 
                 <div class="row mb-2">
                     <div class="col-md-12">
@@ -52,6 +62,9 @@
                                                             <span class="ui-float-label">
                                                                     <p-selectButton [options]="types" formControlName="type" [(ngModel)]="selectedType"></p-selectButton>
                                                                 </span>
+                                                            <div *ngIf="productPostForm.controls.type.invalid && (productPostForm.controls.type.dirty || productPostForm.controls.type.touched)">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.controls.type.errors?.required"> Hình thức không được để trống</small>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <!-- Loại BĐS -->
@@ -270,7 +283,8 @@
                                                         <label class="pl-2" for="float-input">Tiêu đề</label>
                                                         </span>
                                                     <div class="pl-3" *ngIf="productPostForm.controls.projectPostTitle.invalid && (productPostForm.controls.projectPostTitle.dirty || productPostForm.controls.projectPostTitle.touched)">
-                                                        <small class="form-text text-danger" *ngIf="productPostForm.controls.projectPostTitle.errors?.required"> Tiêu đề không được để trống</small>
+                                                        <small class="form-text text-danger" *ngIf="productPostForm.controls.projectPostTitle.errors?.required"> 
+                                                            Tiêu đề không được để trống</small>
                                                         <small class="form-text text-danger" *ngIf="productPostForm.get('projectPostTitle').errors.minlength">
                                                                 Tiêu đề ít nhất có 1 kí tự.
                                                             </small>
@@ -338,17 +352,37 @@
                                                 <div class="col-md-6 p-0">
                                                     <!-- Tiện ích-->
                                                     <div class="col-md-12 m-0 p-0 mb-3">
-                                                        <div class="ui-g" style="width:250px;margin-bottom:10px" *ngFor="let item of listUtilities.slice(0,4)">
+                                                        <div class="ui-g" style="width:250px;margin-bottom:10px">
                                                             <div class="ui-g-12">
-                                                                <p-checkbox name="groupname" [formControl]="productPostForm.controls['utilitiesID']" (onChange)="checkItemChecked()" value="{{listUtilities.id}}" label="{{item.utilitiesName}}" inputId="technology"></p-checkbox>
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="1" label="Trường học"></p-checkbox>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="2" label="Rạp phim"></p-checkbox>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="3" label="Bệnh viện"></p-checkbox>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="4" label="Nhà Hàng"></p-checkbox>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="5" label="Siêu Thị"></p-checkbox>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="6" label="Sân Bay"></p-checkbox>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="7" label="Sân Bóng"></p-checkbox>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="8" label="Xe Buýt"></p-checkbox>
                                                             </div>
                                                         </div>
                                                     </div>
 
 
                                                 </div>
-                                                <div class="col-md-6 p-0">
-                                                    <!-- Tiện ích -->
+                                                <!-- <div class="col-md-6 p-0">
                                                     <div class="col-md-12 m-0 p-0 mb-2">
                                                         <div class="ui-g" style="width:250px;margin-bottom:10px" *ngFor="let item of listUtilities.slice(4,8)">
                                                             <div class="ui-g-12">
@@ -357,7 +391,7 @@
 
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -368,7 +402,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12 d-flex justify-content-center">
-                        <button pButton type="button" type="submit" [disabled]="productPostForm.invalid" label="Đăng tin" style="width: 200px;height: 50px;"></button>
+                        <button pButton type="button" type="submit" [disabled]="productPostForm.invalid && formAddress.invalid" label="Đăng tin" style="width: 200px;height: 50px;"></button>
                     </div>
                 </div>
             </form>

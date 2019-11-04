@@ -1,11 +1,15 @@
+import { Router } from '@angular/router';
 import { OnInit, Component, ElementRef, Renderer } from '@angular/core';
 import { AddressService } from 'app/core/address/address.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { SelectItem } from 'primeng/api';
+import { SelectItem, ConfirmationService } from 'primeng/api';
 import { ProductPostTypeService } from 'app/core/product-post-type/product-post-type.service';
 import { DirectionService } from 'app/core/direction/direction.service';
 import { LegalStatusService } from 'app/core/legal-status/legal-status.service';
 import { UtilitiesService } from 'app/core/utilities/utilities.service';
+import { ProductPostService } from 'app/core/product-post/product-post.service';
+import { IProductPost, ProductPost } from 'app/core/product-post/product-post.model';
+import { JhiAlertService } from 'ng-jhipster';
 
 @Component({
   selector: 'app-postproduct',
@@ -31,15 +35,17 @@ export class PostproductComponent implements OnInit {
   listDirection = [];
   listUtilities = [];
   listLegalStatus = [];
+  /* product post */
+  productPost: ProductPost;
   /*  List product type and product type child  */
   listProductTypeChild: [];
   listProductType: [];
   uploadedFiles: any[] = [];
   countContent: any = 0;
+  listUtilitiesSelected = [];
   /*  Form product post */
   productPostForm = this.fb.group({
     projectName: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    name: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     type: [null, Validators.required],
     address: [null],
     provinceCode: [null],
@@ -54,15 +60,7 @@ export class PostproductComponent implements OnInit {
     legalStatusID: [null, Validators.required],
     projectPostTitle: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
     content: [this.text1, Validators.maxLength(255)],
-    imageChoose: [null],
-    utilitiesID1: [null],
-    utilitiesID2: [null],
-    utilitiesID3: [null],
-    utilitiesID4: [null],
-    utilitiesID5: [null],
-    utilitiesID6: [null],
-    utilitiesID7: [null],
-    utilitiesID8: [null],
+    utilities: [null]
   });
   constructor(
     private addressService: AddressService,
@@ -73,6 +71,10 @@ export class PostproductComponent implements OnInit {
     private productPostTypeService: ProductPostTypeService,
     private elementRef: ElementRef,
     private renderer: Renderer,
+    private productPostService: ProductPostService,
+    private confirmationService: ConfirmationService,
+    private alertService: JhiAlertService,
+    private router: Router
   ) {
     this.types = [
       { label: 'Mua bán', value: '1' },
@@ -87,7 +89,6 @@ export class PostproductComponent implements OnInit {
     this.getLegalStatus();
     this.getUtility();
   }
-
   /*  add picture to list */
   onUpload(event) {
     for (const file of event.files) {
@@ -185,6 +186,25 @@ export class PostproductComponent implements OnInit {
    */
   checkItemChecked() {
     // eslint-disable-next-line
-    console.log('checked value', this.productPostForm.value.utilitiesID);
+    console.log('checked value', this.listUtilitiesSelected);
+
   }
-}
+
+  /**
+   * submit form
+   */
+  postProduct() {
+    // eslint-disable-next-line
+    console.log('do nothing');
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc chắn muốn tạo bài đăng này?',
+      accept: () => {
+        const data: IProductPost = this.productPostForm.getRawValue();
+        this.alertService.clear();
+        this.productPostService
+          .create(data)
+          .subscribe(() => this.router.navigate(['']), err => this.alertService.error(err.error.title));
+      }
+    });
+  }
+  }
