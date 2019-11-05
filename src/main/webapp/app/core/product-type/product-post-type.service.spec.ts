@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ProductPostTypeService } from './product-post-type.service';
+import { ProductPostTypeService } from './product-type.service';
 
 describe('AddressService', () => {
     beforeEach(() => TestBed.configureTestingModule({}));

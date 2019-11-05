@@ -3,13 +3,13 @@ import { OnInit, Component, ElementRef, Renderer } from '@angular/core';
 import { AddressService } from 'app/core/address/address.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SelectItem, ConfirmationService } from 'primeng/api';
-import { ProductPostTypeService } from 'app/core/product-post-type/product-post-type.service';
 import { DirectionService } from 'app/core/direction/direction.service';
 import { LegalStatusService } from 'app/core/legal-status/legal-status.service';
 import { UtilitiesService } from 'app/core/utilities/utilities.service';
 import { ProductPostService } from 'app/core/product-post/product-post.service';
 import { IProductPost, ProductPost } from 'app/core/product-post/product-post.model';
 import { JhiAlertService } from 'ng-jhipster';
+import { ProductPostTypeService } from 'app/core/product-type/product-type.service';
 
 @Component({
   selector: 'app-postproduct',

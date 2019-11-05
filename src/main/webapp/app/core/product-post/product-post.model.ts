@@ -1,13 +1,30 @@
+import { IUser } from './../user/user.model';
+import { Ward } from '../address/model/ward.model';
+import { Province } from '../address/model/province.model';
+import { District } from '../address/model/district.model';
+import { Product } from '../product/product.model';
 export interface IProductPost {
     id?: any;
-    name?: string;
-    startHour?: any;
-    endHour?: any;
-    breakStart?: any;
-    breakEnd?: any;
-    overtimeStart?: any;
-    overtimeEnd?: any;
+    user?: IUser;
+    projectName?: string;
+    productPostType?: any;
+    productPostTitle?: string;
+    totalLike?: string;
+    typeDeal?: string;
+    totalReport?: string;
+    totalShare?: string;
+    ward?: Ward;
+    province?: Province;
+    district?: District;
+    address?: string;
+    shortDescription?: string;
+    content?: string;
+    product?: Product;
     status?: boolean;
+    createdBy?: string;
+    createdDate?: Date;
+    lastModifiedBy?: string;
+    lastModifiedDate?: Date;
 }
 export class ProductPost implements IProductPost {
     constructor(
