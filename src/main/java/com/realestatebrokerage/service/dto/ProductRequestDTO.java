@@ -97,30 +97,6 @@ public class ProductRequestDTO {
         this.legalStatus = legalStatus;
     }
 
-    public int getNumberFloor() {
-        return numberFloor;
-    }
-
-    public void setNumberFloor(int numberFloor) {
-        this.numberFloor = numberFloor;
-    }
-
-    public int getNumberBathroom() {
-        return numberBathroom;
-    }
-
-    public void setNumberBathroom(int numberBathroom) {
-        this.numberBathroom = numberBathroom;
-    }
-
-    public int getNumberBedroom() {
-        return numberBedroom;
-    }
-
-    public void setNumberBedroom(int numberBedroom) {
-        this.numberBedroom = numberBedroom;
-    }
-
     public Long getProductTypeChild() {
         return productTypeChild;
     }
@@ -145,12 +121,24 @@ public class ProductRequestDTO {
         this.status = status;
     }
 
+    public Integer getNumberFloor() {
+        return numberFloor;
+    }
+
     public void setNumberFloor(Integer numberFloor) {
         this.numberFloor = numberFloor;
     }
 
+    public Integer getNumberBathroom() {
+        return numberBathroom;
+    }
+
     public void setNumberBathroom(Integer numberBathroom) {
         this.numberBathroom = numberBathroom;
+    }
+
+    public Integer getNumberBedroom() {
+        return numberBedroom;
     }
 
     public void setNumberBedroom(Integer numberBedroom) {

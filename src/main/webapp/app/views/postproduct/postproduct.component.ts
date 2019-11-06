@@ -100,12 +100,6 @@ export class PostproductComponent implements OnInit {
     this.getDirection();
     this.getLegalStatus();
     this.getUtility();
-    this.accountService.identity().subscribe((account: Account) => {
-      this.account = account;
-    });
-    this.userService.find(this.account.login).subscribe((userAuthen: IUser) => {
-      this.user = userAuthen;
-    });
   }
   /*  add picture to list */
   onUpload(event) {
@@ -216,6 +210,15 @@ export class PostproductComponent implements OnInit {
   postProduct() {
     this.productPostForm.controls.utilities.setValue(this.listUtilitiesSelected);
     this.productPostForm.controls.type.setValue(this.selectedType);
+    this.accountService.identity().subscribe((account: Account) => {
+      this.account = account;
+    });
+    // eslint-disable-next-line
+    console.log('data post: ', this.account);
+    // eslint-disable-next-line
+    this.userService.find(this.account.login).subscribe((userAuthen: IUser) => {
+      this.user = userAuthen;
+    });
     const product = {
       price: this.productPostForm.controls.price.value,
       area: this.productPostForm.controls.price.value,
@@ -230,7 +233,7 @@ export class PostproductComponent implements OnInit {
       status: true
     };
     const productPost = {
-      user: this.user,
+      user: this.user.id,
       projectName: this.productPostForm.controls.projectName.value,
       productPostType: this.productPostForm.controls.type.value,
       productPostTitle: this.productPostForm.controls.projectPostTitle.value,
@@ -266,10 +269,10 @@ export class PostproductComponent implements OnInit {
       productPost: null,
       status: true
     };
-    this.post.product = product;
-    this.post.productPost = productPost;
-    this.post.image = image;
-    this.post.usingImage = usingImage;
+    this.post.productRequestDTO = product;
+    this.post.productPostRequestDTO = productPost;
+    this.post.imageDTO = image;
+    this.post.usingImageRequestDTO = usingImage;
     // eslint-disable-next-line
     this.confirmationService.confirm({
       message: 'Bạn có chắc chắn muốn tạo bài đăng này?',
@@ -281,6 +284,8 @@ export class PostproductComponent implements OnInit {
           .subscribe((res: any) => this.router.navigate(['']), (err: HttpErrorResponse) => this.alertService.error(err.error.title));
          // eslint-disable-next-line
          console.log('data post: ', this.post);
+        // eslint-disable-next-line
+        console.log('data pic: ', this.uploadedFiles);
         }
     });
   }
