@@ -19,6 +19,8 @@ public class UsingImageService {
     private UsingImageRepository usingImageRepository;
     @Autowired
     private ImageRepository imageRepository;
+    @Autowired
+    private ProductPostRepository productPostRepository;
 
     /**
      * List all product
@@ -30,12 +32,13 @@ public class UsingImageService {
     /**
      * create using image
      * */
-    public UsingImage createProduct(UsingImageRequestDTO usingImageRequestDTO, ProductPost productPost) {
+    public UsingImage createUsingImage(UsingImageRequestDTO usingImageRequestDTO) {
         UsingImage usingImage = new UsingImage();
 
-        Image image = imageRepository.findById(usingImageRequestDTO.getImage().toString()).orElse(null);
+        Image image = imageRepository.findById(usingImageRequestDTO.getImage()).orElse(null);
         usingImage.setImage(image);
         usingImage.setUsingType(null);
+        ProductPost productPost = productPostRepository.findById(usingImageRequestDTO.getProductPost()).orElse(null);
         usingImage.setProductPost(productPost);
         return usingImageRepository.save(usingImage);
 

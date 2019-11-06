@@ -9,10 +9,10 @@ public class ProductPostRequestDTO {
     private String projectName;
     private Long productPostType;
     private String productPostTitle;
-    private int totalLike;
-    private int totalReport;
-    private int totalShare;
-    private int typeDeal;
+    private Integer totalLike;
+    private Integer totalReport;
+    private Integer totalShare;
+    private Integer typeDeal;
     private String ward;
     private String province;
     private String district;
@@ -97,35 +97,31 @@ public class ProductPostRequestDTO {
         this.productPostTitle = productPostTitle;
     }
 
-    public int getTotalLike() {
+    public Integer getTotalLike() {
         return totalLike;
     }
 
-    public void setTotalLike(int totalLike) {
+    public void setTotalLike(Integer totalLike) {
         this.totalLike = totalLike;
     }
 
-    public int getTotalReport() {
+    public Integer getTotalReport() {
         return totalReport;
     }
 
-    public void setTotalReport(int totalReport) {
+    public void setTotalReport(Integer totalReport) {
         this.totalReport = totalReport;
     }
 
-    public int getTotalShare() {
+    public Integer getTotalShare() {
         return totalShare;
     }
 
-    public void setTotalShare(int totalShare) {
+    public void setTotalShare(Integer totalShare) {
         this.totalShare = totalShare;
     }
 
-    public int getTypeDeal() {
-        return typeDeal;
-    }
-
-    public void setTypeDeal(int typeDeal) {
+    public void setTypeDeal(Integer typeDeal) {
         this.typeDeal = typeDeal;
     }
 
@@ -191,6 +187,10 @@ public class ProductPostRequestDTO {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Integer getTypeDeal() {
+        return typeDeal;
     }
 
     @Override

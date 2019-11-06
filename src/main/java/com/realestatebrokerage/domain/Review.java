@@ -22,13 +22,13 @@ public class Review extends AbstractAuditingEntity implements Serializable {
     private String  title;
 
     @Column(name = "total_like")
-    private int totalLike;
+    private Integer totalLike;
 
     @Column(name = "total_report")
-    private int totalReport;
+    private Integer totalReport;
 
     @Column(name = "total_share")
-    private int totalShare;
+    private Integer totalShare;
 
     @ManyToOne
     @JoinColumn(name="ward_code",referencedColumnName="code")
@@ -56,19 +56,7 @@ public class Review extends AbstractAuditingEntity implements Serializable {
 
     }
 
-    public Review(User user, String title, int totalLike, int totalReport, int totalShare, Ward ward, Province province, District district, String decription, String content, @NotNull boolean status) {
-        this.user = user;
-        this.title = title;
-        this.totalLike = totalLike;
-        this.totalReport = totalReport;
-        this.totalShare = totalShare;
-        this.ward = ward;
-        this.province = province;
-        this.district = district;
-        this.decription = decription;
-        this.content = content;
-        this.status = status;
-    }
+
 
     public Long getId() {
         return id;
@@ -94,27 +82,27 @@ public class Review extends AbstractAuditingEntity implements Serializable {
         this.title = title;
     }
 
-    public int getTotalLike() {
+    public Integer getTotalLike() {
         return totalLike;
     }
 
-    public void setTotalLike(int totalLike) {
+    public void setTotalLike(Integer totalLike) {
         this.totalLike = totalLike;
     }
 
-    public int getTotalReport() {
+    public Integer getTotalReport() {
         return totalReport;
     }
 
-    public void setTotalReport(int totalReport) {
+    public void setTotalReport(Integer totalReport) {
         this.totalReport = totalReport;
     }
 
-    public int getTotalShare() {
+    public Integer getTotalShare() {
         return totalShare;
     }
 
-    public void setTotalShare(int totalShare) {
+    public void setTotalShare(Integer totalShare) {
         this.totalShare = totalShare;
     }
 

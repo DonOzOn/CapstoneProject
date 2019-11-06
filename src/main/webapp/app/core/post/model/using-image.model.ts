@@ -1,21 +1,23 @@
-import { Utilities } from '../utilities/utilities.model';
-import { Product } from '../product/product.model';
+import { ProductPost } from './product-post.model';
+import { Image } from './image.model';
 
-export interface IUsingUtilities {
+export interface IUsingImage {
     id?: any;
-    product?: Product;
-    utilities?: Utilities;
+    image?: Image;
+    usingType?: string;
+    productPost?: ProductPost;
     status?: boolean;
     createdBy?: string;
     createdDate?: Date;
     lastModifiedBy?: string;
     lastModifiedDate?: Date;
 }
-export class UsingUtilities implements IUsingUtilities {
+export class UsingImage implements IUsingImage {
     constructor(
         public id?: any,
-        public product?: Product,
-        public utilities?: Utilities,
+        public image?: Image,
+        public usingType?: string,
+        public productPost?: ProductPost,
         public status?: boolean,
         public createdBy?: string,
         public createdDate?: Date,
@@ -23,8 +25,9 @@ export class UsingUtilities implements IUsingUtilities {
         public lastModifiedDate?: Date
     ) {
         this.id = id ? id : null;
-        this.product = product ? product : null;
-        this.utilities = utilities ? utilities : null;
+        this.image = image ? image : null;
+        this.usingType = usingType ? usingType : null;
+        this.productPost = productPost ? productPost : null;
         this.status = status ? status : null;
         this.createdBy = createdBy ? createdBy : null;
         this.createdDate = createdDate ? createdDate : null;

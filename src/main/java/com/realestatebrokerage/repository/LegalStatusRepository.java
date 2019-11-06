@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface LegalStatusRepository extends JpaRepository<LegalStatus, String> {
+public interface LegalStatusRepository extends JpaRepository<LegalStatus, Long> {
     public List<LegalStatus> findAll();
 }

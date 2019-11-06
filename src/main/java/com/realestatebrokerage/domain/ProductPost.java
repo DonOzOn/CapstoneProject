@@ -42,16 +42,16 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     private String productPostTitle;
 
     @Column(name = "total_like")
-    private int totalLike;
+    private Integer totalLike;
 
     @Column(name = "type_deal")
-    private int typeDeal;
+    private Integer typeDeal;
 
     @Column(name = "total_report")
-    private int totalReport;
+    private Integer totalReport;
 
     @Column(name = "total_share")
-    private int totalShare;
+    private Integer totalShare;
 
     @ManyToOne
     @JoinColumn(name="ward_code",referencedColumnName="code")
@@ -88,7 +88,7 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     public ProductPost() {
     }
 
-    public ProductPost(User user, @Size(min = 1, max = 50) String projectName, ProductPostType productPostType, @Size(min = 1, max = 50) String productPostTitle, int totalLike, int typeDeal, int totalReport, int totalShare, Ward ward, Province province, District district, @Size(max = 50) String address, @Size(min = 1, max = 50) String shortDescription, @Size(min = 1, max = 50) String content, Product product, @NotNull boolean status) {
+    public ProductPost(User user, @Size(min = 1, max = 50) String projectName, ProductPostType productPostType, @Size(min = 1, max = 50) String productPostTitle, Integer totalLike, Integer typeDeal, Integer totalReport, Integer totalShare, Ward ward, Province province, District district, @Size(max = 50) String address, @Size(min = 1, max = 100) String shortDescription, @Size(min = 1, max = 255) String content, Product product, @NotNull boolean status) {
         this.user = user;
         this.projectName = projectName;
         this.productPostType = productPostType;
@@ -147,35 +147,35 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
         this.productPostTitle = productPostTitle;
     }
 
-    public int getTotalLike() {
+    public Integer getTotalLike() {
         return totalLike;
     }
 
-    public void setTotalLike(int totalLike) {
+    public void setTotalLike(Integer totalLike) {
         this.totalLike = totalLike;
     }
 
-    public int getTypeDeal() {
+    public Integer getTypeDeal() {
         return typeDeal;
     }
 
-    public void setTypeDeal(int typeDeal) {
+    public void setTypeDeal(Integer typeDeal) {
         this.typeDeal = typeDeal;
     }
 
-    public int getTotalReport() {
+    public Integer getTotalReport() {
         return totalReport;
     }
 
-    public void setTotalReport(int totalReport) {
+    public void setTotalReport(Integer totalReport) {
         this.totalReport = totalReport;
     }
 
-    public int getTotalShare() {
+    public Integer getTotalShare() {
         return totalShare;
     }
 
-    public void setTotalShare(int totalShare) {
+    public void setTotalShare(Integer totalShare) {
         this.totalShare = totalShare;
     }
 

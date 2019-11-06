@@ -1,8 +1,11 @@
 package com.realestatebrokerage.service.dto;
 import com.realestatebrokerage.domain.Product;
+import com.realestatebrokerage.domain.Utilities;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductRequestDTO {
     private Long id;
@@ -10,12 +13,13 @@ public class ProductRequestDTO {
     private String area;
     private Long direction;
     private Long legalStatus;
-    private int numberFloor;
-    private int numberBathroom;
-    private int numberBedroom;
+    private Integer numberFloor;
+    private Integer numberBathroom;
+    private Integer numberBedroom;
     private Long productTypeChild;
     private Long productType;
     private boolean status;
+    private List<Long> utilities;
 
     public ProductRequestDTO() {
     }
@@ -39,7 +43,18 @@ public class ProductRequestDTO {
         if(product.getProductType()!= null){
             this.productType = product.getProductType().getId();
         }
+        if(product.getUtilities()!= null){
+            this.utilities = product.getUtilities().stream().map(Utilities::getId).collect(Collectors.toList());
+        }
         this.status = product.isStatus();
+    }
+
+    public List<Long> getUtilities() {
+        return utilities;
+    }
+
+    public void setUtilities(List<Long> utilities) {
+        this.utilities = utilities;
     }
 
     public Long getId() {
@@ -130,6 +145,18 @@ public class ProductRequestDTO {
         this.status = status;
     }
 
+    public void setNumberFloor(Integer numberFloor) {
+        this.numberFloor = numberFloor;
+    }
+
+    public void setNumberBathroom(Integer numberBathroom) {
+        this.numberBathroom = numberBathroom;
+    }
+
+    public void setNumberBedroom(Integer numberBedroom) {
+        this.numberBedroom = numberBedroom;
+    }
+
     @Override
     public String toString() {
         return "ProductRequestDTO{" +
@@ -144,6 +171,7 @@ public class ProductRequestDTO {
             ", productTypeChild=" + productTypeChild +
             ", productType=" + productType +
             ", status=" + status +
+            ", utilities=" + utilities +
             '}';
     }
 }

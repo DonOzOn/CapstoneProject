@@ -45,7 +45,7 @@ public class ProductPostService {
             productPost.setUser(user.get());
         }
         productPost.setProjectName(productPostRequestDTO.getProjectName());
-        ProductPostType typeChoose = productPostTypeRepository.findById(productPostRequestDTO.getProductPostType().toString()).orElse(null);
+        ProductPostType typeChoose = productPostTypeRepository.findById(productPostRequestDTO.getProductPostType()).orElse(null);
         productPost.setProductPostType(typeChoose);
         productPost.setProductPostTitle(productPostRequestDTO.getProductPostTitle());
         productPost.setTotalLike(productPostRequestDTO.getTotalLike());

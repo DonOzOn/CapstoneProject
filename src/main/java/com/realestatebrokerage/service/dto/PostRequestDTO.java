@@ -9,8 +9,6 @@ public class PostRequestDTO {
     ProductPostRequestDTO productPostRequestDTO;
     ImageDTO imageDTO;
     UsingImageRequestDTO usingImageRequestDTO;
-    UsingUtinitiesRequestDTO usingUtinitiesRequestDTO;
-
 
     public PostRequestDTO() {
     }
@@ -45,13 +43,5 @@ public class PostRequestDTO {
 
     public void setUsingImageRequestDTO(UsingImageRequestDTO usingImageRequestDTO) {
         this.usingImageRequestDTO = usingImageRequestDTO;
-    }
-
-    public UsingUtinitiesRequestDTO getUsingUtinitiesRequestDTO() {
-        return usingUtinitiesRequestDTO;
-    }
-
-    public void setUsingUtinitiesRequestDTO(UsingUtinitiesRequestDTO usingUtinitiesRequestDTO) {
-        this.usingUtinitiesRequestDTO = usingUtinitiesRequestDTO;
     }
 }

@@ -1,13 +1,9 @@
 package com.realestatebrokerage.web.rest;
 
-import com.realestatebrokerage.domain.Image;
-import com.realestatebrokerage.domain.ProductPost;
-import com.realestatebrokerage.service.ImageService;
-import com.realestatebrokerage.service.ProductService;
-import com.realestatebrokerage.service.UsingImageService;
-import com.realestatebrokerage.service.dto.PostRequestDTO;
-import com.realestatebrokerage.service.dto.ProductPostResponseDTO;
-import com.realestatebrokerage.service.dto.ProductResponseDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.realestatebrokerage.domain.*;
+import com.realestatebrokerage.service.*;
+import com.realestatebrokerage.service.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 @Controller
@@ -31,17 +28,51 @@ public class PostResource {
     private ImageService imageService;
     @Autowired
     private UsingImageService usingImageService;
+    @Autowired
+    private ProductPostService productPostService;
 
     /**
      * create product post
      * */
     @PostMapping("/product-post")
-    public ResponseEntity <ProductPostResponseDTO> createProduct(@RequestBody PostRequestDTO postRequestDTO) throws URISyntaxException{
-        log.debug("create  product : {}");
+    public ResponseEntity<PostResponeDTO> createProduct(@RequestBody PostRequestDTO postRequestDTO){
+        log.debug("create  product post: {}", postRequestDTO);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            // Java objects to JSON string - pretty-print
+            String jsonInString2 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(postRequestDTO);
+            System.out.println(jsonInString2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /**
+         * insert product
+         * */
+        Product product = productService.createProduct(postRequestDTO.getProductRequestDTO());
+         /**
+         * insert product post
+         * */
+        postRequestDTO.getProductPostRequestDTO().setProduct(product.getId());
+        ProductPost productPost = productPostService.createProductPost(postRequestDTO.getProductPostRequestDTO());
+        /**
+         * insert image
+         * */
         Image image = imageService.createProduct(postRequestDTO.getImageDTO());
+        /**
+         * insert product
+         * */
+        postRequestDTO.getUsingImageRequestDTO().setImage(image.getId());
+        postRequestDTO.getUsingImageRequestDTO().setProductPost(productPost.getId());
+        UsingImage usingImage = usingImageService.createUsingImage(postRequestDTO.getUsingImageRequestDTO());
+        /**
+         * */
+        ProductResponseDTO newProduct = new ProductResponseDTO(product);
+        ProductPostResponseDTO newProductPost = new ProductPostResponseDTO(productPost);
+        UsingImageResponseDTO newUsingImage = new UsingImageResponseDTO(usingImage);
+        ImageDTO newImageDTO = new ImageDTO(image);
 
-        ProductResponseDTO newProduct = new ProductResponseDTO();
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        PostResponeDTO newPostRespone = new PostResponeDTO(newProduct,newProductPost,newImageDTO,newUsingImage);
+        return new ResponseEntity<>(newPostRespone, HttpStatus.OK);
     }
 
 }

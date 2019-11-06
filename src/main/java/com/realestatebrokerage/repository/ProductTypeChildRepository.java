@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ProductTypeChildRepository extends JpaRepository<ProductTypeChild, String> {
+public interface ProductTypeChildRepository extends JpaRepository<ProductTypeChild, Long> {
 
 	List<ProductTypeChild> findAllByProductType_Id(Long productType);
 

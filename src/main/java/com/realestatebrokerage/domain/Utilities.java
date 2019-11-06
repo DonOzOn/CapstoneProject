@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * A utilities.
@@ -22,12 +23,17 @@ public class Utilities{
     @Column(name = "utilities_name", length = 50)
     private String utilitiesName;
 
+    @ManyToMany
+    @JoinTable(name = "using_utilities", inverseJoinColumns = {
+        @JoinColumn(name = "product_id", referencedColumnName = "id")}, joinColumns = {
+        @JoinColumn(name = "utilities_id", referencedColumnName = "id")})
+    private List<Product> product;
+
+
     public Utilities() {
     }
 
-    public Utilities(@Size(max = 50) String utilitiesName) {
-        this.utilitiesName = utilitiesName;
-    }
+
 
     public Long getId() {
         return id;
@@ -37,11 +43,20 @@ public class Utilities{
         this.id = id;
     }
 
+
     public String getUtilitiesName() {
         return utilitiesName;
     }
 
     public void setUtilitiesName(String utilitiesName) {
         this.utilitiesName = utilitiesName;
+    }
+
+    public List<Product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<Product> product) {
+        this.product = product;
     }
 }

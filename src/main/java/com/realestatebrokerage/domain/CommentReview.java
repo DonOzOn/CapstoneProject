@@ -22,26 +22,20 @@ public class CommentReview extends AbstractAuditingEntity implements Serializabl
     private User user;
 
     @Column(name = "total_like")
-    private int totalLike;
+    private Integer totalLike;
 
     @Column(name = "total_dislike")
-    private int totalDislike;
+    private Integer totalDislike;
 
 
     public CommentReview() {
     }
 
-    public CommentReview(CommentReview commentReview){
-        this.id = commentReview.getId();
-        if (commentReview.getReview() != null) {
-            this.review = commentReview.getReview();
-        }
-        if (commentReview.getUser() != null) {
-            this.user = commentReview.getUser();
-        }
-        this.totalLike = commentReview.getTotalLike();
-        this.totalDislike = commentReview.getTotalDislike();
-
+    public CommentReview(Review review, User user, Integer totalLike, Integer totalDislike) {
+        this.review = review;
+        this.user = user;
+        this.totalLike = totalLike;
+        this.totalDislike = totalDislike;
     }
 
     public Long getId() {
@@ -68,19 +62,20 @@ public class CommentReview extends AbstractAuditingEntity implements Serializabl
         this.user = user;
     }
 
-    public int getTotalLike() {
+
+    public Integer getTotalLike() {
         return totalLike;
     }
 
-    public void setTotalLike(int totalLike) {
+    public void setTotalLike(Integer totalLike) {
         this.totalLike = totalLike;
     }
 
-    public int getTotalDislike() {
+    public Integer getTotalDislike() {
         return totalDislike;
     }
 
-    public void setTotalDislike(int totalDislike) {
+    public void setTotalDislike(Integer totalDislike) {
         this.totalDislike = totalDislike;
     }
 }

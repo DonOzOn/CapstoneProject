@@ -34,24 +34,34 @@ public class CommentProductPost extends AbstractAuditingEntity implements Serial
 
     @Size( max = 50)
     @Column(name = "total_like")
-    private int totalLike;
+    private Integer totalLike;
 
     @Size(max = 50)
     @Column(name = "total_dislike")
-    private int totalDislike;
+    private Integer totalDislike;
 
+    public CommentProductPost(User user, ProductPost productPost, @Size(min = 1, max = 50) String content, @Size(max = 50) Integer totalLike, @Size(max = 50) Integer totalDislike) {
+        this.user = user;
+        this.productPost = productPost;
+        this.content = content;
+        this.totalLike = totalLike;
+        this.totalDislike = totalDislike;
+    }
 
-    public CommentProductPost(CommentProductPost commentProductPost) {
-        this.id= commentProductPost.getId();
-        if(commentProductPost.getUser() !=null){
-            this.user=commentProductPost.getUser();
-        }
-        if(commentProductPost.getProductPost()!=null){
-            this.productPost=commentProductPost.getProductPost();
-        }
-        this.content= commentProductPost.getContent();
-        this.totalLike= commentProductPost.getTotalLike();
-        this.totalDislike= commentProductPost.getTotalDislike();
+    public Integer getTotalLike() {
+        return totalLike;
+    }
+
+    public void setTotalLike(Integer totalLike) {
+        this.totalLike = totalLike;
+    }
+
+    public Integer getTotalDislike() {
+        return totalDislike;
+    }
+
+    public void setTotalDislike(Integer totalDislike) {
+        this.totalDislike = totalDislike;
     }
 
     public Long getId() {
@@ -86,19 +96,4 @@ public class CommentProductPost extends AbstractAuditingEntity implements Serial
         this.content = content;
     }
 
-    public int getTotalLike() {
-        return totalLike;
-    }
-
-    public void setTotalLike(int totalLike) {
-        this.totalLike = totalLike;
-    }
-
-    public int getTotalDislike() {
-        return totalDislike;
-    }
-
-    public void setTotalDislike(int totalDislike) {
-        this.totalDislike = totalDislike;
-    }
 }

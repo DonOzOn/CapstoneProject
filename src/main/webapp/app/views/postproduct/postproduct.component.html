@@ -321,7 +321,7 @@
                                                 <div class="col-md-10 pl-4">
                                                     <span class="ui-float-label pl-2 ml-2">
                                                                 <p-fileUpload name="demo[]"
-                                                                multiple="multiple" accept="image/*" fileLimit= "10" maxFileSize="1000000">
+                                                                multiple="multiple" accept="image/*" (onUpload)="onUpload($event)"fileLimit= "10" maxFileSize="1000000">
                                                             <ng-template pTemplate="content">
                                                                 <ul *ngIf="uploadedFiles.length">
                                                                     <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
