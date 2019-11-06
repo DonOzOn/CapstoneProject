@@ -23,7 +23,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "legal_status")
-public class LegalStatus extends AbstractAuditingEntity implements Serializable {
+public class LegalStatus{
 
     private static final long serialVersionUID = 1L;
 
@@ -35,14 +35,12 @@ public class LegalStatus extends AbstractAuditingEntity implements Serializable 
     @Column(name = "legal_status_name", length = 50)
     private String legalStatusName;
 
-    @NotNull
-    @Column(name = "status", nullable = false)
-    private boolean status = false;
 
-    public LegalStatus(LegalStatus legalStatus) {
-        this.id= legalStatus.getId();
-        this.legalStatusName= legalStatus.getLegalStatusName();
-        this.status= legalStatus.getStatus();
+    public LegalStatus() {
+    }
+
+    public LegalStatus(@Size(max = 50) String legalStatusName) {
+        this.legalStatusName = legalStatusName;
     }
 
     public Long getId() {
@@ -61,11 +59,4 @@ public class LegalStatus extends AbstractAuditingEntity implements Serializable 
         this.legalStatusName = legalStatusName;
     }
 
-    public boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
 }

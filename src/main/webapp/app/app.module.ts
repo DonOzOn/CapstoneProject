@@ -29,7 +29,7 @@ import { RealestatebrokerageAccountModule } from './views/account/account.module
 
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent,
     ErrorComponent,
     LoginComponent,
     RegisterComponent

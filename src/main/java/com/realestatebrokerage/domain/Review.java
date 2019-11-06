@@ -30,9 +30,17 @@ public class Review extends AbstractAuditingEntity implements Serializable {
     @Column(name = "total_share")
     private int totalShare;
 
-    @OneToOne
-    @JoinColumn(referencedColumnName = "id", name = "address_id")
-    private Address address;
+    @ManyToOne
+    @JoinColumn(name="ward_code",referencedColumnName="code")
+    private Ward ward;
+
+    @ManyToOne
+    @JoinColumn(name="province_code",referencedColumnName="code")
+    private Province province;
+
+    @ManyToOne
+    @JoinColumn(name="district_code",referencedColumnName="code")
+    private District district;
 
     @Column(length = 200, name = "decription")
     private String  decription;
@@ -48,23 +56,19 @@ public class Review extends AbstractAuditingEntity implements Serializable {
 
     }
 
-    public Review(Review review){
-        this.id = review.getId();
-        if (review.getUser() != null) {
-            this.user = review.getUser();
-        }
-        this.title = review.getTitle();
-        this.totalLike = review.getTotalLike();
-        this.totalReport = review.getTotalReport();
-        this.totalShare = review.getTotalShare();
-        if (review.getAddress() != null) {
-            this.address = review.getAddress();
-        }
-        this.decription = review.getDecription();
-        this.content = review.getContent();
-        this.status = review.getStatus();
+    public Review(User user, String title, int totalLike, int totalReport, int totalShare, Ward ward, Province province, District district, String decription, String content, @NotNull boolean status) {
+        this.user = user;
+        this.title = title;
+        this.totalLike = totalLike;
+        this.totalReport = totalReport;
+        this.totalShare = totalShare;
+        this.ward = ward;
+        this.province = province;
+        this.district = district;
+        this.decription = decription;
+        this.content = content;
+        this.status = status;
     }
-
 
     public Long getId() {
         return id;
@@ -114,12 +118,28 @@ public class Review extends AbstractAuditingEntity implements Serializable {
         this.totalShare = totalShare;
     }
 
-    public Address getAddress() {
-        return address;
+    public Ward getWard() {
+        return ward;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setWard(Ward ward) {
+        this.ward = ward;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
     }
 
     public String getDecription() {
@@ -138,7 +158,7 @@ public class Review extends AbstractAuditingEntity implements Serializable {
         this.content = content;
     }
 
-    public boolean getStatus() {
+    public boolean isStatus() {
         return status;
     }
 

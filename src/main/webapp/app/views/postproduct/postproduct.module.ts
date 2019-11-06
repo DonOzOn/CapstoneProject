@@ -17,6 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CodeHighlighterModule } from 'primeng/components/codehighlighter/codehighlighter';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { CheckboxModule } from 'primeng/checkbox';
+import { NgSelectModule } from '@ng-select/ng-select';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [PostproductComponent],
@@ -37,7 +39,9 @@ import { CheckboxModule } from 'primeng/checkbox';
     HttpClientModule,
     CodeHighlighterModule,
     SplitButtonModule,
-    CheckboxModule
+    CheckboxModule,
+    NgSelectModule,
+    ConfirmDialogModule
   ],
   providers: [],
   exports: [PostproductComponent]

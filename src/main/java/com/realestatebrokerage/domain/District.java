@@ -1,64 +1,50 @@
 package com.realestatebrokerage.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "district")
-public class District extends AbstractAuditingEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class District {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String code;
 
+    @Column(name = "name")
+    private String name;
+
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", name = "city_id")
-    private City city;
+    @JoinColumn(name = "province_code", referencedColumnName = "code")
+    private Province province;
 
-    @Column(length = 50, name = "district_name")
-    private String districtName;
-
-    @Column(name = "type", length = 60)
+    @Column(name = "type")
     private String type;
 
 
-    public District() {
+    public String getCode() {
+        return code;
     }
 
-    public District(District district){
-        this.id = district.getId();
-        this.districtName = district.getDistrictName();
-        if (district.getCity() != null) {
-            this.city = district.getCity();
-        }
-        this.type = district.getType();
-
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public Long getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public City getCity() {
-        return city;
+    public Province getProvince() {
+        return province;
     }
 
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public String getDistrictName() {
-        return districtName;
-    }
-
-    public void setDistrictName(String districtName) {
-        this.districtName = districtName;
+    public void setProvince(Province province) {
+        this.province = province;
     }
 
     public String getType() {

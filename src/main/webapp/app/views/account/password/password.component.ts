@@ -7,6 +7,7 @@ import { Account } from 'app/core/user/account.model';
 import { PasswordService } from './password.service';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'jhi-password',
   templateUrl: './password.component.html'
 })

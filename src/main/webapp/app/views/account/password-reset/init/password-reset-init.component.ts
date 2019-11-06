@@ -5,6 +5,7 @@ import { EMAIL_NOT_FOUND_TYPE } from 'app/shared/constants/error.constants';
 import { PasswordResetInitService } from './password-reset-init.service';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'jhi-password-reset-init',
   templateUrl: './password-reset-init.component.html'
 })

@@ -15,8 +15,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -55,20 +54,23 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "last_name", length = 50)
     private String lastName;
 
+    @ManyToOne
+    @JoinColumn(name="province_code",referencedColumnName="code")
+    private Province province;
+
+    @ManyToOne
+    @JoinColumn(name="district_code",referencedColumnName="code")
+    private District district;
+
+    @Column(name = "dob")
+    private LocalDate dob;
+
     @Size(max = 50)
     @Column(name = "phone", length = 50)
     private String phone;
 
-
-    @Column(name = "DOB")
-    private LocalDateTime dob;
-
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = true)
     private boolean gender;
-
-    @OneToOne
-    @JoinColumn(referencedColumnName = "id", name = "address_id")
-    private Address address;
 
     @Email
     @Size(min = 5, max = 254)
@@ -109,30 +111,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
-
-    public boolean getGender() {
-        return gender;
-    }
-
-    public void setGender(boolean gender) {
-        this.gender = gender;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public LocalDateTime getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDateTime dob) {
-        this.dob = dob;
-    }
 
     public Long getId() {
         return id;
@@ -239,12 +217,44 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.authorities = authorities;
     }
 
-    public Address getAddress() {
-        return address;
+    public LocalDate getDob() {
+        return dob;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public boolean isGender() {
+        return gender;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
     }
 
     @Override

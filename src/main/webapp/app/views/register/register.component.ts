@@ -11,14 +11,13 @@ import { LOGIN_ALREADY_USED_TYPE, EMAIL_ALREADY_USED_TYPE } from 'app/shared/con
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit ,AfterViewInit {
+export class RegisterComponent implements OnInit , AfterViewInit {
   doNotMatch: string;
   error: string;
   errorEmailExists: string;
   errorUserExists: string;
   success: boolean;
   modalRef: NgbModalRef;
-  
   registerForm = this.fb.group({
     firstName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     lastName : ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],

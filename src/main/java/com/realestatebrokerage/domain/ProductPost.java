@@ -29,6 +29,10 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @JoinColumn(referencedColumnName = "id", name = "user_id")
     private User user;
 
+    @Size(min=1, max = 50)
+    @Column(name = "project_name", length = 200)
+    private String projectName;
+
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", name = "product_post_type_id")
     private ProductPostType productPostType;
@@ -37,28 +41,40 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @Column(name = "product_post_title", length = 50)
     private String productPostTitle;
 
-    @Size( max = 50)
     @Column(name = "total_like")
     private int totalLike;
 
-    @Size(max = 50)
+    @Column(name = "type_deal")
+    private int typeDeal;
+
     @Column(name = "total_report")
     private int totalReport;
 
-    @Size(max = 50)
     @Column(name = "total_share")
     private int totalShare;
 
-    @OneToOne
-    @JoinColumn(referencedColumnName = "id", name = "address_id")
-    private Address address;
+    @ManyToOne
+    @JoinColumn(name="ward_code",referencedColumnName="code")
+    private Ward ward;
 
-    @Size(min=1, max = 50)
-    @Column(name = "short_description", length = 200)
+    @ManyToOne
+    @JoinColumn(name="province_code",referencedColumnName="code")
+    private Province province;
+
+    @ManyToOne
+    @JoinColumn(name="district_code",referencedColumnName="code")
+    private District district;
+
+    @Size(max = 50)
+    @Column(name = "address")
+    private String address;
+
+    @Size(min=1, max = 100)
+    @Column(name = "short_description", length = 100)
     private String shortDescription;
 
-    @Size(min=1, max = 50)
-    @Column(name = "content", length = 1000)
+    @Size(min=1, max = 255)
+    @Column(name = "content")
     private String content;
 
     @OneToOne
@@ -69,27 +85,26 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @Column(name = "status", nullable = false)
     private boolean status = false;
 
-    public ProductPost(ProductPost productPost) {
-        this.id= productPost.getId();
-        if(productPost.getUsers() !=null){
-            this.user=productPost.getUsers();
-        }
-        if(productPost.getProductPostType()!=null){
-            this.productPostType=productPost.getProductPostType();
-        }
-        this.productPostTitle= productPost.getProductPostTitle();
-        this.totalLike= productPost.getTotalLike();
-        this.totalReport= productPost.getTotalReport();
-        this.totalShare= productPost.getTotalShare();
-        if(productPost.getAddress()!=null){
-            this.address=productPost.getAddress();
-        }
-        this.shortDescription= productPost.getShortDescription();
-        this.content= productPost.getContent();
-        if(productPost.getProduct()!=null){
-            this.product=productPost.getProduct();
-        }
-        this.status= product.getStatus();
+    public ProductPost() {
+    }
+
+    public ProductPost(User user, @Size(min = 1, max = 50) String projectName, ProductPostType productPostType, @Size(min = 1, max = 50) String productPostTitle, int totalLike, int typeDeal, int totalReport, int totalShare, Ward ward, Province province, District district, @Size(max = 50) String address, @Size(min = 1, max = 50) String shortDescription, @Size(min = 1, max = 50) String content, Product product, @NotNull boolean status) {
+        this.user = user;
+        this.projectName = projectName;
+        this.productPostType = productPostType;
+        this.productPostTitle = productPostTitle;
+        this.totalLike = totalLike;
+        this.typeDeal = typeDeal;
+        this.totalReport = totalReport;
+        this.totalShare = totalShare;
+        this.ward = ward;
+        this.province = province;
+        this.district = district;
+        this.address = address;
+        this.shortDescription = shortDescription;
+        this.content = content;
+        this.product = product;
+        this.status = status;
     }
 
     public Long getId() {
@@ -100,12 +115,20 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
         this.id = id;
     }
 
-    public User getUsers() {
+    public User getUser() {
         return user;
     }
 
-    public void setUsers(User user) {
+    public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public ProductPostType getProductPostType() {
@@ -132,6 +155,14 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
         this.totalLike = totalLike;
     }
 
+    public int getTypeDeal() {
+        return typeDeal;
+    }
+
+    public void setTypeDeal(int typeDeal) {
+        this.typeDeal = typeDeal;
+    }
+
     public int getTotalReport() {
         return totalReport;
     }
@@ -148,11 +179,35 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
         this.totalShare = totalShare;
     }
 
-    public Address getAddress() {
+    public Ward getWard() {
+        return ward;
+    }
+
+    public void setWard(Ward ward) {
+        this.ward = ward;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -180,7 +235,7 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
         this.product = product;
     }
 
-    public boolean getStatus() {
+    public boolean isStatus() {
         return status;
     }
 

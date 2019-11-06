@@ -24,7 +24,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "direction")
-public class Direction extends AbstractAuditingEntity implements Serializable {
+public class Direction{
 
     private static final long serialVersionUID = 1L;
 
@@ -36,14 +36,11 @@ public class Direction extends AbstractAuditingEntity implements Serializable {
     @Column(name = "direction_name", length = 50)
     private String directionName;
 
-    @NotNull
-    @Column(name = "status", nullable = false)
-    private boolean status = false;
+    public Direction() {
+    }
 
-    public Direction(Direction direction) {
-        this.id= direction.getId();
-        this.directionName= direction.getDirectionName();
-        this.status= direction.getStatus();
+    public Direction(@Size(max = 50) String directionName) {
+        this.directionName = directionName;
     }
 
     public Long getId() {
@@ -62,11 +59,4 @@ public class Direction extends AbstractAuditingEntity implements Serializable {
         this.directionName = directionName;
     }
 
-    public boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
 }

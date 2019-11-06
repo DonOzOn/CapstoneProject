@@ -23,7 +23,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "product_type")
-public class ProductType extends AbstractAuditingEntity implements Serializable {
+public class ProductType{
 
     private static final long serialVersionUID = 1L;
 
@@ -35,14 +35,11 @@ public class ProductType extends AbstractAuditingEntity implements Serializable 
     @Column(name = "product_type_name", length = 50)
     private String productTypeName;
 
-    @NotNull
-    @Column(name = "status", nullable = false)
-    private boolean status = false;
+    public ProductType() {
+    }
 
-    public ProductType(ProductType productType) {
-        this.id= productType.getId();
-        this.productTypeName= productType.getProductTypeName();
-        this.status= productType.getStatus();
+    public ProductType(@Size(max = 50) String productTypeName) {
+        this.productTypeName = productTypeName;
     }
 
     public Long getId() {
@@ -59,13 +56,5 @@ public class ProductType extends AbstractAuditingEntity implements Serializable 
 
     public void setProductTypeName(String productTypeName) {
         this.productTypeName = productTypeName;
-    }
-
-    public boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 }
