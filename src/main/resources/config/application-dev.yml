@@ -53,6 +53,8 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+      jdbc:
+        time_zone: UTC
     properties:
       hibernate.id.new_generator_mappings: true
       hibernate.connection.provider_disables_autocommit: true

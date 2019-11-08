@@ -48,15 +48,13 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @JoinColumn(referencedColumnName = "id", name = "legal_status_id")
     private LegalStatus legalStatus;
 
-    @Size(min=1, max = 50)
+
     @Column(name = "number_floor", length = 50)
     private Integer numberFloor;
 
-    @Size(min=1, max = 50)
     @Column(name = "number_bathroom", length = 50)
     private Integer numberBathroom;
 
-    @Size(min=1, max = 50)
     @Column(name = "number_bedroom", length = 50)
     private Integer numberBedroom;
 

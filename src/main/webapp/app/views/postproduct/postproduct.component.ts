@@ -68,6 +68,12 @@ export class PostproductComponent implements OnInit {
     directionID: [null],
     legalStatusID: [null, Validators.required],
     projectPostTitle: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
+    // eslint-disable-next-line
+    numFloor: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
+     // eslint-disable-next-line
+    numBathroom: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
+     // eslint-disable-next-line
+    numBedroom: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
     content: [this.text1, Validators.maxLength(255)],
     utilities: [null]
   });
@@ -86,7 +92,7 @@ export class PostproductComponent implements OnInit {
     private router: Router,
     private postService: PostService,
     private accountService: AccountService,
-    private userService: UserService
+    private userService: UserService,
   ) {
     this.types = [
       { label: 'Mua bán', value: '1' },
@@ -100,6 +106,8 @@ export class PostproductComponent implements OnInit {
     this.getDirection();
     this.getLegalStatus();
     this.getUtility();
+    this.selectedType = this.types[0].value;
+    // this.selectedType = 'Mua bán';
   }
   /*  add picture to list */
   onUpload(event) {
@@ -224,16 +232,16 @@ export class PostproductComponent implements OnInit {
       area: this.productPostForm.controls.price.value,
       direction: this.productPostForm.controls.directionID.value,
       legalStatus: this.productPostForm.controls.legalStatusID.value,
-      numberFloor: 1,
-      numberBathroom: 2,
-      numberBedroom: 3,
+      numberFloor: this.productPostForm.controls.numFloor.value,
+      numberBathroom: this.productPostForm.controls.numBathroom.value,
+      numberBedroom: this.productPostForm.controls.numBedroom.value,
       productTypeChild: this.productPostForm.controls.productTypeChildID.value,
       productType: this.productPostForm.controls.productTypeID.value,
       utilities: this.productPostForm.controls.utilities.value,
       status: true
     };
     const productPost = {
-      user: this.user.id,
+      user: this.user,
       projectName: this.productPostForm.controls.projectName.value,
       productPostType: this.productPostForm.controls.type.value,
       productPostTitle: this.productPostForm.controls.projectPostTitle.value,
@@ -281,12 +289,12 @@ export class PostproductComponent implements OnInit {
         this.postService
           .create(this.post)
           // eslint-disable-next-line
-          .subscribe((res: any) => this.router.navigate(['']), (err: HttpErrorResponse) => this.alertService.error(err.error.title));
-         // eslint-disable-next-line
-         console.log('data post: ', this.post);
+          .subscribe((res: any) => this.router.navigate(['manage-product']), (err: HttpErrorResponse) => this.alertService.error(err.error.title));
+        // eslint-disable-next-line
+        console.log('data post: ', this.post);
         // eslint-disable-next-line
         console.log('data pic: ', this.uploadedFiles);
-        }
+      }
     });
   }
 }
