@@ -6,8 +6,6 @@ import { CommonModule } from '@angular/common';
 import { OwlModule } from 'ngx-owl-carousel';
 import { ProductdetailComponent } from './productdetail.component';
 import { ProductRoutingModule } from './productdetail-routing.module';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GalleriaModule } from 'primeng/galleria';
 
 @NgModule({

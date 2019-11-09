@@ -1,18 +1,21 @@
-import { ILegalStatus } from './../legal-status/legal-status.model';
-import { IProductTypeChild, ProductTypeChild } from '../product-type/model/product-type-child.model';
-import { IDirection } from './../direction/direction.model';
-import { IProductType, ProductType } from '../product-type/model/product-type.model';
+import { Utilities } from './../../utilities/utilities.model';
+import { Direction } from 'app/core/direction/direction.model';
+import { LegalStatus } from 'app/core/legal-status/legal-status.model';
+import { ProductTypeChild } from 'app/core/product-type/model/product-type-child.model';
+import { ProductType } from 'app/core/product-type/model/product-type.model';
+
 export interface IProduct {
     id?: any;
     price?: string;
     area?: string;
-    direction?: IDirection;
-    legalStatus?: ILegalStatus;
+    direction?: Direction;
+    legalStatus?: LegalStatus;
     numberFloor?: any;
     numberBathroom?: any;
     numberBedroom?: any;
-    productTypeChild?: IProductTypeChild;
-    productType?: IProductType;
+    productTypeChild?: ProductTypeChild;
+    productType?: ProductType;
+    utilities?: any;
     status?: boolean;
     createdBy?: string;
     createdDate?: Date;
@@ -24,13 +27,14 @@ export class Product implements IProduct {
         public id?: any,
         public price?: string,
         public area?: string,
-        public direction?: IDirection,
-        public legalStatus?: ILegalStatus,
-        public numberFloor?: boolean,
-        public numberBathroom?: boolean,
-        public numberBedroom?: Date,
+        public direction?: Direction,
+        public legalStatus?: LegalStatus,
+        public numberFloor?: any,
+        public numberBathroom?: any,
+        public numberBedroom?: any,
         public productTypeChild?: ProductTypeChild,
         public productType?: ProductType,
+        public utilities?: any,
         public status?: boolean,
         public createdBy?: string,
         public createdDate?: Date,
@@ -42,6 +46,7 @@ export class Product implements IProduct {
         this.area = area ? area : null;
         this.direction = direction ? direction : null;
         this.legalStatus = legalStatus ? legalStatus : null;
+        this.utilities = utilities ? utilities : null;
         this.numberFloor = numberFloor ? numberFloor : null;
         this.numberBathroom = numberBathroom ? numberBathroom : null;
         this.numberBedroom = numberBedroom ? numberBedroom : null;

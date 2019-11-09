@@ -1,7 +1,7 @@
 import { PostproductComponent } from './postproduct.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FlickityModule } from 'ngx-flickity';
-import { NgModule, Component } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OwlModule } from 'ngx-owl-carousel';
 import { PostproductRoutingModule } from './postproduct-routing.module';

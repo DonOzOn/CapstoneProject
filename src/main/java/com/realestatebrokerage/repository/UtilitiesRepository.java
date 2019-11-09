@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface UtilitiesRepository extends JpaRepository<Utilities, String> {
+public interface UtilitiesRepository extends JpaRepository<Utilities, Long> {
     public List<Utilities> findAll();
 }

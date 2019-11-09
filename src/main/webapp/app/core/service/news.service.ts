@@ -1,7 +1,7 @@
 import { ListNews, DetaiNew } from './../data-fake/news';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
 
 @Injectable()
 export class NewsService {

@@ -1,3 +1,5 @@
+import { UserService } from './../../core/user/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { OnInit, Component, ElementRef, Renderer } from '@angular/core';
 import { AddressService } from 'app/core/address/address.service';
@@ -6,15 +8,20 @@ import { SelectItem, ConfirmationService } from 'primeng/api';
 import { DirectionService } from 'app/core/direction/direction.service';
 import { LegalStatusService } from 'app/core/legal-status/legal-status.service';
 import { UtilitiesService } from 'app/core/utilities/utilities.service';
-import { ProductPostService } from 'app/core/product-post/product-post.service';
-import { IProductPost, ProductPost } from 'app/core/product-post/product-post.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { ProductPostTypeService } from 'app/core/product-type/product-type.service';
+import { ProductPost } from 'app/core/post/model/product-post.model';
+import { PostService } from 'app/core/post/post.service';
+import { Post } from 'app/core/post/model/post.model';
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/user/account.model';
+import { IUser } from 'app/core/user/user.model';
 
 @Component({
   selector: 'app-postproduct',
   templateUrl: './postproduct.component.html',
-  styleUrls: ['./postproduct.component.scss']
+  styleUrls: ['./postproduct.component.scss'],
+  providers: [ConfirmationService]
 })
 export class PostproductComponent implements OnInit {
   /*  Item select button  */
@@ -37,6 +44,8 @@ export class PostproductComponent implements OnInit {
   listLegalStatus = [];
   /* product post */
   productPost: ProductPost;
+  account: Account;
+  user: IUser;
   /*  List product type and product type child  */
   listProductTypeChild: [];
   listProductType: [];
@@ -59,9 +68,16 @@ export class PostproductComponent implements OnInit {
     directionID: [null],
     legalStatusID: [null, Validators.required],
     projectPostTitle: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
+    // eslint-disable-next-line
+    numFloor: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
+    // eslint-disable-next-line
+    numBathroom: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
+    // eslint-disable-next-line
+    numBedroom: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
     content: [this.text1, Validators.maxLength(255)],
     utilities: [null]
   });
+  post: Post = new Post();
   constructor(
     private addressService: AddressService,
     private directionService: DirectionService,
@@ -71,10 +87,12 @@ export class PostproductComponent implements OnInit {
     private productPostTypeService: ProductPostTypeService,
     private elementRef: ElementRef,
     private renderer: Renderer,
-    private productPostService: ProductPostService,
     private confirmationService: ConfirmationService,
     private alertService: JhiAlertService,
-    private router: Router
+    private router: Router,
+    private postService: PostService,
+    private accountService: AccountService,
+    private userService: UserService,
   ) {
     this.types = [
       { label: 'Mua bán', value: '1' },
@@ -88,12 +106,16 @@ export class PostproductComponent implements OnInit {
     this.getDirection();
     this.getLegalStatus();
     this.getUtility();
+    this.selectedType = this.types[0].value;
+    // this.selectedType = 'Mua bán';
   }
   /*  add picture to list */
   onUpload(event) {
     for (const file of event.files) {
       this.uploadedFiles.push(file);
     }
+    // tslint:disable-next-line: no-console
+    console.log('data uploadedFiles: ', this.uploadedFiles);
   }
 
   /* get ward when select distric */
@@ -185,7 +207,7 @@ export class PostproductComponent implements OnInit {
    * checkItemChecked
    */
   checkItemChecked() {
-    // eslint-disable-next-line
+    // tslint:disable-next-line: no-console
     console.log('checked value', this.listUtilitiesSelected);
 
   }
@@ -194,17 +216,86 @@ export class PostproductComponent implements OnInit {
    * submit form
    */
   postProduct() {
+    this.productPostForm.controls.utilities.setValue(this.listUtilitiesSelected);
+    this.productPostForm.controls.type.setValue(this.selectedType);
+    this.accountService.identity().subscribe((account: Account) => {
+      this.account = account;
+    });
     // eslint-disable-next-line
-    console.log('do nothing');
+    // tslint:disable-next-line: no-console
+    console.log('data post: ', this.account);
+    // eslint-disable-next-line
+    this.userService.find(this.account.login).subscribe((userAuthen: IUser) => {
+      this.user = userAuthen;
+    });
+    const product = {
+      price: this.productPostForm.controls.price.value,
+      area: this.productPostForm.controls.price.value,
+      direction: this.productPostForm.controls.directionID.value,
+      legalStatus: this.productPostForm.controls.legalStatusID.value,
+      numberFloor: this.productPostForm.controls.numFloor.value,
+      numberBathroom: this.productPostForm.controls.numBathroom.value,
+      numberBedroom: this.productPostForm.controls.numBedroom.value,
+      productTypeChild: this.productPostForm.controls.productTypeChildID.value,
+      productType: this.productPostForm.controls.productTypeID.value,
+      utilities: this.productPostForm.controls.utilities.value,
+      status: true
+    };
+    const productPost = {
+      user: this.user,
+      projectName: this.productPostForm.controls.projectName.value,
+      productPostType: this.productPostForm.controls.type.value,
+      productPostTitle: this.productPostForm.controls.projectPostTitle.value,
+      totalLike: null,
+      typeDeal: null,
+      totalReport: null,
+      totalShare: null,
+      ward: this.formAddress.controls.wardCode.value,
+      province: this.formAddress.controls.provinceCode.value,
+      district: this.formAddress.controls.districtCode.value,
+      address: this.formAddress.controls.address.value,
+      content: this.productPostForm.controls.content.value,
+      shortDescription: this.productPostForm.controls.content.value.substr(0, 51),
+      product: null,
+      status: true
+    };
+    const image = {
+      img1: this.uploadedFiles[0],
+      img2: this.uploadedFiles[1],
+      img3: this.uploadedFiles[2],
+      img4: this.uploadedFiles[3],
+      img5: this.uploadedFiles[4],
+      img6: this.uploadedFiles[5],
+      img7: this.uploadedFiles[6],
+      img8: this.uploadedFiles[7],
+      img9: this.uploadedFiles[8],
+      img10: this.uploadedFiles[9],
+      status: true
+    };
+    const usingImage = {
+      image: null,
+      usingType: null,
+      productPost: null,
+      status: true
+    };
+    this.post.productRequestDTO = product;
+    this.post.productPostRequestDTO = productPost;
+    this.post.imageDTO = image;
+    this.post.usingImageRequestDTO = usingImage;
+    // eslint-disable-next-line
     this.confirmationService.confirm({
       message: 'Bạn có chắc chắn muốn tạo bài đăng này?',
       accept: () => {
-        const data: IProductPost = this.productPostForm.getRawValue();
         this.alertService.clear();
-        this.productPostService
-          .create(data)
-          .subscribe(() => this.router.navigate(['']), err => this.alertService.error(err.error.title));
+        this.postService
+          .create(this.post)
+          // eslint-disable-next-line
+          .subscribe((res: any) => this.router.navigate(['manage-product']), (err: HttpErrorResponse) => this.alertService.error(err.error.title));
+        // tslint:disable-next-line: no-console
+        console.log('data post: ', this.post);
+        // tslint:disable-next-line: no-console
+        console.log('data pic: ', this.uploadedFiles);
       }
     });
   }
-  }
+}

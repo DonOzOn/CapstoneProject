@@ -39,7 +39,6 @@ export class ManagereviewpostComponent implements OnInit {
   }
   getlistCar() {
     this.carService.getListCar().subscribe(res => {
-      console.log(res);
       this.cars = res.data.rows;
     });
   }

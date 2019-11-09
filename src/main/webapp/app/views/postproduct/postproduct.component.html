@@ -159,7 +159,6 @@
                                                         <div class="row col-md-12 m-0 p-0 mb-2">
                                                             <div class="col-md-5 ">
                                                                 <label class="m-0 py-1">Địa chỉ</label>
-
                                                             </div>
                                                             <div class="col-md-7 p-0">
                                                                 <span class="ui-float-label">
@@ -321,7 +320,7 @@
                                                 <div class="col-md-10 pl-4">
                                                     <span class="ui-float-label pl-2 ml-2">
                                                                 <p-fileUpload name="demo[]"
-                                                                multiple="multiple" accept="image/*" fileLimit= "10" maxFileSize="1000000">
+                                                                multiple="multiple" accept="image/*" (onUpload)="onUpload($event)"fileLimit= "10" maxFileSize="1000000">
                                                             <ng-template pTemplate="content">
                                                                 <ul *ngIf="uploadedFiles.length">
                                                                     <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
@@ -382,16 +381,70 @@
 
 
                                                 </div>
-                                                <!-- <div class="col-md-6 p-0">
+                                                <div class="col-md-6 pt-2">
                                                     <div class="col-md-12 m-0 p-0 mb-2">
-                                                        <div class="ui-g" style="width:250px;margin-bottom:10px" *ngFor="let item of listUtilities.slice(4,8)">
-                                                            <div class="ui-g-12">
-                                                                <p-checkbox name="groupname" [formControl]="productPostForm.controls['utilitiesID']" (onChange)="checkItemChecked()" value="{{listUtilities.id}}" label="{{item.utilitiesName}}" inputId="no"></p-checkbox>
+                                                        <!-- Số tầng -->
+                                                        <div class="row col-md-12 m-0 p-0 mb-4">
+                                                            <div class="col-md-5 ">
+                                                                <label class="m-0 py-1">Số tầng</label>
                                                             </div>
-
+                                                            <div class="col-md-7 p-0">
+                                                                <span class="ui-float-label">
+                                                                    <input id="float-input" type="text" formControlName="numFloor" size="30" pInputText> 
+                                                                     <label for="float-input">Số tầng</label>
+                                                                </span>
+                                                                <div *ngIf="productPostForm.get('numFloor').invalid && (productPostForm.get('numFloor').dirty || productPostForm.get('numFloor').touched)">
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numFloor').errors.pattern">
+                                                                        Số tầng không hợp lệ.
+                                                                    </small>
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numFloor').errors.maxlength">
+                                                                        Số tầng dài nhất có 11 số.
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Số phòng tắm -->
+                                                        <div class="row col-md-12 m-0 p-0 mb-4">
+                                                            <div class="col-md-5 ">
+                                                                <label class="m-0 py-1">Số phòng tắm</label>
+                                                            </div>
+                                                            <div class="col-md-7 p-0">
+                                                                <span class="ui-float-label">
+                                                                    <input id="float-input" type="text" formControlName="numBathroom" size="30" pInputText> 
+                                                                     <label for="float-input">Số phòng tắm  </label>
+                                                                 </span>
+                                                                <div *ngIf="productPostForm.get('numBathroom').invalid && (productPostForm.get('numBathroom').dirty || productPostForm.get('numBathroom').touched)">
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numBathroom').errors.pattern">
+                                                                            Số phòng tắm  không hợp lệ.
+                                                                    </small>
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numBathroom').errors.maxlength">
+                                                                            Số phòng tắm  dài nhất có 11 số.
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Số phòng ngủ -->
+                                                        <div class="row col-md-12 m-0 p-0 mb-4">
+                                                            <div class="col-md-5 ">
+                                                                <label class="m-0 py-1">Số phòng ngủ</label>
+                                                            </div>
+                                                            <div class="col-md-7 p-0">
+                                                                <span class="ui-float-label">
+                                                                    <input id="float-input" type="text" formControlName="numBedroom" size="30" pInputText> 
+                                                                    <label for="float-input">Số phòng ngủ  </label>
+                                                                </span>
+                                                                <div *ngIf="productPostForm.get('numBedroom').invalid && (productPostForm.get('numBedroom').dirty || productPostForm.get('numBedroom').touched)">
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numBedroom').errors.pattern">
+                                                                    Số phòng ngủ  không hợp lệ.
+                                                                     </small>
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numBedroom').errors.maxlength">
+                                                                    Số phòng ngủ dài nhất có 11 số.
+                                                                    </small>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div> -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

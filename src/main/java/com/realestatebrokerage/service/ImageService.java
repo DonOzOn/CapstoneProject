@@ -45,7 +45,7 @@ public class ImageService {
         image.setImg9(imageDTO.getImg9());
         image.setImg10(imageDTO.getImg10());
        return imageRepository.save(image);
-//        return image.getId();
+
 
     }
 }

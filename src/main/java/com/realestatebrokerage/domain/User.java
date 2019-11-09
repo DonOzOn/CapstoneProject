@@ -62,6 +62,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JoinColumn(name="district_code",referencedColumnName="code")
     private District district;
 
+    @ManyToOne
+    @JoinColumn(name="ward_code",referencedColumnName="code")
+    private Ward ward;
+
     @Column(name = "dob")
     private LocalDate dob;
 
@@ -255,6 +259,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setDistrict(District district) {
         this.district = district;
+    }
+
+    public Ward getWard() {
+        return ward;
+    }
+
+    public void setWard(Ward ward) {
+        this.ward = ward;
     }
 
     @Override

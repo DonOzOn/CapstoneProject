@@ -3,6 +3,7 @@ package com.realestatebrokerage.service.dto;
 import com.realestatebrokerage.domain.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ProductResponseDTO {
     private Long id;
@@ -10,11 +11,12 @@ public class ProductResponseDTO {
     private String area;
     private Direction direction;
     private LegalStatus legalStatus;
-    private int numberFloor;
-    private int numberBathroom;
-    private int numberBedroom;
+    private Integer numberFloor;
+    private Integer numberBathroom;
+    private Integer numberBedroom;
     private ProductTypeChild productTypeChild;
     private ProductType productType;
+    private List<Utilities> utilities;
     private boolean status;
     private String createdBy;
     private Instant createdDate;
@@ -40,6 +42,8 @@ public class ProductResponseDTO {
         if(product.getProductTypeChild()!= null){
             this.productTypeChild = product.getProductTypeChild();
         }
+        this.utilities = product.getUtilities();
+
         if(product.getProductType()!= null){
             this.productType = product.getProductType();
         }
@@ -97,28 +101,36 @@ public class ProductResponseDTO {
         this.legalStatus = legalStatus;
     }
 
-    public int getNumberFloor() {
+    public Integer getNumberFloor() {
         return numberFloor;
     }
 
-    public void setNumberFloor(int numberFloor) {
+    public void setNumberFloor(Integer numberFloor) {
         this.numberFloor = numberFloor;
     }
 
-    public int getNumberBathroom() {
+    public Integer getNumberBathroom() {
         return numberBathroom;
     }
 
-    public void setNumberBathroom(int numberBathroom) {
+    public void setNumberBathroom(Integer numberBathroom) {
         this.numberBathroom = numberBathroom;
     }
 
-    public int getNumberBedroom() {
+    public Integer getNumberBedroom() {
         return numberBedroom;
     }
 
-    public void setNumberBedroom(int numberBedroom) {
+    public void setNumberBedroom(Integer numberBedroom) {
         this.numberBedroom = numberBedroom;
+    }
+
+    public List<Utilities> getUtilities() {
+        return utilities;
+    }
+
+    public void setUtilities(List<Utilities> utilities) {
+        this.utilities = utilities;
     }
 
     public ProductTypeChild getProductTypeChild() {

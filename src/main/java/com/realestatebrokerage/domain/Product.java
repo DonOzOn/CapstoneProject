@@ -15,6 +15,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -47,17 +48,15 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @JoinColumn(referencedColumnName = "id", name = "legal_status_id")
     private LegalStatus legalStatus;
 
-    @Size(min=1, max = 50)
+
     @Column(name = "number_floor", length = 50)
-    private int numberFloor;
+    private Integer numberFloor;
 
-    @Size(min=1, max = 50)
     @Column(name = "number_bathroom", length = 50)
-    private int numberBathroom;
+    private Integer numberBathroom;
 
-    @Size(min=1, max = 50)
     @Column(name = "number_bedroom", length = 50)
-    private int numberBedroom;
+    private Integer numberBedroom;
 
     @OneToOne
     @JoinColumn(referencedColumnName = "id", name = "product_type_child_id")
@@ -66,6 +65,12 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @OneToOne
     @JoinColumn(referencedColumnName = "id", name = "product_type_id")
     private ProductType productType;
+
+    @ManyToMany
+    @JoinTable(name = "using_utilities", inverseJoinColumns = {
+        @JoinColumn(name = "utilities_id", referencedColumnName = "id")}, joinColumns = {
+        @JoinColumn(name = "product_id", referencedColumnName = "id")})
+    private List<Utilities> utilities;
 
     @NotNull
     @Column(name = "status", nullable = false)
@@ -127,30 +132,6 @@ public class Product extends AbstractAuditingEntity implements Serializable {
         this.legalStatus = legalStatus;
     }
 
-    public int getNumberFloor() {
-        return numberFloor;
-    }
-
-    public void setNumberFloor(int numberFloor) {
-        this.numberFloor = numberFloor;
-    }
-
-    public int getNumberBathroom() {
-        return numberBathroom;
-    }
-
-    public void setNumberBathroom(int numberBathroom) {
-        this.numberBathroom = numberBathroom;
-    }
-
-    public int getNumberBedroom() {
-        return numberBedroom;
-    }
-
-    public void setNumberBedroom(int numberBedroom) {
-        this.numberBedroom = numberBedroom;
-    }
-
     public ProductTypeChild getProductTypeChild() {
         return productTypeChild;
     }
@@ -173,5 +154,37 @@ public class Product extends AbstractAuditingEntity implements Serializable {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Integer getNumberFloor() {
+        return numberFloor;
+    }
+
+    public void setNumberFloor(Integer numberFloor) {
+        this.numberFloor = numberFloor;
+    }
+
+    public Integer getNumberBathroom() {
+        return numberBathroom;
+    }
+
+    public void setNumberBathroom(Integer numberBathroom) {
+        this.numberBathroom = numberBathroom;
+    }
+
+    public Integer getNumberBedroom() {
+        return numberBedroom;
+    }
+
+    public void setNumberBedroom(Integer numberBedroom) {
+        this.numberBedroom = numberBedroom;
+    }
+
+    public List<Utilities> getUtilities() {
+        return utilities;
+    }
+
+    public void setUtilities(List<Utilities> utilities) {
+        this.utilities = utilities;
     }
 }
