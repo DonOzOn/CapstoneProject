@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules, PreloadingStrategy } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { ErrorComponent } from './views/error/error.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
@@ -16,7 +16,7 @@ const routes: Routes = [
       title: 'Đăng nhập'
     }
   },
-    {
+  {
     path: 'register',
     component: RegisterComponent,
     data: {
@@ -107,4 +107,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { useHash: true, preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

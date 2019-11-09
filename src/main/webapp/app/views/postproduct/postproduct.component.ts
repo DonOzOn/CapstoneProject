@@ -114,7 +114,7 @@ export class PostproductComponent implements OnInit {
     for (const file of event.files) {
       this.uploadedFiles.push(file);
     }
-    // eslint-disable-next-line
+    // tslint:disable-next-line: no-console
     console.log('data uploadedFiles: ', this.uploadedFiles);
   }
 
@@ -207,7 +207,7 @@ export class PostproductComponent implements OnInit {
    * checkItemChecked
    */
   checkItemChecked() {
-    // eslint-disable-next-line
+    // tslint:disable-next-line: no-console
     console.log('checked value', this.listUtilitiesSelected);
 
   }
@@ -222,6 +222,7 @@ export class PostproductComponent implements OnInit {
       this.account = account;
     });
     // eslint-disable-next-line
+    // tslint:disable-next-line: no-console
     console.log('data post: ', this.account);
     // eslint-disable-next-line
     this.userService.find(this.account.login).subscribe((userAuthen: IUser) => {
@@ -290,9 +291,9 @@ export class PostproductComponent implements OnInit {
           .create(this.post)
           // eslint-disable-next-line
           .subscribe((res: any) => this.router.navigate(['manage-product']), (err: HttpErrorResponse) => this.alertService.error(err.error.title));
-        // eslint-disable-next-line
+        // tslint:disable-next-line: no-console
         console.log('data post: ', this.post);
-        // eslint-disable-next-line
+        // tslint:disable-next-line: no-console
         console.log('data pic: ', this.uploadedFiles);
       }
     });

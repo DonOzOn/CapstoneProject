@@ -1,7 +1,7 @@
 import { PostproductComponent } from './postproduct.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FlickityModule } from 'ngx-flickity';
-import { NgModule, Component } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OwlModule } from 'ngx-owl-carousel';
 import { PostproductRoutingModule } from './postproduct-routing.module';
@@ -19,7 +19,6 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [PostproductComponent],

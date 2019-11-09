@@ -16,7 +16,6 @@ export class NewspageComponent implements OnInit {
 
   getlistNews() {
     this.newService.getListNews().subscribe(res => {
-      console.log(res);
       this.listNews = res.data.rows;
     });
   }

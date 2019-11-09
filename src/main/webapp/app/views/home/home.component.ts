@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FlickityChildDirective } from 'ngx-flickity';
 
 @Component({
   selector: 'app-home',

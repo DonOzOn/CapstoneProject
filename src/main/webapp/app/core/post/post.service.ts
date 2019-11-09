@@ -18,7 +18,7 @@ export class PostService {
         return this.http.post<IPost>(this.resourceUrl, post, { observe: 'response' }).pipe(
             tap((response: HttpResponse<IPost>) => {
                 if (response.ok) {
-                    const g = response.body;
+                    // const g = response.body;
                     this.alertService.success('Tạo thành công bài đăng' , null, null);
                 }
             })
@@ -29,7 +29,7 @@ export class PostService {
         return this.http.put<IPost>(this.resourceUrl, post, { observe: 'response' }).pipe(
             tap((response: HttpResponse<IPost>) => {
                 if (response.ok) {
-                    const g = response.body;
+                    // const g = response.body;
                     this.alertService.success('Cập nhật thành công post #' , null, null);
                 }
             })
@@ -40,7 +40,7 @@ export class PostService {
         return this.http.put(`${this.resourceUrl}/${id}/toggle-status`, { observe: 'response' }).pipe(
             tap((response: HttpResponse<IPost>) => {
                 if (response.ok) {
-                    const g = response.body;
+                    // const g = response.body;
                     this.alertService.success('Cập nhật thành công post #' , null, null);
                 }
             })
