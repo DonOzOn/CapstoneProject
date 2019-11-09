@@ -70,9 +70,9 @@ export class PostproductComponent implements OnInit {
     projectPostTitle: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
     // eslint-disable-next-line
     numFloor: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
-     // eslint-disable-next-line
+    // eslint-disable-next-line
     numBathroom: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
-     // eslint-disable-next-line
+    // eslint-disable-next-line
     numBedroom: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
     content: [this.text1, Validators.maxLength(255)],
     utilities: [null]
