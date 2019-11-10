@@ -47,6 +47,16 @@ body {
 .bl-right .bl-border {
   padding: 0 10px;
 }
+.container{
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 8px;
+  position: relative;
+}
+.main-content{
+  background-color: #fff;
+  padding: 10px 20px 20px 20px;
+}
 
 .bl-input-new {
   position: relative;
@@ -166,7 +176,7 @@ body {
 }
 
 .bl-post {
-  border-top: 1px solid #d5d5d5;
+ 
   padding: 0 0 30px;
 }
 
@@ -213,13 +223,40 @@ body {
 }
 
 .pull-right {
-  float: right !important;
+  float: right!important;
 }
 
 .div-posting .span-save-posting {
   display: inline-block;
-  padding: 13px 40px 0 35px;
+  padding: 8px 40px 0 35px;
   color: #989898;
   position: relative;
   font-weight: 400;
+}
+.bc-icons-2 .breadcrumb-item+.breadcrumb-item::before {
+  content: none;
+}
+
+.bc-icons-2 .breadcrumb-item.active {
+  color: #428BCA;
+}
+
+.breadcrumb {
+  background-color: inherit;
+}
+
+a {
+  text-decoration: none;
+  &.visited {
+      color: gray;
+  }
+  &.hover {
+      color: rgb(100, 192, 192);
+  }
+}
+
+.news {
+  background: #ebebeb;
+  padding: 24px 0 2px 0;
+  padding-bottom: 32px;
 }
