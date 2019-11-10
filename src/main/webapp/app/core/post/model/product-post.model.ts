@@ -6,7 +6,7 @@ import { Product } from './product.model';
 
 export interface IProductPost {
     id?: any;
-    user?: IUser;
+    user?: any;
     projectName?: string;
     productPostType?: any;
     productPostTitle?: string;
@@ -30,7 +30,7 @@ export interface IProductPost {
 export class ProductPost implements IProductPost {
     constructor(
         public id?: any,
-        public user?: IUser,
+        public user?: any,
         public projectName?: string,
         public productPostType?: any,
         public productPostTitle?: string,

@@ -26,6 +26,8 @@ public class ProductService {
     private ProductTypeRepository productTypeRepository;
     @Autowired
     private ProductTypeChildRepository productTypeChildRepository;
+    @Autowired
+    private UtilitiesRepository utilitiesRepository;
 
     /**
      * List all product
@@ -39,6 +41,7 @@ public class ProductService {
      * */
     public Product createProduct(ProductRequestDTO productRequestDTO) {
         Product product = new Product();
+        List<Utilities> utilities = new ArrayList<>();
         product.setPrice(productRequestDTO.getPrice());
         product.setArea(productRequestDTO.getArea());
         Direction direction = directionRepository.findById(productRequestDTO.getDirection()).orElse(null);
@@ -54,6 +57,12 @@ public class ProductService {
         product.setProductTypeChild(productTypeChild);
         product.setStatus(productRequestDTO.isStatus());
 
+        for (Long id: productRequestDTO.getUtilities()) {
+            Utilities utilitiesSearch = utilitiesRepository.findById(id).orElse(null);
+            utilities.add(utilitiesSearch);
+            System.out.println("utilities : " + utilities.toString());
+        }
+        product.setUtilities(utilities);
         return productRepository.save(product);
     }
 
@@ -74,6 +83,11 @@ public class ProductService {
                 product.setProductType(productType);
                 ProductTypeChild productTypeChild = productTypeChildRepository.findById(productRequestDTO.getProductTypeChild()).orElse(null);
                 product.setProductTypeChild(productTypeChild);
+                for (Long id: productRequestDTO.getUtilities()) {
+                    Utilities utilitiesSearch = utilitiesRepository.findById(id).orElse(null);
+                    utilities.add(utilitiesSearch);
+                }
+                product.setUtilities(utilities);
                 return productRepository.save(product);
             });
     }

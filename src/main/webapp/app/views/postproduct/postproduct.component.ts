@@ -114,7 +114,7 @@ export class PostproductComponent implements OnInit {
     for (const file of event.files) {
       this.uploadedFiles.push(file);
     }
-    // tslint:disable-next-line: no-console
+     // eslint-disable-next-line
     console.log('data uploadedFiles: ', this.uploadedFiles);
   }
 
@@ -207,7 +207,7 @@ export class PostproductComponent implements OnInit {
    * checkItemChecked
    */
   checkItemChecked() {
-    // tslint:disable-next-line: no-console
+    // eslint-disable-next-line
     console.log('checked value', this.listUtilitiesSelected);
 
   }
@@ -222,7 +222,6 @@ export class PostproductComponent implements OnInit {
       this.account = account;
     });
     // eslint-disable-next-line
-    // tslint:disable-next-line: no-console
     console.log('data post: ', this.account);
     // eslint-disable-next-line
     this.userService.find(this.account.login).subscribe((userAuthen: IUser) => {
@@ -230,7 +229,7 @@ export class PostproductComponent implements OnInit {
     });
     const product = {
       price: this.productPostForm.controls.price.value,
-      area: this.productPostForm.controls.price.value,
+      area: this.productPostForm.controls.area.value,
       direction: this.productPostForm.controls.directionID.value,
       legalStatus: this.productPostForm.controls.legalStatusID.value,
       numberFloor: this.productPostForm.controls.numFloor.value,
@@ -291,9 +290,9 @@ export class PostproductComponent implements OnInit {
           .create(this.post)
           // eslint-disable-next-line
           .subscribe((res: any) => this.router.navigate(['manage-product']), (err: HttpErrorResponse) => this.alertService.error(err.error.title));
-        // tslint:disable-next-line: no-console
+         // eslint-disable-next-line
         console.log('data post: ', this.post);
-        // tslint:disable-next-line: no-console
+       // eslint-disable-next-line
         console.log('data pic: ', this.uploadedFiles);
       }
     });
