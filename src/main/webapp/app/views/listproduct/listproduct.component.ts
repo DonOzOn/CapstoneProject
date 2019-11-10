@@ -14,6 +14,7 @@ export class ListproductComponent implements OnInit {
   count: any;
   listPost: any[] = [];
   listNews: any[] = [];
+  itemsTag = ['Pizza', 'Pasta', 'Parmesan'];
   choose = [
     { value: 1, name: 'Mới nhất' },
     { value: 2, name: 'Cũ nhất' },
