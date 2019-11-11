@@ -58,11 +58,11 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Column(name = "number_bedroom", length = 50)
     private Integer numberBedroom;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(referencedColumnName = "id", name = "product_type_child_id")
     private ProductTypeChild productTypeChild;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(referencedColumnName = "id", name = "product_type_id")
     private ProductType productType;
 
@@ -76,20 +76,8 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Column(name = "status", nullable = false)
     private boolean status = false;
 
-    public Product() {
-    }
 
-    public Product(@Size(max = 50) String price, @Size(max = 50) String area, Direction direction, LegalStatus legalStatus, @Size(min = 1, max = 50) int numberFloor, @Size(min = 1, max = 50) int numberBathroom, @Size(min = 1, max = 50) int numberBedroom, ProductTypeChild productTypeChild, ProductType productType, @NotNull boolean status) {
-        this.price = price;
-        this.area = area;
-        this.direction = direction;
-        this.legalStatus = legalStatus;
-        this.numberFloor = numberFloor;
-        this.numberBathroom = numberBathroom;
-        this.numberBedroom = numberBedroom;
-        this.productTypeChild = productTypeChild;
-        this.productType = productType;
-        this.status = status;
+    public Product() {
     }
 
     public Long getId() {

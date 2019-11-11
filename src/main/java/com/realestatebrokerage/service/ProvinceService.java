@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class ProvinceService {
-    private final Logger log = LoggerFactory.getLogger(ProvinceService.class);
+        private final Logger log = LoggerFactory.getLogger(ProvinceService.class);
 
-    @Autowired
-    private ProvinceRepository provinceRepository;
+        @Autowired
+        private ProvinceRepository provinceRepository;
 
-    public List<Province> findAll(){
+        public List<Province> findAll(){
         return provinceRepository.findAll();
     }
 }
