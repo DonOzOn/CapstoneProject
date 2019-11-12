@@ -41,7 +41,7 @@ public class UserService {
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
-    
+
     @Autowired
     ProvinceRepository provinceRepository;
     @Autowired

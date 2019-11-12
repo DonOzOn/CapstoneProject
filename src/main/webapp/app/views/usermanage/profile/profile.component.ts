@@ -8,6 +8,9 @@ import { UserService } from 'app/core/user/user.service';
 import { Account } from 'app/core/user/account.model';
 import { IUser } from 'app/core/user/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Province } from 'app/core/address/model/province.model';
+import { District } from 'app/core/address/model/district.model';
+import { Ward } from 'app/core/address/model/ward.model';
 
 interface City {
   name: string;
@@ -28,6 +31,9 @@ export class ProfileComponent implements OnInit {
   date6: Date;
   currentAccount: Account;
   currentUser: IUser;
+  currentProvince: Province;
+  currentDistrict: District;
+  currentWard: Ward;
   /* List provinces, district, ward*/
   listProvinces = [];
   listDistrict = [];
@@ -61,14 +67,9 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.selectedType = this.types[0].value;
-    this.getProvince();
-    this.date6 = new Date('08/03/1997');
     // indentity account
     this.accountService.identity().subscribe((account: Account) => {
       this.currentAccount = account;
-      // eslint-disable-next-line
-      console.log('account', this.currentUser);
       this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
         this.currentUser = userAuthen;
         if (this.currentUser.id) {
@@ -76,10 +77,26 @@ export class ProfileComponent implements OnInit {
           this.profileForm.controls.lastName.setValue(this.currentUser.lastName);
           this.profileForm.controls.gender.setValue(this.currentUser.gender);
           this.profileForm.controls.phone.setValue(this.currentUser.phone);
-          this.profileForm.controls.dob.setValue(this.currentUser.dob);
-          this.profileForm.controls.provinceCode.setValue(this.currentUser.province);
-          this.profileForm.controls.districtCode.setValue(this.currentUser.district);
-          this.profileForm.controls.wardCode.setValue(this.currentUser.ward);
+          this.currentProvince = this.currentUser.province;
+          this.currentDistrict = this.currentUser.district;
+          this.addressService.filterProvince().subscribe((res: any) => {
+            this.listProvinces = res.body;
+          });
+          this.profileForm.controls.provinceCode.setValue(this.currentProvince.code);
+          if (this.profileForm.value.provinceCode != null) {
+            this.addressService.filterDistrict(this.profileForm.value.provinceCode).subscribe((res: any) => {
+              this.listDistrict = res.body;
+            });
+          }
+          this.profileForm.controls.districtCode.setValue(this.currentDistrict.code);
+          if (this.profileForm.value.districtCode != null) {
+            this.addressService.filterWard(this.profileForm.value.districtCode).subscribe((res: any) => {
+              this.listWard = res.body;
+            });
+          }
+          this.profileForm.controls.wardCode.setValue(this.currentUser.ward.code);
+          this.profileForm.controls.dob.setValue(this.currentUser.dob ? new Date(this.currentUser.dob) : '');
+
         }
       });
 
