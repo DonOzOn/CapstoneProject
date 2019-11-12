@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { OnInit, Component, ElementRef, Renderer } from '@angular/core';
 import { AddressService } from 'app/core/address/address.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { SelectItem, ConfirmationService } from 'primeng/api';
+import { SelectItem, ConfirmationService, MessageService } from 'primeng/api';
 import { DirectionService } from 'app/core/direction/direction.service';
 import { LegalStatusService } from 'app/core/legal-status/legal-status.service';
 import { UtilitiesService } from 'app/core/utilities/utilities.service';
@@ -21,14 +21,15 @@ import { IUser } from 'app/core/user/user.model';
   selector: 'app-postproduct',
   templateUrl: './postproduct.component.html',
   styleUrls: ['./postproduct.component.scss'],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService, MessageService]
 })
 export class PostproductComponent implements OnInit {
   /*  Item select button  */
   selectedType: string;
   types: SelectItem[];
   selectedUtility: string[] = [];
-  text1 = '<div>Hello!</div><div>Welcom to BDS</div><div><br></div>';
+  isUploadedFile; false;
+  text1 = '<div>Hello!</div><div>Chào mừng tới BDS</div><div><br></div>';
   formAddress = this.fb.group({
     address: [null, Validators.required],
     provinceCode: [null, Validators.required],
@@ -52,6 +53,7 @@ export class PostproductComponent implements OnInit {
   uploadedFiles: any[] = [];
   countContent: any = 0;
   listUtilitiesSelected = [];
+  listImageName = [];
   /*  Form product post */
   productPostForm = this.fb.group({
     projectName: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
@@ -93,6 +95,7 @@ export class PostproductComponent implements OnInit {
     private postService: PostService,
     private accountService: AccountService,
     private userService: UserService,
+    private messageService: MessageService,
   ) {
     this.types = [
       { label: 'Mua bán', value: '1' },
@@ -109,21 +112,50 @@ export class PostproductComponent implements OnInit {
     this.selectedType = this.types[0].value;
     // this.selectedType = 'Mua bán';
   }
-  /*  add picture to list */
-  onUpload(event) {
-    for (const file of event.files) {
-      this.uploadedFiles.push(file);
-    }
-     // eslint-disable-next-line
-    console.log('data uploadedFiles: ', this.uploadedFiles);
-  }
 
+  /*  add picture to list */
+  onUpload(event, fileUpload) {
+    // eslint-disable-next-line
+    console.log('da qua day');
+    const listFile = [];
+    for (const file of event.files) {
+      listFile.push(file);
+    }
+    listFile.forEach(element => {
+      this.postService.upload(element).subscribe((res: any) => {
+        this.uploadedFiles.push(res.body.name);
+        this.isUploadedFile = true;
+        // eslint-disable-next-line
+        console.log('Dung uploadedFiles: ', this.uploadedFiles);
+      },
+        (err: any) => {
+          this.isUploadedFile = false;
+          // eslint-disable-next-line
+          console.log('Sai', err.body);
+        });
+    });
+    if (this.isUploadedFile === true) {
+      this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh thành công!!' });
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh thất bại!!' });
+
+    }
+    fileUpload.clear();
+  }
+  onRemove(event) {
+    const filtered = this.uploadedFiles.filter(function(value, index, arr) {
+      return value.name !== event.file.name;
+    });
+    this.uploadedFiles = filtered;
+    // eslint-disable-next-line
+    console.log('after delete uploadedFiles: ', this.uploadedFiles);
+  }
   /* get ward when select distric */
   selectedDistrict() {
     if (this.formAddress.value.districtCode != null) {
       this.addressService.filterWard(this.formAddress.value.districtCode).subscribe((res: any) => {
         this.listWard = res.body;
-        this.productPostForm.controls.wardCode.reset();
+        this.formAddress.controls.wardCode.reset();
       });
     }
   }
@@ -216,85 +248,90 @@ export class PostproductComponent implements OnInit {
    * submit form
    */
   postProduct() {
-    this.productPostForm.controls.utilities.setValue(this.listUtilitiesSelected);
-    this.productPostForm.controls.type.setValue(this.selectedType);
-    this.accountService.identity().subscribe((account: Account) => {
-      this.account = account;
-    });
-    // eslint-disable-next-line
-    console.log('data post: ', this.account);
-    // eslint-disable-next-line
-    this.userService.find(this.account.login).subscribe((userAuthen: IUser) => {
-      this.user = userAuthen;
-    });
-    const product = {
-      price: this.productPostForm.controls.price.value,
-      area: this.productPostForm.controls.area.value,
-      direction: this.productPostForm.controls.directionID.value,
-      legalStatus: this.productPostForm.controls.legalStatusID.value,
-      numberFloor: this.productPostForm.controls.numFloor.value,
-      numberBathroom: this.productPostForm.controls.numBathroom.value,
-      numberBedroom: this.productPostForm.controls.numBedroom.value,
-      productTypeChild: this.productPostForm.controls.productTypeChildID.value,
-      productType: this.productPostForm.controls.productTypeID.value,
-      utilities: this.productPostForm.controls.utilities.value,
-      status: true
-    };
-    const productPost = {
-      user: this.user,
-      projectName: this.productPostForm.controls.projectName.value,
-      productPostType: this.productPostForm.controls.type.value,
-      productPostTitle: this.productPostForm.controls.projectPostTitle.value,
-      totalLike: null,
-      typeDeal: null,
-      totalReport: null,
-      totalShare: null,
-      ward: this.formAddress.controls.wardCode.value,
-      province: this.formAddress.controls.provinceCode.value,
-      district: this.formAddress.controls.districtCode.value,
-      address: this.formAddress.controls.address.value,
-      content: this.productPostForm.controls.content.value,
-      shortDescription: this.productPostForm.controls.content.value.substr(0, 51),
-      product: null,
-      status: true
-    };
-    const image = {
-      img1: this.uploadedFiles[0],
-      img2: this.uploadedFiles[1],
-      img3: this.uploadedFiles[2],
-      img4: this.uploadedFiles[3],
-      img5: this.uploadedFiles[4],
-      img6: this.uploadedFiles[5],
-      img7: this.uploadedFiles[6],
-      img8: this.uploadedFiles[7],
-      img9: this.uploadedFiles[8],
-      img10: this.uploadedFiles[9],
-      status: true
-    };
-    const usingImage = {
-      image: null,
-      usingType: null,
-      productPost: null,
-      status: true
-    };
-    this.post.productRequestDTO = product;
-    this.post.productPostRequestDTO = productPost;
-    this.post.imageDTO = image;
-    this.post.usingImageRequestDTO = usingImage;
-    // eslint-disable-next-line
-    this.confirmationService.confirm({
-      message: 'Bạn có chắc chắn muốn tạo bài đăng này?',
-      accept: () => {
-        this.alertService.clear();
-        this.postService
-          .create(this.post)
+    if (!this.isUploadedFile) {
+      this.messageService.add({ severity: 'warn', summary: 'Cảnh báo!', detail: 'Hãy tải ảnh lên trước' });
+    } else {
+      this.productPostForm.controls.utilities.setValue(this.listUtilitiesSelected);
+      this.productPostForm.controls.type.setValue(this.selectedType);
+      this.accountService.identity().subscribe((account: Account) => {
+        this.account = account;
+      });
+      // eslint-disable-next-line
+      console.log('data post: ', this.account);
+      // eslint-disable-next-line
+      this.userService.find(this.account.login).subscribe((userAuthen: IUser) => {
+        this.user = userAuthen;
+      });
+      const product = {
+        price: this.productPostForm.controls.price.value,
+        area: this.productPostForm.controls.area.value,
+        direction: this.productPostForm.controls.directionID.value,
+        legalStatus: this.productPostForm.controls.legalStatusID.value,
+        numberFloor: this.productPostForm.controls.numFloor.value,
+        numberBathroom: this.productPostForm.controls.numBathroom.value,
+        numberBedroom: this.productPostForm.controls.numBedroom.value,
+        productTypeChild: this.productPostForm.controls.productTypeChildID.value,
+        productType: this.productPostForm.controls.productTypeID.value,
+        utilities: this.productPostForm.controls.utilities.value,
+        status: true
+      };
+      const productPost = {
+        user: this.user,
+        projectName: this.productPostForm.controls.projectName.value,
+        productPostType: this.productPostForm.controls.type.value,
+        productPostTitle: this.productPostForm.controls.projectPostTitle.value,
+        totalLike: null,
+        typeDeal: null,
+        totalReport: null,
+        totalShare: null,
+        ward: this.formAddress.controls.wardCode.value,
+        province: this.formAddress.controls.provinceCode.value,
+        district: this.formAddress.controls.districtCode.value,
+        address: this.formAddress.controls.address.value,
+        content: this.productPostForm.controls.content.value,
+        shortDescription: this.productPostForm.controls.content.value.substr(0, 51),
+        product: null,
+        status: true
+      };
+      const image = {
+        img1: this.uploadedFiles[0],
+        img2: this.uploadedFiles[1],
+        img3: this.uploadedFiles[2],
+        img4: this.uploadedFiles[3],
+        img5: this.uploadedFiles[4],
+        img6: this.uploadedFiles[5],
+        img7: this.uploadedFiles[6],
+        img8: this.uploadedFiles[7],
+        img9: this.uploadedFiles[8],
+        img10: this.uploadedFiles[9],
+        status: true
+      };
+      const usingImage = {
+        image: null,
+        usingType: null,
+        productPost: null,
+        status: true
+      };
+      this.post.productRequestDTO = product;
+      this.post.productPostRequestDTO = productPost;
+      this.post.imageDTO = image;
+      this.post.usingImageRequestDTO = usingImage;
+      this.post.listImage = this.uploadedFiles;
+      // eslint-disable-next-line
+      this.confirmationService.confirm({
+        message: 'Bạn có chắc chắn muốn tạo bài đăng này?',
+        accept: () => {
+          this.alertService.clear();
+          this.postService
+            .create(this.post)
+            // eslint-disable-next-line
+            .subscribe((res: any) => this.router.navigate(['manage-product']), (err: HttpErrorResponse) => this.alertService.error(err.error.title));
           // eslint-disable-next-line
-          .subscribe((res: any) => this.router.navigate(['manage-product']), (err: HttpErrorResponse) => this.alertService.error(err.error.title));
-         // eslint-disable-next-line
-        console.log('data post: ', this.post);
-       // eslint-disable-next-line
-        console.log('data pic: ', this.uploadedFiles);
-      }
-    });
+          console.log('data post: ', this.post);
+          // eslint-disable-next-line
+          console.log('data pic: ', this.uploadedFiles);
+        }
+      });
+    }
   }
 }

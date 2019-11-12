@@ -35,6 +35,7 @@ public class ProductPostResponseDTO {
         this.id = productPost.getId();
         this.user = productPost.getUser();
         this.projectName = productPost.getProjectName();
+        this.shortDescription = productPost.getShortDescription();
         if (productPost.getProductPostType() != null) {
             this.productPostType = productPost.getProductPostType();
         }

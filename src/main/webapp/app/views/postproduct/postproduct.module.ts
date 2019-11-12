@@ -19,6 +19,9 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
   declarations: [PostproductComponent],
@@ -41,7 +44,10 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     SplitButtonModule,
     CheckboxModule,
     NgSelectModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MessagesModule,
+    MessageModule,
+    ToastModule
   ],
   providers: [],
   exports: [PostproductComponent]

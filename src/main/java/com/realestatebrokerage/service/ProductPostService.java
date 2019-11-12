@@ -27,6 +27,8 @@ public class ProductPostService {
     private WardRepository wardRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProductRepository productRepository;
 
     /**
      * List all product post
@@ -59,10 +61,11 @@ public class ProductPostService {
         productPost.setDistrict(district);
         Province province = provinceRepository.findById(productPostRequestDTO.getProvince()).orElse(null);
         productPost.setProvince(province);
+        Product product = productRepository.findById(productPostRequestDTO.getProduct()).orElse(null);
+        productPost.setProduct(product);
         productPost.setAddress(productPostRequestDTO.getAddress());
         productPost.setShortDescription(productPostRequestDTO.getShortDescription());
         productPost.setContent(productPostRequestDTO.getContent());
-//        productPost.setProduct(null);
         productPost.setStatus(productPostRequestDTO.isStatus());
         return productPostRepository.save(productPost);
 

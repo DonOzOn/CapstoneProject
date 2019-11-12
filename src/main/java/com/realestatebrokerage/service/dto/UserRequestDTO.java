@@ -1,13 +1,12 @@
 package com.realestatebrokerage.service.dto;
 
 import com.realestatebrokerage.config.Constants;
-
 import com.realestatebrokerage.domain.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Set;
@@ -16,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * A DTO representing a user, with his authorities.
  */
-public class UserDTO {
+public class UserRequestDTO {
 
     private Long id;
 
@@ -41,11 +40,11 @@ public class UserDTO {
 
     private boolean gender;
 
-    private Ward ward;
+    private String ward;
 
-    private Province province;
+    private String province;
 
-    private District district;
+    private String district;
 
     @Size(max = 256)
     private String imageUrl;
@@ -55,21 +54,13 @@ public class UserDTO {
     @Size(min = 2, max = 10)
     private String langKey;
 
-    private String createdBy;
-
-    private Instant createdDate;
-
-    private String lastModifiedBy;
-
-    private Instant lastModifiedDate;
-
     private Set<String> authorities;
 
-    public UserDTO() {
+    public UserRequestDTO() {
         // Empty constructor needed for Jackson.
     }
 
-    public UserDTO(User user) {
+    public UserRequestDTO(User user) {
         this.id = user.getId();
         this.login = user.getLogin();
         this.firstName = user.getFirstName();
@@ -79,22 +70,17 @@ public class UserDTO {
         this.gender = user.isGender();
         this.phone = user.getPhone();
         if(user.getProvince() != null){
-            this.province = user.getProvince();
+            this.province = user.getProvince().getCode();
         }
         if(user.getDistrict() != null){
-            this.district = user.getDistrict();
+            this.district = user.getDistrict().getCode();
         }
         if(user.getWard() != null){
-            this.ward = user.getWard();
+            this.ward = user.getWard().getCode();
         }
-
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();
         this.langKey = user.getLangKey();
-        this.createdBy = user.getCreatedBy();
-        this.createdDate = user.getCreatedDate();
-        this.lastModifiedBy = user.getLastModifiedBy();
-        this.lastModifiedDate = user.getLastModifiedDate();
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
@@ -124,27 +110,27 @@ public class UserDTO {
         this.gender = gender;
     }
 
-    public Ward getWard() {
+    public String getWard() {
         return ward;
     }
 
-    public void setWard(Ward ward) {
+    public void setWard(String ward) {
         this.ward = ward;
     }
 
-    public Province getProvince() {
+    public String getProvince() {
         return province;
     }
 
-    public void setProvince(Province province) {
+    public void setProvince(String province) {
         this.province = province;
     }
 
-    public District getDistrict() {
+    public String getDistrict() {
         return district;
     }
 
-    public void setDistrict(District district) {
+    public void setDistrict(String district) {
         this.district = district;
     }
 
@@ -212,37 +198,6 @@ public class UserDTO {
         this.langKey = langKey;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Instant getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public Instant getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Instant lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
 
     public Set<String> getAuthorities() {
         return authorities;
@@ -254,19 +209,22 @@ public class UserDTO {
 
     @Override
     public String toString() {
-        return "UserDTO{" +
-            "login='" + login + '\'' +
+        return "UserRequestDTO{" +
+            "id=" + id +
+            ", login='" + login + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
+            ", dob=" + dob +
+            ", phone='" + phone + '\'' +
+            ", gender=" + gender +
+            ", ward='" + ward + '\'' +
+            ", province='" + province + '\'' +
+            ", district='" + district + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated=" + activated +
             ", langKey='" + langKey + '\'' +
-            ", createdBy=" + createdBy +
-            ", createdDate=" + createdDate +
-            ", lastModifiedBy='" + lastModifiedBy + '\'' +
-            ", lastModifiedDate=" + lastModifiedDate +
             ", authorities=" + authorities +
-            "}";
+            '}';
     }
 }

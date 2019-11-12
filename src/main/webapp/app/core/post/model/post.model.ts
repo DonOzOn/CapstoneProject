@@ -8,6 +8,7 @@ export interface IPost {
     productPostRequestDTO?: ProductPost;
     imageDTO?: Image;
     usingImageRequestDTO?: UsingImage;
+    listImage?: any;
 }
 export class Post implements IPost {
     constructor(
@@ -15,10 +16,12 @@ export class Post implements IPost {
         public productPostRequestDTO?: ProductPost,
         public imageDTO?: Image,
         public usingImageRequestDTO?: UsingImage,
+        public listImage?: any,
     ) {
         this.productRequestDTO = productRequestDTO ? productRequestDTO : null;
         this.productPostRequestDTO = productPostRequestDTO ? productPostRequestDTO : null;
         this.imageDTO = imageDTO ? imageDTO : null;
         this.usingImageRequestDTO = usingImageRequestDTO ? usingImageRequestDTO : null;
+        this.listImage = listImage ? listImage : null;
     }
 }

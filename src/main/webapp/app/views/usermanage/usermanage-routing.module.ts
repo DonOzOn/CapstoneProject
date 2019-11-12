@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule, Injectable } from '@angular/core';
+import { Routes, RouterModule, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { UsermanageComponent } from './usermanage.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ManageproductpostComponent } from './manageproductpost/manageproductpost.component';

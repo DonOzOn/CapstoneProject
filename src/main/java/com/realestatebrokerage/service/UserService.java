@@ -1,17 +1,17 @@
 package com.realestatebrokerage.service;
 
 import com.realestatebrokerage.config.Constants;
-import com.realestatebrokerage.domain.Authority;
-import com.realestatebrokerage.domain.User;
-import com.realestatebrokerage.repository.AuthorityRepository;
-import com.realestatebrokerage.repository.UserRepository;
+import com.realestatebrokerage.domain.*;
+import com.realestatebrokerage.repository.*;
 import com.realestatebrokerage.security.AuthoritiesConstants;
 import com.realestatebrokerage.security.SecurityUtils;
 import com.realestatebrokerage.service.dto.UserDTO;
+import com.realestatebrokerage.service.dto.UserRequestDTO;
 import com.realestatebrokerage.service.util.RandomUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +41,13 @@ public class UserService {
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
+    
+    @Autowired
+    ProvinceRepository provinceRepository;
+    @Autowired
+    DistrictRepository districtRepository;
+    @Autowired
+    WardRepository wardRepository;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
@@ -192,7 +199,7 @@ public class UserService {
      * @param userDTO user to update.
      * @return updated user.
      */
-    public Optional<UserDTO> updateUser(UserDTO userDTO) {
+    public Optional<UserDTO> updateUser(UserRequestDTO userDTO) {
         return Optional.of(userRepository
             .findById(userDTO.getId()))
             .filter(Optional::isPresent)
@@ -203,6 +210,16 @@ public class UserService {
                 user.setFirstName(userDTO.getFirstName());
                 user.setLastName(userDTO.getLastName());
                 user.setEmail(userDTO.getEmail().toLowerCase());
+                Province province = provinceRepository.findById(userDTO.getProvince()).orElse(null);
+                System.out.println("Province : " + province);
+                user.setProvince(province);
+                District district = districtRepository.findById(userDTO.getDistrict()).orElse(null);
+                user.setDistrict(district);
+                Ward ward = wardRepository.findById(userDTO.getWard()).orElse(null);
+                user.setWard(ward);
+                user.setPhone(userDTO.getPhone());
+                user.setDob(userDTO.getDob());
+                user.setGender(userDTO.isGender());
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
