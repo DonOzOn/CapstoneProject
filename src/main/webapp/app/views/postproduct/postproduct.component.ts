@@ -218,9 +218,8 @@ export class PostproductComponent implements OnInit {
       this.account = account;
     });
     // eslint-disable-next-line
-    // eslint-disable-next-line
     console.log('data post: ', this.account);
-    // eslint-disable-next-line
+
     this.userService.find(this.account.login).subscribe((userAuthen: IUser) => {
       this.user = userAuthen;
     });

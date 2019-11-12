@@ -52,12 +52,13 @@ export class ListproductComponent implements OnInit {
   }
   getListPost() {
     this.listProductPostService.getListProductPost().subscribe(res => {
-      this.listPost = res.data.rows;
+      console.log(res.body);
+      this.listPost = res.body;
     });
   }
   getTotalPage() {
     this.listProductPostService.getListProductPost().subscribe(res => {
-      this.count = res.data.count;
+      this.count = res.body.count;
       return this.count;
     });
   }

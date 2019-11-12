@@ -73,7 +73,7 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @Column(name = "short_description", length = 100)
     private String shortDescription;
 
-    @Size(min=1, max = 255)
+    @Lob
     @Column(name = "content")
     private String content;
 
