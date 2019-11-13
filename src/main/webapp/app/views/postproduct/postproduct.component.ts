@@ -286,7 +286,9 @@ export class PostproductComponent implements OnInit {
           .create(this.post)
           // eslint-disable-next-line
           .subscribe(
+            // eslint-disable-next-line
             (res: any) => this.router.navigate(['manage-product']),
+            // eslint-disable-next-line
             (err: HttpErrorResponse) => this.alertService.error(err.error.title)
           );
         // eslint-disable-next-line

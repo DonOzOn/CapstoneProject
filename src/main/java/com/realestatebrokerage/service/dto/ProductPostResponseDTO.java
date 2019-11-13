@@ -52,6 +52,7 @@ public class ProductPostResponseDTO {
             this.district = productPost.getDistrict();
         }
         this.address = productPost.getAddress();
+        this.shortDescription= productPost.getShortDescription();
         this.content = productPost.getContent();
         if (productPost.getProduct() != null) {
             this.product = productPost.getProduct();

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ListProductPostService } from 'app/core/service/listproductpost.service';
 import { FormBuilder } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, count } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NewsService } from 'app/core/service/news.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-listproduct',
@@ -12,9 +13,9 @@ import { NewsService } from 'app/core/service/news.service';
 export class ListproductComponent implements OnInit {
   config: any;
   count: any;
+  dateCreate: any;
   listPost: any[] = [];
   listNews: any[] = [];
-  itemsTag = ['Pizza', 'Pasta', 'Parmesan'];
   choose = [
     { value: 1, name: 'Mới nhất' },
     { value: 2, name: 'Cũ nhất' },
@@ -52,8 +53,9 @@ export class ListproductComponent implements OnInit {
   }
   getListPost() {
     this.listProductPostService.getListProductPost().subscribe(res => {
-      console.log(res.body);
       this.listPost = res.body;
+      const date = res.body.createDate;
+      moment(date).format('L');
     });
   }
   getTotalPage() {
@@ -81,25 +83,25 @@ export class ListproductComponent implements OnInit {
         switch (val) {
           case 1: {
             this.listPost.sort(function(obj1, obj2) {
-              return obj2.timeCreate - obj1.timeCreate;
+              return obj2.date - obj1.date;
             });
             break;
           }
           case 2: {
             this.listPost.sort(function(obj1, obj2) {
-              return obj1.timeCreate - obj2.timeCreate;
+              return obj1.createdDate - obj2.createdDate;
             });
             break;
           }
           case 3: {
             this.listPost.sort(function(obj1, obj2) {
-              return obj2.price - obj1.price;
+              return obj2.product.price - obj1.product.price;
             });
             break;
           }
           case 4: {
             this.listPost.sort(function(obj1, obj2) {
-              return obj1.price - obj2.price;
+              return obj1.product.price - obj2.product.price;
             });
             break;
           }

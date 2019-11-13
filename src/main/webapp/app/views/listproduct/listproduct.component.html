@@ -90,28 +90,28 @@
                             </div>
                             <div class="card-img-overlay col-md-12 p-2 d-flex align-items-end">
                                 <p class="card-text text-light strong col-md-6 p-0 m-0"><i class="fas fa-map-marked-alt"></i> {{item.range}}km</p>
-                                <p class="card-text text-light strong col-md-6 text-right p-0 m-0"> <i class="fas fa-chart-area"></i> {{item.area}}m<sup>2</sup></p>
+                                <p class="card-text text-light strong col-md-6 text-right p-0 m-0"> <i class="fas fa-chart-area"></i> {{item.product.area}} m<sup>2</sup></p>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body pb-1">
                                 <a [routerLink]="[ '/product' ]">
-                                    <h5 class="card-title">{{item.title}}</h5>
+                                    <h5 class="card-title">{{item.productPostTitle}}</h5>
                                 </a>
-                                <p class="card-text">{{item.sortDescription}}</p>
+                                <div class="card-text">{{item.content}}</div>
                                 <div class=" d-inline-flex col-md-12 px-0 small">
-                                    <p class="grey-text my-1 px-0 col-md-7">{{item.address}}</p>
-                                    <p class="grey-text my-1 px-0 col-md-5 text-right"><i>{{item.timeCreate | date : 'dd/MM/yyyy'}}</i></p>
+                                    <p class="grey-text my-1 px-0 col-md-7">{{item.address}}, {{item.ward.name}}, {{item.district.name}}, {{item.province.name}}</p>
+                                    <p class="grey-text my-1 px-0 col-md-5 text-right text-bottom"><i>{{item.createdDate | date : 'dd/MM/yyyy'}}</i></p>
                                 </div>
                                 <hr class="my-1">
                                 <div class=" d-inline-flex col-md-12 px-0">
-                                    <p class="text-dark my-1 pt-1 px-0 col-md-2 strong">{{item.price}}tỷ</p>
-                                    <p class="grey-text my-1 pt-2 px-0 col-md-2 small text-left">{{item.area}}m<sup>2</sup></p>
+                                    <p class="text-dark my-1 pt-1 px-0 col-md-2 strong">{{item.product.price/1000000000}}tỷ</p>
+                                    <p class="grey-text my-1 pt-2 px-0 col-md-2 small text-left">{{item.product.area}}m<sup>2</sup></p>
                                     <div class="grey-text my-1 p-0 col-md-8 text-left d-inline-flex">
                                         <div class="col-md-2 px-2 pt-1 img">
                                             <img src="../../../content/img/sg-1.jpg" class="card-img rounded-circle img-responsive img" alt="...">
                                         </div>
-                                        <p class="text-dark my-1 pt-1 pl-2 col-md-6 small text-left">{{item.userCreate}}</p>
+                                        <p class="text-dark my-1 pt-1 pl-2 col-md-6 small text-left">{{item.createdBy}}</p>
                                         <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" href="#">
                                             <div class="col-md-3 px-1 ">
                                                 <img src="../../../content/img/chat-blue.svg" class="card-img img-responsive " alt="...">
