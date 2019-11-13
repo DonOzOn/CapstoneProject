@@ -1,5 +1,6 @@
-import { NewsService } from './../../../core/service/news.service';
+
 import { Component, OnInit } from '@angular/core';
+import { NewsService } from 'app/core/news/news.service';
 
 @Component({
   selector: 'app-newspage',
@@ -16,7 +17,7 @@ export class NewspageComponent implements OnInit {
 
   getlistNews() {
     this.newService.getListNews().subscribe(res => {
-      this.listNews = res.data.rows;
+      this.listNews = res.body;
     });
   }
 }

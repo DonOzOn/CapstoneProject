@@ -8,7 +8,7 @@ import { NewsService } from 'app/core/service/news.service';
 @Injectable({ providedIn: 'root' })
 export class DetailNewResolve implements Resolve<any> {
   detainew: any;
-  constructor(private service: NewsService) {}
+  constructor(private service: NewsService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const id = route.params.id ? route.params.id : null;
@@ -45,4 +45,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class NewsRoutingModule {}
+export class NewsRoutingModule { }
