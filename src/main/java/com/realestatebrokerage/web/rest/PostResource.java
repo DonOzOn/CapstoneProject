@@ -13,9 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api")
@@ -53,10 +57,27 @@ public class PostResource {
          * insert product post
          * */
         postRequestDTO.getProductPostRequestDTO().setProduct(product.getId());
+        System.out.println("product.getId() : " + product.getId());
         ProductPost productPost = productPostService.createProductPost(postRequestDTO.getProductPostRequestDTO());
         /**
          * insert image
          * */
+//        String filePath="xyz/Test FileUpload/";
+//        File saveDir = new File(filePath);
+//        if(!saveDir.exists())
+//        {
+//            saveDir.mkdirs();
+//        }
+//        for (MultipartFile file : postRequestDTO.getListImage()) {
+//            File f= new File(filePath,file.getOriginalFilename());
+//            String Filename=file.getOriginalFilename();
+//            try {
+//                file.transferTo(f); //Transfer or Saving in local memory
+//            }catch (IOException e) {
+//                e.printStackTrace();
+//            }
+////your logic here
+//        }
         Image image = imageService.createProduct(postRequestDTO.getImageDTO());
         /**
          * insert product

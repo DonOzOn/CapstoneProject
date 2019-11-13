@@ -26,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RealestatebrokerageSharedModule } from './shared/shared.module';
 import { RealestatebrokerageSharedLibsModule } from './shared/shared-libs.module';
 import { RealestatebrokerageAccountModule } from './views/account/account.module';
+import {CheckboxModule} from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { RealestatebrokerageAccountModule } from './views/account/account.module
     ReactiveFormsModule,
     RealestatebrokerageSharedModule,
     RealestatebrokerageSharedLibsModule,
-    RealestatebrokerageAccountModule
+    RealestatebrokerageAccountModule,
+    CheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

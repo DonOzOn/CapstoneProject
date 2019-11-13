@@ -6,6 +6,7 @@
     </div>
     <div class="row mb-2">
         <div class="col-12 text-left pt-3">
+            <p-toast [style]="{marginTop: '80px'}"></p-toast>
             <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
                 <p-footer>
                     <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy"
@@ -400,13 +401,19 @@
                                                 </div>
                                                 <div class="col-md-10 pl-4">
                                                     <span class="ui-float-label pl-2 ml-2">
-                                                        <p-fileUpload name="demo[]" multiple="multiple" accept="image/*"
-                                                            (onSelect)="onUpload($event)" fileLimit="10"
+                                                        <p-fileUpload  #fileUpload name="demo[]" multiple="multiple" accept="image/*"
+                                                             [showUploadButton]="true"
+                                                            (uploadHandler)="onUpload($event,fileUpload)"
+                                                            customUpload="true"
+                                                            cancelLabel="Bỏ"
+                                                            chooseLabel="Chọn hình"
+                                                            uploadLabel="Tải lên"
+                                                            (onRemove)= "onRemove($event)" fileLimit="10"
                                                             maxFileSize="1000000">
                                                             <ng-template pTemplate="content">
-                                                                <ul *ngIf="uploadedFiles.length">
-                                                                    <li *ngFor="let file of uploadedFiles">{{file.name}}
-                                                                        - {{file.size}} bytes</li>
+                                                                <ul *ngIf="uploadedFiles">
+                                                                    <label *ngIf="uploadedFiles.length > 0">Tải lên thành công: </label>
+                                                                    <li *ngFor="let file of uploadedFiles">{{file}}</li>
                                                                 </ul>
                                                             </ng-template>
                                                         </p-fileUpload>
