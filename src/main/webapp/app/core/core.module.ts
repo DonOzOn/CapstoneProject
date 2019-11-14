@@ -1,4 +1,3 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { CarService } from './service/car.service';
 import { NgModule, LOCALE_ID } from '@angular/core';
@@ -21,6 +20,7 @@ import { NotificationInterceptor } from 'app/blocks/interceptor/notification.int
 
 import { fontAwesomeIcons } from './icons/font-awesome-icons';
 import { ListProductPostService } from './service/listproductpost.service';
+import { NewsService } from './service/news.service';
 @NgModule({
   declarations: [],
   imports: [
@@ -35,7 +35,7 @@ import { ListProductPostService } from './service/listproductpost.service';
     })
   ],
   providers: [
- 
+    NewsService,
     CarService,
     Title,
     ListProductPostService,

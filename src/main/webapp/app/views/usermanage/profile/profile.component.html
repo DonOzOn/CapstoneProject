@@ -180,10 +180,22 @@
                                         <div class="row col-md-8 m-0 p-0 mb-3">
                                             <h6 class="first">Hình đại diện</h6>
                                             <div class="input-group mb-3">
-                                                    <p-fileUpload #fubauto mode="basic" name="demo[]" 
-                                                    accept="image/*" maxFileSize="1000000" fileLimit="1"
-                                                    (onUpload)="onBasicUploadAuto($event)" [auto]="true" 
-                                                    chooseLabel="Chọn ảnh"></p-fileUpload>
+                                                <p-fileUpload  #fileUpload name="demo[]" multiple="multiple" accept="image/*"
+                                                [showUploadButton]="true"
+                                               (uploadHandler)="onUpload($event,fileUpload)"
+                                               customUpload="true"
+                                               cancelLabel="Bỏ"
+                                               chooseLabel="Chọn hình"
+                                               uploadLabel="Tải lên"
+                                               (onRemove)= "onRemove($event)" fileLimit="1"
+                                               maxFileSize="1000000">
+                                               <ng-template pTemplate="content">
+                                                   <ul *ngIf="uploadedFiles">
+                                                       <label *ngIf="uploadedFiles.length > 0">Tải lên thành công: </label>
+                                                       <li *ngFor="let file of uploadedFiles">{{file}}</li>
+                                                   </ul>
+                                               </ng-template>
+                                           </p-fileUpload>
                                             </div>
                                         </div>
                                     </div>

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SelectItem, MessageService, ConfirmationService } from 'primeng/api';
 import { AddressService } from 'app/core/address/address.service';
-import { PostService } from 'app/core/post/post.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { UserService } from 'app/core/user/user.service';
 import { Account } from 'app/core/user/account.model';
@@ -11,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Province } from 'app/core/address/model/province.model';
 import { District } from 'app/core/address/model/district.model';
 import { Ward } from 'app/core/address/model/ward.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 interface City {
   name: string;
@@ -24,7 +24,11 @@ interface City {
 })
 export class ProfileComponent implements OnInit {
   text: string;
+  error: string;
+  success: string;
   nameImage: string;
+  uploadedFiles: any[] = [];
+  listImage: any[] = [];
   isUploadedFile = false;
   selectedType: boolean;
   types: SelectItem[];
@@ -52,7 +56,6 @@ export class ProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private addressService: AddressService,
-    private postService: PostService,
     private accountService: AccountService,
     private userService: UserService,
     private messageService: MessageService,
@@ -94,21 +97,21 @@ export class ProfileComponent implements OnInit {
               this.listWard = res.body;
             });
           }
+          // eslint-disable-next-line
+          console.log('allolooooo');
           this.profileForm.controls.wardCode.setValue(this.currentUser.ward.code);
           this.profileForm.controls.dob.setValue(this.currentUser.dob ? new Date(this.currentUser.dob) : '');
-
+          this.userService.getImageByName(this.currentAccount.imageUrl).subscribe((res: any) => {
+            this.uploadedFiles.push(res.body);
+          },
+            (err: HttpErrorResponse) => {
+            }
+          );
+           // eslint-disable-next-line
+          console.log('dtaa: ', this.uploadedFiles);
         }
       });
-
     });
-    // // eslint-disable-next-line
-    //  console.log('login', this.currentAccount.login);
-    //  indentity user
-    // this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
-    //   this.currentUser = userAuthen;
-    //         // eslint-disable-next-line
-    //         console.log('user', this.currentUser);
-    // });
   }
   /* get ward when select distric */
   selectedDistrict() {
@@ -140,33 +143,34 @@ export class ProfileComponent implements OnInit {
   }
 
   /* upload avar */
-  onBasicUploadAuto(event) {
-    // eslint-disable-next-line
-    console.log('da qua day');
+  /*  add picture to list */
+  onUpload(event, fileUpload) {
     const listFile = [];
     for (const file of event.files) {
       listFile.push(file);
     }
     listFile.forEach(element => {
-      this.postService.upload(element).subscribe((res: any) => {
-        this.nameImage = res.body.name;
+      this.userService.upload(element).subscribe(res => {
+        this.uploadedFiles.push(res.body);
         this.isUploadedFile = true;
-        // eslint-disable-next-line
-        console.log('Dung uploadedFiles: ');
+        this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh đại diện thành công!!' });
       },
-        (err: any) => {
+        (err: HttpErrorResponse) => {
           this.isUploadedFile = false;
-          // eslint-disable-next-line
-          console.log('Sai');
+          this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh đại diện thất bại!!' });
         });
     });
-    if (this.isUploadedFile === true) {
-      this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh thành công!!' });
-    } else {
-      this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh thất bại!!' });
-    }
+    fileUpload.clear();
   }
 
+  onRemove(event) {
+    const filtered = this.uploadedFiles.filter(function(value, index, arr) {
+      return value.name !== event.file.name;
+    });
+    this.uploadedFiles = filtered;
+    // eslint-disable-next-line
+    console.log('after delete uploadedFiles: ', this.uploadedFiles);
+  }
   /**
    * update user information
    */
@@ -176,21 +180,32 @@ export class ProfileComponent implements OnInit {
       accept: () => {
         const data: IUser = this.currentUser;
         data.firstName = this.profileForm.controls.firstName.value;
-          data.lastName = this.profileForm.controls.lastName.value;
-          data.dob = this.profileForm.controls.dob.value;
-          data.phone = this.profileForm.controls.phone.value;
-          data.gender = this.profileForm.controls.gender.value;
-          data.province = this.profileForm.controls.provinceCode.value;
-          data.district = this.profileForm.controls.districtCode.value;
-          data.ward = this.profileForm.controls.wardCode.value;
-
-      this.userService
-        .update(data)
-        .subscribe(() => this.messageService
-          .add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã cập nhật thành công thông tin!!' }),
-          err => this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: err.error.title }));
-    }
+        data.lastName = this.profileForm.controls.lastName.value;
+        data.dob = this.profileForm.controls.dob.value;
+        data.phone = this.profileForm.controls.phone.value;
+        data.gender = this.profileForm.controls.gender.value;
+        data.province = this.profileForm.controls.provinceCode.value;
+        data.district = this.profileForm.controls.districtCode.value;
+        data.ward = this.profileForm.controls.wardCode.value;
+        this.currentAccount.imageUrl = this.uploadedFiles[0];
+        this.accountService.save(this.currentAccount).subscribe(
+          () => {
+            this.error = null;
+            this.success = 'OK';
+            // eslint-disable-next-line
+            console.log('Udate hình: ', this.uploadedFiles);
+          },
+          () => {
+            this.success = null;
+            this.error = 'ERROR';
+          }
+        );
+        this.userService
+          .update(data)
+          .subscribe(() => this.messageService
+            .add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã cập nhật thành công thông tin!!' }),
+            err => this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: err.error.title }));
+      }
     });
-}
-
+  }
 }

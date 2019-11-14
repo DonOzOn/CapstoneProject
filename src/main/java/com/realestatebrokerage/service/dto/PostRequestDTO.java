@@ -11,15 +11,15 @@ public class PostRequestDTO {
     ProductPostRequestDTO productPostRequestDTO;
     ImageDTO imageDTO;
     UsingImageRequestDTO usingImageRequestDTO;
-    List<MultipartFile> listImage;
+    List<String> listImage;
     public PostRequestDTO() {
     }
 
-    public List<MultipartFile> getListImage() {
+    public List<String> getListImage() {
         return listImage;
     }
 
-    public void setListImage(List<MultipartFile> listImage) {
+    public void setListImage(List<String> listImage) {
         this.listImage = listImage;
     }
 

@@ -10,12 +10,13 @@ import { ProductModule } from 'app/views/productdetail/productdetail.module';
 import { P403Component } from './error/403.component';
 import { P404Component } from './error/404.component';
 import { P500Component } from './error/500.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 const routes: Routes = [{ path: 'product', component: ProductdetailComponent }];
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent,P403Component,P404Component,P500Component],
-  imports: [ NgbModule, CommonModule, ProductModule, MDBBootstrapModule.forRoot(), RouterModule.forRoot(routes)],
+  declarations: [HeaderComponent, FooterComponent, P403Component, P404Component, P500Component],
+  imports: [NgbModule, CommonModule, ProductModule, MDBBootstrapModule.forRoot(), RouterModule.forRoot(routes), TooltipModule],
   providers: [],
   exports: [HeaderComponent, FooterComponent]
 })

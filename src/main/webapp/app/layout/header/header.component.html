@@ -139,7 +139,8 @@
                         <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
                     </div>
                 </div>
-                <button type="button" class="btn btn-outline-primary" [routerLink]="[ '/postproduct']">Đăng tin</button>
+                <button type="button" class="btn btn-outline-primary" *ngSwitchCase="true" [routerLink]="[ '/postproduct']">Đăng tin</button>
+                <button type="button" class="btn btn-outline-primary" *ngSwitchCase="false"pTooltip="Đăng nhập để có thể tạo bài đăng" tooltipPosition="bottom"[routerLink]="[ '/login']">Đăng tin</button>
             </div>
         </nav>
     </div>

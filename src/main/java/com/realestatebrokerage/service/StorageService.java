@@ -32,7 +32,7 @@ public class StorageService {
 
     public String store(MultipartFile file) {
         long currentTS = Long.valueOf(String.valueOf(System.currentTimeMillis()/1000));
-        String filename = currentTS + StringUtils.cleanPath(file.getOriginalFilename());
+        String filename = "" + currentTS;
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + filename);
