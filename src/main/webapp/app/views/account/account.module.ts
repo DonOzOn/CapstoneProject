@@ -11,17 +11,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { accountState } from './account.route';
 
 @NgModule({
-  imports: [
-    RealestatebrokerageSharedModule, 
-    RouterModule.forChild(accountState,
-    )
-  ],
-  declarations: [
-    ActivateComponent,
-    PasswordComponent,
-    PasswordResetInitComponent,
-    PasswordResetFinishComponent,
-    SettingsComponent
-  ]
+  imports: [RealestatebrokerageSharedModule, RouterModule.forChild(accountState)],
+  declarations: [ActivateComponent, PasswordComponent, PasswordResetInitComponent, PasswordResetFinishComponent, SettingsComponent]
 })
 export class RealestatebrokerageAccountModule {}

@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     private loginModalService: LoginModalService,
     private eventManager: JhiEventManager,
     private router: Router
-    ) {}
+  ) {}
   ngOnInit() {
     this.accountService.identity().subscribe((account: Account) => {
       this.account = account;
@@ -46,12 +46,13 @@ export class HeaderComponent implements OnInit {
     this.modalRef = this.loginModalService.open();
   }
 
-  // tslint:disable-next-line: use-lifecycle-interface
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     if (this.authSubscription) {
       this.eventManager.destroy(this.authSubscription);
     }
   }
+
   logout() {
     this.loginService.logout();
     this.router.navigate(['/login']);
