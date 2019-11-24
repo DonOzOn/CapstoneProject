@@ -135,7 +135,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" [routerLink]="[ '/usermanage']">Quản lí tài khoản</a>
                         <a class="dropdown-item" [routerLink]="[ '/notification']">Thông báo</a>
-                        <a class="dropdown-item" [routerLink]="[ '/notification']">Mật khẩu</a>
+                        <a class="dropdown-item" (click)="requestChangePassword()">Đổi mật khẩu</a>
                         <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
                     </div>
                 </div>

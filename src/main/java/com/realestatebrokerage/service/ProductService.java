@@ -37,6 +37,13 @@ public class ProductService {
     }
 
     /**
+     * get  product by id
+     * **/
+    public Optional<Product> findByID(Long id){
+        return productRepository.findById(id);
+    }
+
+    /**
      * create product
      * */
     public Product createProduct(ProductRequestDTO productRequestDTO) {

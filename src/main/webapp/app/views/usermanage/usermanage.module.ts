@@ -21,13 +21,17 @@ import { CodeHighlighterModule } from 'primeng/components/codehighlighter/codehi
 import { ManagereviewpostComponent } from './managereviewpost/managereviewpost.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import {SelectButtonModule} from 'primeng/selectbutton';
-import {CalendarModule} from 'primeng/calendar';
-import {FileUploadModule} from 'primeng/fileupload';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { CalendarModule } from 'primeng/calendar';
+import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import { EditorModule } from 'primeng/editor';
+import { HttpClientModule } from '@angular/common/http';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [UsermanageComponent, ProfileComponent, ManageproductpostComponent, ManagereviewpostComponent, NotificationComponent],
@@ -55,9 +59,13 @@ import { ToastModule } from 'primeng/toast';
     ConfirmDialogModule,
     MessagesModule,
     MessageModule,
-    ToastModule
+    ToastModule,
+    EditorModule,
+    HttpClientModule,
+    SplitButtonModule,
+    CheckboxModule
   ],
   providers: [],
-  exports: [UsermanageComponent]
+  exports: [UsermanageComponent, ProfileComponent, ManageproductpostComponent, ManagereviewpostComponent, NotificationComponent]
 })
 export class UsermanageModule {}

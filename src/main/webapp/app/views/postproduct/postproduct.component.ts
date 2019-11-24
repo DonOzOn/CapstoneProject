@@ -12,7 +12,7 @@ import { JhiAlertService } from 'ng-jhipster';
 import { ProductPostTypeService } from 'app/core/product-type/product-type.service';
 import { ProductPost } from 'app/core/post/model/product-post.model';
 import { PostService } from 'app/core/post/post.service';
-import { Post } from 'app/core/post/model/post.model';
+import { PostRequest } from 'app/core/post/model/postRequest.model copy';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { IUser } from 'app/core/user/user.model';
@@ -28,7 +28,8 @@ export class PostproductComponent implements OnInit {
   selectedType: string;
   types: SelectItem[];
   selectedUtility: string[] = [];
-  isUploadedFile; false;
+  isUploadedFile;
+  false;
   text1 = '<div>Hello!</div><div>Chào mừng tới BDS</div><div><br></div>';
   formAddress = this.fb.group({
     address: [null, Validators.required],
@@ -79,7 +80,7 @@ export class PostproductComponent implements OnInit {
     content: [this.text1, Validators.maxLength(255)],
     utilities: [null]
   });
-  post: Post = new Post();
+  post: PostRequest = new PostRequest();
   constructor(
     private addressService: AddressService,
     private directionService: DirectionService,
@@ -95,12 +96,9 @@ export class PostproductComponent implements OnInit {
     private postService: PostService,
     private accountService: AccountService,
     private userService: UserService,
-    private messageService: MessageService,
+    private messageService: MessageService
   ) {
-    this.types = [
-      { label: 'Mua bán', value: '1' },
-      { label: 'Cho Thuê', value: '2' },
-    ];
+    this.types = [{ label: 'Mua bán', value: '1' }, { label: 'Cho Thuê', value: '2' }];
   }
 
   ngOnInit() {
@@ -122,15 +120,17 @@ export class PostproductComponent implements OnInit {
       listFile.push(file);
     }
     listFile.forEach(element => {
-      this.postService.upload(element).subscribe(res => {
-        this.uploadedFiles.push(res.body);
-        this.isUploadedFile = true;
-        this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh thành công!!' });
-      },
+      this.postService.upload(element).subscribe(
+        res => {
+          this.uploadedFiles.push(res.body);
+          this.isUploadedFile = true;
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh thành công!!' });
+        },
         (err: HttpErrorResponse) => {
           this.isUploadedFile = false;
           this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh thất bại!!' });
-        });
+        }
+      );
     });
     fileUpload.clear();
   }
@@ -233,7 +233,6 @@ export class PostproductComponent implements OnInit {
   checkItemChecked() {
     // eslint-disable-next-line
     console.log('checked value', this.listUtilitiesSelected);
-
   }
 
   /**
@@ -316,7 +315,10 @@ export class PostproductComponent implements OnInit {
             this.postService
               .create(this.post)
               // eslint-disable-next-line
-              .subscribe((res: any) => this.router.navigate(['manage-product']), (err: HttpErrorResponse) => this.alertService.error(err.error.title));
+              .subscribe(
+                (res: any) => this.router.navigate(['manage-product']),
+                (err: HttpErrorResponse) => this.alertService.error(err.error.title)
+              );
             // eslint-disable-next-line
             console.log('data post: ', this.post);
             // eslint-disable-next-line
@@ -324,7 +326,6 @@ export class PostproductComponent implements OnInit {
           }
         });
       });
-
     }
   }
 }

@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     public activeModal: NgbModal,
     private fb: FormBuilder
-  ) { }
+  ) {}
   ngOnInit() {
     this.size = false;
     if (this.router.url.startsWith('/account/activate?key=')) {
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         () => {
           this.authenticationError = false;
-          this.getDismissReason('login success');
+          this.activeModal.dismissAll('login success');
           if (
             this.router.url === '/register' ||
             this.router.url.startsWith('/account/activate') ||
@@ -97,6 +97,7 @@ export class LoginComponent implements OnInit {
     this.getDismissReason('to state requestReset');
     this.router.navigate(['/account/reset', 'request']);
   }
+
   open(content) {
     this.activeModal.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       result => {

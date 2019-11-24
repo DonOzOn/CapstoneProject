@@ -57,4 +57,7 @@ export class HeaderComponent implements OnInit {
     this.loginService.logout();
     this.router.navigate(['/login']);
   }
+  requestChangePassword() {
+    this.router.navigate(['/account/password']);
+  }
 }

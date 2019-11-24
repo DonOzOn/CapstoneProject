@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsingImageService {
@@ -23,11 +24,19 @@ public class UsingImageService {
     private ProductPostRepository productPostRepository;
 
     /**
-     * List all product
+     * List all Using Image
      * **/
     public List<UsingImage> findAll(){
         return usingImageRepository.findAll();
     }
+
+    /**
+     * get using Image
+     * **/
+    public Optional<UsingImage> findByProductPost(Long id){
+        return usingImageRepository.findByProductPostId(id);
+    }
+
 
     /**
      * create using image
@@ -43,4 +52,5 @@ public class UsingImageService {
         return usingImageRepository.save(usingImage);
 
     }
+
 }

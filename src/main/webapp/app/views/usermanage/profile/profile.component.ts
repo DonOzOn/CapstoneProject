@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
     districtCode: [null, Validators.required],
     wardCode: [null, Validators.required],
     // avar: [null, Validators.required],
-    dob: [null, Validators.required],
+    dob: [null, Validators.required]
   });
   constructor(
     private fb: FormBuilder,
@@ -61,12 +61,9 @@ export class ProfileComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) {
-    this.types = [
-      { label: 'Nam', value: true },
-      { label: 'Nữ', value: false },
-    ];
+    this.types = [{ label: 'Nam', value: true }, { label: 'Nữ', value: false }];
   }
 
   ngOnInit() {
@@ -97,17 +94,15 @@ export class ProfileComponent implements OnInit {
               this.listWard = res.body;
             });
           }
-          // eslint-disable-next-line
-          console.log('allolooooo');
           this.profileForm.controls.wardCode.setValue(this.currentUser.ward.code);
           this.profileForm.controls.dob.setValue(this.currentUser.dob ? new Date(this.currentUser.dob) : '');
-          this.userService.getImageByName(this.currentAccount.imageUrl).subscribe((res: any) => {
-            this.uploadedFiles.push(res.body);
-          },
-            (err: HttpErrorResponse) => {
-            }
+          this.userService.getImageByName(this.currentAccount.imageUrl).subscribe(
+            (res: any) => {
+              this.uploadedFiles.push(res.body);
+            },
+            (err: HttpErrorResponse) => {}
           );
-           // eslint-disable-next-line
+          // eslint-disable-next-line
           console.log('dtaa: ', this.uploadedFiles);
         }
       });
@@ -150,15 +145,17 @@ export class ProfileComponent implements OnInit {
       listFile.push(file);
     }
     listFile.forEach(element => {
-      this.userService.upload(element).subscribe(res => {
-        this.uploadedFiles.push(res.body);
-        this.isUploadedFile = true;
-        this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh đại diện thành công!!' });
-      },
+      this.userService.upload(element).subscribe(
+        res => {
+          this.uploadedFiles.push(res.body);
+          this.isUploadedFile = true;
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh đại diện thành công!!' });
+        },
         (err: HttpErrorResponse) => {
           this.isUploadedFile = false;
           this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh đại diện thất bại!!' });
-        });
+        }
+      );
     });
     fileUpload.clear();
   }
@@ -202,9 +199,10 @@ export class ProfileComponent implements OnInit {
         );
         this.userService
           .update(data)
-          .subscribe(() => this.messageService
-            .add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã cập nhật thành công thông tin!!' }),
-            err => this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: err.error.title }));
+          .subscribe(
+            () => this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã cập nhật thành công thông tin!!' }),
+            err => this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: err.error.title })
+          );
       }
     });
   }
