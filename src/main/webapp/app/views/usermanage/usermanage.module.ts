@@ -20,6 +20,14 @@ import { TabViewModule } from 'primeng/components/tabview/tabview';
 import { CodeHighlighterModule } from 'primeng/components/codehighlighter/codehighlighter';
 import { ManagereviewpostComponent } from './managereviewpost/managereviewpost.component';
 import { NotificationComponent } from './notification/notification.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { CalendarModule } from 'primeng/calendar';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [UsermanageComponent, ProfileComponent, ManageproductpostComponent, ManagereviewpostComponent, NotificationComponent],
@@ -39,7 +47,15 @@ import { NotificationComponent } from './notification/notification.component';
     PanelModule,
     DialogModule,
     TabViewModule,
-    CodeHighlighterModule
+    CodeHighlighterModule,
+    NgSelectModule,
+    SelectButtonModule,
+    CalendarModule,
+    FileUploadModule,
+    ConfirmDialogModule,
+    MessagesModule,
+    MessageModule,
+    ToastModule
   ],
   providers: [],
   exports: [UsermanageComponent]

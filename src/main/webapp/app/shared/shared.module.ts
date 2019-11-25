@@ -8,7 +8,7 @@ import { PasswordStrengthBarComponent } from './password-strength/password-stren
 
 @NgModule({
   imports: [RealestatebrokerageSharedLibsModule],
-  declarations: [JhiAlertComponent, JhiAlertErrorComponent, JhiLoginModalComponent, HasAnyAuthorityDirective,PasswordStrengthBarComponent],
+  declarations: [JhiAlertComponent, JhiAlertErrorComponent, JhiLoginModalComponent, HasAnyAuthorityDirective, PasswordStrengthBarComponent],
   entryComponents: [JhiLoginModalComponent],
   exports: [
     RealestatebrokerageSharedLibsModule,

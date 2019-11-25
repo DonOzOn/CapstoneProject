@@ -12,6 +12,7 @@ import { createRequestOption } from 'app/shared/util/request-util';
 })
 export class PostService {
   public resourceUrl = SERVER_API_URL + 'api/product-post';
+  public resourceUrlImage = SERVER_API_URL + 'api/upload';
 
   constructor(private http: HttpClient, private alertService: JhiAlertService) {}
 
@@ -28,7 +29,7 @@ export class PostService {
   upload(uploadFiles: File): Observable<HttpResponse<any>> {
     const formData: FormData = new FormData();
     formData.append('file', uploadFiles, uploadFiles.name);
-    return this.http.post<any>(this.resourceUrl, formData, { observe: 'response' });
+    return this.http.post<any>(this.resourceUrlImage, formData, { observe: 'response' });
   }
 
   update(post: IPost): Observable<HttpResponse<IPost>> {

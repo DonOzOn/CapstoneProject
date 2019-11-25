@@ -7,6 +7,7 @@ import com.realestatebrokerage.security.AuthoritiesConstants;
 import com.realestatebrokerage.service.MailService;
 import com.realestatebrokerage.service.UserService;
 import com.realestatebrokerage.service.dto.UserDTO;
+import com.realestatebrokerage.service.dto.UserRequestDTO;
 import com.realestatebrokerage.web.rest.errors.BadRequestAlertException;
 import com.realestatebrokerage.web.rest.errors.EmailAlreadyUsedException;
 import com.realestatebrokerage.web.rest.errors.LoginAlreadyUsedException;
@@ -120,8 +121,8 @@ public class UserResource {
      * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already in use.
      */
     @PutMapping("/users")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserDTO userDTO) {
+//    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserRequestDTO userDTO) {
         log.debug("REST request to update User : {}", userDTO);
         Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
         if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {

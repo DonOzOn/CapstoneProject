@@ -8,7 +8,11 @@ export interface IUser {
   langKey?: string;
   dob?: Date;
   phone?: string;
+  gender?: any;
   address?: string;
+  province?: any;
+  ward?: any;
+  district?: any;
   authorities?: any[];
   createdBy?: string;
   createdDate?: Date;
@@ -27,7 +31,11 @@ export class User implements IUser {
     public dob?: Date,
     public phone?: string,
     public address?: string,
-    public activated?: boolean,
+    public province?: any,
+    public ward?: any,
+    public district?: any,
+    public gender?: any,
+    public activated?: any,
     public langKey?: string,
     public authorities?: any[],
     public createdBy?: string,
@@ -44,6 +52,10 @@ export class User implements IUser {
     this.dob = dob ? dob : null;
     this.phone = phone ? phone : null;
     this.address = address ? address : null;
+    this.province = province ? province : null;
+    this.district = district ? district : null;
+    this.ward = ward ? ward : null;
+    this.gender = gender ? gender : null;
     this.activated = activated ? activated : false;
     this.langKey = langKey ? langKey : null;
     this.authorities = authorities ? authorities : null;

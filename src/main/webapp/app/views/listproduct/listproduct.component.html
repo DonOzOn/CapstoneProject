@@ -98,7 +98,7 @@
                                 <a [routerLink]="[ '/product' ]">
                                     <h5 class="card-title">{{item.productPostTitle}}</h5>
                                 </a>
-                                <div class="card-text">{{item.content}}</div>
+                                <div innerHTML="{{item.content}}" class="card-text"></div>
                                 <div class=" d-inline-flex col-md-12 px-0 small">
                                     <p class="grey-text my-1 px-0 col-md-7">{{item.address}}, {{item.ward.name}}, {{item.district.name}}, {{item.province.name}}</p>
                                     <p class="grey-text my-1 px-0 col-md-5 text-right text-bottom"><i>{{item.createdDate | date : 'dd/MM/yyyy'}}</i></p>
@@ -123,7 +123,7 @@
                         </div>
                     </div>
                 </div>
-                <nav aria-label="" class="mt-2">
+                <nav aria-label="" class="mt-2" *ngIf="count !== 0">
                     <ul class="pagination pg-blue justify-content-end">
                         <pagination-controls [previousLabel]="labels.previousLabel" [nextLabel]="labels.nextLabel" (pageChange)="pageChanged($event)"></pagination-controls>
                     </ul>

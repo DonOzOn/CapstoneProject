@@ -11,6 +11,7 @@ import com.realestatebrokerage.service.MailService;
 import com.realestatebrokerage.service.UserService;
 import com.realestatebrokerage.service.dto.PasswordChangeDTO;
 import com.realestatebrokerage.service.dto.UserDTO;
+import com.realestatebrokerage.service.dto.UserRequestDTO;
 import com.realestatebrokerage.web.rest.errors.ExceptionTranslator;
 import com.realestatebrokerage.web.rest.vm.KeyAndPasswordVM;
 import com.realestatebrokerage.web.rest.vm.ManagedUserVM;
@@ -398,7 +399,7 @@ public class AccountResourceIT {
         assertThat(testUser4.get().getEmail()).isEqualTo("test-register-duplicate-email@example.com");
 
         testUser4.get().setActivated(true);
-        userService.updateUser((new UserDTO(testUser4.get())));
+        userService.updateUser((new UserRequestDTO(testUser4.get())));
 
         // Register 4th (already activated) user
         restMvc.perform(

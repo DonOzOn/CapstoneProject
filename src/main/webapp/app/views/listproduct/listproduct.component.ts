@@ -3,7 +3,6 @@ import { ListProductPostService } from 'app/core/service/listproductpost.service
 import { FormBuilder } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NewsService } from 'app/core/service/news.service';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-listproduct',
@@ -13,7 +12,7 @@ import * as moment from 'moment';
 export class ListproductComponent implements OnInit {
   config: any;
   count: any;
-  dateCreate: any;
+  listDate: any;
   listPost: any[] = [];
   listNews: any[] = [];
   choose = [
@@ -54,13 +53,12 @@ export class ListproductComponent implements OnInit {
   getListPost() {
     this.listProductPostService.getListProductPost().subscribe(res => {
       this.listPost = res.body;
-      const date = res.body.createDate;
-      moment(date).format('L');
     });
   }
   getTotalPage() {
     this.listProductPostService.getListProductPost().subscribe(res => {
-      this.count = res.body.count;
+      this.count = 0;
+      // this.count = res.body.count;
       return this.count;
     });
   }
