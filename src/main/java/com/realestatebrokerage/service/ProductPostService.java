@@ -34,7 +34,7 @@ public class ProductPostService {
      * List all product post
      * **/
     public List<ProductPost> findAll(){
-        return productPostRepository.findAll();
+        return productPostRepository.findAllByStatusTrue();
     }
 
     /**
@@ -76,6 +76,9 @@ public class ProductPostService {
         return productPostRepository.save(productPost);
     }
 
+    /**
+     * update product post
+     * */
     public Optional<ProductPost>  update(ProductPostRequestDTO postRequestDTO) {
         log.debug("run in update post product: {}", postRequestDTO);
         return Optional.of(productPostRepository.findById(postRequestDTO.getId())).filter(Optional::isPresent).map(Optional::get)
@@ -104,4 +107,17 @@ public class ProductPostService {
                 return productPostRepository.save(productPost);
             });
     }
+
+    /**
+     * delete product post
+     * */
+    public void  deleteByID(Long id) {
+        log.debug("run in delete post product: {}", id);
+        Optional.of(productPostRepository.findById(id)).filter(Optional::isPresent).map(Optional::get)
+            .map(productPost -> {
+                productPost.setStatus(false);
+                return productPostRepository.save(productPost);
+            });
+    }
+
 }

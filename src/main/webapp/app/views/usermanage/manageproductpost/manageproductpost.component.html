@@ -91,7 +91,7 @@
                                             </div>
                                             <div class="ui-g-12 ui-md-1 search-icon py-3">
                                                 <button class="d-flex justify-content-start" pButton type="button" icon="" (click)="selectPostproduct($event, post)" label="Sửa"></button>
-                                                <button class="d-flex justify-content-end mt-5 ui-button-danger" pButton type="button" icon="" (click)="selectPostproduct($event, post)" label="Xoá"></button>
+                                                <button class="d-flex justify-content-end mt-5 ui-button-danger" pButton type="button" icon="" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)" label="Xoá"></button>
                                             </div>
                                         </div>
                                     </ng-template>
@@ -105,7 +105,7 @@
                                                 <!-- <button pButton type="button" icon="pi pi-search" (click)="selectPostproduct($event, post)" style="margin-top:0"></button> -->
                                                 <div class="d-flex flex-row">
                                                     <button class="d-flex justify-content-start" pButton type="button" icon="" (click)="selectPostproduct($event, post)" label="Sửa"></button>
-                                                    <button class="d-flex justify-content-end ui-button-danger" pButton type="button" icon="" (click)="selectPostproduct($event, post)" label="Xoá"></button>
+                                                    <button class="d-flex justify-content-end ui-button-danger" pButton type="button" icon="" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)" label="Xoá"></button>
                                                 </div>
 
                                             </p-panel>
@@ -118,18 +118,6 @@
                                         <div class="ui-g-12" style="text-align:center">
                                             <!-- <img src="/content/showcase/images/demo/car/{{selectedCar.brand}}.png"> -->
                                         </div>
-                                        <!-- <div class="ui-g-4">Vin: </div>
-                                        <div class="ui-g-8">{{selectedCar.vin}}</div>
-
-                                        <div class="ui-g-4">Brand: </div>
-                                        <div class="ui-g-8">{{selectedCar.brand}}</div>
-
-                                        <div class="ui-g-4">Year: </div>
-                                        <div class="ui-g-8">{{selectedCar.year}}</div>
-
-                                        <div class="ui-g-4">Color: </div>
-                                        <div class="ui-g-8">{{selectedCar.color}}</div> -->
-
                                         <div class="ui-g-12">
                                             <div class="row">
                                                 <div class="col-md-12">

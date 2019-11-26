@@ -99,8 +99,13 @@ export class ProfileComponent implements OnInit {
           this.userService.getImageByName(this.currentAccount.imageUrl).subscribe(
             (res: any) => {
               this.uploadedFiles.push(res.body);
+              // eslint-disable-next-line
+              console.log('image test: ', res.body);
             },
-            (err: HttpErrorResponse) => {}
+            (err: HttpErrorResponse) => {
+              // eslint-disable-next-line
+              console.log('errorksjhfljdfh ', err);
+            }
           );
           // eslint-disable-next-line
           console.log('dtaa: ', this.uploadedFiles);
@@ -146,12 +151,16 @@ export class ProfileComponent implements OnInit {
     }
     listFile.forEach(element => {
       this.userService.upload(element).subscribe(
-        res => {
+        (res: any) => {
+          // eslint-disable-next-line
+          console.log('right: ', res.body);
           this.uploadedFiles.push(res.body);
           this.isUploadedFile = true;
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh đại diện thành công!!' });
         },
         (err: HttpErrorResponse) => {
+          // eslint-disable-next-line
+          console.log('error: ', err);
           this.isUploadedFile = false;
           this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh đại diện thất bại!!' });
         }
