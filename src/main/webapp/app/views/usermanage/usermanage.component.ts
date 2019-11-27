@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-usermanage',
@@ -6,7 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./usermanage.component.scss']
 })
 export class UsermanageComponent implements OnInit {
-  constructor() {}
+  showLoadingIndicator = true;
+  constructor(private router: Router) {
+    this.ngcheckEvents();
+  }
 
   ngOnInit() {}
+  ngcheckEvents() {
+    this.router.events.subscribe(event => {
+      switch (true) {
+        case event instanceof NavigationStart:
+          this.showLoadingIndicator = true;
+          break;
+        case event instanceof NavigationEnd:
+          this.showLoadingIndicator = false;
+          break;
+        default:
+          break;
+      }
+    });
+  }
 }

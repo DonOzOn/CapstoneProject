@@ -82,7 +82,7 @@
                             <ng-template let-post pTemplate="listItem">
                                 <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
                                     <div class="ui-g-12 ui-md-3" style="text-align:center">
-                                        <!-- <img src="/content/showcase/images/demo/car/{{car.brand}}.png"> -->
+                                        <img src = "{{imageUrl}}{{post.imageDTO.img1}}" class="img-thumbnail rounded float-left mx-auto d-block" alt = "Responsive image">
                                     </div>
                                     <div class="ui-g-12 ui-md-7 post-details">
                                         <div class="ui-g">
@@ -108,15 +108,13 @@
                             <ng-template let-post pTemplate="gridItem">
                                 <div style="padding:.5em" class="ui-g-12 ui-md-5">
                                     <p-panel [header]="post.productPostResponseDTO?.projectName" [style]="{'text-align':'center'}">
-                                        <!-- <img src="/content/showcase/images/demo/car/{{car.brand}}.png" width="60"> -->
+                                        <img src = "{{imageUrl}}{{post.imageDTO.img1}}" class="img-thumbnail rounded mx-auto d-block" style="height: 100px;" alt = "Responsive image">
                                         <div class="post-detail">{{post.productPostResponseDTO?.productPostTitle}}</div>
                                         <div class="post-detail">{{post.productPostResponseDTO?.createdDate | date:'HH:mm dd/MM/yyyy'}}</div>
                                         <hr class="ui-widget-content" style="border-top:0">
                                         <!-- <button pButton type="button" icon="pi pi-search" (click)="selectPostproduct($event, post)" style="margin-top:0"></button> -->
-                                        <div class="d-flex flex-row">
-                                            <button class="d-flex justify-content-start" pButton type="button" icon="" (click)="selectPostproduct($event, post)" label="Xem"></button>
-                                            <button class="d-flex justify-content-end ui-button-danger" pButton type="button" icon="" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)" label="Xoá"></button>
-                                        </div>
+                                            <button pButton type="button" icon="" (click)="selectPostproduct($event, post)" label="Xem"></button>
+                                            <button class="ui-button-danger" pButton type="button" icon="" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)" label="Xoá"></button>
 
                                     </p-panel>
                                 </div>
