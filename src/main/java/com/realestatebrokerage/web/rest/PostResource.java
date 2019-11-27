@@ -27,7 +27,9 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -116,6 +118,33 @@ public class PostResource {
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
+
+    /**
+     * {@code GET /Post} : get all Post.
+     *
+     */
+    @GetMapping("/product-post/search-by-date")
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProduct(@RequestParam(value = "from") Instant from, @RequestParam(value = "to") Instant to) {
+        List<PostResponeDTO> responeDTOList =  new ArrayList<>();
+        List<ProductPostResponseDTO> postList =  productPostService.findAllFromTo(from , to).stream()
+            .map(ProductPostResponseDTO::new).collect(Collectors.toList());
+        if(postList != null){
+            for (ProductPostResponseDTO pr: postList) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                postResponeDTO.setProductPostResponseDTO(pr);
+                ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
+                postResponeDTO.setProductResponseDTO(productResponseDTO);
+                UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                postResponeDTO.setImageDTO(imageDTO);
+                responeDTOList.add(postResponeDTO);
+            }
+            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
 
     /**
      * {@code PUT /product-post} : Updates an product post.

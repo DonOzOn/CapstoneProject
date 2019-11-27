@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,13 @@ public class ProductPostService {
      * **/
     public List<ProductPost> findAll(){
         return productPostRepository.findAllByStatusTrue();
+    }
+
+    /**
+     * List all product post by date from to
+     * **/
+    public List<ProductPost> findAllFromTo(Instant from, Instant to){
+        return productPostRepository.findAllByCreatedDateBetweenAndStatusIsTrue(from, to);
     }
 
     /**

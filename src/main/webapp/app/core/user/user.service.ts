@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
@@ -9,6 +9,7 @@ import { IUser } from './user.model';
 export class UserService {
   public resourceUrl = SERVER_API_URL + 'api/users';
   public resourceUrlImage = SERVER_API_URL + 'api/upload';
+  formData: IUser[];
   constructor(private http: HttpClient) {}
 
   create(user: IUser): Observable<IUser> {
@@ -37,12 +38,24 @@ export class UserService {
     return this.http.post<any>(this.resourceUrlImage, formData, { observe: 'response' });
   }
 
+  searchKeywordQuery(text: string): Observable<HttpResponse<any>> {
+    const param = new HttpParams();
+    param.set('searchKey', text);
+    return this.http.get<any>(`${this.resourceUrlImage}/search/`, { params: param, observe: 'response' });
+  }
+
   find(login: string): Observable<IUser> {
     return this.http.get<IUser>(`${this.resourceUrl}/${login}`);
   }
 
   query(req?: any): Observable<HttpResponse<IUser[]>> {
     const options = createRequestOption(req);
+    this.http
+      .get(this.resourceUrl)
+      .toPromise()
+      .then(res => {
+        this.formData = res as IUser[];
+      });
     return this.http.get<IUser[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 

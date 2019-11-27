@@ -5,20 +5,10 @@
     <div class="card-body d-sm-flex justify-content-between">
 
         <h5 class="mb-1 mb-sm-0 pt-1">
-            <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Home Page</a>
+            <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Quản lí tài khoản</a>
             <span>/</span>
-            <span>Dashboard</span>
+            <span>Quản lí bài đăng review-câu hỏi</span>
         </h5>
-
-        <form class="d-flex justify-content-center">
-            <!-- Default input -->
-            <input type="search" placeholder="Type your query" aria-label="Search" class="form-control">
-            <button class="btn btn-primary btn-sm my-0 p" type="submit">
-              <i class="fas fa-search"></i>
-            </button>
-        </form>
-
-
     </div>
 
 </div>
@@ -84,7 +74,7 @@
                                         </div>
                                     </ng-template>
                                     <ng-template let-car pTemplate="gridItem">
-                                        <div style="padding:.5em" class="ui-g-12 ui-md-3">
+                                        <div style="padding:.5em" class="ui-g-12 ui-md-5">
                                             <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
                                                 <img src="/content/showcase/images/demo/car/{{car.brand}}.png" width="60">
                                                 <div class="car-detail">{{car.year}} - {{car.color}}</div>

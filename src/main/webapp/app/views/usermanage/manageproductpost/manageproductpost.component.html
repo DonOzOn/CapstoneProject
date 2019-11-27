@@ -1,7 +1,5 @@
 <!-- Heading -->
 <div class="card mb-2 wow fadeIn">
-    <div class="row mb-2">
-        <div class="col-12 text-left pt-3">
             <p-toast [style]="{marginTop: '80px'}"></p-toast>
             <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
                 <p-footer>
@@ -11,26 +9,14 @@
                         (click)="cd.accept()"></button>
                 </p-footer>
             </p-confirmDialog>
-        </div>
-    </div>
     <!--Card content-->
     <div class="card-body d-sm-flex justify-content-between">
 
         <h5 class="mb-1 mb-sm-0 pt-1">
-            <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Home Page</a>
+            <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Quản lí tài khoản</a>
             <span>/</span>
-            <span>Dashboard</span>
+            <span>Quản lý bài đăng mua bán</span>
         </h5>
-
-        <form class="d-flex justify-content-center">
-            <!-- Default input -->
-            <input type="search" placeholder="Type your query" aria-label="Search" class="form-control">
-            <button class="btn btn-primary btn-sm my-0 p" type="submit">
-          <i class="fas fa-search"></i>
-        </button>
-        </form>
-
-
     </div>
 
 </div>
@@ -96,7 +82,7 @@
                                         </div>
                                     </ng-template>
                                     <ng-template let-post pTemplate="gridItem">
-                                        <div style="padding:.5em" class="ui-g-12 ui-md-3">
+                                        <div style="padding:.5em" class="ui-g-12 ui-md-5">
                                             <p-panel [header]="post.productPostResponseDTO?.projectName" [style]="{'text-align':'center'}">
                                                 <!-- <img src="/content/showcase/images/demo/car/{{car.brand}}.png" width="60"> -->
                                                 <div class="post-detail">{{post.productPostResponseDTO?.productPostTitle}}</div>
