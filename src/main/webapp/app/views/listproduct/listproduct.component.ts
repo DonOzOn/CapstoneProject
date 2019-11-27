@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ListProductPostService } from 'app/core/service/listproductpost.service';
 import { FormBuilder } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NewsService } from 'app/core/service/news.service';
+import { PostService } from '../../core/post/post.service';
+import { PostRespone } from 'app/core/post/model/postRespone.model';
 
 @Component({
   selector: 'app-listproduct',
@@ -12,9 +12,9 @@ import { NewsService } from 'app/core/service/news.service';
 export class ListproductComponent implements OnInit {
   config: any;
   count: any;
-  listDate: any;
   listPost: any[] = [];
   listNews: any[] = [];
+  post: PostRespone[];
   choose = [
     { value: 1, name: 'Mới nhất' },
     { value: 2, name: 'Cũ nhất' },
@@ -28,7 +28,7 @@ export class ListproductComponent implements OnInit {
     previousLabel: 'Previous',
     nextLabel: 'Next'
   };
-  constructor(private listProductPostService: ListProductPostService, private newService: NewsService, private fb: FormBuilder) {
+  constructor(private postService: PostService, private newService: NewsService, private fb: FormBuilder) {
     for (let i = 0; i < this.count; i++) {
       this.listPost.push({
         id: i + 1,
@@ -46,22 +46,25 @@ export class ListproductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getListPost();
+    this.getListPostProduct();
     this.getlistNews();
-    this.handelChange();
   }
-  getListPost() {
-    this.listProductPostService.getListProductPost().subscribe(res => {
-      this.listPost = res.body;
+  /*  get all product post */
+  getListPostProduct() {
+    this.postService.query().subscribe(res => {
+      this.post = res.body;
+      // eslint-disable-next-line
+      console.log('List all post : ', this.post);
     });
   }
+  /*  get total page*/
   getTotalPage() {
-    this.listProductPostService.getListProductPost().subscribe(res => {
-      this.count = 0;
-      // this.count = res.body.count;
+    this.postService.query().subscribe(res => {
+      this.count = res.body.length;
       return this.count;
     });
   }
+  /*  get  list 4 new*/
   getlistNews() {
     this.newService.getListNews().subscribe(res => {
       this.listNews = res.data.rows;
@@ -71,42 +74,36 @@ export class ListproductComponent implements OnInit {
       this.listNews = res.data.rows.slice(0, 4);
     });
   }
-  handelChange() {
-    this.chooseForm.controls.choose.valueChanges
-      .pipe(
-        debounceTime(200),
-        distinctUntilChanged()
-      )
-      .subscribe(val => {
-        switch (val) {
-          case 1: {
-            this.listPost.sort(function(obj1, obj2) {
-              return obj2.date - obj1.date;
-            });
-            break;
-          }
-          case 2: {
-            this.listPost.sort(function(obj1, obj2) {
-              return obj1.createdDate - obj2.createdDate;
-            });
-            break;
-          }
-          case 3: {
-            this.listPost.sort(function(obj1, obj2) {
-              return obj2.product.price - obj1.product.price;
-            });
-            break;
-          }
-          case 4: {
-            this.listPost.sort(function(obj1, obj2) {
-              return obj1.product.price - obj2.product.price;
-            });
-            break;
-          }
-          default: {
-            break;
-          }
-        }
-      });
+  /*  change sort */
+  onChange($deviceValue) {
+    switch (this.chooseForm.controls.choose.value) {
+      case 1: {
+        this.post.sort(function(obj1: any, obj2: any) {
+          return new Date(obj2.productPostResponseDTO.createdDate).valueOf() - new Date(obj1.productPostResponseDTO.createdDate).valueOf();
+        });
+        break;
+      }
+      case 2: {
+        this.post.sort(function(obj1: any, obj2: any) {
+          return new Date(obj1.productPostResponseDTO.createdDate).valueOf() - new Date(obj2.productPostResponseDTO.createdDate).valueOf();
+        });
+        break;
+      }
+      case 3: {
+        this.post.sort(function(obj1: any, obj2: any) {
+          return obj1.productPostResponseDTO.product.price - obj2.productPostResponseDTO.product.price;
+        });
+        break;
+      }
+      case 4: {
+        this.post.sort(function(obj1: any, obj2: any) {
+          return obj2.productPostResponseDTO.product.price - obj1.productPostResponseDTO.product.price;
+        });
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   }
 }

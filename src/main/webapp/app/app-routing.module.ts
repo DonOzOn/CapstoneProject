@@ -32,12 +32,12 @@ const routes: Routes = [
     loadChildren: () => import('./views/listproduct/listproduct.module').then(m => m.ListproductModule)
   },
   {
-    path: 'product',
-    loadChildren: () => import('./views/productdetail/productdetail.module').then(m => m.ProductModule)
-  },
-  {
     path: 'news',
     loadChildren: () => import('./views/news/news.module').then(m => m.NewsModule)
+  },
+  {
+    path: 'product',
+    loadChildren: () => import('./views/productdetail/productdetail.module').then(m => m.ProductModule)
   },
   {
     path: 'fengshui',
@@ -107,4 +107,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { useHash: true, preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -9,7 +9,7 @@ import { IUser } from './user.model';
 @Injectable({ providedIn: 'root' })
 export class UserService {
   public resourceUrl = SERVER_API_URL + 'api/users';
-
+  public resourceUrlImage = SERVER_API_URL + 'api/upload';
   constructor(private http: HttpClient) {}
 
   create(user: IUser): Observable<IUser> {
@@ -18,6 +18,22 @@ export class UserService {
 
   update(user: IUser): Observable<IUser> {
     return this.http.put<IUser>(this.resourceUrl, user);
+  }
+
+  getListImage(): Observable<HttpResponse<any[]>> {
+    return this.http.get<any[]>(this.resourceUrlImage, { observe: 'response' });
+  }
+
+  getImageByName(name: string): Observable<HttpResponse<any>> {
+    // eslint-disable-next-line
+    console.log('lay anh ');
+    return this.http.get<any>(`${this.resourceUrlImage}/files/${name}`, { observe: 'response' });
+  }
+
+  upload(uploadFiles: File): Observable<HttpResponse<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', uploadFiles, uploadFiles.name);
+    return this.http.post<any>(this.resourceUrlImage, formData, { observe: 'response' });
   }
 
   find(login: string): Observable<IUser> {
@@ -30,7 +46,7 @@ export class UserService {
   }
 
   delete(login: string): Observable<any> {
-    return this.http.delete(`${this.resourceUrl}/${login}`);
+    return this.http.delete(`${this.resourceUrl}+/${login}`);
   }
 
   authorities(): Observable<string[]> {

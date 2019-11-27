@@ -28,6 +28,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import { EditorModule } from 'primeng/editor';
+import { HttpClientModule } from '@angular/common/http';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [UsermanageComponent, ProfileComponent, ManageproductpostComponent, ManagereviewpostComponent, NotificationComponent],
@@ -55,9 +59,13 @@ import { ToastModule } from 'primeng/toast';
     ConfirmDialogModule,
     MessagesModule,
     MessageModule,
-    ToastModule
+    ToastModule,
+    EditorModule,
+    HttpClientModule,
+    SplitButtonModule,
+    CheckboxModule
   ],
   providers: [],
-  exports: [UsermanageComponent]
+  exports: [UsermanageComponent, ProfileComponent, ManageproductpostComponent, ManagereviewpostComponent, NotificationComponent]
 })
 export class UsermanageModule {}

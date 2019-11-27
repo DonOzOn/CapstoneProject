@@ -14,8 +14,6 @@ export class NewsdetailComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.data.subscribe(res => {
       this.detailNew = res.detailNew.data;
-      // eslint-disable-next-line
-      console.log(this.detailNew);
     });
   }
 }

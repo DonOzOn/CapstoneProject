@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
-import { IPost } from './model/post.model';
+import { IPostRespone } from './model/postRespone.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { tap } from 'rxjs/operators';
-import { createRequestOption } from 'app/shared/util/request-util';
+import { IPostRequest } from './model/postRequest.model copy';
+// import { createRequestOption } from 'app/shared/util/request-util';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,9 @@ export class PostService {
 
   constructor(private http: HttpClient, private alertService: JhiAlertService) {}
 
-  create(post: IPost): Observable<HttpResponse<IPost>> {
-    return this.http.post<IPost>(this.resourceUrl, post, { observe: 'response' }).pipe(
-      tap((response: HttpResponse<IPost>) => {
+  create(post: IPostRequest): Observable<HttpResponse<IPostRequest>> {
+    return this.http.post<IPostRequest>(this.resourceUrl, post, { observe: 'response' }).pipe(
+      tap((response: HttpResponse<IPostRequest>) => {
         if (response.ok) {
           // const g = response.body;
           this.alertService.success('Tạo thành công bài đăng', null, null);
@@ -26,15 +27,16 @@ export class PostService {
       })
     );
   }
+
   upload(uploadFiles: File): Observable<HttpResponse<any>> {
     const formData: FormData = new FormData();
     formData.append('file', uploadFiles, uploadFiles.name);
     return this.http.post<any>(this.resourceUrlImage, formData, { observe: 'response' });
   }
 
-  update(post: IPost): Observable<HttpResponse<IPost>> {
-    return this.http.put<IPost>(this.resourceUrl, post, { observe: 'response' }).pipe(
-      tap((response: HttpResponse<IPost>) => {
+  update(post: IPostRequest): Observable<HttpResponse<IPostRequest>> {
+    return this.http.put<IPostRequest>(this.resourceUrl, post, { observe: 'response' }).pipe(
+      tap((response: HttpResponse<IPostRequest>) => {
         if (response.ok) {
           // const g = response.body;
           this.alertService.success('Cập nhật thành công post #', null, null);
@@ -43,9 +45,9 @@ export class PostService {
     );
   }
 
-  toggleStatus(id): Observable<HttpResponse<IPost>> {
+  toggleStatus(id): Observable<HttpResponse<IPostRespone>> {
     return this.http.put(`${this.resourceUrl}/${id}/toggle-status`, { observe: 'response' }).pipe(
-      tap((response: HttpResponse<IPost>) => {
+      tap((response: HttpResponse<IPostRespone>) => {
         if (response.ok) {
           // const g = response.body;
           this.alertService.success('Cập nhật thành công post #', null, null);
@@ -54,12 +56,11 @@ export class PostService {
     );
   }
 
-  find(id: any): Observable<HttpResponse<IPost>> {
-    return this.http.get<IPost>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  find(id: any): Observable<IPostRespone> {
+    return this.http.get<IPostRespone>(`${this.resourceUrl}/${id}`);
   }
 
-  query(req?: any): Observable<HttpResponse<IPost[]>> {
-    const options = createRequestOption(req);
-    return this.http.get<IPost[]>(`${this.resourceUrl}/find-by-name`, { params: options, observe: 'response' });
+  query(): Observable<HttpResponse<IPostRespone[]>> {
+    return this.http.get<IPostRespone[]>(this.resourceUrl, { observe: 'response' });
   }
 }

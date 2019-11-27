@@ -1,9 +1,4 @@
 package com.realestatebrokerage.service.dto;
-
-import com.realestatebrokerage.domain.Image;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.time.Instant;
 import java.util.List;
 
 public class PostRequestDTO {
@@ -11,15 +6,15 @@ public class PostRequestDTO {
     ProductPostRequestDTO productPostRequestDTO;
     ImageDTO imageDTO;
     UsingImageRequestDTO usingImageRequestDTO;
-    List<MultipartFile> listImage;
+    List<String> listImage;
     public PostRequestDTO() {
     }
 
-    public List<MultipartFile> getListImage() {
+    public List<String> getListImage() {
         return listImage;
     }
 
-    public void setListImage(List<MultipartFile> listImage) {
+    public void setListImage(List<String> listImage) {
         this.listImage = listImage;
     }
 

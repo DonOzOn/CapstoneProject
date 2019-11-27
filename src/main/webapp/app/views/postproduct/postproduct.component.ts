@@ -12,7 +12,7 @@ import { JhiAlertService } from 'ng-jhipster';
 import { ProductPostTypeService } from 'app/core/product-type/product-type.service';
 import { ProductPost } from 'app/core/post/model/product-post.model';
 import { PostService } from 'app/core/post/post.service';
-import { Post } from 'app/core/post/model/post.model';
+import { PostRequest } from 'app/core/post/model/postRequest.model copy';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { IUser } from 'app/core/user/user.model';
@@ -80,7 +80,7 @@ export class PostproductComponent implements OnInit {
     content: [this.text1, Validators.maxLength(255)],
     utilities: [null]
   });
-  post: Post = new Post();
+  post: PostRequest = new PostRequest();
   constructor(
     private addressService: AddressService,
     private directionService: DirectionService,
@@ -121,24 +121,17 @@ export class PostproductComponent implements OnInit {
     }
     listFile.forEach(element => {
       this.postService.upload(element).subscribe(
-        (res: any) => {
-          this.uploadedFiles.push(res.body.name);
+        res => {
+          this.uploadedFiles.push(res.body);
           this.isUploadedFile = true;
-          // eslint-disable-next-line
-          console.log('Dung uploadedFiles: ', this.uploadedFiles);
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh thành công!!' });
         },
-        (err: any) => {
+        (err: HttpErrorResponse) => {
           this.isUploadedFile = false;
-          // eslint-disable-next-line
-          console.log('Sai', err.body);
+          this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh thất bại!!' });
         }
       );
     });
-    if (this.isUploadedFile === true) {
-      this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh thành công!!' });
-    } else {
-      this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh thất bại!!' });
-    }
     fileUpload.clear();
   }
   onRemove(event) {
@@ -254,84 +247,84 @@ export class PostproductComponent implements OnInit {
       this.accountService.identity().subscribe((account: Account) => {
         this.account = account;
       });
-      // eslint-disable-next-line
-      console.log('data post: ', this.account);
-      // eslint-disable-next-line
+
       this.userService.find(this.account.login).subscribe((userAuthen: IUser) => {
         this.user = userAuthen;
-      });
-      const product = {
-        price: this.productPostForm.controls.price.value,
-        area: this.productPostForm.controls.area.value,
-        direction: this.productPostForm.controls.directionID.value,
-        legalStatus: this.productPostForm.controls.legalStatusID.value,
-        numberFloor: this.productPostForm.controls.numFloor.value,
-        numberBathroom: this.productPostForm.controls.numBathroom.value,
-        numberBedroom: this.productPostForm.controls.numBedroom.value,
-        productTypeChild: this.productPostForm.controls.productTypeChildID.value,
-        productType: this.productPostForm.controls.productTypeID.value,
-        utilities: this.productPostForm.controls.utilities.value,
-        status: true
-      };
-      const productPost = {
-        user: this.user,
-        projectName: this.productPostForm.controls.projectName.value,
-        productPostType: this.productPostForm.controls.type.value,
-        productPostTitle: this.productPostForm.controls.projectPostTitle.value,
-        totalLike: null,
-        typeDeal: null,
-        totalReport: null,
-        totalShare: null,
-        ward: this.formAddress.controls.wardCode.value,
-        province: this.formAddress.controls.provinceCode.value,
-        district: this.formAddress.controls.districtCode.value,
-        address: this.formAddress.controls.address.value,
-        content: this.productPostForm.controls.content.value,
-        shortDescription: this.productPostForm.controls.content.value.substr(0, 51),
-        product: null,
-        status: true
-      };
-      const image = {
-        img1: this.uploadedFiles[0],
-        img2: this.uploadedFiles[1],
-        img3: this.uploadedFiles[2],
-        img4: this.uploadedFiles[3],
-        img5: this.uploadedFiles[4],
-        img6: this.uploadedFiles[5],
-        img7: this.uploadedFiles[6],
-        img8: this.uploadedFiles[7],
-        img9: this.uploadedFiles[8],
-        img10: this.uploadedFiles[9],
-        status: true
-      };
-      const usingImage = {
-        image: null,
-        usingType: null,
-        productPost: null,
-        status: true
-      };
-      this.post.productRequestDTO = product;
-      this.post.productPostRequestDTO = productPost;
-      this.post.imageDTO = image;
-      this.post.usingImageRequestDTO = usingImage;
-      this.post.listImage = this.uploadedFiles;
-      // eslint-disable-next-line
-      this.confirmationService.confirm({
-        message: 'Bạn có chắc chắn muốn tạo bài đăng này?',
-        accept: () => {
-          this.alertService.clear();
-          this.postService
-            .create(this.post)
+        const product = {
+          price: this.productPostForm.controls.price.value,
+          area: this.productPostForm.controls.area.value,
+          direction: this.productPostForm.controls.directionID.value,
+          legalStatus: this.productPostForm.controls.legalStatusID.value,
+          numberFloor: this.productPostForm.controls.numFloor.value,
+          numberBathroom: this.productPostForm.controls.numBathroom.value,
+          numberBedroom: this.productPostForm.controls.numBedroom.value,
+          productTypeChild: this.productPostForm.controls.productTypeChildID.value,
+          productType: this.productPostForm.controls.productTypeID.value,
+          utilities: this.productPostForm.controls.utilities.value,
+          status: true
+        };
+        // eslint-disable-next-line
+        console.log('user id: ', this.user);
+        const productPost = {
+          user: this.user.id,
+          projectName: this.productPostForm.controls.projectName.value,
+          productPostType: this.productPostForm.controls.type.value,
+          productPostTitle: this.productPostForm.controls.projectPostTitle.value,
+          totalLike: null,
+          typeDeal: null,
+          totalReport: null,
+          totalShare: null,
+          ward: this.formAddress.controls.wardCode.value,
+          province: this.formAddress.controls.provinceCode.value,
+          district: this.formAddress.controls.districtCode.value,
+          address: this.formAddress.controls.address.value,
+          content: this.productPostForm.controls.content.value,
+          shortDescription: this.productPostForm.controls.content.value.substr(0, 51),
+          product: null,
+          status: true
+        };
+        const image = {
+          img1: this.uploadedFiles[0],
+          img2: this.uploadedFiles[1],
+          img3: this.uploadedFiles[2],
+          img4: this.uploadedFiles[3],
+          img5: this.uploadedFiles[4],
+          img6: this.uploadedFiles[5],
+          img7: this.uploadedFiles[6],
+          img8: this.uploadedFiles[7],
+          img9: this.uploadedFiles[8],
+          img10: this.uploadedFiles[9],
+          status: true
+        };
+        const usingImage = {
+          image: null,
+          usingType: null,
+          productPost: null,
+          status: true
+        };
+        this.post.productRequestDTO = product;
+        this.post.productPostRequestDTO = productPost;
+        this.post.imageDTO = image;
+        this.post.usingImageRequestDTO = usingImage;
+        this.post.listImage = this.uploadedFiles;
+        // eslint-disable-next-line
+        this.confirmationService.confirm({
+          message: 'Bạn có chắc chắn muốn tạo bài đăng này?',
+          accept: () => {
+            this.alertService.clear();
+            this.postService
+              .create(this.post)
+              // eslint-disable-next-line
+              .subscribe(
+                (res: any) => this.router.navigate(['manage-product']),
+                (err: HttpErrorResponse) => this.alertService.error(err.error.title)
+              );
             // eslint-disable-next-line
-            .subscribe(
-              (res: any) => this.router.navigate(['manage-product']),
-              (err: HttpErrorResponse) => this.alertService.error(err.error.title)
-            );
-          // eslint-disable-next-line
-          console.log('data post: ', this.post);
-          // eslint-disable-next-line
-          console.log('data pic: ', this.uploadedFiles);
-        }
+            console.log('data post: ', this.post);
+            // eslint-disable-next-line
+            console.log('data pic: ', this.uploadedFiles);
+          }
+        });
       });
     }
   }

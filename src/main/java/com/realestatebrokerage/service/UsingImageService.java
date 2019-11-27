@@ -2,7 +2,6 @@ package com.realestatebrokerage.service;
 
 import com.realestatebrokerage.domain.*;
 import com.realestatebrokerage.repository.*;
-import com.realestatebrokerage.service.dto.ProductRequestDTO;
 import com.realestatebrokerage.service.dto.UsingImageRequestDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsingImageService {
@@ -23,11 +23,19 @@ public class UsingImageService {
     private ProductPostRepository productPostRepository;
 
     /**
-     * List all product
+     * List all Using Image
      * **/
     public List<UsingImage> findAll(){
         return usingImageRepository.findAll();
     }
+
+    /**
+     * get using Image
+     * **/
+    public Optional<UsingImage> findByProductPost(Long id){
+        return usingImageRepository.findByProductPostId(id);
+    }
+
 
     /**
      * create using image
@@ -43,4 +51,5 @@ public class UsingImageService {
         return usingImageRepository.save(usingImage);
 
     }
+
 }
