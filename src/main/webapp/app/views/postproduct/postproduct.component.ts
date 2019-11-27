@@ -113,8 +113,6 @@ export class PostproductComponent implements OnInit {
 
   /*  add picture to list */
   onUpload(event, fileUpload) {
-    // eslint-disable-next-line
-    console.log('da qua day');
     const listFile = [];
     for (const file of event.files) {
       listFile.push(file);
@@ -312,18 +310,11 @@ export class PostproductComponent implements OnInit {
           message: 'Bạn có chắc chắn muốn tạo bài đăng này?',
           accept: () => {
             this.alertService.clear();
-            this.postService
-              .create(this.post)
+            this.postService.create(this.post).subscribe(
               // eslint-disable-next-line
-              .subscribe(
-                // eslint-disable-next-line
-                (res: any) => this.router.navigate(['manage-product']),
-                (err: HttpErrorResponse) => this.alertService.error(err.error.title)
-              );
-            // eslint-disable-next-line
-            console.log('data post: ', this.post);
-            // eslint-disable-next-line
-            console.log('data pic: ', this.uploadedFiles);
+              (res: any) => this.router.navigate(['manage-product']),
+              (err: HttpErrorResponse) => this.alertService.error(err.error.title)
+            );
           }
         });
       });

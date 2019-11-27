@@ -6,9 +6,11 @@ import com.realestatebrokerage.web.rest.errors.StorageFileNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,11 +31,11 @@ public class FileUploadResource {
     @Autowired
     private StorageService storageService;
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) {
+    @PostMapping(value = "/upload" , produces = {MediaType.TEXT_PLAIN_VALUE})
+    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
         log.debug("REST request to upload file : {}", file.getOriginalFilename());
         String fileName = storageService.store(file);
-        return new ResponseEntity<>(fileName, HttpStatus.OK);
+        return new ResponseEntity<>(JSONObject.quote(fileName), HttpStatus.OK);
     }
 
     @PostMapping("/upload/list")

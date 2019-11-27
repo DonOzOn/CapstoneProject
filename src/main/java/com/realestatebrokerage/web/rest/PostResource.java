@@ -99,18 +99,21 @@ public class PostResource {
         List<PostResponeDTO> responeDTOList =  new ArrayList<>();
         List<ProductPostResponseDTO> postList =  productPostService.findAll().stream()
             .map(ProductPostResponseDTO::new).collect(Collectors.toList());
-        for (ProductPostResponseDTO pr: postList) {
-            PostResponeDTO postResponeDTO = new PostResponeDTO();
-            postResponeDTO.setProductPostResponseDTO(pr);
-            ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
-            postResponeDTO.setProductResponseDTO(productResponseDTO);
-            UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
-            postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
-            ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
-            postResponeDTO.setImageDTO(imageDTO);
-            responeDTOList.add(postResponeDTO);
+        if(postList != null){
+            for (ProductPostResponseDTO pr: postList) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                postResponeDTO.setProductPostResponseDTO(pr);
+                ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
+                postResponeDTO.setProductResponseDTO(productResponseDTO);
+                UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                postResponeDTO.setImageDTO(imageDTO);
+                responeDTOList.add(postResponeDTO);
+            }
+            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
         }
-        return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     /**
@@ -137,5 +140,16 @@ public class PostResource {
         return new ResponseEntity<>(postResponeDTO, HttpStatus.OK);
     }
 
-
+    /**
+     * {@code PUT /product-post} : Updates an product post.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated user.
+     * @throws com.realestatebrokerage.web.rest.errors.EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already in use.
+     * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already in use.
+     */
+    @DeleteMapping("/product-post/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable long id) {
+        log.debug("REST request to delete Post Product: {}", id);
+        productPostService.deleteByID(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
