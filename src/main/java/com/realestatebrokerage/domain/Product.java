@@ -1,5 +1,7 @@
 package com.realestatebrokerage.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.realestatebrokerage.config.Constants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
@@ -66,7 +68,8 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @JoinColumn(referencedColumnName = "id", name = "product_type_id")
     private ProductType productType;
 
-    @ManyToMany
+    @JsonManagedReference
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "using_utilities", inverseJoinColumns = {
         @JoinColumn(name = "utilities_id", referencedColumnName = "id")}, joinColumns = {
         @JoinColumn(name = "product_id", referencedColumnName = "id")})

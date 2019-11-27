@@ -15,23 +15,36 @@ import com.realestatebrokerage.web.rest.errors.LoginAlreadyUsedException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import javax.persistence.EntityManager;
 
+import io.micrometer.core.instrument.search.Search;
+import org.apache.lucene.search.Collector;
+import org.apache.lucene.util.QueryBuilder;
+
+import org.hibernate.search.jpa.FullTextEntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.persistence.*;
+import org.hibernate.search.jpa.*;
+
+import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing users.
@@ -71,6 +84,10 @@ public class UserResource {
     private final UserRepository userRepository;
 
     private final MailService mailService;
+
+    @Autowired
+    private EntityManager entityManager;
+
 
     public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
 
@@ -138,6 +155,36 @@ public class UserResource {
             HeaderUtil.createAlert(applicationName, "A user is updated with identifier " + userDTO.getLogin(), userDTO.getLogin()));
     }
 
+
+    /**
+     * {@code PUT /users} : Updates an existing User.
+     *
+     * @param userDTO the user to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated user.
+     * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already in use.
+     * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already in use.
+     */
+    @PutMapping("/users/updateActive")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<UserDTO> updateUserActive(@Valid @RequestBody UserDTO userDTO) {
+        log.debug("REST request to update User : {}", userDTO);
+        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
+        if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {
+            throw new EmailAlreadyUsedException();
+        }
+        existingUser = userRepository.findOneByLogin(userDTO.getLogin().toLowerCase());
+        if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {
+            throw new LoginAlreadyUsedException();
+        }
+        Optional<UserDTO> updatedUser = userService.updateUserAtive(userDTO);
+
+        return ResponseUtil.wrapOrNotFound(updatedUser,
+            HeaderUtil.createAlert(applicationName, "A user is updated with identifier " + userDTO.getLogin(), userDTO.getLogin()));
+    }
+
+
+
+
     /**
      * {@code GET /users} : get all users.
      *
@@ -187,5 +234,28 @@ public class UserResource {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "A user is deleted with identifier " + login, login)).build();
+    }
+
+    @GetMapping(value = "/user/search")
+    public ResponseEntity<List<UserDTO>> fullTextSearch(@RequestParam(value = "searchKey") String searchKey) throws InterruptedException {
+        FullTextEntityManager fullTextEntityManager =
+            org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
+
+
+        QueryBuilder qb = (QueryBuilder) fullTextEntityManager.getSearchFactory()
+            .buildQueryBuilder().forEntity(User.class).get();
+
+        org.apache.lucene.search.Query query = ((org.hibernate.search.query.dsl.QueryBuilder) qb).keyword()
+            .onFields("title", "subtitle", "authors.name")
+            .matching("Java rocks!")
+            .createQuery();
+        org.hibernate.search.jpa.FullTextQuery jpaQuery
+            = fullTextEntityManager.createFullTextQuery(query, User.class);
+
+        List<User> users = jpaQuery.getResultList();
+        List<UserDTO> userDTOList = users.stream().map(UserDTO::new).collect(Collectors.toList());
+
+        return new ResponseEntity<>(userDTOList , HttpStatus.OK);
+
     }
 }

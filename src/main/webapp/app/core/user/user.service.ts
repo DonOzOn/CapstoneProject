@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IUser } from './user.model';
@@ -20,13 +19,15 @@ export class UserService {
     return this.http.put<IUser>(this.resourceUrl, user);
   }
 
+  updateActive(user: IUser): Observable<HttpResponse<IUser>> {
+    return this.http.put<IUser>(`${this.resourceUrl}/updateActive`, user, { observe: 'response' });
+  }
+
   getListImage(): Observable<HttpResponse<any[]>> {
     return this.http.get<any[]>(this.resourceUrlImage, { observe: 'response' });
   }
 
   getImageByName(name: string): Observable<HttpResponse<any>> {
-    // eslint-disable-next-line
-    console.log('lay anh ');
     return this.http.get<any>(`${this.resourceUrlImage}/files/${name}`, { observe: 'response' });
   }
 

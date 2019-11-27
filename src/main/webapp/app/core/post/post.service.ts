@@ -63,4 +63,8 @@ export class PostService {
   query(): Observable<HttpResponse<IPostRespone[]>> {
     return this.http.get<IPostRespone[]>(this.resourceUrl, { observe: 'response' });
   }
+
+  delete(id: any): Observable<HttpResponse<any>> {
+    return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
 }

@@ -1,5 +1,8 @@
 package com.realestatebrokerage.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,6 +26,7 @@ public class Utilities{
     @Column(name = "utilities_name", length = 50)
     private String utilitiesName;
 
+    @JsonBackReference
     @ManyToMany
     @JoinTable(name = "using_utilities", inverseJoinColumns = {
         @JoinColumn(name = "product_id", referencedColumnName = "id")}, joinColumns = {

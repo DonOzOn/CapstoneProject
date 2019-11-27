@@ -27,12 +27,12 @@ export interface Car {
 }
 
 @Component({
-  selector: 'app-manageproductpost',
-  templateUrl: './manageproductpost.component.html',
-  styleUrls: ['./manageproductpost.component.scss'],
+  selector: 'app-manageallproductpost',
+  templateUrl: './manage-allproductpost.html',
+  styleUrls: ['./manage-allproductpost.component.scss'],
   providers: [ConfirmationService, MessageService]
 })
-export class ManageproductpostComponent implements OnInit {
+export class ManageAllProductpostComponent implements OnInit {
   /*  Item select button  */
   selectedType: string;
   types: SelectItem[];
