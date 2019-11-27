@@ -1,197 +1,239 @@
 .container-fluid {
-    // padding: 0;
-    margin: 0;
-    max-width: 100%;
-    box-sizing: border-box;
-    position: relative;
-    .dropdown-menu {
-        background: rgba($color: white, $alpha: 1);
-        a {
-            color: #428bca;
-        }
-        a:hover {
-            color: #503acf;
-        }
+  // padding: 0;
+  margin: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  .dropdown-menu {
+    background: rgba($color: white, $alpha: 1);
+    a {
+      color: #428bca;
     }
-    //Search
-    .boxSearch {
-        padding: 0 2% 2% 0;
-        top: 150px;
-        background: rgba($color: white, $alpha: 0.4);
-        height: 59px;
-        // max-width: 60%;
-        -moz-border-radius: 8px;
-        -webkit-border-radius: 8px;
-        -ms-border-radius: 8px;
-        -o-border-radius: 8px;
-        border-radius: 8px;
-        border-style: solid;
-        border-color: rgba($color: white, $alpha: 0.5);
+    a:hover {
+      color: #503acf;
     }
-    .btn {
-        background-color: white;
-        color: #428bca;
-    }
-    .btndrop {
-        margin-right: -5px;
-    }
-    .btnFind {
-        // max-width: 100%;
-        margin-left: 2%;
-    }
-    .form-control {
-        width: 100%;
-        color: #428bca;
-    }
+  }
+  //Search
+  .boxSearch {
+    padding: 0 2% 2% 0;
+    top: 150px;
+    background: rgba($color: white, $alpha: 0.4);
+    height: 59px;
+    // max-width: 60%;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
+    border-style: solid;
+    border-color: rgba($color: white, $alpha: 0.5);
+  }
+  .btn {
+    background-color: white;
+    color: #428bca;
+  }
+  .btndrop {
+    margin-right: -5px;
+  }
+  .btnFind {
+    // max-width: 100%;
+    margin-left: 2%;
+  }
+  .form-control {
+    width: 100%;
+    color: #428bca;
+  }
 }
 
 img {
-    padding: 0;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-    height: 75vh;
-    background-attachment: fixed;
+  padding: 0;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  height: 75vh;
+  background-attachment: fixed;
 }
 
 //slide city
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .carou {
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: -25px;
-    padding-left: 8%;
-    background: rgba($color: #474747, $alpha: 0.5);
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: -25px;
+  padding-left: 8%;
+  background: rgba($color: #474747, $alpha: 0.5);
 }
 
 #city {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
 }
 
 #city:hover {
-    color: rgba($color: #ffffff, $alpha: 0.8);
+  color: rgba($color: #ffffff, $alpha: 0.8);
 }
 
 i {
-    padding-right: 5px;
-    color: #428bca;
+  padding-right: 5px;
+  color: #428bca;
 }
 
 a:hover {
-    color: #503acf;
+  color: #503acf;
 }
 
 a {
-    text-decoration: none;
-    color: #428bca;
+  text-decoration: none;
+  color: #428bca;
 }
 
 h2 {
-    color: #428bca;
+  color: #428bca;
 }
 
 .btn-outline-primary {
-    background: rgba($color: #ffffff, $alpha: 0.9);
+  background: rgba($color: #ffffff, $alpha: 0.9);
 }
 
 .box-content {
-    box-sizing: content-box;
-    width: 100%;
+  box-sizing: content-box;
+  width: 100%;
 }
 
 ul {
-    // .list-group-item {
-    //     // min-width: 23%;
-    //     min-height: 50%;
-    // }
-    li {
-        margin: 0;
-        padding: 0;
-        border: none;
-        list-style-type: none;
-        .card {
-            max-height: 100%;
-            max-width: 100%;
-            .card-img-top {
-                height: 30vh;
-                display: block;
-            }
-            .nickname {
-                max-width: 60%;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-            }
-            .contact {
-                padding-top: 4px;
-            }
-            .card-title {
-                color: #428bca;
-                max-width: 255px;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-            }
-            .textoverimg {
-                margin-top: -55px;
-            }
-            .card-img-overlay {
-                max-height: 38%;
-                a {
-                    opacity: 0;
-                    margin-top: 0;
-                    .viewdetail {
-                        color: #428bca;
-                    }
-                }
-            }
-            // .card-img-overlay:hover .card-img-top {
-            //     filter: brightness(70%) blur(2px);
-            // }
-            .card-img-overlay:hover {
-                a {
-                    -moz-border-radius: 8px;
-                    -webkit-border-radius: 8px;
-                    -ms-border-radius: 8px;
-                    -o-border-radius: 8px;
-                    border-radius: 8px;
-                    width: 50%;
-                    margin-top: 26%;
-                    transition: 0.8s;
-                    opacity: 1;
-                }
-                a:hover {
-                    color: #503acf;
-                }
-            }
+  // .list-group-item {
+  //     // min-width: 23%;
+  //     min-height: 50%;
+  // }
+  li {
+    margin: 0;
+    padding: 0;
+    border: none;
+    list-style-type: none;
+    .card {
+      max-height: 100%;
+      max-width: 100%;
+      .card-img-top {
+        height: 30vh;
+        display: block;
+      }
+      .nickname {
+        max-width: 60%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .contact {
+        padding-top: 4px;
+      }
+      .card-title {
+        color: #428bca;
+        max-width: 255px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .textoverimg {
+        margin-top: -55px;
+      }
+      .card-img-overlay {
+        max-height: 38%;
+        a {
+          opacity: 0;
+          margin-top: 0;
+          .viewdetail {
+            color: #428bca;
+          }
         }
+      }
+      // .card-img-overlay:hover .card-img-top {
+      //     filter: brightness(70%) blur(2px);
+      // }
+      .card-img-overlay:hover {
+        a {
+          -moz-border-radius: 8px;
+          -webkit-border-radius: 8px;
+          -ms-border-radius: 8px;
+          -o-border-radius: 8px;
+          border-radius: 8px;
+          width: 50%;
+          margin-top: 26%;
+          transition: 0.8s;
+          opacity: 1;
+        }
+        a:hover {
+          color: #503acf;
+        }
+      }
     }
+  }
 }
 
 .advertising {
-    height: 10%;
-    background-color: grey;
+  height: 10%;
+  background-color: grey;
 }
 
 .card-img {
-    height: 70%;
+  height: 70%;
 }
 
 .avatar {
-    height: 30px;
-    width: 30px;
+  height: 30px;
+  width: 30px;
 }
 
 .card-img-top {
-    height: 35vh;
+  height: 35vh;
 }
 
 ul li .card .new-card {
-    border: solid;
+  border: solid;
 }
 
 //Slide Hot
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-details > .p-grid {
+  border: 1px solid #474747;
+  border-radius: 3px;
+  margin: 0.3em;
+  text-align: center;
+  padding: 2em 0 2.25em 0;
+}
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data .car-title {
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 24px;
+}
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data .car-subtitle {
+  margin: 0.25em 0 2em 0;
+}
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data button {
+  margin-left: 0.5em;
+}
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data button:first-child {
+  margin-left: 0;
+}
+.carousel-demo .ui-carousel.custom-carousel .ui-carousel-dot-icon {
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 50%;
+}
+.carousel-demo .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-start .car-details > .p-grid {
+  margin-left: 0.6em;
+}
+.carousel-demo .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-end .car-details > .p-grid {
+  margin-right: 0.6em;
+}
+.giveMeEllipsis {
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 1.2em; /* fallback */
+  max-height: 3.6em; /* fallback */
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}

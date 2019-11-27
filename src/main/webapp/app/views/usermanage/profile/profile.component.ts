@@ -13,10 +13,6 @@ import { Ward } from 'app/core/address/model/ward.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SERVER_API_URL } from 'app/app.constants';
 
-interface City {
-  name: string;
-  code: string;
-}
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -145,6 +141,7 @@ export class ProfileComponent implements OnInit {
         (res: any) => {
           // eslint-disable-next-line
           console.log('right: ', res.body);
+          this.uploadedFiles.pop();
           this.uploadedFiles.push(res.body);
           this.isUploadedFile = true;
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh đại diện thành công!!' });
@@ -168,6 +165,11 @@ export class ProfileComponent implements OnInit {
     // eslint-disable-next-line
     console.log('after delete uploadedFiles: ', this.uploadedFiles);
   }
+
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/404', { skipLocationChange: true }).then(() => this.router.navigate([uri]));
+  }
+
   /**
    * update user information
    */
@@ -189,20 +191,21 @@ export class ProfileComponent implements OnInit {
           () => {
             this.error = null;
             this.success = 'OK';
-            // eslint-disable-next-line
-            console.log('Udate hình: ', this.uploadedFiles);
           },
           () => {
             this.success = null;
             this.error = 'ERROR';
           }
         );
-        this.userService
-          .update(data)
-          .subscribe(
-            () => this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã cập nhật thành công thông tin!!' }),
-            err => this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: err.error.title })
-          );
+        this.userService.update(data).subscribe(
+          // eslint-disable-next-line
+          () => (
+            this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã cập nhật thành công thông tin!!' }),
+            this.uploadedFiles.pop(),
+            this.redirectTo('/usermanage')
+          ),
+          err => this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: err.error.title })
+        );
       }
     });
   }

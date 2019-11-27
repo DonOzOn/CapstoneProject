@@ -18,7 +18,7 @@ import { UserService } from 'app/core/user/user.service';
 import { Account } from 'app/core/user/account.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PostRequest } from 'app/core/post/model/postRequest.model copy';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { SERVER_API_URL } from 'app/app.constants';
 
 export interface Car {
   vin: any;
@@ -34,6 +34,7 @@ export interface Car {
   providers: [ConfirmationService, MessageService]
 })
 export class ManageAllProductpostComponent implements OnInit {
+  imageUrl = SERVER_API_URL + '/api/upload/files/';
   /*  Item select button  */
   selectedType: string;
   types: SelectItem[];

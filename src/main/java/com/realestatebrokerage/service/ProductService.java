@@ -93,6 +93,7 @@ public class ProductService {
                 for (Long id: productRequestDTO.getUtilities()) {
                     Utilities utilitiesSearch = utilitiesRepository.findById(id).orElse(null);
                     utilities.add(utilitiesSearch);
+                    System.out.println("utilities : " + utilities);
                 }
                 product.setUtilities(utilities);
                 return productRepository.save(product);

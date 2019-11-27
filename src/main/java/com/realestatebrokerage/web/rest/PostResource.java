@@ -153,7 +153,7 @@ public class PostResource {
      * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already in use.
      */
     @PutMapping("/product-post")
-    public ResponseEntity<PostResponeDTO> updateUser(@RequestBody PostRequestDTO postRequestDTO) {
+    public ResponseEntity<PostResponeDTO> updatePost(@RequestBody PostRequestDTO postRequestDTO) {
         log.debug("REST request to update Post : {}", postRequestDTO);
         PostResponeDTO postResponeDTO = new PostResponeDTO();
         postRequestDTO.getProductPostRequestDTO().setProduct(postRequestDTO.getProductRequestDTO().getId());
