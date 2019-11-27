@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
 import { SelectItem, ConfirmationService, MessageService } from 'primeng/api';
 import { CarService } from 'app/core/service/car.service';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormControl } from '@angular/forms';
 import { ProductPost } from 'app/core/post/model/product-post.model';
 import { IUser } from 'app/core/user/user.model';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
@@ -18,6 +18,7 @@ import { UserService } from 'app/core/user/user.service';
 import { Account } from 'app/core/user/account.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PostRequest } from 'app/core/post/model/postRequest.model copy';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 export interface Car {
   vin: any;
@@ -109,6 +110,8 @@ export class ManageAllProductpostComponent implements OnInit {
   sortField: string;
 
   sortOrder: number;
+  from = new FormControl();
+  to = new FormControl();
   constructor(
     private carService: CarService,
     private addressService: AddressService,
@@ -131,8 +134,16 @@ export class ManageAllProductpostComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getlistCar();
     this.getListPostProduct();
+
+    // this.from.valueChanges
+    //       .pipe(
+    //           debounceTime(200),
+    //           distinctUntilChanged(),
+    //           tap(() => this.fetch()),
+    //           tap(() => this.usersTable.reset())
+    //       )
+    //       .subscribe();
     this.sortOptions = [
       { label: 'Mới nhất', value: '!productPostResponseDTO.createdDate' },
       { label: 'Cũ nhất', value: 'productPostResponseDTO.createdDate' },
@@ -144,11 +155,6 @@ export class ManageAllProductpostComponent implements OnInit {
     this.getLegalStatus();
     this.getUtility();
     // this.selectedType = 'Mua bán';
-  }
-  getlistCar() {
-    this.carService.getListCar().subscribe(res => {
-      this.cars = res.data.rows;
-    });
   }
 
   /**
@@ -248,8 +254,6 @@ export class ManageAllProductpostComponent implements OnInit {
   }
   /*  add picture to list */
   onUpload(event, fileUpload) {
-    // eslint-disable-next-line
-    console.log('da qua day');
     const listFile = [];
     for (const file of event.files) {
       listFile.push(file);

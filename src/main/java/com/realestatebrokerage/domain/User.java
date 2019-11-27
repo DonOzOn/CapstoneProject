@@ -4,9 +4,12 @@ import com.realestatebrokerage.config.Constants;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.analysis.util.CharArraySet;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -20,14 +23,16 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
+import static org.apache.lucene.analysis.util.CharArraySet.*;
+
 /**
  * A user.
  */
 @Entity
 @Table(name = "jhi_user")
+@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -38,6 +43,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Pattern(regexp = Constants.LOGIN_REGEX)
     @Size(min = 1, max = 50)
     @Column(length = 50, unique = true, nullable = false)
+    @Field(termVector = TermVector.YES, analyze= Analyze.YES, store= Store.NO)
     private String login;
 
     @JsonIgnore
@@ -52,6 +58,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Size(max = 50)
     @Column(name = "last_name", length = 50)
+    @Field(termVector = TermVector.YES, analyze= Analyze.YES, store= Store.NO)
     private String lastName;
 
     @ManyToOne
@@ -79,6 +86,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Email
     @Size(min = 5, max = 254)
     @Column(length = 254, unique = true)
+    @Field(termVector = TermVector.YES, analyze= Analyze.YES, store= Store.NO)
     private String email;
 
     @NotNull
