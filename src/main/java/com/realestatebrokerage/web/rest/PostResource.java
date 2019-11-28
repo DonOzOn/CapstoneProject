@@ -121,7 +121,7 @@ public class PostResource {
      * {@code GET /Post} : get all Post by UserID.
      *
      */
-    @GetMapping("/product-post/{id}")
+    @GetMapping("/product-post/user/{id}")
     public ResponseEntity<List<PostResponeDTO>> getAllPostProductByUserID(@PathVariable Long id) {
         log.debug("get by user id : {}", id);
         List<PostResponeDTO> responeDTOList = new ArrayList<>();

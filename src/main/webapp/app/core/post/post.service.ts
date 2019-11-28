@@ -61,7 +61,7 @@ export class PostService {
   }
 
   listAllByUserID(id: any): Observable<HttpResponse<IPostRespone[]>> {
-    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/user/${id}`, { observe: 'response' });
   }
 
   listAllByType(id: any): Observable<HttpResponse<IPostRespone[]>> {
