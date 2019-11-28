@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectItem, ConfirmationService, MessageService, LazyLoadEvent, FilterUtils } from 'primeng/api';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormControl } from '@angular/forms';
 import { IUser } from 'app/core/user/user.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
 import { UserService } from 'app/core/user/user.service';
 import { HttpResponse } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Table } from 'primeng/table';
 
 export interface Car {
@@ -29,6 +29,7 @@ export class ManageUserComponent implements OnInit {
   selectedType: string;
   types: SelectItem[];
   selectedUtility: string[] = [];
+  name = new FormControl('');
   isUploadedFile;
   false;
   text1 = '<div>Hello!</div><div>Chào mừng tới BDS</div><div><br></div>';
@@ -85,15 +86,15 @@ export class ManageUserComponent implements OnInit {
     ];
     this.accountService.identity().subscribe(account => {
       this.currentAccount = account;
-      // this.name.valueChanges
-      //     .pipe(
-      //         debounceTime(200),
-      //         distinctUntilChanged(),
-      //         tap(() => (this.loading = true)),
-      //         tap(() => this.fetch()),
-      //         tap(() => this.usersTable.reset())
-      //     )
-      //     .subscribe();
+      this.name.valueChanges
+        .pipe(
+          debounceTime(200),
+          distinctUntilChanged(),
+          tap(() => (this.loading = true)),
+          tap(() => this.fetch()),
+          tap(() => this.usersTable.reset())
+        )
+        .subscribe();
     });
     FilterUtils['custom'] = (value, filter): boolean => {
       if (filter === undefined || filter === null || filter.trim() === '') {
@@ -108,7 +109,6 @@ export class ManageUserComponent implements OnInit {
     };
     this.loading = true;
   }
-
   save(user: IUser) {
     this.confirmationService.confirm({
       message: 'Bạn có chắc chắn muốn sửa người dùng này không không ?',
@@ -160,7 +160,7 @@ export class ManageUserComponent implements OnInit {
 
   fetch(page = 0, sort?) {
     this.userService
-      .query({ page, size: this.pageSize, sort })
+      .query({ name: this.name.value, page, size: this.pageSize, sort })
       .pipe(tap(() => (this.loading = true)))
       .subscribe((res: HttpResponse<IUser[]>) => this.onSuccess(res.body, res.headers), (res: HttpResponse<any>) => this.onError(res.body));
   }

@@ -11,6 +11,23 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { DataViewModule } from 'primeng/dataview';
+import { DataGridModule } from 'primeng/components/datagrid/datagrid';
+import { PanelModule } from 'primeng/components/panel/panel';
+import { TabViewModule } from 'primeng/components/tabview/tabview';
+import { CodeHighlighterModule } from 'primeng/components/codehighlighter/codehighlighter';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { CalendarModule } from 'primeng/calendar';
+import { FileUploadModule } from 'primeng/fileupload';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { HttpClientModule } from '@angular/common/http';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { EditorModule } from 'primeng/editor';
+import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent],
@@ -25,7 +42,29 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     FormsModule,
     SelectButtonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    InputTextModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DropdownModule,
+    ButtonModule,
+    DataViewModule,
+    DataGridModule,
+    PanelModule,
+    DialogModule,
+    TabViewModule,
+    CodeHighlighterModule,
+    NgSelectModule,
+    SelectButtonModule,
+    CalendarModule,
+    FileUploadModule,
+    ConfirmDialogModule,
+    MessagesModule,
+    MessageModule,
+    EditorModule,
+    HttpClientModule,
+    SplitButtonModule,
+    CheckboxModule
   ],
   providers: [],
   exports: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent]

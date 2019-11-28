@@ -2,6 +2,21 @@ body {
   display: block;
 }
 
+/* Collapse top/down */
+
+.btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+a[aria-expanded='true'] .fa-chevron-circle-down {
+  display: none;
+}
+
+a[aria-expanded='false'] .fa-chevron-circle-up {
+  display: none;
+}
+
 /* myCarousel */
 
 #myCarousel .list-inline {

@@ -64,6 +64,14 @@ export class PostService {
     return this.http.get<IPostRespone[]>(this.resourceUrl, { observe: 'response' });
   }
 
+  searchbyDate(fromDate: any, toDate: any): Observable<HttpResponse<IPostRespone[]>> {
+    const param = {
+      from: fromDate,
+      to: toDate
+    };
+    return this.http.get<IPostRespone[]>(`${this.resourceUrlImage}/search-by-date`, { params: param, observe: 'response' });
+  }
+
   delete(id: any): Observable<HttpResponse<any>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

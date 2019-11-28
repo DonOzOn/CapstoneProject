@@ -11,6 +11,7 @@ import { Province } from 'app/core/address/model/province.model';
 import { District } from 'app/core/address/model/district.model';
 import { Ward } from 'app/core/address/model/ward.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SERVER_API_URL } from 'app/app.constants';
 
 interface City {
   name: string;
@@ -26,6 +27,7 @@ export class ProfileComponent implements OnInit {
   text: string;
   error: string;
   success: string;
+  imageUrl;
   nameImage: string;
   uploadedFiles: any[] = [];
   listImage: any[] = [];
@@ -96,19 +98,8 @@ export class ProfileComponent implements OnInit {
           }
           this.profileForm.controls.wardCode.setValue(this.currentUser.ward.code);
           this.profileForm.controls.dob.setValue(this.currentUser.dob ? new Date(this.currentUser.dob) : '');
-          this.userService.getImageByName(this.currentAccount.imageUrl).subscribe(
-            (res: any) => {
-              this.uploadedFiles.push(res.body);
-              // eslint-disable-next-line
-              console.log('image test: ', res.body);
-            },
-            (err: HttpErrorResponse) => {
-              // eslint-disable-next-line
-              console.log('errorksjhfljdfh ', err);
-            }
-          );
-          // eslint-disable-next-line
-          console.log('dtaa: ', this.uploadedFiles);
+          this.imageUrl = SERVER_API_URL + '/api/upload/files/' + this.currentAccount.imageUrl;
+          this.uploadedFiles.push(this.currentAccount.imageUrl);
         }
       });
     });
