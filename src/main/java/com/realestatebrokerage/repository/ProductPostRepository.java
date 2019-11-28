@@ -30,5 +30,6 @@ public interface ProductPostRepository extends JpaRepository<ProductPost, Long> 
 
     public List<ProductPost> findAllByUserId(Long id);
 
-    public Optional<ProductPost> findAllByProductId(Long id);
+    public Optional<ProductPost> findAllByStatusTrueAndProductIdAndProductPostTypeId(Long id, Long postTypeID);
+
 }

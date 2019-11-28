@@ -15,7 +15,7 @@ export class ProductdetailComponent implements OnInit {
   images: any[];
   listImage: any = [];
   productdetail: any;
-  listNews: any[] = [];
+  listNews: any[];
   productdetal: PostRespone;
   constructor(private postService: PostService, private newService: NewsService, private activatedRoute: ActivatedRoute) {}
   ngOnInit() {

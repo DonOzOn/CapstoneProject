@@ -10,10 +10,11 @@ export class TypeResolve implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const type = route.params.type ? route.params.type : null;
-    if (type) {
+    const postType = route.params.postType ? route.params.postType : null;
+    if (type !== null && postType !== null) {
       // eslint-disable-next-line
       console.log('valuetype', type);
-      return this.service.listAllByType(type);
+      return this.service.listAllByType(type, postType);
     }
     return new this.detainew();
   }
@@ -23,10 +24,11 @@ export class TypeChildResolve implements Resolve<any> {
   detainew: any;
   constructor(private service: PostService) {}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const typechild = route.params.id ? route.params.id : null;
-    // if (typechild) {
-
-    // }
+    const typechild = route.params.typechild ? route.params.typechild : null;
+    const postType = route.params.postType ? route.params.postType : null;
+    if (typechild !== null && postType !== null) {
+      return this.service.listAllByTypeChild(typechild, postType);
+    }
     return new this.detainew();
   }
 }
@@ -39,18 +41,45 @@ const routes: Routes = [
     },
     children: [
       {
-        path: ':type/typeSearch',
+        path: ':type/:postType/:title/:titleChild/typeSearch',
         component: ListproductComponent,
         resolve: {
-          typeSearch: TypeResolve,
-          type: 'abc'
+          typeSearch: TypeResolve
+        },
+        data: {
+          breadcrumb: [
+            {
+              label: '{{title}}',
+              url: '/admin'
+            },
+            {
+              label: '{{titleChild}}',
+              url: ''
+            }
+          ]
         }
       },
       {
-        path: ':typechild/typeChildSearch',
+        path: ':typechild/:postType/:title/:titleChild/:titleVeryChild/typeChildSearch',
         component: ListproductComponent,
         resolve: {
           typeChildSearch: TypeChildResolve
+        },
+        data: {
+          breadcrumb: [
+            {
+              label: '{{title}}',
+              url: '/admin'
+            },
+            {
+              label: '{{titleChild}}',
+              url: '/admin'
+            },
+            {
+              label: '{{titleVeryChild}}',
+              url: ''
+            }
+          ]
         }
       }
     ]

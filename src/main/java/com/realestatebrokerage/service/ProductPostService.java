@@ -57,8 +57,8 @@ public class ProductPostService {
     /**
      * List all product post by product id
      * **/
-    public Optional<ProductPost> findAllByProduct(Long id){
-        return productPostRepository.findAllByProductId(id);
+    public Optional<ProductPost> findAllByProduct(Long id, Long typePost){
+        return productPostRepository.findAllByStatusTrueAndProductIdAndProductPostTypeId(id, typePost);
     }
 
     /**

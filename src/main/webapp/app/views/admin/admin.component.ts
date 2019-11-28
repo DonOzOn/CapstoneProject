@@ -12,7 +12,7 @@ export class AdminComponent implements OnInit {
     fontSize: '18px',
     fontColor: '#0275d8',
     lastLinkColor: 'black',
-    symbol: ' / '
+    symbol: ' ▶ '
   };
   constructor(private ng7DynamicBreadcrumbService: Ng7DynamicBreadcrumbService) {}
   ngOnInit() {

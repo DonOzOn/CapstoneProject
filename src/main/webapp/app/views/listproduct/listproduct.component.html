@@ -53,7 +53,8 @@
 
 <div class="container">
     <div class="bc-icons-2">
-        <nav aria-label="breadcrumb">
+            <app-ng7-dynamic-breadcrumb [bgColor]="breadcrumbConfig['bgColor']" [fontSize]="breadcrumbConfig['fontSize']" [fontColor]="breadcrumbConfig['fontColor']" [lastLinkColor]="breadcrumbConfig['lastLinkColor']" [symbol]="breadcrumbConfig['symbol']">Quản lí chung</app-ng7-dynamic-breadcrumb>
+        <!-- <nav aria-label="breadcrumb">
             <ol class="breadcrumb lighten-4 rounded-0 px-0 my-0">
                 <li class="breadcrumb-item"><a class="text-muted" href="#"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
                 <li class="breadcrumb-item pt-2">
@@ -63,20 +64,22 @@
                 <li class="breadcrumb-item pt-2"><a class="text-muted" href="#">Căn hộ</a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
                 <li class="breadcrumb-item pt-2 active">TP HỒ CHÍ MINH</li>
             </ol>
-        </nav>
+        </nav> -->
     </div>
-    <h4>
-        <div class="text-mute strong">"Mua bán" "căn hộ chung cư" tại "TP HỒ CHÍ MINH" </div>
-    </h4>
-    <div class="my-2">
-        <form [formGroup]="chooseForm">
-            <select (change)="onChange($event)" class="btn btn-secondary" formControlName="choose">
+
+    <div class="my-2 d-flex">
+        <form class="justify-content-start " [formGroup]="chooseForm">
+            <select  *ngIf="post.length !== 0"  (change)="onChange($event)" class="btn btn-secondary" formControlName="choose">
                   <option value="" disabled>Chọn sắp xếp</option>
                   <option *ngFor="let item of choose" [ngValue]="item.value" >
                     {{item.name}}
                   </option>
                 </select>
         </form>
+        <h4 class="justify-content-end pl-5 pt-1">
+                <!-- <div class="text-mute strong">"Mua bán" "căn hộ chung cư" tại "TP HỒ CHÍ MINH" </div> -->
+                <div class="text-mute strong" > "Có {{post.length}} kết quả đươc tìm thấy"  </div>
+        </h4>
     </div>
     <div class="container px-0 py-2">
         <div class="row col-md-12 mx-0 px-0 content">
@@ -126,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-                <nav aria-label="" class="mt-2" *ngIf="count !== 0">
+                <nav aria-label=""  *ngIf="post.length !== 0"  class="mt-2">
                     <ul class="pagination pg-blue justify-content-end">
                         <pagination-controls [previousLabel]="labels.previousLabel" [nextLabel]="labels.nextLabel" (pageChange)="pageChanged($event)"></pagination-controls>
                     </ul>

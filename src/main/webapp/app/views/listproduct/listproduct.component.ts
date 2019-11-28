@@ -6,6 +6,7 @@ import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { SERVER_API_URL } from 'app/app.constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListProductPostService } from 'app/core/service/listproductpost.service';
+import { Ng7DynamicBreadcrumbService } from 'ng7-dynamic-breadcrumb';
 
 @Component({
   selector: 'app-listproduct',
@@ -14,6 +15,13 @@ import { ListProductPostService } from 'app/core/service/listproductpost.service
 })
 export class ListproductComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
+  breadcrumbConfig: object = {
+    bgColor: '#ebebeb;',
+    fontSize: '18px',
+    fontColor: '#0275d8',
+    lastLinkColor: 'black',
+    symbol: ' ▶ '
+  };
   config: any;
   count: any;
   listPost: any[] = [];
@@ -39,7 +47,8 @@ export class ListproductComponent implements OnInit {
     private postService: PostService,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private ng7DynamicBreadcrumbService: Ng7DynamicBreadcrumbService
   ) {
     for (let i = 0; i < this.count; i++) {
       this.listPost.push({
@@ -58,14 +67,26 @@ export class ListproductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getListPostProduct();
+    const breadcrumb = { customText: 'This is Custom Text', dynamicText: 'Level 2 ' };
+    this.ng7DynamicBreadcrumbService.updateBreadcrumbLabels(breadcrumb);
+    // this.getListPostProduct();
     this.getlistNews();
     this.activatedRoute.firstChild.data.subscribe(res => {
-      this.listPost = res.typeSearch.body;
-      // eslint-disable-next-line
-      console.log('test type', res);
+      this.post = res.typeSearch.body;
     });
+
+    this.activatedRoute.firstChild.data.subscribe(res => {
+      this.post = res.typeChildSearch.body;
+    });
+    // this.redirectTo(this.activatedRoute.snapshot.url.toString());
+    // eslint-disable-next-line
+    console.log('post active', this.activatedRoute.data);
   }
+
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/404', { skipLocationChange: true }).then(() => this.router.navigate([uri]));
+  }
+
   /*  get all product post */
   getListPostProduct() {
     this.postService.query().subscribe(res => {
