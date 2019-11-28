@@ -88,7 +88,7 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     public ProductPost() {
     }
 
-    public ProductPost(User user, @Size(min = 1, max = 50) String projectName, ProductPostType productPostType, @Size(min = 1, max = 50) String productPostTitle, Integer totalLike, Integer typeDeal, Integer totalReport, Integer totalShare, Ward ward, Province province, District district, @Size(max = 50) String address, @Size(min = 1, max = 100) String shortDescription, @Size(min = 1, max = 255) String content, Product product, @NotNull boolean status) {
+    public ProductPost(User user, @Size(min = 1, max = 50) String projectName, ProductPostType productPostType, @Size(min = 1, max = 50) String productPostTitle, Integer totalLike, Integer typeDeal, Integer totalReport, Integer totalShare, Ward ward, Province province, District district, @Size(max = 50) String address, @Size(min = 1, max = 100) String shortDescription, String content, Product product, @NotNull boolean status) {
         this.user = user;
         this.projectName = projectName;
         this.productPostType = productPostType;

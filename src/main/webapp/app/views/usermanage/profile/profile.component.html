@@ -39,8 +39,10 @@
                                 <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
                                     <div class="col-md-6 p-0">
                                             <div class="row col-md-8 m-0 p-0 mb-3">
-                                           <img [src]="imageUrl" alt="" class="img-thumbnail rounded float-left" alt = "Responsive image">
-                                            </div>
+                                           <img *ngIf="currentAccount.imageUrl !== null" [src]="imageUrl" alt="" class="img-thumbnail rounded float-left" alt = "Responsive image">
+                                           <img *ngIf="currentAccount.imageUrl === null" src="../../../../content/img/default-avar.png" alt="" class="img-thumbnail rounded float-left" alt = "Responsive image">
+
+                                        </div>
                                         <!-- Họ -->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
                                             <h6 class="first">Họ</h6>

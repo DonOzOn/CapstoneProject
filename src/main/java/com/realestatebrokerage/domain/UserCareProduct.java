@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "user_car_product")
+@Table(name = "user_care_product")
 public class UserCareProduct extends AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

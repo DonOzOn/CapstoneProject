@@ -28,6 +28,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { EditorModule } from 'primeng/editor';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
+import { Ng7DynamicBreadcrumbModule } from 'ng7-dynamic-breadcrumb';
 
 @NgModule({
   declarations: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent],
@@ -64,7 +65,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     EditorModule,
     HttpClientModule,
     SplitButtonModule,
-    CheckboxModule
+    CheckboxModule,
+    Ng7DynamicBreadcrumbModule
   ],
   providers: [],
   exports: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent]

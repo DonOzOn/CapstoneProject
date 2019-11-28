@@ -1,5 +1,4 @@
-<!-- Heading -->
-<div class="card mb-2 wow fadeIn">
+
     <p-toast [style]="{marginTop: '80px'}"></p-toast>
     <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
         <p-footer>
@@ -9,17 +8,7 @@
                 (click)="cd.accept()"></button>
         </p-footer>
     </p-confirmDialog>
-<!--Card content-->
-<div class="card-body d-sm-flex justify-content-between">
 
-<h5 class="mb-1 mb-sm-0 pt-1">
-    <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Quản lí chung</a>
-    <span>/</span>
-    <span>Quản lý bài đăng</span>
-</h5>
-</div>
-
-</div>
 <!-- Heading -->
 
 <!--Grid row-->
@@ -27,7 +16,6 @@
 
 <!--Grid column-->
 <div class="col-md-12 mb-4">
-
 <!--Card-->
 <div class="card">
 
@@ -37,7 +25,7 @@
             <div class="col-md-12">
                 <div class="card-body">
                     <div class="row col-md-12 m-0 p-0 d-flex justify-content-center">
-                        <p-dataView #dv [value]="posts" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="productPostResponseDTO.productPostTitle" [sortField]="sortField" [sortOrder]="sortOrder">
+                        <p-dataView #dv [value]="posts" [paginator]="true" [rows]="20" [lazy]="true" (onLazyLoad)="loadData($event)" paginatorPosition="both" filterBy="productPostResponseDTO.productPostTitle" [sortField]="sortField" [sortOrder]="sortOrder">
                             <p-header>
                                 <div class="ui-helper-clearfix">
                                     <div class="ui-g">
@@ -45,10 +33,10 @@
                                             <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sắp xếp" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
                                         </div>
                                         <div class="ui-g-6 ui-md-7 filter-container">
-                                                <div class="ui-g-6 ui-md-4 p-0">
+                                            <div class="ui-g-6 ui-md-4 p-0">
                                                         <div style="position:relative">
-                                                                <input type="search" size = "12" pInputText placeholder="Tìm theo tên" (keyup)="dv.filter($event.target.value)">
-                                                 </div>
+                                                        <input type="search" size = "12" pInputText placeholder="Tìm theo tên" (keyup)="dv.filter($event.target.value)">
+                                                        </div>
                                             </div>
                                             <div class="ui-g-6 ui-md-4 p-0">
                                                     <div style="position:relative">
@@ -58,7 +46,6 @@
                                                          placeholder = "Từ ngày"
                                                          [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
                                                         </p-calendar>
-                                                    <!-- <input type="search" size = "12" [formControl]="from" pInputText placeholder="Từ ngày" (keyup)="dv.filter($event.target.value)"> -->
                                              </div>
                                         </div>
                                         <div class="ui-g-6 ui-md-4 p-0">
@@ -94,7 +81,6 @@
 
                                             <div class="ui-g-3 ui-sm-6">Ngày đăng: </div>
                                             <div class="ui-g-9 ui-sm-6"><b>{{post.productPostResponseDTO?.createdDate | date:'HH:mm dd/MM/yyyy'}}</b></div>
-
                                             <div class="ui-g-3 ui-sm-6">Ngày sửa: </div>
                                             <div class="ui-g-9 ui-sm-6"><b>{{post.productPostResponseDTO?.createdBy}}</b></div>
                                         </div>
@@ -129,7 +115,7 @@
                                 <div class="ui-g-12">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <form [formGroup]="productPostForm" (ngSubmit)="postProduct()">
+                                            <form [formGroup]="productPostForm" >
 
                                                 <div class="row mb-2">
                                                     <div class="col-md-12">

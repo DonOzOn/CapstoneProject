@@ -3,6 +3,7 @@ import { ListProductPostService } from 'app/core/service/listproductpost.service
 import { FormBuilder } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NewsService } from 'app/core/service/news.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-listproduct',
@@ -13,6 +14,7 @@ export class ListproductComponent implements OnInit {
   config: any;
   count: any;
   listPost: any[] = [];
+  listPost2: any;
   listNews: any[] = [];
   itemsTag = ['Pizza', 'Pasta', 'Parmesan'];
   choose = [
@@ -28,7 +30,13 @@ export class ListproductComponent implements OnInit {
     previousLabel: 'Previous',
     nextLabel: 'Next'
   };
-  constructor(private listProductPostService: ListProductPostService, private newService: NewsService, private fb: FormBuilder) {
+  constructor(
+    private listProductPostService: ListProductPostService,
+    private newService: NewsService,
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {
     for (let i = 0; i < this.count; i++) {
       this.listPost.push({
         id: i + 1,
@@ -46,9 +54,13 @@ export class ListproductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getListPost();
     this.getlistNews();
     this.handelChange();
+    this.activatedRoute.firstChild.data.subscribe(res => {
+      this.listPost = res.typeSearch.body;
+      // eslint-disable-next-line
+      console.log('test type', this.listPost);
+    });
   }
   getListPost() {
     this.listProductPostService.getListProductPost().subscribe(res => {
