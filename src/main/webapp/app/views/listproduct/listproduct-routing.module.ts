@@ -42,7 +42,8 @@ const routes: Routes = [
         path: ':type/typeSearch',
         component: ListproductComponent,
         resolve: {
-          typeSearch: TypeResolve
+          typeSearch: TypeResolve,
+          type: 'abc'
         }
       },
       {

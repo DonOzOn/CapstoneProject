@@ -59,7 +59,7 @@ export class ListproductComponent implements OnInit {
     this.activatedRoute.firstChild.data.subscribe(res => {
       this.listPost = res.typeSearch.body;
       // eslint-disable-next-line
-      console.log('test type', this.listPost);
+      console.log('test type', res);
     });
   }
   getListPost() {
