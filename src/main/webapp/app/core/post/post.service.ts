@@ -60,6 +60,18 @@ export class PostService {
     return this.http.get<IPostRespone>(`${this.resourceUrl}/${id}`);
   }
 
+  listAllByUserID(id: any): Observable<HttpResponse<IPostRespone[]>> {
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  listAllByType(id: any): Observable<HttpResponse<IPostRespone[]>> {
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/typeSearch/${id}`, { observe: 'response' });
+  }
+
+  listAllByTypeChild(id: any): Observable<HttpResponse<IPostRespone[]>> {
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/typeChild/${id}`, { observe: 'response' });
+  }
+
   query(): Observable<HttpResponse<IPostRespone[]>> {
     return this.http.get<IPostRespone[]>(this.resourceUrl, { observe: 'response' });
   }

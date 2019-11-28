@@ -48,6 +48,20 @@ public class ProductPostService {
     }
 
     /**
+     * List all product post by date from to
+     * **/
+    public List<ProductPost> findAllByUserID(Long id){
+        return productPostRepository.findAllByUserId(id);
+    }
+
+    /**
+     * List all product post by product id
+     * **/
+    public Optional<ProductPost> findAllByProduct(Long id){
+        return productPostRepository.findAllByProductId(id);
+    }
+
+    /**
      * get product post by id
      * **/
     public Optional<ProductPost> findByID(Long id){

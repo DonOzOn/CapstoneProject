@@ -222,13 +222,19 @@ public class UserService {
                 user.setFirstName(userDTO.getFirstName());
                 user.setLastName(userDTO.getLastName());
                 user.setEmail(userDTO.getEmail().toLowerCase());
-                Province province = provinceRepository.findById(userDTO.getProvince()).orElse(null);
-                System.out.println("Province : " + province);
-                user.setProvince(province);
-                District district = districtRepository.findById(userDTO.getDistrict()).orElse(null);
-                user.setDistrict(district);
-                Ward ward = wardRepository.findById(userDTO.getWard()).orElse(null);
-                user.setWard(ward);
+                if(userDTO.getProvince() != null){
+                    Province province = provinceRepository.findById(userDTO.getProvince()).orElse(null);
+                    user.setProvince(province);
+                }
+                if(userDTO.getDistrict() != null){
+                    District district = districtRepository.findById(userDTO.getDistrict()).orElse(null);
+                    user.setDistrict(district);
+                }
+                if(userDTO.getWard() != null){
+                    Ward ward = wardRepository.findById(userDTO.getWard()).orElse(null);
+                    user.setWard(ward);
+                }
+
                 user.setPhone(userDTO.getPhone());
                 user.setDob(userDTO.getDob());
                 user.setGender(userDTO.isGender());

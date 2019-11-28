@@ -9,20 +9,46 @@ const routes: Routes = [
     path: '',
     component: AdminComponent,
     data: {
-      title: 'Quản lí chung'
+      title: 'Quản lý chung',
+      breadcrumb: [
+        {
+          label: 'Quản lí chung',
+          url: ''
+        }
+      ]
     },
     children: [
       {
         path: '',
-        component: ManageUserComponent
+        component: ManageUserComponent,
+        data: {
+          breadcrumb: [
+            {
+              label: 'Quản lí chung',
+              url: '/admin'
+            },
+            {
+              label: 'Quản lí người dùng',
+              url: ''
+            }
+          ]
+        }
       },
       {
         path: 'manageallproductpost',
-        component: ManageAllProductpostComponent
-      },
-      {
-        path: 'manage-user',
-        component: ManageUserComponent
+        component: ManageAllProductpostComponent,
+        data: {
+          breadcrumb: [
+            {
+              label: 'Quản lí chung',
+              url: '/admin'
+            },
+            {
+              label: 'Quản lí bài đăng',
+              url: ''
+            }
+          ]
+        }
       }
     ]
   }

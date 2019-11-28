@@ -4,6 +4,8 @@ import { NewsService } from 'app/core/service/news.service';
 import { PostService } from '../../core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { SERVER_API_URL } from 'app/app.constants';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ListProductPostService } from 'app/core/service/listproductpost.service';
 
 @Component({
   selector: 'app-listproduct',
@@ -15,6 +17,7 @@ export class ListproductComponent implements OnInit {
   config: any;
   count: any;
   listPost: any[] = [];
+  listPost2: any;
   listNews: any[] = [];
   post: PostRespone[];
   choose = [
@@ -30,7 +33,14 @@ export class ListproductComponent implements OnInit {
     previousLabel: 'Previous',
     nextLabel: 'Next'
   };
-  constructor(private postService: PostService, private newService: NewsService, private fb: FormBuilder) {
+  constructor(
+    private listProductPostService: ListProductPostService,
+    private newService: NewsService,
+    private postService: PostService,
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {
     for (let i = 0; i < this.count; i++) {
       this.listPost.push({
         id: i + 1,
@@ -50,6 +60,11 @@ export class ListproductComponent implements OnInit {
   ngOnInit() {
     this.getListPostProduct();
     this.getlistNews();
+    this.activatedRoute.firstChild.data.subscribe(res => {
+      this.listPost = res.typeSearch.body;
+      // eslint-disable-next-line
+      console.log('test type', res);
+    });
   }
   /*  get all product post */
   getListPostProduct() {

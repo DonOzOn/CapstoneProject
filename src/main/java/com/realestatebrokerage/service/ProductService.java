@@ -37,6 +37,13 @@ public class ProductService {
     }
 
     /**
+     * List all product by product type
+     * **/
+    public List<Product> findAllByProdcutType(Long id){
+        return productRepository.findAllByProductTypeId(id);
+    }
+
+    /**
      * get  product by id
      * **/
     public Optional<Product> findByID(Long id){

@@ -35,6 +35,8 @@ export interface Car {
 })
 export class ManageproductpostComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
+  currentAccount: Account;
+  currentUser: IUser;
   /*  Item select button  */
   selectedType: string;
   types: SelectItem[];
@@ -88,7 +90,7 @@ export class ManageproductpostComponent implements OnInit {
     numBathroom: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
     // eslint-disable-next-line
     numBedroom: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
-    content: [null, Validators.maxLength(255)],
+    content: [null],
     utilities: [null]
   });
 
@@ -134,7 +136,17 @@ export class ManageproductpostComponent implements OnInit {
 
   ngOnInit() {
     // this.selectedType = 'Mua bán';
+    this.accountService.identity().subscribe((account: Account) => {
+      this.currentAccount = account;
+      this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
+        this.currentUser = userAuthen;
+        // eslint-disable-next-line
+        console.log('current user: ', this.currentUser);
+        this.getListPostProduct();
+      });
+    });
   }
+
   getlistCar() {
     this.carService.getListCar().subscribe(res => {
       this.cars = res.data.rows;
@@ -172,6 +184,7 @@ export class ManageproductpostComponent implements OnInit {
     this.text1 = this.selectedPost.productPostResponseDTO.content;
     this.productPostForm.controls.projectName.setValue(this.selectedPost.productPostResponseDTO.projectName);
     this.productPostForm.controls.content.setValue(this.selectedPost.productPostResponseDTO.content);
+    this.text1 = this.productPostForm.controls.content.value;
     this.formAddress.controls.address.setValue(this.selectedPost.productPostResponseDTO.address);
     this.formAddress.controls.provinceCode.setValue(this.selectedPost.productPostResponseDTO.province.code);
     if (this.formAddress.value.provinceCode != null) {
@@ -217,7 +230,6 @@ export class ManageproductpostComponent implements OnInit {
     event.first = true;
     event.rows = 10;
     this.getlistCar();
-    this.getListPostProduct();
     this.sortOptions = [
       { label: 'Mới nhất', value: '!productPostResponseDTO.createdDate' },
       { label: 'Cũ nhất', value: 'productPostResponseDTO.createdDate' },
@@ -240,7 +252,7 @@ export class ManageproductpostComponent implements OnInit {
    */
   // eslint-disable-next-line
   getListPostProduct() {
-    this.postService.query().subscribe(res => {
+    this.postService.listAllByUserID(this.currentUser.id).subscribe(res => {
       this.posts = res.body;
       // eslint-disable-next-line
       console.log('List all post : ', this.posts);
@@ -277,7 +289,11 @@ export class ManageproductpostComponent implements OnInit {
     listFile.forEach(element => {
       this.postService.upload(element).subscribe(
         res => {
+          // eslint-disable-next-line
+          console.log('element', element);
           this.uploadedFiles.push(res.body);
+          // eslint-disable-next-line
+          console.log('res-body', res.body);
           this.isUploadedFile = true;
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh thành công!!' });
         },
