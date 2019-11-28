@@ -10,6 +10,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import { OwlModule } from 'ngx-owl-carousel';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { TabViewModule } from 'primeng/components/tabview/tabview';
+import { CodeHighlighterModule } from 'primeng/components/codehighlighter/codehighlighter';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -22,7 +27,12 @@ import { OwlModule } from 'ngx-owl-carousel';
     HomeRoutingModule,
     FlickityModule,
     MDBBootstrapModule.forRoot(),
-    OwlModule
+    OwlModule,
+    CarouselModule,
+    ButtonModule,
+    ToastModule,
+    TabViewModule,
+    CodeHighlighterModule
   ],
   providers: [],
   exports: [HomeComponent]

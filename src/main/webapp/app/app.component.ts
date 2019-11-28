@@ -1,6 +1,7 @@
-import { Component, OnInit, HostListener, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { trigger, state, transition, style, animate } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
+import { NavigationStart, NavigationEnd, Router, NavigationCancel, NavigationError } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,7 +12,27 @@ import { DOCUMENT } from '@angular/common';
 })
 export class AppComponent implements OnInit {
   title = 'RealEstateBrokerageCient';
-  constructor(@Inject(DOCUMENT) document) {}
+  showLoadingIndicator = true;
+  constructor(@Inject(DOCUMENT) document, private router: Router) {
+    this.router.events.subscribe(event => {
+      switch (true) {
+        case event instanceof NavigationStart:
+          this.showLoadingIndicator = true;
+          break;
+        case event instanceof NavigationEnd:
+          this.showLoadingIndicator = false;
+          break;
+        case event instanceof NavigationCancel:
+          this.showLoadingIndicator = false;
+          break;
+        case event instanceof NavigationError:
+          this.showLoadingIndicator = false;
+          break;
+        default:
+          break;
+      }
+    });
+  }
 
   ngOnInit() {}
 }

@@ -27,10 +27,6 @@ const routes: Routes = [
         component: ManagereviewpostComponent
       },
       {
-        path: 'manage-review',
-        component: ManagereviewpostComponent
-      },
-      {
         path: 'notification',
         component: NotificationComponent
       }

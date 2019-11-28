@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  cars: any[];
   children = [
     { title: 'Hồ Chí Minh' },
     { title: 'Hà Nội' },
@@ -21,8 +22,29 @@ export class HomeComponent implements OnInit {
     { title: 'Child 7' },
     { title: 'Child 8' }
   ];
+  responsiveOptions;
   product = [{ title: 'Hồ Chí Minh' }, { title: 'Hà Nội' }, { title: 'Đà Nẵng' }, { title: 'Hải Phòng' }];
-  constructor() {}
+  constructor() {
+    this.responsiveOptions = [
+      {
+        breakpoint: '1024px',
+        numVisible: 3,
+        numScroll: 3
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 2,
+        numScroll: 2
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ];
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.cars = this.children;
+  }
 }

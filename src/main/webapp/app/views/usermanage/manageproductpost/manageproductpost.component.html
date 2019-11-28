@@ -13,7 +13,7 @@
     <div class="card-body d-sm-flex justify-content-between">
 
         <h5 class="mb-1 mb-sm-0 pt-1">
-            <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Quản lí tài khoản</a>
+            <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Quản lý tài khoản</a>
             <span>/</span>
             <span>Quản lý bài đăng mua bán</span>
         </h5>
@@ -37,7 +37,7 @@
                     <div class="col-md-12">
                         <div class="card-body">
                             <div class="row col-md-12 m-0 p-0 d-flex justify-content-center">
-                                <p-dataView #dv [value]="posts" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="productPostResponseDTO.productPostTitle" [sortField]="sortField" [sortOrder]="sortOrder">
+                                <p-dataView #dv [value]="posts" [paginator]="true" [lazy]="true" (onLazyLoad)="loadData($event)" [rows]="10" paginatorPosition="both" filterBy="productPostResponseDTO.productPostTitle" [sortField]="sortField" [sortOrder]="sortOrder">
                                     <p-header>
                                         <div class="ui-helper-clearfix">
                                             <div class="ui-g">
@@ -58,15 +58,15 @@
                                     <ng-template let-post pTemplate="listItem">
                                         <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
                                             <div class="ui-g-12 ui-md-3" style="text-align:center">
-                                                <!-- <img src="/content/showcase/images/demo/car/{{car.brand}}.png"> -->
+                                                <img src = "{{imageUrl}}{{post.imageDTO.img1}}" class="img-thumbnail rounded float-left mx-auto d-block" style="height: 160px;width: 250px;" alt = "Responsive image">
                                             </div>
                                             <div class="ui-g-12 ui-md-8 post-details">
                                                 <div class="ui-g">
                                                     <div class="ui-g-3 ui-sm-6">Tiêu đề: </div>
-                                                    <div class="ui-g-9 ui-sm-6"><b>{{post.productPostResponseDTO?.productPostTitle}}</b></div>
+                                                    <div class="ui-g-9 ui-sm-6 text-truncate" style="max-width: 490px;"><b>{{post.productPostResponseDTO?.productPostTitle}}</b></div>
 
                                                     <div class="ui-g-3 ui-sm-6">Tên sản phẩm: </div>
-                                                    <div class="ui-g-9 ui-sm-6"><b>{{post.productPostResponseDTO?.projectName}}</b></div>
+                                                    <div class="ui-g-9 ui-sm-6 text-truncate" style="max-width: 490px;"><b>{{post.productPostResponseDTO?.projectName}}</b></div>
 
                                                     <div class="ui-g-3 ui-sm-6">Ngày đăng: </div>
                                                     <div class="ui-g-9 ui-sm-6"><b>{{post.productPostResponseDTO?.createdDate | date:'HH:mm dd/MM/yyyy'}}</b></div>
@@ -84,26 +84,21 @@
                                     <ng-template let-post pTemplate="gridItem">
                                         <div style="padding:.5em" class="ui-g-12 ui-md-5">
                                             <p-panel [header]="post.productPostResponseDTO?.projectName" [style]="{'text-align':'center'}">
-                                                <!-- <img src="/content/showcase/images/demo/car/{{car.brand}}.png" width="60"> -->
-                                                <div class="post-detail">{{post.productPostResponseDTO?.productPostTitle}}</div>
-                                                <div class="post-detail">{{post.productPostResponseDTO?.createdDate | date:'HH:mm dd/MM/yyyy'}}</div>
+                                                <img src = "{{imageUrl}}{{post.imageDTO.img1}}" class="img-thumbnail rounded  mx-auto d-block" style="height: 100px;" alt = "Responsive image">
+                                                <div class="post-detail text-truncate" style="max-width: 130px;">{{post.productPostResponseDTO?.productPostTitle}}</div>
+                                                <div class="post-detail text-truncate" style="max-width: 130px;">{{post.productPostResponseDTO?.createdDate | date:'HH:mm dd/MM/yyyy'}}</div>
                                                 <hr class="ui-widget-content" style="border-top:0">
                                                 <!-- <button pButton type="button" icon="pi pi-search" (click)="selectPostproduct($event, post)" style="margin-top:0"></button> -->
-                                                <div class="d-flex flex-row">
-                                                    <button class="d-flex justify-content-start" pButton type="button" icon="" (click)="selectPostproduct($event, post)" label="Sửa"></button>
-                                                    <button class="d-flex justify-content-end ui-button-danger" pButton type="button" icon="" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)" label="Xoá"></button>
-                                                </div>
+                                                <button  pButton type="button" icon="" (click)="selectPostproduct($event, post)" label="Sửa"></button>
+                                                <button class="ui-button-danger" pButton type="button" icon="" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)" label="Xoá"></button>
 
                                             </p-panel>
                                         </div>
                                     </ng-template>
                                 </p-dataView>
 
-                                <p-dialog header="Chi tiết bài đăng" [(visible)]="displayDialog" [responsive]="true"  showEffect="fade" [modal]="true" [style]="{width: '80%'}" (onAfterHide)="onDialogHide()">
+                                <p-dialog header="Chi tiết bài đăng" [(visible)]="displayDialog" [responsive]="true" (onHide) = "onDialogHide()" showEffect="fade" [modal]="true" [style]="{width: '80%'}" (onAfterHide)="onDialogHide()">
                                     <div class="ui-g" *ngIf="selectedPost">
-                                        <div class="ui-g-12" style="text-align:center">
-                                            <!-- <img src="/content/showcase/images/demo/car/{{selectedCar.brand}}.png"> -->
-                                        </div>
                                         <div class="ui-g-12">
                                             <div class="row">
                                                 <div class="col-md-12">
