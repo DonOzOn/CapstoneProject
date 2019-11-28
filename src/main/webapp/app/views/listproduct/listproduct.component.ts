@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { NewsService } from 'app/core/service/news.service';
 import { PostService } from '../../core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
+import { SERVER_API_URL } from 'app/app.constants';
 
 @Component({
   selector: 'app-listproduct',
@@ -10,6 +11,7 @@ import { PostRespone } from 'app/core/post/model/postRespone.model';
   styleUrls: ['./listproduct.component.scss']
 })
 export class ListproductComponent implements OnInit {
+  imageUrl = SERVER_API_URL + '/api/upload/files/';
   config: any;
   count: any;
   listPost: any[] = [];

@@ -15,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { TabViewModule } from 'primeng/components/tabview/tabview';
 import { CodeHighlighterModule } from 'primeng/components/codehighlighter/codehighlighter';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -32,7 +33,8 @@ import { CodeHighlighterModule } from 'primeng/components/codehighlighter/codehi
     ButtonModule,
     ToastModule,
     TabViewModule,
-    CodeHighlighterModule
+    CodeHighlighterModule,
+    ReactiveFormsModule
   ],
   providers: [],
   exports: [HomeComponent]

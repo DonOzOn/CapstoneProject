@@ -84,7 +84,7 @@
                 <div class="card rounded mb-4" *ngFor="let item of post | paginate: config">
                     <div class="row no-gutters">
                         <div class="col-md-4 waves-light" style="background: #868e96;">
-                            <img src="{{item.img}}" class="card-img h-100 img-responsive" alt="...">
+                            <img src="{{imageUrl}}{{item.imageDTO.img1}}" class="card-img h-100 img-responsive" alt="...">
                             <div class="card-img-overlay col-md-12 p-2 d-flex align-items-start">
                                 <h4 class="card-text text-light strong col-md-6 p-0 m-0 d-flexbox">70<span>&#37;</span></h4>
                                 <h1 class="card-text text-light strong col-md-6 text-right p-0 m-0">
@@ -108,13 +108,13 @@
                                 </div>
                                 <hr class="my-1">
                                 <div class=" d-inline-flex col-md-12 px-0">
-                                    <p class="text-dark my-1 pt-1 px-0 col-md-2 strong">{{item.productPostResponseDTO.product.price/1000000000}}tỷ</p>
-                                    <p class="grey-text my-1 pt-2 px-0 col-md-2 small text-left">{{item.productPostResponseDTO.product.area}}m<sup>2</sup></p>
-                                    <div class="grey-text my-1 p-0 col-md-8 text-left d-inline-flex">
+                                    <p class="text-dark my-1 pt-1 px-0 col-md-2 strong text-left">{{item.productPostResponseDTO.product.price/1000000000}}tỷ</p>
+                                    <p class="text-dark my-1 pt-2 px-0 col-md-2 small text-left">{{item.productPostResponseDTO.product.area}}m<sup>2</sup></p>
+                                    <div class="my-1 p-0 col-md-8 d-inline-flex">
                                         <div class="col-md-2 px-2 pt-1 img">
-                                            <img src="../../../content/img/sg-1.jpg" class="card-img rounded-circle img-responsive img" alt="...">
+                                            <img src="{{imageUrl}}{{item.productPostResponseDTO.user.imageUrl}}" class="card-img rounded-circle img-responsive img" alt="...">
                                         </div>
-                                        <p class="text-dark my-1 pt-1 pl-2 col-md-6 small text-left">{{item.productPostResponseDTO.createdBy}}</p>
+                                        <p class="text-dark my-1 pt-1 pl-2 col-md-6 small text-left text-capitalize">{{item.productPostResponseDTO.user.firstName}} {{item.productPostResponseDTO.user.lastName}}</p>
                                         <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" href="#">
                                             <div class="col-md-3 px-1 ">
                                                 <img src="../../../content/img/chat-blue.svg" class="card-img img-responsive " alt="...">

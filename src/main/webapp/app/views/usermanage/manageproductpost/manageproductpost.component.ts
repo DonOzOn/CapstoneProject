@@ -169,6 +169,7 @@ export class ManageproductpostComponent implements OnInit {
     console.log('select post : ', this.selectedPost);
     this.displayDialog = true;
     this.selectedType = this.selectedPost.productPostResponseDTO.productPostType.id;
+    this.text1 = this.selectedPost.productPostResponseDTO.content;
     this.productPostForm.controls.projectName.setValue(this.selectedPost.productPostResponseDTO.projectName);
     this.productPostForm.controls.content.setValue(this.selectedPost.productPostResponseDTO.content);
     this.formAddress.controls.address.setValue(this.selectedPost.productPostResponseDTO.address);
