@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { ErrorComponent } from './views/error/error.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
@@ -32,12 +32,12 @@ const routes: Routes = [
     loadChildren: () => import('./views/listproduct/listproduct.module').then(m => m.ListproductModule)
   },
   {
-    path: 'product',
-    loadChildren: () => import('./views/productdetail/productdetail.module').then(m => m.ProductModule)
-  },
-  {
     path: 'news',
     loadChildren: () => import('./views/news/news.module').then(m => m.NewsModule)
+  },
+  {
+    path: 'product',
+    loadChildren: () => import('./views/productdetail/productdetail.module').then(m => m.ProductModule)
   },
   {
     path: 'fengshui',
@@ -104,7 +104,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true, preloadingStrategy: PreloadAllModules })],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

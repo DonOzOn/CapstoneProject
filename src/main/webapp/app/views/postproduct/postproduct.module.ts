@@ -1,7 +1,7 @@
 import { PostproductComponent } from './postproduct.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FlickityModule } from 'ngx-flickity';
-import { NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OwlModule } from 'ngx-owl-carousel';
 import { PostproductRoutingModule } from './postproduct-routing.module';
@@ -18,10 +18,10 @@ import { CodeHighlighterModule } from 'primeng/components/codehighlighter/codehi
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { NgSelectModule } from '@ng-select/ng-select';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {MessagesModule} from 'primeng/messages';
-import {MessageModule} from 'primeng/message';
-import {ToastModule} from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [PostproductComponent],

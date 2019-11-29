@@ -3,8 +3,12 @@
 <app-footer></app-footer> -->
 <div class="page-wrap">
     <app-header class="sticky-top d-block"></app-header>
+    <div *ngIf="showLoadingIndicator"  class="lds-ripple"><div></div><div></div></div>
     <main class="content">
-        <router-outlet></router-outlet>
+        <!-- <div  class="lds-hourglass"></div> -->
+        <router-outlet>
+        </router-outlet>
     </main>
+
     <app-footer></app-footer>
 </div>

@@ -9,6 +9,11 @@ import com.realestatebrokerage.service.dto.UserDTO;
 import com.realestatebrokerage.service.dto.UserRequestDTO;
 import com.realestatebrokerage.service.util.RandomUtil;
 
+import liquibase.util.Validate;
+import org.apache.lucene.search.Query;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -42,12 +48,16 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
+
+
     @Autowired
     ProvinceRepository provinceRepository;
     @Autowired
     DistrictRepository districtRepository;
     @Autowired
     WardRepository wardRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
@@ -68,6 +78,8 @@ public class UserService {
                 return user;
             });
     }
+
+
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
         log.debug("Reset user password for reset key {}", key);
@@ -210,13 +222,19 @@ public class UserService {
                 user.setFirstName(userDTO.getFirstName());
                 user.setLastName(userDTO.getLastName());
                 user.setEmail(userDTO.getEmail().toLowerCase());
-                Province province = provinceRepository.findById(userDTO.getProvince()).orElse(null);
-                System.out.println("Province : " + province);
-                user.setProvince(province);
-                District district = districtRepository.findById(userDTO.getDistrict()).orElse(null);
-                user.setDistrict(district);
-                Ward ward = wardRepository.findById(userDTO.getWard()).orElse(null);
-                user.setWard(ward);
+                if(userDTO.getProvince() != null){
+                    Province province = provinceRepository.findById(userDTO.getProvince()).orElse(null);
+                    user.setProvince(province);
+                }
+                if(userDTO.getDistrict() != null){
+                    District district = districtRepository.findById(userDTO.getDistrict()).orElse(null);
+                    user.setDistrict(district);
+                }
+                if(userDTO.getWard() != null){
+                    Ward ward = wardRepository.findById(userDTO.getWard()).orElse(null);
+                    user.setWard(ward);
+                }
+
                 user.setPhone(userDTO.getPhone());
                 user.setDob(userDTO.getDob());
                 user.setGender(userDTO.isGender());
@@ -296,6 +314,11 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public Page<UserDTO> getAllUsersByLogin(String login,Pageable pageable) {
+        return userRepository.findAllUser(login, pageable).map(UserDTO::new);
+    }
+
+    @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
         return userRepository.findOneWithAuthoritiesByLogin(login);
     }
@@ -338,5 +361,36 @@ public class UserService {
     private void clearUserCaches(User user) {
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
+    }
+
+    /**
+     * search by key word
+     * @return a list of all user
+     */
+    public List<UserDTO> initializeHibernateSearch(String keyword) {
+        try {
+            log.debug("Search User by keyword: {}", keyword);
+            Validate.notNull(entityManager, "Entity manager can't be null");
+            FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+            fullTextEntityManager.createIndexer().startAndWait();
+            QueryBuilder qb = fullTextEntityManager.getSearchFactory()
+                .buildQueryBuilder()
+                .forEntity(User.class)
+                .get();
+
+           Query query = qb.keyword()
+                .onFields("login", "email", "lastName")
+                .matching(keyword)
+                .createQuery();
+
+            org.hibernate.search.jpa.FullTextQuery jpaQuery
+                = fullTextEntityManager.createFullTextQuery(query, User.class);
+            List<User> userList = jpaQuery.getResultList();
+            List<UserDTO> userDTOList = userList.stream().map(UserDTO::new).collect(Collectors.toList());
+            return userDTOList;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

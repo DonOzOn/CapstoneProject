@@ -11,7 +11,7 @@ import { LOGIN_ALREADY_USED_TYPE, EMAIL_ALREADY_USED_TYPE } from 'app/shared/con
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit , AfterViewInit {
+export class RegisterComponent implements OnInit, AfterViewInit {
   doNotMatch: string;
   error: string;
   errorEmailExists: string;
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit , AfterViewInit {
   checked: false;
   registerForm = this.fb.group({
     firstName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    lastName : ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+    lastName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     login: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[_.@A-Za-z0-9-]*$')]],
     email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit , AfterViewInit {
     if (password !== this.registerForm.get(['confirmPassword']).value) {
       this.doNotMatch = 'ERROR';
     } else {
-      registerAccount = { ...registerAccount, firstName , lastName, login, email, password };
+      registerAccount = { ...registerAccount, firstName, lastName, login, email, password };
       this.doNotMatch = null;
       this.error = null;
       this.errorUserExists = null;

@@ -37,6 +37,20 @@ public class ProductService {
     }
 
     /**
+     * List all product by product type
+     * **/
+    public List<Product> findAllByProdcutType(Long id){
+        return productRepository.findAllByProductTypeId(id);
+    }
+
+    /**
+     * List all product by product type child
+     * **/
+    public List<Product> findAllByProdcutTypeChild(Long id){
+        return productRepository.findAllByProductTypeChildId(id);
+    }
+
+    /**
      * get  product by id
      * **/
     public Optional<Product> findByID(Long id){
@@ -93,6 +107,7 @@ public class ProductService {
                 for (Long id: productRequestDTO.getUtilities()) {
                     Utilities utilitiesSearch = utilitiesRepository.findById(id).orElse(null);
                     utilities.add(utilitiesSearch);
+                    System.out.println("utilities : " + utilities);
                 }
                 product.setUtilities(utilities);
                 return productRepository.save(product);

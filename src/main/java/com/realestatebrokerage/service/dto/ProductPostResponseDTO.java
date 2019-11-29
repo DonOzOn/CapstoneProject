@@ -3,7 +3,6 @@ package com.realestatebrokerage.service.dto;
 import com.realestatebrokerage.domain.*;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 public class ProductPostResponseDTO {
     private Long id;
@@ -28,9 +27,6 @@ public class ProductPostResponseDTO {
     private String lastModifiedBy;
     private Instant lastModifiedDate;
 
-    public ProductPostResponseDTO() {
-    }
-
     public ProductPostResponseDTO(ProductPost productPost) {
         this.id = productPost.getId();
         this.user = productPost.getUser();
@@ -53,6 +49,7 @@ public class ProductPostResponseDTO {
             this.district = productPost.getDistrict();
         }
         this.address = productPost.getAddress();
+        this.shortDescription= productPost.getShortDescription();
         this.content = productPost.getContent();
         if (productPost.getProduct() != null) {
             this.product = productPost.getProduct();

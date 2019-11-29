@@ -53,35 +53,41 @@
 
 <div class="container">
     <div class="bc-icons-2">
-        <nav aria-label="breadcrumb">
+            <app-ng7-dynamic-breadcrumb [bgColor]="breadcrumbConfig['bgColor']" [fontSize]="breadcrumbConfig['fontSize']" [fontColor]="breadcrumbConfig['fontColor']" [lastLinkColor]="breadcrumbConfig['lastLinkColor']" [symbol]="breadcrumbConfig['symbol']">Quản lí chung</app-ng7-dynamic-breadcrumb>
+        <!-- <nav aria-label="breadcrumb">
             <ol class="breadcrumb lighten-4 rounded-0 px-0 my-0">
-                <li class="breadcrumb-item"><a class="text-muted" href="#">Trang chủ</a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
-                <li class="breadcrumb-item"><a class="text-muted" href="#">Mua bán</a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
-                <li class="breadcrumb-item"><a class="text-muted" href="#">Căn hộ</a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
-                <li class="breadcrumb-item active">TP HỒ CHÍ MINH</li>
+                <li class="breadcrumb-item"><a class="text-muted" href="#"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
+                <li class="breadcrumb-item pt-2">
+                    <a class="" href="#">
+                        <span class="text-muted">Review</span>
+                    </a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
+                <li class="breadcrumb-item pt-2"><a class="text-muted" href="#">Căn hộ</a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
+                <li class="breadcrumb-item pt-2 active">TP HỒ CHÍ MINH</li>
             </ol>
-        </nav>
+        </nav> -->
     </div>
-    <h4>
-        <div class="text-mute strong">"Mua bán" "căn hộ chung cư" tại "TP HỒ CHÍ MINH" </div>
-    </h4>
-    <div class="my-2">
-        <form [formGroup]="chooseForm">
-            <select class="btn btn-secondary" formControlName="choose">
+
+    <div class="my-2 d-flex">
+        <form class="justify-content-start " [formGroup]="chooseForm">
+            <select  *ngIf="post.length !== 0"  (change)="onChange($event)" class="btn btn-secondary" formControlName="choose">
                   <option value="" disabled>Chọn sắp xếp</option>
                   <option *ngFor="let item of choose" [ngValue]="item.value" >
                     {{item.name}}
                   </option>
                 </select>
         </form>
+        <h4 class="justify-content-end pl-5 pt-1">
+                <!-- <div class="text-mute strong">"Mua bán" "căn hộ chung cư" tại "TP HỒ CHÍ MINH" </div> -->
+                <div class="text-mute strong" > "Có {{post.length}} kết quả đươc tìm thấy"  </div>
+        </h4>
     </div>
     <div class="container px-0 py-2">
         <div class="row col-md-12 mx-0 px-0 content">
             <div class="col-md-8 px-0">
-                <div class="card rounded mb-4" *ngFor="let item of listPost | paginate: config">
+                <div class="card rounded mb-4" *ngFor="let item of post | paginate: config">
                     <div class="row no-gutters">
                         <div class="col-md-4 waves-light" style="background: #868e96;">
-                            <img src="{{item.img}}" class="card-img h-100 img-responsive" alt="...">
+                            <img src="{{imageUrl}}{{item.imageDTO.img1}}" class="card-img h-100 img-responsive" alt="...">
                             <div class="card-img-overlay col-md-12 p-2 d-flex align-items-start">
                                 <h4 class="card-text text-light strong col-md-6 p-0 m-0 d-flexbox">70<span>&#37;</span></h4>
                                 <h1 class="card-text text-light strong col-md-6 text-right p-0 m-0">
@@ -89,29 +95,29 @@
                                 </h1>
                             </div>
                             <div class="card-img-overlay col-md-12 p-2 d-flex align-items-end">
-                                <p class="card-text text-light strong col-md-6 p-0 m-0"><i class="fas fa-map-marked-alt"></i> {{item.range}}km</p>
-                                <p class="card-text text-light strong col-md-6 text-right p-0 m-0"> <i class="fas fa-chart-area"></i> {{item.area}}m<sup>2</sup></p>
+                                <p class="card-text text-light strong col-md-6 p-0 m-0"><i class="fas fa-street-view"></i> km</p>
+                                <p class="card-text text-light strong col-md-6 text-right p-0 m-0"> <i class="fas fa-chart-area"></i> {{item.productPostResponseDTO.product.area}} m<sup>2</sup></p>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body pb-1">
-                                <a [routerLink]="[ '/product' ]">
-                                    <h5 class="card-title">{{item.title}}</h5>
+                                <a [routerLink]="[ '/product', item.productPostResponseDTO.id,'productdetail']">
+                                    <h5 class="card-title">{{item.productPostResponseDTO.productPostTitle}}</h5>
                                 </a>
-                                <p class="card-text">{{item.sortDescription}}</p>
+                                <div innerHTML="{{item.productPostResponseDTO.content}}" class="card-text"></div>
                                 <div class=" d-inline-flex col-md-12 px-0 small">
-                                    <p class="grey-text my-1 px-0 col-md-7">{{item.address}}</p>
-                                    <p class="grey-text my-1 px-0 col-md-5 text-right"><i>{{item.timeCreate | date : 'dd/MM/yyyy'}}</i></p>
+                                    <p class="grey-text my-1 px-0 col-md-7">{{item.productPostResponseDTO.address}}, {{item.productPostResponseDTO.ward.name}}, {{item.productPostResponseDTO.district.name}}, {{item.productPostResponseDTO.province.name}}</p>
+                                    <p class="grey-text my-1 px-0 col-md-5 d-flex justify-content-end align-items-end"><i>{{item.productPostResponseDTO.createdDate | date : 'dd/MM/yyyy'}}</i></p>
                                 </div>
                                 <hr class="my-1">
                                 <div class=" d-inline-flex col-md-12 px-0">
-                                    <p class="text-dark my-1 pt-1 px-0 col-md-2 strong">{{item.price}}tỷ</p>
-                                    <p class="grey-text my-1 pt-2 px-0 col-md-2 small text-left">{{item.area}}m<sup>2</sup></p>
-                                    <div class="grey-text my-1 p-0 col-md-8 text-left d-inline-flex">
+                                    <p class="text-dark my-1 pt-1 px-0 col-md-2 strong text-left">{{item.productPostResponseDTO.product.price/1000000000}}tỷ</p>
+                                    <p class="text-dark my-1 pt-2 px-0 col-md-2 small text-left">{{item.productPostResponseDTO.product.area}}m<sup>2</sup></p>
+                                    <div class="my-1 p-0 col-md-8 d-inline-flex">
                                         <div class="col-md-2 px-2 pt-1 img">
-                                            <img src="../../../content/img/sg-1.jpg" class="card-img rounded-circle img-responsive img" alt="...">
+                                            <img src="{{imageUrl}}{{item.productPostResponseDTO.user.imageUrl}}" class="card-img rounded-circle img-responsive img" alt="...">
                                         </div>
-                                        <p class="text-dark my-1 pt-1 pl-2 col-md-6 small text-left">{{item.userCreate}}</p>
+                                        <p class="text-dark my-1 pt-1 pl-2 col-md-6 small text-left text-capitalize">{{item.productPostResponseDTO.user.firstName}} {{item.productPostResponseDTO.user.lastName}}</p>
                                         <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" href="#">
                                             <div class="col-md-3 px-1 ">
                                                 <img src="../../../content/img/chat-blue.svg" class="card-img img-responsive " alt="...">
@@ -123,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-                <nav aria-label="" class="mt-2">
+                <nav aria-label=""  *ngIf="post.length !== 0"  class="mt-2">
                     <ul class="pagination pg-blue justify-content-end">
                         <pagination-controls [previousLabel]="labels.previousLabel" [nextLabel]="labels.nextLabel" (pageChange)="pageChanged($event)"></pagination-controls>
                     </ul>

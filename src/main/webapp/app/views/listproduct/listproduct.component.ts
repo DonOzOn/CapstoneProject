@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ListProductPostService } from 'app/core/service/listproductpost.service';
 import { FormBuilder } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NewsService } from 'app/core/service/news.service';
+import { PostService } from '../../core/post/post.service';
+import { PostRespone } from 'app/core/post/model/postRespone.model';
+import { SERVER_API_URL } from 'app/app.constants';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ListProductPostService } from 'app/core/service/listproductpost.service';
+import { Ng7DynamicBreadcrumbService } from 'ng7-dynamic-breadcrumb';
 
 @Component({
   selector: 'app-listproduct',
@@ -10,11 +14,20 @@ import { NewsService } from 'app/core/service/news.service';
   styleUrls: ['./listproduct.component.scss']
 })
 export class ListproductComponent implements OnInit {
+  imageUrl = SERVER_API_URL + '/api/upload/files/';
+  breadcrumbConfig: object = {
+    bgColor: '#ebebeb;',
+    fontSize: '18px',
+    fontColor: '#0275d8',
+    lastLinkColor: 'black',
+    symbol: ' ▶ '
+  };
   config: any;
   count: any;
   listPost: any[] = [];
+  listPost2: any;
   listNews: any[] = [];
-  itemsTag = ['Pizza', 'Pasta', 'Parmesan'];
+  post: PostRespone[];
   choose = [
     { value: 1, name: 'Mới nhất' },
     { value: 2, name: 'Cũ nhất' },
@@ -28,7 +41,15 @@ export class ListproductComponent implements OnInit {
     previousLabel: 'Previous',
     nextLabel: 'Next'
   };
-  constructor(private listProductPostService: ListProductPostService, private newService: NewsService, private fb: FormBuilder) {
+  constructor(
+    private listProductPostService: ListProductPostService,
+    private newService: NewsService,
+    private postService: PostService,
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private ng7DynamicBreadcrumbService: Ng7DynamicBreadcrumbService
+  ) {
     for (let i = 0; i < this.count; i++) {
       this.listPost.push({
         id: i + 1,
@@ -46,21 +67,42 @@ export class ListproductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getListPost();
+    const breadcrumb = { customText: 'This is Custom Text', dynamicText: 'Level 2 ' };
+    this.ng7DynamicBreadcrumbService.updateBreadcrumbLabels(breadcrumb);
+    // this.getListPostProduct();
     this.getlistNews();
-    this.handelChange();
+    this.activatedRoute.firstChild.data.subscribe(res => {
+      this.post = res.typeSearch.body;
+    });
+
+    this.activatedRoute.firstChild.data.subscribe(res => {
+      this.post = res.typeChildSearch.body;
+    });
+    // this.redirectTo(this.activatedRoute.snapshot.url.toString());
+    // eslint-disable-next-line
+    console.log('post active', this.activatedRoute.data);
   }
-  getListPost() {
-    this.listProductPostService.getListProductPost().subscribe(res => {
-      this.listPost = res.data.rows;
+
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/404', { skipLocationChange: true }).then(() => this.router.navigate([uri]));
+  }
+
+  /*  get all product post */
+  getListPostProduct() {
+    this.postService.query().subscribe(res => {
+      this.post = res.body;
+      // eslint-disable-next-line
+      console.log('List all post : ', this.post);
     });
   }
+  /*  get total page*/
   getTotalPage() {
-    this.listProductPostService.getListProductPost().subscribe(res => {
-      this.count = res.data.count;
+    this.postService.query().subscribe(res => {
+      this.count = res.body.length;
       return this.count;
     });
   }
+  /*  get  list 4 new*/
   getlistNews() {
     this.newService.getListNews().subscribe(res => {
       this.listNews = res.data.rows;
@@ -70,57 +112,36 @@ export class ListproductComponent implements OnInit {
       this.listNews = res.data.rows.slice(0, 4);
     });
   }
-  handelChange() {
-    this.chooseForm.controls.choose.valueChanges
-      .pipe(
-        debounceTime(200),
-        distinctUntilChanged()
-      )
-      .subscribe(val => {
-        switch (val) {
-          case 1: {
-            this.listPost.sort(function(obj1, obj2) {
-              return obj2.timeCreate - obj1.timeCreate;
-            });
-            break;
-          }
-          case 2: {
-            this.listPost.sort(function(obj1, obj2) {
-              return obj1.timeCreate - obj2.timeCreate;
-            });
-            break;
-          }
-          case 3: {
-            this.listPost.sort(function(obj1, obj2) {
-              return obj2.price - obj1.price;
-            });
-            break;
-          }
-          case 4: {
-            this.listPost.sort(function(obj1, obj2) {
-              return obj1.price - obj2.price;
-            });
-            break;
-          }
-          default: {
-            break;
-          }
-        }
-      });
-  }
-  parse(value: any): Date | null {
-    if (typeof value === 'string' && value.includes('/')) {
-      const str = value.split('/');
-
-      const year = Number(str[2]);
-      const month = Number(str[1]) - 1;
-      const date = Number(str[0]);
-
-      return new Date(year, month, date);
-    } else if (typeof value === 'string' && value === '') {
-      return new Date();
+  /*  change sort */
+  onChange($deviceValue) {
+    switch (this.chooseForm.controls.choose.value) {
+      case 1: {
+        this.post.sort(function(obj1: any, obj2: any) {
+          return new Date(obj2.productPostResponseDTO.createdDate).valueOf() - new Date(obj1.productPostResponseDTO.createdDate).valueOf();
+        });
+        break;
+      }
+      case 2: {
+        this.post.sort(function(obj1: any, obj2: any) {
+          return new Date(obj1.productPostResponseDTO.createdDate).valueOf() - new Date(obj2.productPostResponseDTO.createdDate).valueOf();
+        });
+        break;
+      }
+      case 3: {
+        this.post.sort(function(obj1: any, obj2: any) {
+          return obj1.productPostResponseDTO.product.price - obj2.productPostResponseDTO.product.price;
+        });
+        break;
+      }
+      case 4: {
+        this.post.sort(function(obj1: any, obj2: any) {
+          return obj2.productPostResponseDTO.product.price - obj1.productPostResponseDTO.product.price;
+        });
+        break;
+      }
+      default: {
+        break;
+      }
     }
-    const timestamp = typeof value === 'number' ? value : Date.parse(value);
-    return isNaN(timestamp) ? null : new Date(timestamp);
   }
 }

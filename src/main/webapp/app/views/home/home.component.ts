@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -6,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  cars: any[];
+  choose = [{ value: '', name: 'Toàn bộ' }, { value: 1, name: 'Mua bán' }, { value: 2, name: 'Cho thuê' }];
+  chooseForm = this.fb.group({
+    choose: ['']
+  });
+
   children = [
     { title: 'Hồ Chí Minh' },
     { title: 'Hà Nội' },
@@ -21,8 +28,29 @@ export class HomeComponent implements OnInit {
     { title: 'Child 7' },
     { title: 'Child 8' }
   ];
+  responsiveOptions;
   product = [{ title: 'Hồ Chí Minh' }, { title: 'Hà Nội' }, { title: 'Đà Nẵng' }, { title: 'Hải Phòng' }];
-  constructor() {}
-
-  ngOnInit() {}
+  constructor(private fb: FormBuilder) {
+    this.responsiveOptions = [
+      {
+        breakpoint: '1024px',
+        numVisible: 3,
+        numScroll: 3
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 2,
+        numScroll: 2
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ];
+  }
+  ngOnInit() {
+    this.cars = this.children;
+  }
+  onChange($event) {}
 }

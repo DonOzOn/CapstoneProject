@@ -24,6 +24,7 @@ public class NewService {
      * List all product
      * **/
     public List<New> findAll(){
+        log.debug("getall");
         return newRepository.findAll();
     }
 

@@ -20,6 +20,7 @@ import { NotificationInterceptor } from 'app/blocks/interceptor/notification.int
 
 import { fontAwesomeIcons } from './icons/font-awesome-icons';
 import { ListProductPostService } from './service/listproductpost.service';
+import { CommonService } from './service/common.service';
 import { NewsService } from './service/news.service';
 @NgModule({
   declarations: [],
@@ -39,6 +40,7 @@ import { NewsService } from './service/news.service';
     CarService,
     Title,
     ListProductPostService,
+    CommonService,
     {
       provide: LOCALE_ID,
       useValue: 'en'

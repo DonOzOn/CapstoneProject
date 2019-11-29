@@ -26,15 +26,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RealestatebrokerageSharedModule } from './shared/shared.module';
 import { RealestatebrokerageSharedLibsModule } from './shared/shared-libs.module';
 import { RealestatebrokerageAccountModule } from './views/account/account.module';
-import {CheckboxModule} from 'primeng/checkbox';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrorComponent,
-    LoginComponent,
-    RegisterComponent
-  ],
+  declarations: [AppComponent, ErrorComponent, LoginComponent, RegisterComponent],
   imports: [
     HomeModule,
     BrowserModule,

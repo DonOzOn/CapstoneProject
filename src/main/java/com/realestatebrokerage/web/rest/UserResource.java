@@ -33,6 +33,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -84,10 +85,6 @@ public class UserResource {
     private final UserRepository userRepository;
 
     private final MailService mailService;
-
-    @Autowired
-    private EntityManager entityManager;
-
 
     public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
 
@@ -192,8 +189,8 @@ public class UserResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
      */
     @GetMapping("/users")
-    public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
-        final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
+    public ResponseEntity<List<UserDTO>> getAllUsers(String name, Pageable pageable) {
+        final Page<UserDTO> page = userService.getAllUsersByLogin(name, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -237,25 +234,10 @@ public class UserResource {
     }
 
     @GetMapping(value = "/user/search")
-    public ResponseEntity<List<UserDTO>> fullTextSearch(@RequestParam(value = "searchKey") String searchKey) throws InterruptedException {
-        FullTextEntityManager fullTextEntityManager =
-            org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
-
-
-        QueryBuilder qb = (QueryBuilder) fullTextEntityManager.getSearchFactory()
-            .buildQueryBuilder().forEntity(User.class).get();
-
-        org.apache.lucene.search.Query query = ((org.hibernate.search.query.dsl.QueryBuilder) qb).keyword()
-            .onFields("title", "subtitle", "authors.name")
-            .matching("Java rocks!")
-            .createQuery();
-        org.hibernate.search.jpa.FullTextQuery jpaQuery
-            = fullTextEntityManager.createFullTextQuery(query, User.class);
-
-        List<User> users = jpaQuery.getResultList();
-        List<UserDTO> userDTOList = users.stream().map(UserDTO::new).collect(Collectors.toList());
-
-        return new ResponseEntity<>(userDTOList , HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> fullTextSearch(@RequestParam(value = "searchKey") String searchKey){
+        log.debug("Search User by searchkey: {}", searchKey);
+        List<UserDTO> users = userService.initializeHibernateSearch(searchKey);
+        return new ResponseEntity<>(users , HttpStatus.OK);
 
     }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
 import { SelectItem, ConfirmationService, MessageService } from 'primeng/api';
 import { CarService } from 'app/core/service/car.service';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormControl } from '@angular/forms';
 import { ProductPost } from 'app/core/post/model/product-post.model';
 import { IUser } from 'app/core/user/user.model';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
@@ -18,6 +18,8 @@ import { UserService } from 'app/core/user/user.service';
 import { Account } from 'app/core/user/account.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PostRequest } from 'app/core/post/model/postRequest.model copy';
+import { SERVER_API_URL } from 'app/app.constants';
+import { tap, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 export interface Car {
   vin: any;
@@ -33,6 +35,9 @@ export interface Car {
   providers: [ConfirmationService, MessageService]
 })
 export class ManageAllProductpostComponent implements OnInit {
+  imageUrl = SERVER_API_URL + '/api/upload/files/';
+  from = new FormControl('');
+  to = new FormControl('');
   /*  Item select button  */
   selectedType: string;
   types: SelectItem[];
@@ -127,24 +132,23 @@ export class ManageAllProductpostComponent implements OnInit {
     private userService: UserService,
     private messageService: MessageService
   ) {
-    this.types = [{ label: 'Mua bán', value: '1' }, { label: 'Cho Thuê', value: '2' }];
+    this.types = [{ label: 'Mua bán', value: 1 }, { label: 'Cho Thuê', value: 2 }];
   }
 
   ngOnInit() {
-    this.getlistCar();
-    this.getListPostProduct();
-    this.sortOptions = [
-      { label: 'Mới nhất', value: '!productPostResponseDTO.createdDate' },
-      { label: 'Cũ nhất', value: 'productPostResponseDTO.createdDate' },
-      { label: 'Tên', value: 'productPostResponseDTO.projectName' }
-    ];
-    this.getProvince();
-    this.getProductType();
-    this.getDirection();
-    this.getLegalStatus();
-    this.getUtility();
     // this.selectedType = 'Mua bán';
+    this.from.valueChanges
+      .pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        tap(() =>
+          // eslint-disable-next-line
+          console.log('from', this.from.value)
+        )
+      )
+      .subscribe();
   }
+
   getlistCar() {
     this.carService.getListCar().subscribe(res => {
       this.cars = res.data.rows;
@@ -173,11 +177,12 @@ export class ManageAllProductpostComponent implements OnInit {
   }
 
   selectPostproduct(event: Event, post: PostRespone) {
+    this.listUtilitiesSelected = [];
     this.selectedPost = post;
     // eslint-disable-next-line
     console.log('select post : ', this.selectedPost);
     this.displayDialog = true;
-    this.selectedType = this.types[0].value;
+    this.selectedType = this.selectedPost.productPostResponseDTO.productPostType.id;
     this.productPostForm.controls.projectName.setValue(this.selectedPost.productPostResponseDTO.projectName);
     this.productPostForm.controls.content.setValue(this.selectedPost.productPostResponseDTO.content);
     this.formAddress.controls.address.setValue(this.selectedPost.productPostResponseDTO.address);
@@ -209,13 +214,35 @@ export class ManageAllProductpostComponent implements OnInit {
     this.productPostForm.controls.numFloor.setValue(this.selectedPost.productResponseDTO.numberFloor);
     this.productPostForm.controls.numBathroom.setValue(this.selectedPost.productResponseDTO.numberBathroom);
     this.productPostForm.controls.numBedroom.setValue(this.selectedPost.productResponseDTO.numberBedroom);
+    this.productPostForm.controls.utilities.setValue(this.selectedPost.productResponseDTO.utilities);
+    this.productPostForm.controls.utilities.value.forEach(element => {
+      this.listUtilitiesSelected.push(element.id + '');
+    });
+    // eslint-disable-next-line
+    console.log('List all selectUli : ', this.listUtilitiesSelected);
+    // eslint-disable-next-line
+    console.log('List all uti db : ', this.productPostForm.controls.utilities.value);
+
     event.preventDefault();
   }
-  // selectPostproduct(event: Event, car: Car) {
-  //   this.selectedCar = car;
-  //   this.displayDialog = true;
-  //   event.preventDefault();
-  // }
+
+  loadData(event) {
+    event.first = true;
+    event.rows = 10;
+    this.getlistCar();
+    this.getListPostProduct();
+    this.sortOptions = [
+      { label: 'Mới nhất', value: '!productPostResponseDTO.createdDate' },
+      { label: 'Cũ nhất', value: 'productPostResponseDTO.createdDate' },
+      { label: 'Tên', value: 'productPostResponseDTO.projectName' }
+    ];
+    this.getProvince();
+    this.getProductType();
+    this.getDirection();
+    this.getLegalStatus();
+    this.getUtility();
+  }
+
   /**
    * get all post product
    */
@@ -240,6 +267,7 @@ export class ManageAllProductpostComponent implements OnInit {
   }
 
   onDialogHide() {
+    this.redirectTo('/manageallproductpost');
     this.selectedCar = null;
   }
 
@@ -257,7 +285,11 @@ export class ManageAllProductpostComponent implements OnInit {
     listFile.forEach(element => {
       this.postService.upload(element).subscribe(
         res => {
+          // eslint-disable-next-line
+          console.log('element', element);
           this.uploadedFiles.push(res.body);
+          // eslint-disable-next-line
+          console.log('res-body', res.body);
           this.isUploadedFile = true;
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh thành công!!' });
         },
@@ -368,97 +400,7 @@ export class ManageAllProductpostComponent implements OnInit {
     console.log('checked value', this.listUtilitiesSelected);
   }
 
-  /**
-   * submit form
-   */
-  postProduct() {
-    if (!this.isUploadedFile) {
-      this.messageService.add({ severity: 'warn', summary: 'Cảnh báo!', detail: 'Hãy tải ảnh lên trước' });
-    } else {
-      this.productPostForm.controls.utilities.setValue(this.listUtilitiesSelected);
-      this.productPostForm.controls.type.setValue(this.selectedType);
-      this.accountService.identity().subscribe((account: Account) => {
-        this.account = account;
-      });
-      const product = {
-        id: this.selectedPost.productResponseDTO.id,
-        price: this.productPostForm.controls.price.value,
-        area: this.productPostForm.controls.area.value,
-        direction: this.productPostForm.controls.directionID.value,
-        legalStatus: this.productPostForm.controls.legalStatusID.value,
-        numberFloor: this.productPostForm.controls.numFloor.value,
-        numberBathroom: this.productPostForm.controls.numBathroom.value,
-        numberBedroom: this.productPostForm.controls.numBedroom.value,
-        productTypeChild: this.productPostForm.controls.productTypeChildID.value,
-        productType: this.productPostForm.controls.productTypeID.value,
-        utilities: this.productPostForm.controls.utilities.value,
-        status: true
-      };
-
-      const productPost = {
-        id: this.selectedPost.productPostResponseDTO.id,
-        user: this.selectedPost.productPostResponseDTO.user.id,
-        projectName: this.productPostForm.controls.projectName.value,
-        productPostType: this.productPostForm.controls.type.value,
-        productPostTitle: this.productPostForm.controls.projectPostTitle.value,
-        totalLike: null,
-        typeDeal: null,
-        totalReport: null,
-        totalShare: null,
-        ward: this.formAddress.controls.wardCode.value,
-        province: this.formAddress.controls.provinceCode.value,
-        district: this.formAddress.controls.districtCode.value,
-        address: this.formAddress.controls.address.value,
-        content: this.productPostForm.controls.content.value,
-        shortDescription: this.productPostForm.controls.content.value.substr(0, 51),
-        product: null,
-        status: true
-      };
-      const image = {
-        id: this.selectedPost.imageDTO.id,
-        img1: this.uploadedFiles[0],
-        img2: this.uploadedFiles[1],
-        img3: this.uploadedFiles[2],
-        img4: this.uploadedFiles[3],
-        img5: this.uploadedFiles[4],
-        img6: this.uploadedFiles[5],
-        img7: this.uploadedFiles[6],
-        img8: this.uploadedFiles[7],
-        img9: this.uploadedFiles[8],
-        img10: this.uploadedFiles[9],
-        status: true
-      };
-      const usingImage = {
-        id: this.selectedPost.usingImageResponseDTO.id,
-        image: null,
-        usingType: null,
-        productPost: null,
-        status: true
-      };
-      this.post.productRequestDTO = product;
-      this.post.productPostRequestDTO = productPost;
-      this.post.imageDTO = image;
-      this.post.usingImageRequestDTO = usingImage;
-      this.post.listImage = this.uploadedFiles;
-      // eslint-disable-next-line
-      this.confirmationService.confirm({
-        message: 'Bạn có chắc chắn muốn sửa bài đăng này?',
-        accept: () => {
-          this.alertService.clear();
-          this.postService
-            .update(this.post)
-            // eslint-disable-next-line
-            .subscribe(
-              (res: any) => (
-                this.getListPostProduct(),
-                this.router.navigate(['manage-product']),
-                (this.displayDialog = false),
-                this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã cập nhật bài đăng thành công!!' })
-              ),
-              (err: HttpErrorResponse) => this.alertService.error(err.error.title)
-            );
-        }
-      });
-    }
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/manage-user', { skipLocationChange: true }).then(() => this.router.navigate([uri]));
   }
 }

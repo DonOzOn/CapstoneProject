@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
-import { ListProductPost } from '../data-fake/listproductpost';
+import { Observable } from 'rxjs';
+import { CommonService } from './common.service';
+import { serviceAPI } from '../constants/service-api';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ListProductPostService {
-  constructor() {}
+  constructor(private commonService: CommonService, private http: HttpClient) {}
 
   // Method: Get list ProducPost
   getListProductPost(param?): Observable<any> {
-    const fakeObservable = of(ListProductPost).pipe(delay(500));
-    return fakeObservable;
+    const api = this.commonService.buildAPIUrl(serviceAPI.productPost.getListProductPost);
+    return this.http.get(api, { observe: 'response' });
   }
 }

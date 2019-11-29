@@ -19,7 +19,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -33,7 +32,7 @@ public class StorageService {
 
     public String store(MultipartFile file) {
         long currentTS = Long.valueOf(String.valueOf(System.currentTimeMillis()/1000));
-        String filename = "" + currentTS + "."+FilenameUtils.getExtension(file.getOriginalFilename());
+        String filename = "" + currentTS + "."+file.getOriginalFilename();
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + filename);

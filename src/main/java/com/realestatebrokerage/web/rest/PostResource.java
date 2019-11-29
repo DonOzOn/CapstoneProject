@@ -1,10 +1,15 @@
 package com.realestatebrokerage.web.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.realestatebrokerage.domain.*;
-import com.realestatebrokerage.service.*;
+import com.realestatebrokerage.domain.Image;
+import com.realestatebrokerage.domain.Product;
+import com.realestatebrokerage.domain.ProductPost;
+import com.realestatebrokerage.domain.UsingImage;
+import com.realestatebrokerage.service.ImageService;
+import com.realestatebrokerage.service.ProductPostService;
+import com.realestatebrokerage.service.ProductService;
+import com.realestatebrokerage.service.UsingImageService;
 import com.realestatebrokerage.service.dto.*;
-import com.realestatebrokerage.web.rest.errors.EmailAlreadyUsedException;
 import com.realestatebrokerage.web.rest.errors.LoginAlreadyUsedException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -12,21 +17,15 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import javax.validation.Valid;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -114,7 +113,129 @@ public class PostResource {
             return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
+
+
     }
+
+    /**
+     * {@code GET /Post} : get all Post by UserID.
+     *
+     */
+    @GetMapping("/product-post/user/{id}")
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProductByUserID(@PathVariable Long id) {
+        log.debug("get by user id : {}", id);
+        List<PostResponeDTO> responeDTOList = new ArrayList<>();
+        List<ProductPostResponseDTO> postList = productPostService.findAllByUserID(id).stream()
+            .map(ProductPostResponseDTO::new).collect(Collectors.toList());
+        if (postList != null) {
+            for (ProductPostResponseDTO pr : postList) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                postResponeDTO.setProductPostResponseDTO(pr);
+                ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
+                postResponeDTO.setProductResponseDTO(productResponseDTO);
+                UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                postResponeDTO.setImageDTO(imageDTO);
+                responeDTOList.add(postResponeDTO);
+            }
+            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    /**
+     * {@code GET /Post} : get all Post by product type and product posttype.
+     *
+     */
+    @GetMapping("/product-post/typeSearch")
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProductByType(@RequestParam(value = "id") Long id, @RequestParam(value = "postType") Long postType) {
+        log.debug("get by type id : {}", id);
+
+        List<ProductResponseDTO> productResponseDTOS = productService.findAllByProdcutType(id).stream().map(ProductResponseDTO::new).collect(Collectors.toList());
+        List<PostResponeDTO> responeDTOList = new ArrayList<>();
+        if (productResponseDTOS != null) {
+            for (ProductResponseDTO pr : productResponseDTOS) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                ProductPostResponseDTO productPostResponseDTO = productPostService.findAllByProduct(pr.getId(),postType).map(ProductPostResponseDTO::new).orElse(null);
+                if(productPostResponseDTO != null){
+                    postResponeDTO.setProductPostResponseDTO(productPostResponseDTO);
+                    UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(productPostResponseDTO.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                    postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                    ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                    postResponeDTO.setImageDTO(imageDTO);
+                    postResponeDTO.setProductResponseDTO(pr);
+                    responeDTOList.add(postResponeDTO);
+                }else{
+                    postResponeDTO.setProductPostResponseDTO(null);
+                }
+
+
+            }
+            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+
+    /**
+     * {@code GET /Post} : get all Post by product type child and product posttype.
+     *
+     */
+    @GetMapping("/product-post/typeChildSearch")
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProductByTypeChild(@RequestParam(value = "id") Long id, @RequestParam(value = "postType") Long postType) {
+        log.debug("get by type child id : {}", id);
+        List<ProductResponseDTO> productResponseDTOS = productService.findAllByProdcutTypeChild(id).stream().map(ProductResponseDTO::new).collect(Collectors.toList());
+        List<PostResponeDTO> responeDTOList = new ArrayList<>();
+        if (productResponseDTOS != null) {
+            for (ProductResponseDTO pr : productResponseDTOS) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                ProductPostResponseDTO productPostResponseDTO = productPostService.findAllByProduct(pr.getId(),postType).map(ProductPostResponseDTO::new).orElse(null);
+                if(productPostResponseDTO != null){
+                    postResponeDTO.setProductPostResponseDTO(productPostResponseDTO);
+                    UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(productPostResponseDTO.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                    postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                    ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                    postResponeDTO.setImageDTO(imageDTO);
+                    postResponeDTO.setProductResponseDTO(pr);
+                    responeDTOList.add(postResponeDTO);
+                }else{
+                    postResponeDTO.setProductPostResponseDTO(null);
+                }
+
+
+            }
+            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    /**
+     * {@code GET /Post} : get all Post.
+     *
+     */
+    @GetMapping("/product-post/search-by-date")
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProduct(@RequestParam(value = "from") Instant from, @RequestParam(value = "to") Instant to) {
+        List<PostResponeDTO> responeDTOList =  new ArrayList<>();
+        List<ProductPostResponseDTO> postList =  productPostService.findAllFromTo(from , to).stream()
+            .map(ProductPostResponseDTO::new).collect(Collectors.toList());
+        if(postList != null){
+            for (ProductPostResponseDTO pr: postList) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                postResponeDTO.setProductPostResponseDTO(pr);
+                ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
+                postResponeDTO.setProductResponseDTO(productResponseDTO);
+                UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                postResponeDTO.setImageDTO(imageDTO);
+                responeDTOList.add(postResponeDTO);
+            }
+            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
 
     /**
      * {@code PUT /product-post} : Updates an product post.
@@ -123,7 +244,7 @@ public class PostResource {
      * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already in use.
      */
     @PutMapping("/product-post")
-    public ResponseEntity<PostResponeDTO> updateUser(@RequestBody PostRequestDTO postRequestDTO) {
+    public ResponseEntity<PostResponeDTO> updatePost(@RequestBody PostRequestDTO postRequestDTO) {
         log.debug("REST request to update Post : {}", postRequestDTO);
         PostResponeDTO postResponeDTO = new PostResponeDTO();
         postRequestDTO.getProductPostRequestDTO().setProduct(postRequestDTO.getProductRequestDTO().getId());
@@ -136,6 +257,25 @@ public class PostResource {
         postResponeDTO.setProductResponseDTO(product.get());
         postResponeDTO.setImageDTO(image.get());
         postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO.get());
+
+        return new ResponseEntity<>(postResponeDTO, HttpStatus.OK);
+    }
+    /**
+     * {@code GET /Post} : get all Post.
+     *
+     */
+    @GetMapping("/product-post/{id}")
+    public ResponseEntity<PostResponeDTO> getAllPostProductByID(@PathVariable Long id) {
+        Optional<ProductPostResponseDTO> productPostResponseDTO = productPostService.findByID(id).map(ProductPostResponseDTO::new);
+        Optional<ProductResponseDTO> productResponseDTO = productService.findByID(productPostResponseDTO.get().getProduct().getId()).map(ProductResponseDTO::new);
+        Optional<UsingImageResponseDTO> usingImageResponseDTO = usingImageService.findByProductPost(id).map(UsingImageResponseDTO::new);
+        Optional<ImageDTO> imageDTO = imageService.findById(usingImageResponseDTO.get().getImage().getId()).map(ImageDTO::new);
+
+        PostResponeDTO postResponeDTO = new PostResponeDTO();
+        postResponeDTO.setProductPostResponseDTO(productPostResponseDTO.get());
+        postResponeDTO.setProductResponseDTO(productResponseDTO.get());
+        postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO.get());
+        postResponeDTO.setImageDTO(imageDTO.get());
 
         return new ResponseEntity<>(postResponeDTO, HttpStatus.OK);
     }

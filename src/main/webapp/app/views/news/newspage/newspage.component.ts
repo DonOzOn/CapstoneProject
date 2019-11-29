@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { NewsService } from 'app/core/news/news.service';
 

@@ -14,25 +14,13 @@
     <div class="card-body d-sm-flex justify-content-between">
 
         <h5 class="mb-1 mb-sm-0 pt-1">
-            <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Home Page</a>
+            <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Quản lý tài khoản</a>
             <span>/</span>
-            <span>Dashboard</span>
+            <span>Thông tin cá nhân</span>
         </h5>
-
-        <form class="d-flex justify-content-center">
-            <!-- Default input -->
-            <input type="search" placeholder="Type your query" aria-label="Search" class="form-control">
-            <button class="btn btn-primary btn-sm my-0 p" type="submit">
-      <i class="fas fa-search"></i>
-    </button>
-        </form>
-
-
     </div>
-
 </div>
 <!-- Heading -->
-
 <!--Grid row-->
 <div class="row wow fadeIn">
 
@@ -50,6 +38,11 @@
                             <div class="card-body">
                                 <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
                                     <div class="col-md-6 p-0">
+                                            <div class="row col-md-8 m-0 p-0 mb-3">
+                                           <img *ngIf="currentAccount.imageUrl !== null" [src]="imageUrl" alt="" class="img-thumbnail rounded float-left" alt = "Responsive image">
+                                           <img *ngIf="currentAccount.imageUrl === null" src="../../../../content/img/default-avar.png" alt="" class="img-thumbnail rounded float-left" alt = "Responsive image">
+
+                                        </div>
                                         <!-- Họ -->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
                                             <h6 class="first">Họ</h6>
@@ -172,7 +165,7 @@
                                             <h6 class="first">Ngày sinh</h6>
                                             <p-calendar [showIcon]="true" [required]="true" dateFormat="dd/mm/yy"
                                             [style]="{'width': '285px'}"
-                                             [(ngModel)]="date6" formControlName="dob" 
+                                             [(ngModel)]="date6" formControlName="dob"
                                              [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
                                             </p-calendar>
                                         </div>

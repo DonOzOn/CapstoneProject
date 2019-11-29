@@ -2,7 +2,6 @@ package com.realestatebrokerage.service;
 
 import com.realestatebrokerage.domain.*;
 import com.realestatebrokerage.repository.*;
-import com.realestatebrokerage.service.dto.ProductRequestDTO;
 import com.realestatebrokerage.service.dto.UsingImageRequestDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

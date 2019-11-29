@@ -1,11 +1,8 @@
 package com.realestatebrokerage.service;
 
 import com.realestatebrokerage.domain.Image;
-import com.realestatebrokerage.domain.UsingImage;
 import com.realestatebrokerage.repository.ImageRepository;
-import com.realestatebrokerage.repository.UsingImageRepository;
 import com.realestatebrokerage.service.dto.ImageDTO;
-import com.realestatebrokerage.service.dto.UsingImageRequestDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

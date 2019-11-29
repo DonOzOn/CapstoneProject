@@ -8,6 +8,7 @@ import { ListproductComponent } from './listproduct.component';
 import { OrderModule } from 'ngx-order-pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng7DynamicBreadcrumbModule } from 'ng7-dynamic-breadcrumb';
 
 @NgModule({
   declarations: [ListproductComponent],
@@ -19,7 +20,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ButtonsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    Ng7DynamicBreadcrumbModule
   ],
   providers: [],
   exports: [ListproductComponent]
