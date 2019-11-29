@@ -140,11 +140,16 @@ export class ManageproductpostComponent implements OnInit {
       this.currentAccount = account;
       this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
         this.currentUser = userAuthen;
-        // eslint-disable-next-line
-        console.log('current user: ', this.currentUser);
         this.getListPostProduct();
       });
     });
+    this.getlistCar();
+    this.sortOptions = [{ label: 'Cũ nhất', value: 1 }, { label: 'Mới nhất', value: 2 }];
+    this.getProvince();
+    this.getProductType();
+    this.getDirection();
+    this.getLegalStatus();
+    this.getUtility();
   }
 
   getlistCar() {
@@ -159,9 +164,6 @@ export class ManageproductpostComponent implements OnInit {
    * @param post
    */
   deleteSelectPostproduct(id: any) {
-    // eslint-disable-next-line
-    console.log('id: ', id);
-
     this.confirmationService.confirm({
       message: 'Bạn có chắc chắn muốn xóa bài đăng này?',
       accept: () => {
@@ -177,8 +179,6 @@ export class ManageproductpostComponent implements OnInit {
   selectPostproduct(event: Event, post: PostRespone) {
     this.listUtilitiesSelected = [];
     this.selectedPost = post;
-    // eslint-disable-next-line
-    console.log('select post : ', this.selectedPost);
     this.displayDialog = true;
     this.selectedType = this.selectedPost.productPostResponseDTO.productPostType.id;
     this.text1 = this.selectedPost.productPostResponseDTO.content;
@@ -218,28 +218,12 @@ export class ManageproductpostComponent implements OnInit {
     this.productPostForm.controls.utilities.value.forEach(element => {
       this.listUtilitiesSelected.push(element.id + '');
     });
-    // eslint-disable-next-line
-    console.log('List all selectUli : ', this.listUtilitiesSelected);
-    // eslint-disable-next-line
-    console.log('List all uti db : ', this.productPostForm.controls.utilities.value);
-
     event.preventDefault();
   }
 
   loadData(event) {
     event.first = true;
     event.rows = 10;
-    this.getlistCar();
-    this.sortOptions = [
-      { label: 'Mới nhất', value: '!productPostResponseDTO.createdDate' },
-      { label: 'Cũ nhất', value: 'productPostResponseDTO.createdDate' },
-      { label: 'Tên', value: 'productPostResponseDTO.projectName' }
-    ];
-    this.getProvince();
-    this.getProductType();
-    this.getDirection();
-    this.getLegalStatus();
-    this.getUtility();
   }
 
   // selectPostproduct(event: Event, car: Car) {
@@ -259,14 +243,26 @@ export class ManageproductpostComponent implements OnInit {
     });
   }
   onSortChange(event: { value: any }) {
+    // eslint-disable-next-line
+    console.log('key : ', this.sortKey);
     const value = event.value;
+    switch (value) {
+      case 1: {
+        this.posts.sort(function(obj1: any, obj2: any) {
+          return new Date(obj2.productPostResponseDTO.createdDate).valueOf() - new Date(obj1.productPostResponseDTO.createdDate).valueOf();
+        });
+        break;
+      }
+      case 2: {
+        this.posts.sort(function(obj1: any, obj2: any) {
+          return new Date(obj1.productPostResponseDTO.createdDate).valueOf() - new Date(obj2.productPostResponseDTO.createdDate).valueOf();
+        });
+        break;
+      }
 
-    if (value.indexOf('!') === 0) {
-      this.sortOrder = -1;
-      this.sortField = value.substring(1, value.length);
-    } else {
-      this.sortOrder = 1;
-      this.sortField = value;
+      default: {
+        break;
+      }
     }
   }
 
@@ -412,96 +408,92 @@ export class ManageproductpostComponent implements OnInit {
    * submit form
    */
   postProduct() {
-    if (!this.isUploadedFile) {
-      this.messageService.add({ severity: 'warn', summary: 'Cảnh báo!', detail: 'Hãy tải ảnh lên trước' });
-    } else {
-      this.productPostForm.controls.utilities.setValue(this.listUtilitiesSelected);
-      this.productPostForm.controls.type.setValue(this.selectedType);
-      this.accountService.identity().subscribe((account: Account) => {
-        this.account = account;
-      });
-      const product = {
-        id: this.selectedPost.productResponseDTO.id,
-        price: this.productPostForm.controls.price.value,
-        area: this.productPostForm.controls.area.value,
-        direction: this.productPostForm.controls.directionID.value,
-        legalStatus: this.productPostForm.controls.legalStatusID.value,
-        numberFloor: this.productPostForm.controls.numFloor.value,
-        numberBathroom: this.productPostForm.controls.numBathroom.value,
-        numberBedroom: this.productPostForm.controls.numBedroom.value,
-        productTypeChild: this.productPostForm.controls.productTypeChildID.value,
-        productType: this.productPostForm.controls.productTypeID.value,
-        utilities: this.productPostForm.controls.utilities.value,
-        status: true
-      };
+    this.productPostForm.controls.utilities.setValue(this.listUtilitiesSelected);
+    this.productPostForm.controls.type.setValue(this.selectedType);
+    this.accountService.identity().subscribe((account: Account) => {
+      this.account = account;
+    });
+    const product = {
+      id: this.selectedPost.productResponseDTO.id,
+      price: this.productPostForm.controls.price.value,
+      area: this.productPostForm.controls.area.value,
+      direction: this.productPostForm.controls.directionID.value,
+      legalStatus: this.productPostForm.controls.legalStatusID.value,
+      numberFloor: this.productPostForm.controls.numFloor.value,
+      numberBathroom: this.productPostForm.controls.numBathroom.value,
+      numberBedroom: this.productPostForm.controls.numBedroom.value,
+      productTypeChild: this.productPostForm.controls.productTypeChildID.value,
+      productType: this.productPostForm.controls.productTypeID.value,
+      utilities: this.productPostForm.controls.utilities.value,
+      status: true
+    };
 
-      const productPost = {
-        id: this.selectedPost.productPostResponseDTO.id,
-        user: this.selectedPost.productPostResponseDTO.user.id,
-        projectName: this.productPostForm.controls.projectName.value,
-        productPostType: this.productPostForm.controls.type.value,
-        productPostTitle: this.productPostForm.controls.projectPostTitle.value,
-        totalLike: null,
-        typeDeal: null,
-        totalReport: null,
-        totalShare: null,
-        ward: this.formAddress.controls.wardCode.value,
-        province: this.formAddress.controls.provinceCode.value,
-        district: this.formAddress.controls.districtCode.value,
-        address: this.formAddress.controls.address.value,
-        content: this.productPostForm.controls.content.value,
-        shortDescription: this.productPostForm.controls.content.value.substr(0, 51),
-        product: null,
-        status: true
-      };
-      const image = {
-        id: this.selectedPost.imageDTO.id,
-        img1: this.uploadedFiles[0],
-        img2: this.uploadedFiles[1],
-        img3: this.uploadedFiles[2],
-        img4: this.uploadedFiles[3],
-        img5: this.uploadedFiles[4],
-        img6: this.uploadedFiles[5],
-        img7: this.uploadedFiles[6],
-        img8: this.uploadedFiles[7],
-        img9: this.uploadedFiles[8],
-        img10: this.uploadedFiles[9],
-        status: true
-      };
-      const usingImage = {
-        id: this.selectedPost.usingImageResponseDTO.id,
-        image: null,
-        usingType: null,
-        productPost: null,
-        status: true
-      };
-      this.post.productRequestDTO = product;
-      // eslint-disable-next-line
-      console.log('this.post.productRequestDTO :', this.post.productRequestDTO);
-      this.post.productPostRequestDTO = productPost;
-      this.post.imageDTO = image;
-      this.post.usingImageRequestDTO = usingImage;
-      this.post.listImage = this.uploadedFiles;
-      // eslint-disable-next-line
-      this.confirmationService.confirm({
-        message: 'Bạn có chắc chắn muốn sửa bài đăng này?',
-        accept: () => {
-          this.alertService.clear();
-          this.postService
-            .update(this.post)
-            // eslint-disable-next-line
-            .subscribe(
-              (res: any) => (
-                this.getListPostProduct(),
-                this.router.navigate(['manage-product']),
-                (this.displayDialog = false),
-                this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã cập nhật bài đăng thành công!!' })
-              ),
-              (err: HttpErrorResponse) => this.alertService.error(err.error.title)
-            );
-          this.redirectTo('/manage-product');
-        }
-      });
-    }
+    const productPost = {
+      id: this.selectedPost.productPostResponseDTO.id,
+      user: this.selectedPost.productPostResponseDTO.user.id,
+      projectName: this.productPostForm.controls.projectName.value,
+      productPostType: this.productPostForm.controls.type.value,
+      productPostTitle: this.productPostForm.controls.projectPostTitle.value,
+      totalLike: null,
+      typeDeal: null,
+      totalReport: null,
+      totalShare: null,
+      ward: this.formAddress.controls.wardCode.value,
+      province: this.formAddress.controls.provinceCode.value,
+      district: this.formAddress.controls.districtCode.value,
+      address: this.formAddress.controls.address.value,
+      content: this.productPostForm.controls.content.value,
+      shortDescription: this.productPostForm.controls.content.value.substr(0, 51),
+      product: null,
+      status: true
+    };
+    const image = {
+      id: this.selectedPost.imageDTO.id,
+      img1: this.uploadedFiles[0],
+      img2: this.uploadedFiles[1],
+      img3: this.uploadedFiles[2],
+      img4: this.uploadedFiles[3],
+      img5: this.uploadedFiles[4],
+      img6: this.uploadedFiles[5],
+      img7: this.uploadedFiles[6],
+      img8: this.uploadedFiles[7],
+      img9: this.uploadedFiles[8],
+      img10: this.uploadedFiles[9],
+      status: true
+    };
+    const usingImage = {
+      id: this.selectedPost.usingImageResponseDTO.id,
+      image: null,
+      usingType: null,
+      productPost: null,
+      status: true
+    };
+    this.post.productRequestDTO = product;
+    // eslint-disable-next-line
+    console.log('this.post.productRequestDTO :', this.post.productRequestDTO);
+    this.post.productPostRequestDTO = productPost;
+    this.post.imageDTO = image;
+    this.post.usingImageRequestDTO = usingImage;
+    this.post.listImage = this.uploadedFiles;
+    // eslint-disable-next-line
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc chắn muốn sửa bài đăng này?',
+      accept: () => {
+        this.alertService.clear();
+        this.postService
+          .update(this.post)
+          // eslint-disable-next-line
+          .subscribe(
+            (res: any) => (
+              this.getListPostProduct(),
+              this.router.navigate(['manage-product']),
+              (this.displayDialog = false),
+              this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã cập nhật bài đăng thành công!!' })
+            ),
+            (err: HttpErrorResponse) => this.alertService.error(err.error.title)
+          );
+        this.redirectTo('/manage-product');
+      }
+    });
   }
 }

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { ManageAllProductpostComponent } from './manage-allproductpost/manage-allproductpost';
 import { ManageUserComponent } from './manage-user/manage-user.component';
+import { ManageNewsComponent } from './manage-new/manage-news';
 
 const routes: Routes = [
   {
@@ -45,6 +46,22 @@ const routes: Routes = [
             },
             {
               label: 'Quản lí bài đăng',
+              url: ''
+            }
+          ]
+        }
+      },
+      {
+        path: 'managenews',
+        component: ManageNewsComponent,
+        data: {
+          breadcrumb: [
+            {
+              label: 'Quản lí chung',
+              url: '/admin'
+            },
+            {
+              label: 'Quản lí tin tức',
               url: ''
             }
           ]

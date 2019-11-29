@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'app/core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
-import { NewsService } from 'app/core/service/news.service';
 import { ActivatedRoute } from '@angular/router';
 import { SERVER_API_URL } from 'app/app.constants';
+import { NewsService } from 'app/core/news/news.service';
 
 @Component({
   selector: 'app-productdetail',
@@ -41,11 +41,11 @@ export class ProductdetailComponent implements OnInit {
   /*  get  list 4 new*/
   getlistNews() {
     this.newService.getListNews().subscribe(res => {
-      this.listNews = res.data.rows;
+      this.listNews = res.body;
       this.listNews.sort(function(obj1, obj2) {
         return obj2.timeCreate - obj1.timeCreate;
       });
-      this.listNews = res.data.rows.slice(0, 4);
+      this.listNews = res.body.slice(0, 4);
     });
   }
 }

@@ -24,9 +24,8 @@ public interface ProductPostRepository extends JpaRepository<ProductPost, Long> 
     Page<ProductPost> filter(Pageable pageable);
     public List<ProductPost> findAllByStatusTrue();
 
-    public List<ProductPost> findAllByCreatedDateBetweenAndStatusIsTrue(Instant from, Instant to);
+    public List<ProductPost> findAllByStatusIsTrueAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(Instant from, Instant to);
 
-    public List<ProductPost> findAllByStatusTrueAndCreatedByBetween(Instant from, Instant to);
 
     public List<ProductPost> findAllByUserId(Long id);
 

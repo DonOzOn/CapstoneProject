@@ -3,11 +3,12 @@ package com.realestatebrokerage.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "news")
-public class New extends AbstractAuditingEntity implements Serializable {
+public class News extends AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -20,7 +21,12 @@ public class New extends AbstractAuditingEntity implements Serializable {
     @Column(length = 200, name = "decription")
     private String  decription;
 
-    @Column(length = 500, name = "content")
+    @Size(max = 256)
+    @Column(name = "image_url", length = 256)
+    private String imageUrl;
+
+    @Lob
+    @Column(name = "content")
     private String  content;
 
 
@@ -28,16 +34,23 @@ public class New extends AbstractAuditingEntity implements Serializable {
     @Column(nullable = false)
     private boolean status = false;
 
-    public New() {
+    public News() {
     }
 
-    public New(New news){
-        this.id = news.getId();
-        this.title = news.getTitle();
-        this.decription = news.getDecription();
-        this.content = news.getContent();
-        this.status = news.getStatus();
+    public News(String title, String decription, @Size(max = 256) String imageUrl, String content, @NotNull boolean status) {
+        this.title = title;
+        this.decription = decription;
+        this.imageUrl = imageUrl;
+        this.content = content;
+        this.status = status;
+    }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getTitle() {
