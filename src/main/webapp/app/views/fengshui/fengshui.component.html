@@ -27,40 +27,32 @@
                         <div class="info-see">
                             <div class="info-personal">
                                 <div class="content-info">
+                                    <form [formGroup] = "formdata" (ngSubmit) = "onClickSubmit(formdata.value)">
                                     <div class="year">
                                         <p>Năm sinh (âm lịch)</p>
                                         <div class="slect-year">
-                                            <select name="year" id="year">
-                                                <option>1945</option>
-                                                <option>1945</option>
-                                                <option>1945</option>
-                                                <option>1945</option>
-                                                <option>1945</option>
-                                                <option>1945</option>
-                                                <option>1945</option>
+                                            <select name="yearitem" formControlName = "yearitem" id="year">
+                                                <option *ngFor="let item of listYear">{{item}}</option>
                                             </select>
                                             <span class="drop"></span>
                                         </div>
                                     </div>
                                     <div class="gender inteneded-year">
-                                        <p>Năm dự định làm</p>
+                                        <p>Giới tính</p>
                                         <div class="slect-gender">
-                                            <select name="gender" class="select-year">
-                                                <option>2019</option>
-                                                <option>2019</option>
-                                                <option>2019</option>
-                                                <option>2019</option>
-                                                <option>2019</option>
-                                                <option>2019</option>
-                                                <option>2019</option>
+                                            <select name="genderitem" class="select-year">
+                                                <option *ngFor="let item of gender">{{item}}</option>
+                                                
                                             </select>
                                             <span class="drop"></span>
                                         </div>
                                     </div>
                                     <div class="result">
-                                        <button class="btn-result">XEM KẾT QUẢ</button>
+                                        <input type="submit" class="btn-result" value="XEM KẾT QUẢ">
                                     </div>
+                                </form>
                                 </div>
+                                <p> Year entered is : {{yearitem}} </p>
                             </div>
                         </div>
                     </div>
