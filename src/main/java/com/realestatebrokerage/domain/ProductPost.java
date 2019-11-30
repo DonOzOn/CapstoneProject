@@ -37,8 +37,8 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @JoinColumn(referencedColumnName = "id", name = "product_post_type_id")
     private ProductPostType productPostType;
 
-    @Size(min=1, max = 50)
-    @Column(name = "product_post_title", length = 50)
+    @Size(min=1, max = 100)
+    @Column(name = "product_post_title", length = 100)
     private String productPostTitle;
 
     @Column(name = "total_like")
@@ -88,7 +88,7 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     public ProductPost() {
     }
 
-    public ProductPost(User user, @Size(min = 1, max = 50) String projectName, ProductPostType productPostType, @Size(min = 1, max = 50) String productPostTitle, Integer totalLike, Integer typeDeal, Integer totalReport, Integer totalShare, Ward ward, Province province, District district, @Size(max = 50) String address, @Size(min = 1, max = 100) String shortDescription, @Size(min = 1, max = 255) String content, Product product, @NotNull boolean status) {
+    public ProductPost(User user, @Size(min = 1, max = 50) String projectName, ProductPostType productPostType, @Size(min = 1, max = 50) String productPostTitle, Integer totalLike, Integer typeDeal, Integer totalReport, Integer totalShare, Ward ward, Province province, District district, @Size(max = 50) String address, @Size(min = 1, max = 100) String shortDescription, String content, Product product, @NotNull boolean status) {
         this.user = user;
         this.projectName = projectName;
         this.productPostType = productPostType;

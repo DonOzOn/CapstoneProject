@@ -28,9 +28,12 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { EditorModule } from 'primeng/editor';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
+import { Ng7DynamicBreadcrumbModule } from 'ng7-dynamic-breadcrumb';
+import { ManageNewsComponent } from './manage-new/manage-news';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
-  declarations: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent],
+  declarations: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent, ManageNewsComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -64,9 +67,11 @@ import { CheckboxModule } from 'primeng/checkbox';
     EditorModule,
     HttpClientModule,
     SplitButtonModule,
-    CheckboxModule
+    CheckboxModule,
+    Ng7DynamicBreadcrumbModule,
+    InputTextareaModule
   ],
   providers: [],
-  exports: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent]
+  exports: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent, ManageNewsComponent]
 })
 export class AdminModule {}

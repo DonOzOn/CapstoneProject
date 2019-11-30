@@ -3,7 +3,7 @@ import { Routes, RouterModule, Resolve, ActivatedRouteSnapshot, RouterStateSnaps
 import { NewsComponent } from './news.component';
 import { NewspageComponent } from './newspage/newspage.component';
 import { NewsdetailComponent } from './newsdetail/newsdetail.component';
-import { NewsService } from 'app/core/service/news.service';
+import { NewsService } from 'app/core/news/news.service';
 
 @Injectable({ providedIn: 'root' })
 export class DetailNewResolve implements Resolve<any> {
@@ -13,7 +13,9 @@ export class DetailNewResolve implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const id = route.params.id ? route.params.id : null;
     if (id) {
-      return this.service.getDetailNews(id);
+      // eslint-disable-next-line
+      console.log('after delete uploadedFiles: ', this.service.find(id));
+      return this.service.find(id);
     }
     return new this.detainew();
   }
