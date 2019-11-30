@@ -60,6 +60,26 @@ export class PostService {
     return this.http.get<IPostRespone>(`${this.resourceUrl}/${id}`);
   }
 
+  listAllByUserID(id: any): Observable<HttpResponse<IPostRespone[]>> {
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/user/${id}`, { observe: 'response' });
+  }
+
+  listAllByType(idType: any, postTypeID: any): Observable<HttpResponse<IPostRespone[]>> {
+    const param = {
+      id: idType,
+      postType: postTypeID
+    };
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/typeSearch`, { params: param, observe: 'response' });
+  }
+
+  listAllByTypeChild(idTypeChild: any, postTypeID: any): Observable<HttpResponse<IPostRespone[]>> {
+    const param = {
+      id: idTypeChild,
+      postType: postTypeID
+    };
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/typeChildSearch`, { params: param, observe: 'response' });
+  }
+
   query(): Observable<HttpResponse<IPostRespone[]>> {
     return this.http.get<IPostRespone[]>(this.resourceUrl, { observe: 'response' });
   }
@@ -69,7 +89,7 @@ export class PostService {
       from: fromDate,
       to: toDate
     };
-    return this.http.get<IPostRespone[]>(`${this.resourceUrlImage}/search-by-date`, { params: param, observe: 'response' });
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/search-by-date`, { params: param, observe: 'response' });
   }
 
   delete(id: any): Observable<HttpResponse<any>> {

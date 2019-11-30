@@ -28,8 +28,7 @@ export class PostproductComponent implements OnInit {
   selectedType: string;
   types: SelectItem[];
   selectedUtility: string[] = [];
-  isUploadedFile;
-  false;
+  isUploadedFile = false;
   text1 = '<div>Hello!</div><div>Chào mừng tới BDS</div><div><br></div>';
   formAddress = this.fb.group({
     address: [null, Validators.required],
@@ -305,7 +304,6 @@ export class PostproductComponent implements OnInit {
         this.post.imageDTO = image;
         this.post.usingImageRequestDTO = usingImage;
         this.post.listImage = this.uploadedFiles;
-        // eslint-disable-next-line
         this.confirmationService.confirm({
           message: 'Bạn có chắc chắn muốn tạo bài đăng này?',
           accept: () => {

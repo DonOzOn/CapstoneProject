@@ -24,16 +24,16 @@
             <div class="col-md-3 float-left mb-5">
 
                 <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item active waves-effect">
+                    <a class="list-group-item active waves-effect">
                         <i class="fas fa-chart-pie mr-3"></i>Quản lí chung
                     </a>
-                    <a [routerLink]="['/manage-user']" class="list-group-item list-group-item-action waves-effect">
+                    <a [routerLink]="['/admin']" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Quản lí người dùng</a>
                     <a [routerLink]="['/manageallproductpost']" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-map mr-3"></i>Quản lí bài đăng</a>
                     <a href="#" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-money-bill-alt mr-3"></i>Quản lí bài review</a>
-                    <a href="#" class="list-group-item list-group-item-action waves-effect">
+                    <a [routerLink]="['/managenews']"  class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-money-bill-alt mr-3"></i>Quản lí tin tức</a>
                     <a href="#" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-money-bill-alt mr-3"></i>Danh sách người dùng đang online</a>
@@ -47,6 +47,8 @@
             <!-- Sidebar -->
             <!--Main layout-->
             <div class="col-md-9 float-right">
+                    <!--Card content-->
+            <app-ng7-dynamic-breadcrumb [bgColor]="breadcrumbConfig['bgColor']" [fontSize]="breadcrumbConfig['fontSize']" [fontColor]="breadcrumbConfig['fontColor']" [lastLinkColor]="breadcrumbConfig['lastLinkColor']" [symbol]="breadcrumbConfig['symbol']">Quản lí chung</app-ng7-dynamic-breadcrumb>
                 <router-outlet></router-outlet>
             </div>
             <!--Main layout-->

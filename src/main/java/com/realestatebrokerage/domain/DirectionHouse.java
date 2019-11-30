@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "direction_house")
-public class direction_house {
+public class DirectionHouse {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -40,7 +40,7 @@ public class direction_house {
     @Column(name = "hoahai", length = 50)
     private String hoahai;
 
-    public direction_house() {
+    public DirectionHouse() {
     }
 
     public static long getSerialVersionUID() {

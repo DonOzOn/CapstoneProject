@@ -3,26 +3,69 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { ManageAllProductpostComponent } from './manage-allproductpost/manage-allproductpost';
 import { ManageUserComponent } from './manage-user/manage-user.component';
+import { ManageNewsComponent } from './manage-new/manage-news';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
     data: {
-      title: 'Quản lí chung'
+      title: 'Quản lý chung',
+      breadcrumb: [
+        {
+          label: 'Quản lí chung',
+          url: ''
+        }
+      ]
     },
     children: [
       {
         path: '',
-        component: ManageUserComponent
+        component: ManageUserComponent,
+        data: {
+          breadcrumb: [
+            {
+              label: 'Quản lí chung',
+              url: '/admin'
+            },
+            {
+              label: 'Quản lí người dùng',
+              url: ''
+            }
+          ]
+        }
       },
       {
         path: 'manageallproductpost',
-        component: ManageAllProductpostComponent
+        component: ManageAllProductpostComponent,
+        data: {
+          breadcrumb: [
+            {
+              label: 'Quản lí chung',
+              url: '/admin'
+            },
+            {
+              label: 'Quản lí bài đăng',
+              url: ''
+            }
+          ]
+        }
       },
       {
-        path: 'manage-user',
-        component: ManageUserComponent
+        path: 'managenews',
+        component: ManageNewsComponent,
+        data: {
+          breadcrumb: [
+            {
+              label: 'Quản lí chung',
+              url: '/admin'
+            },
+            {
+              label: 'Quản lí tin tức',
+              url: ''
+            }
+          ]
+        }
       }
     ]
   }

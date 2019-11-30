@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { NewsService } from 'app/core/service/news.service';
 import { PostService } from '../../core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { SERVER_API_URL } from 'app/app.constants';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ListProductPostService } from 'app/core/service/listproductpost.service';
+import { Ng7DynamicBreadcrumbService } from 'ng7-dynamic-breadcrumb';
+import { NewsService } from 'app/core/news/news.service';
 
 @Component({
   selector: 'app-listproduct',
@@ -12,9 +15,17 @@ import { SERVER_API_URL } from 'app/app.constants';
 })
 export class ListproductComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
+  breadcrumbConfig: object = {
+    bgColor: '#ebebeb;',
+    fontSize: '18px',
+    fontColor: '#0275d8',
+    lastLinkColor: 'black',
+    symbol: ' ▶ '
+  };
   config: any;
   count: any;
   listPost: any[] = [];
+  listPost2: any;
   listNews: any[] = [];
   post: PostRespone[];
   choose = [
@@ -30,7 +41,15 @@ export class ListproductComponent implements OnInit {
     previousLabel: 'Previous',
     nextLabel: 'Next'
   };
-  constructor(private postService: PostService, private newService: NewsService, private fb: FormBuilder) {
+  constructor(
+    private listProductPostService: ListProductPostService,
+    private newService: NewsService,
+    private postService: PostService,
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private ng7DynamicBreadcrumbService: Ng7DynamicBreadcrumbService
+  ) {
     for (let i = 0; i < this.count; i++) {
       this.listPost.push({
         id: i + 1,
@@ -48,9 +67,26 @@ export class ListproductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getListPostProduct();
+    const breadcrumb = { customText: 'This is Custom Text', dynamicText: 'Level 2 ' };
+    this.ng7DynamicBreadcrumbService.updateBreadcrumbLabels(breadcrumb);
+    // this.getListPostProduct();
     this.getlistNews();
+    this.activatedRoute.firstChild.data.subscribe(res => {
+      this.post = res.typeSearch.body;
+    });
+
+    this.activatedRoute.firstChild.data.subscribe(res => {
+      this.post = res.typeChildSearch.body;
+    });
+    // this.redirectTo(this.activatedRoute.snapshot.url.toString());
+    // eslint-disable-next-line
+    console.log('post active', this.activatedRoute.data);
   }
+
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/404', { skipLocationChange: true }).then(() => this.router.navigate([uri]));
+  }
+
   /*  get all product post */
   getListPostProduct() {
     this.postService.query().subscribe(res => {
@@ -69,11 +105,11 @@ export class ListproductComponent implements OnInit {
   /*  get  list 4 new*/
   getlistNews() {
     this.newService.getListNews().subscribe(res => {
-      this.listNews = res.data.rows;
+      this.listNews = res.body;
       this.listNews.sort(function(obj1, obj2) {
         return obj2.timeCreate - obj1.timeCreate;
       });
-      this.listNews = res.data.rows.slice(0, 4);
+      this.listNews = res.body.slice(0, 4);
     });
   }
   /*  change sort */

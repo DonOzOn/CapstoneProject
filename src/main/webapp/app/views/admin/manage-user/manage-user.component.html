@@ -23,9 +23,6 @@
             (click)="cdOff.accept()"></button>
     </p-footer>
 </p-confirmDialog>
-<div class="card mb-2 wow fadeIn">
-    <div class="row mb-2">
-        <div class="col-12 text-left pt-3">
             <p-toast [style]="{marginTop: '80px'}"></p-toast>
             <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
                 <p-footer>
@@ -35,18 +32,6 @@
                         (click)="cd.accept()"></button>
                 </p-footer>
             </p-confirmDialog>
-        </div>
-    </div>
-    <!--Card content-->
-    <div class="card-body d-sm-flex justify-content-between pt-0">
-
-        <h6 class="mb-sm-0 py-0">
-            <a [routerLink]="['/admin']"  target="_blank">Quản lí chung</a>
-            <span>/</span>
-            <span>Quản lí người dùng</span>
-        </h6>
-
-    </div>
 
 </div>
 <!-- Heading -->
