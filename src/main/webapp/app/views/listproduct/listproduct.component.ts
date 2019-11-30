@@ -38,7 +38,7 @@ export class ListproductComponent implements OnInit {
       });
     }
     this.config = {
-      itemsPerPage: 4,
+      itemsPerPage: 10,
       currentPage: 1,
       totalItems: this.count
     };

@@ -8,10 +8,15 @@
     background-color: white;
     color: #428bca;
   }
-  .form-control {
-    width: 100%;
-    color: #428bca;
+  .btnFind:hover {
+    background-color: #428bca;
+    color: #fff;
+    border: #428bca;
   }
+}
+
+.card-img-overlay {
+  padding-top: 150px;
 }
 
 img {
@@ -21,6 +26,21 @@ img {
   background-position: center;
   height: 75vh;
   background-attachment: fixed;
+}
+
+/* Collapse top/down */
+
+.btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+a[aria-expanded='true'] .fa-chevron-circle-down {
+  display: none;
+}
+
+a[aria-expanded='false'] .fa-chevron-circle-up {
+  display: none;
 }
 
 /* carouselTop custom */
@@ -83,7 +103,6 @@ h2 {
 }
 
 .advertising {
-  height: 10%;
   background-color: grey;
 }
 

@@ -101,7 +101,7 @@
                                 <a [routerLink]="[ '/product', item.productPostResponseDTO.id,'productdetail']">
                                     <h5 class="card-title">{{item.productPostResponseDTO.productPostTitle}}</h5>
                                 </a>
-                                <div innerHTML="{{item.productPostResponseDTO.content}}" class="card-text"></div>
+                                <div innerHTML="{{item.productPostResponseDTO.content}}" class="card-text giveMeEllipsis"></div>
                                 <div class=" d-inline-flex col-md-12 px-0 small">
                                     <p class="grey-text my-1 px-0 col-md-7">{{item.productPostResponseDTO.address}}, {{item.productPostResponseDTO.ward.name}}, {{item.productPostResponseDTO.district.name}}, {{item.productPostResponseDTO.province.name}}</p>
                                     <p class="grey-text my-1 px-0 col-md-5 d-flex justify-content-end align-items-end"><i>{{item.productPostResponseDTO.createdDate | date : 'dd/MM/yyyy'}}</i></p>
