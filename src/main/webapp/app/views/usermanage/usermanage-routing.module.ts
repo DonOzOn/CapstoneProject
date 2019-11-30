@@ -16,19 +16,67 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ProfileComponent
+        component: ProfileComponent,
+        data: {
+          breadcrumb: [
+            {
+              label: 'Quản lí tài khoản',
+              url: '/usermanage'
+            },
+            {
+              label: 'Thông tin cá nhân',
+              url: ''
+            }
+          ]
+        }
       },
       {
         path: 'manage-product',
-        component: ManageproductpostComponent
+        component: ManageproductpostComponent,
+        data: {
+          breadcrumb: [
+            {
+              label: 'Quản lí tài khoản',
+              url: '/usermanage'
+            },
+            {
+              label: 'Quản lí bài đăng mua bán',
+              url: ''
+            }
+          ]
+        }
       },
       {
         path: 'manage-review',
-        component: ManagereviewpostComponent
+        component: ManagereviewpostComponent,
+        data: {
+          breadcrumb: [
+            {
+              label: 'Quản lí tài khoản',
+              url: '/usermanage'
+            },
+            {
+              label: 'Quản lí bài đăng review - câu hỏi',
+              url: ''
+            }
+          ]
+        }
       },
       {
         path: 'notification',
-        component: NotificationComponent
+        component: NotificationComponent,
+        data: {
+          breadcrumb: [
+            {
+              label: 'Quản lí tài khoản',
+              url: '/usermanage'
+            },
+            {
+              label: 'Thông báo',
+              url: ''
+            }
+          ]
+        }
       }
     ]
   }

@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { trigger, state, transition, style, animate } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
 import { NavigationStart, NavigationEnd, Router, NavigationCancel, NavigationError } from '@angular/router';
+import { FacebookService, InitParams } from 'ngx-facebook';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,7 +15,7 @@ import { NavigationStart, NavigationEnd, Router, NavigationCancel, NavigationErr
 export class AppComponent implements OnInit {
   title = 'RealEstateBrokerageCient';
   showLoadingIndicator = true;
-  constructor(@Inject(DOCUMENT) document, private router: Router) {
+  constructor(@Inject(DOCUMENT) document, private router: Router, private facebookService: FacebookService) {
     this.router.events.subscribe(event => {
       switch (true) {
         case event instanceof NavigationStart:
@@ -34,5 +36,12 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.initFacebookService();
+  }
+
+  initFacebookService(): void {
+    const initParams: InitParams = { xfbml: true, version: 'v3.2' };
+    this.facebookService.init(initParams);
+  }
 }

@@ -1,6 +1,5 @@
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FlickityModule } from 'ngx-flickity';
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OwlModule } from 'ngx-owl-carousel';
@@ -32,6 +31,10 @@ import { EditorModule } from 'primeng/editor';
 import { HttpClientModule } from '@angular/common/http';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { CheckboxModule } from 'primeng/checkbox';
+import { Ng7DynamicBreadcrumbModule } from 'ng7-dynamic-breadcrumb';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
   declarations: [UsermanageComponent, ProfileComponent, ManageproductpostComponent, ManagereviewpostComponent, NotificationComponent],
@@ -63,7 +66,12 @@ import { CheckboxModule } from 'primeng/checkbox';
     EditorModule,
     HttpClientModule,
     SplitButtonModule,
-    CheckboxModule
+    CheckboxModule,
+    Ng7DynamicBreadcrumbModule,
+    ToastModule,
+    InputTextareaModule,
+    RealestatebrokerageSharedModule,
+    OverlayPanelModule
   ],
   providers: [],
   exports: [UsermanageComponent, ProfileComponent, ManageproductpostComponent, ManagereviewpostComponent, NotificationComponent]

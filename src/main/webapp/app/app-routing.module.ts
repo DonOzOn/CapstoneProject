@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ErrorComponent } from './views/error/error.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
+import { UserRouteAccessService } from './core/auth/user-route-access-service';
 
 const routes: Routes = [
   {
@@ -45,6 +46,10 @@ const routes: Routes = [
   },
   {
     path: 'admin',
+    data: {
+      authorities: ['ROLE_ADMIN']
+    },
+    canActivate: [UserRouteAccessService],
     loadChildren: () => import('./views/admin/admin.module').then(m => m.AdminModule)
   },
   {
