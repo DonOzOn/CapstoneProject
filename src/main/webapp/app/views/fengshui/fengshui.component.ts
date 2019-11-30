@@ -39,8 +39,6 @@ export class FengshuiComponent implements OnInit {
         console.log('res : ', res);
         this.par = res.body;
       });
-      // eslint-disable-next-lines
-      console.log('res paman: ', this.par);
     } else {
       // eslint-disable-next-line
       console.log('gender : ', this.formdata.controls['genderitem'].value);

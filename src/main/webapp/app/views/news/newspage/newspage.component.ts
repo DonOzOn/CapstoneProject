@@ -33,12 +33,16 @@ export class NewspageComponent implements OnInit {
 
   ngOnInit() {
     this.getlistNews();
+    // eslint-disable-next-line
+    console.log('dsfdfdf: ', this.listNews);
   }
   pageChanged(event) {
     this.config.currentPage = event;
   }
   getlistNews() {
     this.newService.getListNews().subscribe(res => {
+      // eslint-disable-next-line
+      console.log('get news: ', res.body);
       this.listNews = res.body;
     });
   }
