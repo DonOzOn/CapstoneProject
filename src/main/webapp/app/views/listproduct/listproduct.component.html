@@ -53,7 +53,7 @@
 
 <div class="container">
     <div class="bc-icons-2">
-            <app-ng7-dynamic-breadcrumb [bgColor]="breadcrumbConfig['bgColor']" [fontSize]="breadcrumbConfig['fontSize']" [fontColor]="breadcrumbConfig['fontColor']" [lastLinkColor]="breadcrumbConfig['lastLinkColor']" [symbol]="breadcrumbConfig['symbol']">Quản lí chung</app-ng7-dynamic-breadcrumb>
+        <app-ng7-dynamic-breadcrumb [bgColor]="breadcrumbConfig['bgColor']" [fontSize]="breadcrumbConfig['fontSize']" [fontColor]="breadcrumbConfig['fontColor']" [lastLinkColor]="breadcrumbConfig['lastLinkColor']" [symbol]="breadcrumbConfig['symbol']">Quản lí chung</app-ng7-dynamic-breadcrumb>
         <!-- <nav aria-label="breadcrumb">
             <ol class="breadcrumb lighten-4 rounded-0 px-0 my-0">
                 <li class="breadcrumb-item"><a class="text-muted" href="#"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
@@ -69,7 +69,7 @@
 
     <div class="my-2 d-flex">
         <form class="justify-content-start " [formGroup]="chooseForm">
-            <select  *ngIf="post.length !== 0"  (change)="onChange($event)" class="btn btn-secondary" formControlName="choose">
+            <select *ngIf="post.length !== 0" (change)="onChange($event)" class="btn btn-secondary" formControlName="choose">
                   <option value="" disabled>Chọn sắp xếp</option>
                   <option *ngFor="let item of choose" [ngValue]="item.value" >
                     {{item.name}}
@@ -77,9 +77,9 @@
                 </select>
         </form>
         <h4 class="justify-content-end pl-5 pt-1">
-                <!-- <div class="text-mute strong">"Mua bán" "căn hộ chung cư" tại "TP HỒ CHÍ MINH" </div> -->
-                <!-- <div class="text-mute strong" > "Có {{post.length}} kết quả đươc tìm thấy"  </div> -->
-                <div class="text-mute strong" > "Có {{post.length}} kết quả đươc tìm thấy"  </div>
+            <!-- <div class="text-mute strong">"Mua bán" "căn hộ chung cư" tại "TP HỒ CHÍ MINH" </div> -->
+            <!-- <div class="text-mute strong" > "Có {{post.length}} kết quả đươc tìm thấy"  </div> -->
+            <div class="text-mute strong"> "Có {{post.length}} kết quả đươc tìm thấy" </div>
         </h4>
     </div>
     <div class="container px-0 py-2">
@@ -105,18 +105,20 @@
                                 <a [routerLink]="[ '/product', item.productPostResponseDTO.id,'productdetail']">
                                     <h5 class="card-title">{{item.productPostResponseDTO.productPostTitle}}</h5>
                                 </a>
-                                <div innerHTML="{{item.productPostResponseDTO.content}}" class="card-text"></div>
+                                <div innerHTML="{{item.productPostResponseDTO.content}}" class="card-text giveMeEllipsis"></div>
                                 <div class=" d-inline-flex col-md-12 px-0 small">
                                     <p class="grey-text my-1 px-0 col-md-7">{{item.productPostResponseDTO.address}}, {{item.productPostResponseDTO.ward.name}}, {{item.productPostResponseDTO.district.name}}, {{item.productPostResponseDTO.province.name}}</p>
                                     <p class="grey-text my-1 px-0 col-md-5 d-flex justify-content-end align-items-end"><i>{{item.productPostResponseDTO.createdDate | date : 'dd/MM/yyyy'}}</i></p>
                                 </div>
                                 <hr class="my-1">
                                 <div class=" d-inline-flex col-md-12 px-0">
-                                    <p class="text-dark my-1 pt-1 px-0 col-md-2 strong text-left">{{item.productPostResponseDTO.product.price/1000000000}}tỷ</p>
+                                    <p class="text-dark my-1 pt-1 px-0 col-md-2 strong text-left" *ngIf="item.productPostResponseDTO.product.price >= 100000000">{{item.productPostResponseDTO.product.price/1000000000}}tỷ</p>
+                                    <p class="text-dark my-1 pt-1 px-0 col-md-2 strong text-left" *ngIf="item.productPostResponseDTO.product.price < 100000000">{{item.productPostResponseDTO.product.price/1000000}}tỷ</p>
                                     <p class="text-dark my-1 pt-2 px-0 col-md-2 small text-left">{{item.productPostResponseDTO.product.area}}m<sup>2</sup></p>
                                     <div class="my-1 p-0 col-md-8 d-inline-flex">
                                         <div class="col-md-2 px-2 pt-1 img">
-                                            <img src="{{imageUrl}}{{item.productPostResponseDTO.user.imageUrl}}" class="card-img rounded-circle img-responsive img" alt="...">
+                                            <img src="{{imageUrl}}{{item.productPostResponseDTO.user.imageUrl}}" *ngIf="item.productPostResponseDTO.user.imageUrl !== null" class="card-img rounded-circle img-responsive img" alt="...">
+                                            <img src="../../../content/img/default-avar.png" *ngIf="item.productPostResponseDTO.user.imageUrl === null" class="card-img rounded-circle img-responsive img" alt="...">
                                         </div>
                                         <p class="text-dark my-1 pt-1 pl-2 col-md-6 small text-left text-capitalize">{{item.productPostResponseDTO.user.firstName}} {{item.productPostResponseDTO.user.lastName}}</p>
                                         <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" href="#">
@@ -130,7 +132,7 @@
                         </div>
                     </div>
                 </div>
-                <nav aria-label=""  *ngIf="post.length !== 0"  class="mt-2">
+                <nav aria-label="" *ngIf="post.length !== 0" class="mt-2">
                     <ul class="pagination pg-blue justify-content-end">
                         <pagination-controls [previousLabel]="labels.previousLabel" [nextLabel]="labels.nextLabel" (pageChange)="pageChanged($event)"></pagination-controls>
                     </ul>

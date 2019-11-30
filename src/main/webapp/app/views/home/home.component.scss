@@ -8,6 +8,11 @@
     background-color: white;
     color: #428bca;
   }
+  .btnFind :hover {
+    background-color: #428bca;
+    color: white;
+    border: none;
+  }
   .form-control {
     width: 100%;
     color: #428bca;
@@ -21,6 +26,14 @@ img {
   background-position: center;
   height: 75vh;
   background-attachment: fixed;
+}
+
+.txtSearch {
+  padding-top: 190px;
+}
+
+.icon-slide {
+  margin-top: -30px;
 }
 
 /* carouselTop custom */
@@ -152,7 +165,8 @@ ul li .card .new-card {
   display: -webkit-box;
   line-height: 1.2em;
   /* fallback */
-  max-height: 3.6em;
+  max-height: 2.4em;
+  min-height: 2.4em;
   /* fallback */
   -webkit-line-clamp: 2;
   /* number of lines to show */
