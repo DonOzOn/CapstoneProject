@@ -5,7 +5,7 @@
         <div class="row col-md-12">
 
             <!-- Sidebar -->
-            <div class="sidebar-fixed col-md-3 mb-2">
+            <div class="sidebar-fixed  col-md-3 mb-2"  >
 
                 <div class="list-group list-group-flush">
                     <h5 class="list-group-item active waves-effect">
@@ -27,7 +27,7 @@
             <!-- Sidebar -->
             <!--Main layout-->
             <div class="col-md-9 float-right">
-                <div *ngIf="showLoadingIndicator" class="lds-hourglass"></div>
+                <app-ng7-dynamic-breadcrumb [bgColor]="breadcrumbConfig['bgColor']" [fontSize]="breadcrumbConfig['fontSize']" [fontColor]="breadcrumbConfig['fontColor']" [lastLinkColor]="breadcrumbConfig['lastLinkColor']" [symbol]="breadcrumbConfig['symbol']">Quản lí chung</app-ng7-dynamic-breadcrumb>
                 <router-outlet></router-outlet>
             </div>
 

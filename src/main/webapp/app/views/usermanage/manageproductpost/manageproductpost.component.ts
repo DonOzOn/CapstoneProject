@@ -41,8 +41,7 @@ export class ManageproductpostComponent implements OnInit {
   selectedType: string;
   types: SelectItem[];
   selectedUtility: string[] = [];
-  isUploadedFile;
-  false;
+  isUploadedFile = false;
   text1 = '<div>Hello!</div><div>Chào mừng tới BDS</div><div><br></div>';
   formAddress = this.fb.group({
     address: [null, Validators.required],

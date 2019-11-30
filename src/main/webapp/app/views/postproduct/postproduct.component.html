@@ -383,10 +383,9 @@
                                                         <p-editor formControlName="content" [(ngModel)]="text1"
                                                             (onTextChange)="countContentNumber()"
                                                             [style]="{'height':'320px'}"></p-editor>
-                                                        <button pButton type="button" label="Clear" icon="pi pi-times"
-                                                            (click)="countContent=0"></button>
+                                                        <button class="mt-2" pButton type="button" label="Clear" icon="pi pi-times"
+                                                        (click)="text1=null"></button>
                                                     </span>
-                                                    <label class="pl-3">{{countContent}}/255</label>
                                                     <!-- <small class="form-text text-danger" *ngIf="productPostForm.get('content').errors.maxlength">
                                                                 Mô tải dài nhất có 255 một kí tự.
                                                     </small> -->
@@ -408,7 +407,8 @@
                                                             cancelLabel="Bỏ"
                                                             chooseLabel="Chọn hình"
                                                             uploadLabel="Tải lên"
-                                                            (onRemove)= "onRemove($event)" fileLimit="10"
+                                                            (onRemove)= "onRemove($event)"
+                                                            fileLimit="10"
                                                             maxFileSize="1000000">
                                                             <ng-template pTemplate="content">
                                                                 <ul *ngIf="uploadedFiles">
@@ -416,6 +416,7 @@
                                                                     <li *ngFor="let file of uploadedFiles">{{file}}</li>
                                                                 </ul>
                                                             </ng-template>
+
                                                         </p-fileUpload>
                                                     </span>
                                                 </div>
@@ -589,14 +590,19 @@
                     </div>
                 </div>
             </form>
-
             <div class="row mb-2">
                 <div class="col-md-12">
-                    <div class="card" style="background-color: gray ; height: 130px;">
+                    <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card-body">
+                                            <ins class="adsbygoogle"
+                                            style="display:block"
+                                            data-ad-client="ca-pub-8504781071264859"
+                                            data-ad-slot="2029121527"
+                                            data-ad-format="auto"
+                                            data-full-width-responsive="true"></ins>
                                     </div>
                                 </div>
                             </div>
@@ -608,3 +614,6 @@
         </div>
     </div>
 </div>
+<script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+   </script>

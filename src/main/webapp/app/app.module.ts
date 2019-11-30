@@ -27,6 +27,7 @@ import { RealestatebrokerageSharedModule } from './shared/shared.module';
 import { RealestatebrokerageSharedLibsModule } from './shared/shared-libs.module';
 import { RealestatebrokerageAccountModule } from './views/account/account.module';
 import { CheckboxModule } from 'primeng/checkbox';
+import { FacebookModule } from 'ngx-facebook';
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent, LoginComponent, RegisterComponent],
@@ -59,7 +60,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     RealestatebrokerageSharedModule,
     RealestatebrokerageSharedLibsModule,
     RealestatebrokerageAccountModule,
-    CheckboxModule
+    CheckboxModule,
+    FacebookModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

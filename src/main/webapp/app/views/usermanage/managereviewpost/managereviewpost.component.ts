@@ -1,14 +1,8 @@
 import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
 import { SelectItem, ConfirmationService, MessageService } from 'primeng/api';
-import { CarService } from 'app/core/service/car.service';
 import { Validators, FormBuilder } from '@angular/forms';
-import { ProductPost } from 'app/core/post/model/product-post.model';
 import { IUser } from 'app/core/user/user.model';
-import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { AddressService } from 'app/core/address/address.service';
-import { DirectionService } from 'app/core/direction/direction.service';
-import { LegalStatusService } from 'app/core/legal-status/legal-status.service';
-import { UtilitiesService } from 'app/core/utilities/utilities.service';
 import { ProductPostTypeService } from 'app/core/product-type/product-type.service';
 import { JhiAlertService } from 'ng-jhipster';
 import { Router } from '@angular/router';
@@ -17,15 +11,9 @@ import { AccountService } from 'app/core/auth/account.service';
 import { UserService } from 'app/core/user/user.service';
 import { Account } from 'app/core/user/account.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { PostRequest } from 'app/core/post/model/postRequest.model copy';
 import { SERVER_API_URL } from 'app/app.constants';
-
-export interface Car {
-  vin: any;
-  year: any;
-  brand: any;
-  color: any;
-}
+import { IReview } from 'app/core/review/review.model';
+import { ReviewService } from 'app/core/review/review.service';
 
 @Component({
   selector: 'app-managereviewpost',
@@ -36,27 +24,11 @@ export interface Car {
 export class ManagereviewpostComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
   /*  Item select button  */
-  selectedType: string;
+  selectedType: number;
   types: SelectItem[];
-  selectedUtility: string[] = [];
-  isUploadedFile;
-  false;
-  text1 = '<div>Hello!</div><div>Chào mừng tới BDS</div><div><br></div>';
-  formAddress = this.fb.group({
-    address: [null, Validators.required],
-    provinceCode: [null, Validators.required],
-    districtCode: [null, Validators.required],
-    wardCode: [null, Validators.required]
-  });
-  /*  List provinces, district, ward, direction */
-  listProvinces = [];
-  listDistrict = [];
-  listWard = [];
-  listDirection = [];
-  listUtilities = [];
-  listLegalStatus = [];
+  isUploadedFile = false;
+  text1: String = '<div>Hello!</div><div>Chào mừng tới BDS</div><div><br></div>';
   /* product post */
-  productPost: ProductPost;
   account: Account;
   user: IUser;
   /*  List product type and product type child  */
@@ -67,40 +39,18 @@ export class ManagereviewpostComponent implements OnInit {
   listUtilitiesSelected = [];
   listImageName = [];
   /*  Form product post */
-  productPostForm = this.fb.group({
-    projectName: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    type: [null, Validators.required],
-    address: [null],
-    provinceCode: [null],
-    districtCode: [null],
-    wardCode: [null],
-    productTypeID: [null, Validators.required],
-    productTypeChildID: [null, Validators.required],
-    // eslint-disable-next-line
-    price: [null, [Validators.maxLength(50), Validators.pattern('^[0-9]*$')]],
-    area: [null, [Validators.maxLength(50), Validators.pattern('^[0-9]*$')]],
-    directionID: [null],
-    legalStatusID: [null, Validators.required],
-    projectPostTitle: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
-    // eslint-disable-next-line
-    numFloor: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
-    // eslint-disable-next-line
-    numBathroom: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
-    // eslint-disable-next-line
-    numBedroom: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
-    content: [null, Validators.maxLength(255)],
-    utilities: [null]
+  reviewPostForm = this.fb.group({
+    title: [null, [Validators.maxLength(100), Validators.required]],
+    content: [null, [Validators.required]],
+    decription: [null, [Validators.maxLength(200)]],
+    type: [null]
   });
 
-  post: PostRequest = new PostRequest();
+  review: IReview;
 
-  posts: PostRespone[];
+  reviews: IReview[];
 
-  selectedPost: PostRespone;
-
-  cars: Car[];
-
-  selectedCar: Car;
+  selectedReview: IReview;
 
   displayDialog: boolean;
 
@@ -111,12 +61,12 @@ export class ManagereviewpostComponent implements OnInit {
   sortField: string;
 
   sortOrder: number;
+
+  currentAccount: Account;
+
+  currentUser: IUser;
   constructor(
-    private carService: CarService,
     private addressService: AddressService,
-    private directionService: DirectionService,
-    private legalStatusService: LegalStatusService,
-    private utilitiesService: UtilitiesService,
     private fb: FormBuilder,
     private productPostTypeService: ProductPostTypeService,
     private elementRef: ElementRef,
@@ -127,18 +77,14 @@ export class ManagereviewpostComponent implements OnInit {
     private postService: PostService,
     private accountService: AccountService,
     private userService: UserService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private reviewService: ReviewService
   ) {
-    this.types = [{ label: 'Mua bán', value: 1 }, { label: 'Cho Thuê', value: 2 }];
+    this.types = [{ label: 'Review', value: 0 }, { label: 'Câu hỏi', value: 1 }];
   }
 
   ngOnInit() {
     // this.selectedType = 'Mua bán';
-  }
-  getlistCar() {
-    this.carService.getListCar().subscribe(res => {
-      this.cars = res.data.rows;
-    });
   }
 
   /**
@@ -146,7 +92,7 @@ export class ManagereviewpostComponent implements OnInit {
    * @param event
    * @param post
    */
-  deleteSelectPostproduct(id: any) {
+  deleteSelectReview(id: any) {
     // eslint-disable-next-line
     console.log('id: ', id);
 
@@ -154,121 +100,116 @@ export class ManagereviewpostComponent implements OnInit {
       message: 'Bạn có chắc chắn muốn xóa bài đăng này?',
       accept: () => {
         this.alertService.clear();
-        this.postService.delete(id).subscribe(() => {
+        this.reviewService.delete(id).subscribe(() => {
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã xóa bài đăng thành công!!' });
-          this.getListPostProduct();
+          this.getListReview(this.currentUser.id);
         });
       }
     });
   }
 
-  selectPostproduct(event: Event, post: PostRespone) {
-    this.listUtilitiesSelected = [];
-    this.selectedPost = post;
+  selectReview(event: Event, review: IReview) {
+    this.alertService.success('Chọn ' + review.id, null, null), (this.displayDialog = true);
     // eslint-disable-next-line
-    console.log('select post : ', this.selectedPost);
-    this.displayDialog = true;
-    this.selectedType = this.selectedPost.productPostResponseDTO.productPostType.id;
-    this.productPostForm.controls.projectName.setValue(this.selectedPost.productPostResponseDTO.projectName);
-    this.productPostForm.controls.content.setValue(this.selectedPost.productPostResponseDTO.content);
-    this.formAddress.controls.address.setValue(this.selectedPost.productPostResponseDTO.address);
-    this.formAddress.controls.provinceCode.setValue(this.selectedPost.productPostResponseDTO.province.code);
-    if (this.formAddress.value.provinceCode != null) {
-      this.addressService.filterDistrict(this.formAddress.value.provinceCode).subscribe((res: any) => {
-        this.listDistrict = res.body;
-      });
+    console.log('IReview: ', review);
+    if (review.type === true) {
+      this.selectedType = this.types[1].value;
+    } else {
+      this.selectedType = this.types[0].value;
     }
-    this.formAddress.controls.districtCode.setValue(this.selectedPost.productPostResponseDTO.district.code);
-    if (this.formAddress.value.districtCode != null) {
-      this.addressService.filterWard(this.formAddress.value.districtCode).subscribe((res: any) => {
-        this.listWard = res.body;
-      });
-    }
-    this.formAddress.controls.wardCode.setValue(this.selectedPost.productPostResponseDTO.ward.code);
-    this.productPostForm.controls.productTypeID.setValue(this.selectedPost.productResponseDTO.productType.id);
-    if (this.productPostForm.value.productTypeID != null) {
-      this.productPostTypeService.filterTypeChild(this.productPostForm.value.productTypeID).subscribe((res: any) => {
-        this.listProductTypeChild = res.body;
-      });
-    }
-    this.productPostForm.controls.productTypeChildID.setValue(this.selectedPost.productResponseDTO.productTypeChild.id);
-    this.productPostForm.controls.price.setValue(this.selectedPost.productResponseDTO.price);
-    this.productPostForm.controls.area.setValue(this.selectedPost.productResponseDTO.area);
-    this.productPostForm.controls.directionID.setValue(this.selectedPost.productResponseDTO.direction.id);
-    this.productPostForm.controls.legalStatusID.setValue(this.selectedPost.productResponseDTO.legalStatus.id);
-    this.productPostForm.controls.projectPostTitle.setValue(this.selectedPost.productPostResponseDTO.productPostTitle);
-    this.productPostForm.controls.numFloor.setValue(this.selectedPost.productResponseDTO.numberFloor);
-    this.productPostForm.controls.numBathroom.setValue(this.selectedPost.productResponseDTO.numberBathroom);
-    this.productPostForm.controls.numBedroom.setValue(this.selectedPost.productResponseDTO.numberBedroom);
-    this.productPostForm.controls.utilities.setValue(this.selectedPost.productResponseDTO.utilities);
-    this.productPostForm.controls.utilities.value.forEach(element => {
-      this.listUtilitiesSelected.push(element.id + '');
-    });
-    // eslint-disable-next-line
-    console.log('List all selectUli : ', this.listUtilitiesSelected);
-    // eslint-disable-next-line
-    console.log('List all uti db : ', this.productPostForm.controls.utilities.value);
+    this.review = review;
+    this.uploadedFiles[0] = review.imageUrl;
+    this.reviewPostForm.controls.title.setValue(review.title);
+    this.reviewPostForm.controls.decription.setValue(review.decription);
+    this.reviewPostForm.controls.content.setValue(review.content);
+    this.text1 = review.content;
+    // event.preventDefault();
+  }
 
-    event.preventDefault();
+  /**
+   * Selects onchange
+   * @param event
+   */
+  selectOnchange(event) {
+    // eslint-disable-next-line
+    console.log('value select : ', event.value);
+    if (event.value === 0) {
+      this.reviewPostForm.controls.type.setValue(false);
+    } else {
+      this.reviewPostForm.controls.type.setValue(true);
+    }
   }
 
   loadData(event) {
     event.first = true;
     event.rows = 10;
-    this.getlistCar();
-    this.getListPostProduct();
-    this.sortOptions = [
-      { label: 'Mới nhất', value: '!productPostResponseDTO.createdDate' },
-      { label: 'Cũ nhất', value: 'productPostResponseDTO.createdDate' },
-      { label: 'Tên', value: 'productPostResponseDTO.projectName' }
-    ];
-    this.getProvince();
-    this.getProductType();
-    this.getDirection();
-    this.getLegalStatus();
-    this.getUtility();
+    this.accountService.identity().subscribe((account: Account) => {
+      this.currentAccount = account;
+      this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
+        this.currentUser = userAuthen;
+        this.getListReview(this.currentUser.id);
+      });
+    });
+    this.sortOptions = [{ label: 'Mới nhất', value: 1 }, { label: 'Cũ nhất', value: 2 }];
   }
 
-  // selectPostproduct(event: Event, car: Car) {
-  //   this.selectedCar = car;
-  //   this.displayDialog = true;
-  //   event.preventDefault();
-  // }
   /**
-   * get all post product
+   * Gets list review
+   * @param id
    */
-  // eslint-disable-next-line
-  getListPostProduct() {
-    this.postService.query().subscribe(res => {
-      this.posts = res.body;
+  getListReview(id: any) {
+    this.reviewService.listAllByUserID(id).subscribe(res => {
+      this.reviews = res.body;
       // eslint-disable-next-line
-      console.log('List all post : ', this.posts);
+      console.log('List all review : ', this.reviews);
     });
   }
-  onSortChange(event: { value: any }) {
-    const value = event.value;
 
-    if (value.indexOf('!') === 0) {
-      this.sortOrder = -1;
-      this.sortField = value.substring(1, value.length);
-    } else {
-      this.sortOrder = 1;
-      this.sortField = value;
+  /**
+   * Determines whether sort change on
+   * @param event
+   */
+  onSortChange(event: { value: any }) {
+    // eslint-disable-next-line
+    console.log('key : ', this.sortKey);
+    const value = event.value;
+    switch (value) {
+      case 1: {
+        this.reviews.sort(function(obj1: any, obj2: any) {
+          return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
+        });
+        break;
+      }
+      case 2: {
+        this.reviews.sort(function(obj1: any, obj2: any) {
+          return new Date(obj1.createdDate).valueOf() - new Date(obj2.createdDate).valueOf();
+        });
+        break;
+      }
+
+      default: {
+        break;
+      }
     }
   }
-
+  /**
+   * Determines whether dialog hide on
+   */
   onDialogHide() {
-    this.redirectTo('/manage-product');
-    this.selectedCar = null;
+    this.redirectTo('/manage-review');
   }
 
-  onShowDialog() {
-    this.selectedCar = null;
-  }
-  /*  add picture to list */
+  /**
+   * Determines whether show dialog on
+   */
+  onShowDialog() {}
+
+  /**
+   * Determines whether upload on
+   * @param event
+   * @param fileUpload
+   */
   onUpload(event, fileUpload) {
-    // eslint-disable-next-line
-    console.log('da qua day');
     const listFile = [];
     for (const file of event.files) {
       listFile.push(file);
@@ -276,6 +217,7 @@ export class ManagereviewpostComponent implements OnInit {
     listFile.forEach(element => {
       this.postService.upload(element).subscribe(
         res => {
+          this.uploadedFiles.pop();
           this.uploadedFiles.push(res.body);
           this.isUploadedFile = true;
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh thành công!!' });
@@ -288,103 +230,16 @@ export class ManagereviewpostComponent implements OnInit {
     });
     fileUpload.clear();
   }
+
+  /**
+   * Determines whether remove on
+   * @param event
+   */
   onRemove(event) {
     const filtered = this.uploadedFiles.filter(function(value, index, arr) {
       return value.name !== event.file.name;
     });
     this.uploadedFiles = filtered;
-  }
-  /* get ward when select distric */
-  selectedDistrict() {
-    if (this.formAddress.value.districtCode != null) {
-      this.addressService.filterWard(this.formAddress.value.districtCode).subscribe((res: any) => {
-        this.listWard = res.body;
-        this.formAddress.controls.wardCode.reset();
-      });
-    }
-  }
-
-  /* get district when select distric */
-  selectedProvince() {
-    if (this.formAddress.value.provinceCode != null) {
-      this.addressService.filterDistrict(this.formAddress.value.provinceCode).subscribe((res: any) => {
-        this.listDistrict = res.body;
-        this.formAddress.controls.districtCode.reset();
-        this.formAddress.controls.wardCode.reset();
-      });
-    }
-  }
-
-  /*  get all provinces */
-  getProvince() {
-    this.addressService.filterProvince().subscribe((res: any) => {
-      this.listProvinces = res.body;
-      this.selectedProvince();
-    });
-  }
-
-  /*  get all product type */
-  getProductType() {
-    this.productPostTypeService.filterType().subscribe((res: any) => {
-      this.listProductType = res.body;
-      this.selectedProductTypeChild();
-    });
-  }
-
-  /* get product type child when select product type */
-  selectedProductTypeChild() {
-    if (this.productPostForm.value.productTypeID != null) {
-      this.productPostTypeService.filterTypeChild(this.productPostForm.value.productTypeID).subscribe((res: any) => {
-        this.listProductTypeChild = res.body;
-        this.productPostForm.controls.productTypeChildID.reset();
-      });
-    }
-  }
-
-  /**
-   * Get list direction
-   */
-  getDirection() {
-    this.directionService.getDirection().subscribe((res: any) => {
-      this.listDirection = res.body;
-    });
-  }
-
-  /**
-   * Get list legal status
-   */
-  getLegalStatus() {
-    this.legalStatusService.getLegalStatus().subscribe((res: any) => {
-      this.listLegalStatus = res.body;
-    });
-  }
-
-  /**
-   * Count content length
-   */
-  countContentNumber() {
-    if (this.productPostForm.value.content.length != null) {
-      this.countContent = this.productPostForm.value.content.length;
-    } else {
-      this.countContent = 0;
-    }
-  }
-
-  /**
-   * Get list utility
-   */
-  getUtility() {
-    this.utilitiesService.getUtilities().subscribe((res: any) => {
-      this.listUtilities = res.body;
-    });
-  }
-
-  /**
-   * checkItemChecked
-   */
-  checkItemChecked() {
-    // eslint-disable-next-line
-    console.log('checked value', this.listUtilitiesSelected);
   }
 
   redirectTo(uri: string) {
@@ -394,97 +249,28 @@ export class ManagereviewpostComponent implements OnInit {
   /**
    * submit form
    */
-  postProduct() {
-    if (!this.isUploadedFile) {
-      this.messageService.add({ severity: 'warn', summary: 'Cảnh báo!', detail: 'Hãy tải ảnh lên trước' });
-    } else {
-      this.productPostForm.controls.utilities.setValue(this.listUtilitiesSelected);
-      this.productPostForm.controls.type.setValue(this.selectedType);
-      this.accountService.identity().subscribe((account: Account) => {
-        this.account = account;
-      });
-      const product = {
-        id: this.selectedPost.productResponseDTO.id,
-        price: this.productPostForm.controls.price.value,
-        area: this.productPostForm.controls.area.value,
-        direction: this.productPostForm.controls.directionID.value,
-        legalStatus: this.productPostForm.controls.legalStatusID.value,
-        numberFloor: this.productPostForm.controls.numFloor.value,
-        numberBathroom: this.productPostForm.controls.numBathroom.value,
-        numberBedroom: this.productPostForm.controls.numBedroom.value,
-        productTypeChild: this.productPostForm.controls.productTypeChildID.value,
-        productType: this.productPostForm.controls.productTypeID.value,
-        utilities: this.productPostForm.controls.utilities.value,
-        status: true
-      };
-
-      const productPost = {
-        id: this.selectedPost.productPostResponseDTO.id,
-        user: this.selectedPost.productPostResponseDTO.user.id,
-        projectName: this.productPostForm.controls.projectName.value,
-        productPostType: this.productPostForm.controls.type.value,
-        productPostTitle: this.productPostForm.controls.projectPostTitle.value,
-        totalLike: null,
-        typeDeal: null,
-        totalReport: null,
-        totalShare: null,
-        ward: this.formAddress.controls.wardCode.value,
-        province: this.formAddress.controls.provinceCode.value,
-        district: this.formAddress.controls.districtCode.value,
-        address: this.formAddress.controls.address.value,
-        content: this.productPostForm.controls.content.value,
-        shortDescription: this.productPostForm.controls.content.value.substr(0, 51),
-        product: null,
-        status: true
-      };
-      const image = {
-        id: this.selectedPost.imageDTO.id,
-        img1: this.uploadedFiles[0],
-        img2: this.uploadedFiles[1],
-        img3: this.uploadedFiles[2],
-        img4: this.uploadedFiles[3],
-        img5: this.uploadedFiles[4],
-        img6: this.uploadedFiles[5],
-        img7: this.uploadedFiles[6],
-        img8: this.uploadedFiles[7],
-        img9: this.uploadedFiles[8],
-        img10: this.uploadedFiles[9],
-        status: true
-      };
-      const usingImage = {
-        id: this.selectedPost.usingImageResponseDTO.id,
-        image: null,
-        usingType: null,
-        productPost: null,
-        status: true
-      };
-      this.post.productRequestDTO = product;
-      // eslint-disable-next-line
-      console.log('this.post.productRequestDTO :', this.post.productRequestDTO);
-      this.post.productPostRequestDTO = productPost;
-      this.post.imageDTO = image;
-      this.post.usingImageRequestDTO = usingImage;
-      this.post.listImage = this.uploadedFiles;
-      // eslint-disable-next-line
-      this.confirmationService.confirm({
-        message: 'Bạn có chắc chắn muốn sửa bài đăng này?',
-        accept: () => {
-          this.alertService.clear();
-          this.postService
-            .update(this.post)
-            // eslint-disable-next-line
-            .subscribe(
-              (res: any) => (
-                this.getListPostProduct(),
-                this.router.navigate(['manage-product']),
-                (this.displayDialog = false),
-                this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã cập nhật bài đăng thành công!!' })
-              ),
-              (err: HttpErrorResponse) => this.alertService.error(err.error.title)
-            );
-          this.redirectTo('/manage-product');
-        }
-      });
-    }
+  updateReview() {
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc chắn muốn sửa bài đăng này?',
+      accept: () => {
+        const data: IReview = this.reviewPostForm.getRawValue();
+        data.id = this.review.id;
+        data.imageUrl = this.uploadedFiles[0];
+        this.alertService.clear();
+        this.reviewService.update(data).subscribe(
+          () => (
+            (this.displayDialog = false),
+            this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã đăng bài thành công!' }),
+            this.alertService.success('Cập nhật thành công bài review ' + data.id, null, null)
+            // this.redirectTo('/manage-review')
+          )
+        ),
+          // eslint-disable-next-line
+          (err: any) => (
+            this.alertService.error(err.error.title),
+            this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Đăng bài đăng thất bại!' })
+          );
+      }
+    });
   }
 }
