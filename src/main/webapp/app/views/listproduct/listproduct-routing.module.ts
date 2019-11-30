@@ -19,6 +19,7 @@ export class TypeResolve implements Resolve<any> {
     return new this.detainew();
   }
 }
+
 @Injectable({ providedIn: 'root' })
 export class TypeChildResolve implements Resolve<any> {
   detainew: any;
@@ -41,7 +42,7 @@ const routes: Routes = [
     },
     children: [
       {
-        path: ':type/:postType/:title/:titleChild/typeSearch',
+        path: 'typeSearch/:type/:postType/:title/:titleChild',
         component: ListproductComponent,
         resolve: {
           typeSearch: TypeResolve
@@ -60,10 +61,10 @@ const routes: Routes = [
         }
       },
       {
-        path: ':typechild/:postType/:title/:titleChild/:titleVeryChild/typeChildSearch',
+        path: 'typeChildSearch/:typechild/:postType/:title/:titleChild/:titleVeryChild',
         component: ListproductComponent,
         resolve: {
-          typeChildSearch: TypeChildResolve
+          typeSearch: TypeChildResolve
         },
         data: {
           breadcrumb: [

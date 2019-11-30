@@ -37,8 +37,8 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @JoinColumn(referencedColumnName = "id", name = "product_post_type_id")
     private ProductPostType productPostType;
 
-    @Size(min=1, max = 50)
-    @Column(name = "product_post_title", length = 50)
+    @Size(min=1, max = 100)
+    @Column(name = "product_post_title", length = 100)
     private String productPostTitle;
 
     @Column(name = "total_like")
