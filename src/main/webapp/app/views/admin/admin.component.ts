@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Ng7DynamicBreadcrumbService } from 'ng7-dynamic-breadcrumb';
-
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
+  /**
+   * Breadcrumb config of admin component
+   */
   breadcrumbConfig: object = {
     bgColor: 'white',
     fontSize: '18px',

@@ -21,7 +21,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="news-title">
-                                        <h2>{{detailNew.Name}}</h2>
+                                        <h2>{{detailNew.title}}</h2>
                                     </div>
                                     <div class="news-cats">
                                         <ul class="list-unstyled list-inline mb-1">
@@ -31,36 +31,22 @@
                                             </li>
                                             <li class="list-inline-item">
                                                 <i class="fa fa-folder-o text-danger"></i>
-                                                <a href="#"><small>Author</small> </a>
+                                                <a href="#"><small>{{detailNew.createdBy}}</small> </a>
                                             </li>
                                             <li class="list-inline-item">
                                                 <i class="fa fa-folder-o text-danger"></i>
-                                                <a href="#"><small>4th July 2018</small></a>
+                                                <a href="#"><small>{{detailNew.createdDate | date:'HH:mm dd/MM/yyyy'}}</small></a>
                                             </li>
-
-
-
 
                                         </ul>
                                     </div>
                                     <br>
-                                    <p>Description</p>
+                                    <p>{{detailNew.decription}}</p>
                                     <hr>
 
-                                    <div class="news-content">
-                                        <h5 class="strong">Menu</h5>
-                                        <p>Sportsman do offending supported extremity breakfast by listening. Decisively advantages nor expression unpleasing she led met. Estate was tended ten boy nearer seemed. As so seeing latter he should thirty whence.
-                                            Steepest speaking up attended it as. Made neat an on be gave show snug tore.</p>
-                                        <p>Did shy say mention enabled through elderly improve. As at so believe account evening behaved hearted is. House is tiled we aware. It ye greatest removing concerns an overcame appetite. Manner result square father
-                                            boy behind its his. Their above spoke match ye mr right oh as first. Be my depending to believing perfectly concealed household. Point could to built no hours smile sense.</p>
-                                        <p>Your it to gave life whom as. Favourable dissimilar resolution led for and had. At play much to time four many. Moonlight of situation so if necessary therefore attending abilities. Calling looking enquire up me
-                                            to in removal. Park fat she nor does play deal our. Procured sex material his offering humanity laughing moderate can. Unreserved had she nay dissimilar admiration interested. Departure performed exquisite rapturous
-                                            so ye me resources.</p>
+                                    <div [innerHTML] = "detailNew.content" class="news-content">
 
-                                    </div>
-                                    <div class="news-image">
-                                        <img src="http://demo.beeteam368.com/vidorev/wp-content/uploads/2017/12/vanessa-bumbeers-117946-1500x844.jpg">
-                                        <p class="text-muted ">Yourself required no at thoughts delicate landlord it be.</p>
+
                                     </div>
                                     <hr>
                                     <div class="news-footer">

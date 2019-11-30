@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
 import { SelectItem, ConfirmationService, MessageService } from 'primeng/api';
 import { CarService } from 'app/core/service/car.service';
-import { Validators, FormBuilder, FormControl } from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
 import { ProductPost } from 'app/core/post/model/product-post.model';
 import { IUser } from 'app/core/user/user.model';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
@@ -19,7 +19,6 @@ import { Account } from 'app/core/user/account.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PostRequest } from 'app/core/post/model/postRequest.model copy';
 import { SERVER_API_URL } from 'app/app.constants';
-import { tap, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 export interface Car {
   vin: any;
@@ -36,8 +35,10 @@ export interface Car {
 })
 export class ManageAllProductpostComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
-  from = new FormControl('');
-  to = new FormControl('');
+  fromDate = new Date();
+  toDate = new Date();
+  from: any;
+  to: any;
   /*  Item select button  */
   selectedType: string;
   types: SelectItem[];
@@ -136,19 +137,74 @@ export class ManageAllProductpostComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.selectedType = 'Mua bán';
-    this.from.valueChanges
-      .pipe(
-        debounceTime(200),
-        distinctUntilChanged(),
-        tap(() =>
-          // eslint-disable-next-line
-          console.log('from', this.from.value)
-        )
-      )
-      .subscribe();
+    this.getlistCar();
+    this.getListPostProduct();
+    this.getProvince();
+    this.getProductType();
+    this.getDirection();
+    this.getLegalStatus();
+    this.getUtility();
+    this.sortOptions = [{ label: 'Mới nhất', value: 1 }, { label: 'Cũ nhất', value: 2 }];
   }
 
+  /**
+   * To change
+   * @param value
+   */
+  toChange(value) {
+    if (this.from == null) {
+      if (this.to == null) {
+        this.getListPostProduct();
+      }
+    } else {
+      if (this.from > this.to.value) {
+        if (this.to == null) {
+          this.getListPostProduct();
+        }
+      } else {
+        this.fromDate = new Date(this.from);
+        this.fromDate.setHours(0, 0, 0);
+        this.toDate = new Date(this.to);
+        this.toDate.setHours(0, 0, 0);
+        this.postService.searchbyDate(this.fromDate.toISOString(), this.toDate.toISOString()).subscribe(res => {
+          this.posts = res.body;
+          // eslint-disable-next-line
+          console.log('post date', this.posts);
+        });
+      }
+    }
+  }
+
+  /**
+   * Froms change
+   * @param value
+   */
+  fromChange(value) {
+    if (this.to == null) {
+      if (this.to == null) {
+        this.getListPostProduct();
+      }
+      this.messageService.add({ severity: 'error', summary: 'Thiếu!', detail: 'Vui lòng chọn ngày kết thúc!' });
+    } else {
+      if (this.from > this.to) {
+        this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Ngày kết thúc phải lớn hơn ngày bắt đầu!' });
+      } else {
+        this.fromDate = new Date(this.from);
+        this.fromDate.setHours(0, 0, 0);
+        this.toDate = new Date(this.to);
+        this.toDate.setHours(0, 0, 0);
+        this.postService.searchbyDate(this.fromDate.toISOString(), this.toDate.toISOString()).subscribe(res => {
+          this.posts = res.body;
+          // eslint-disable-next-line
+          console.log('post date', this.posts);
+        });
+      }
+    }
+  }
+
+  /**
+   * Getlists car
+   */
   getlistCar() {
     this.carService.getListCar().subscribe(res => {
       this.cars = res.data.rows;
@@ -218,10 +274,6 @@ export class ManageAllProductpostComponent implements OnInit {
     this.productPostForm.controls.utilities.value.forEach(element => {
       this.listUtilitiesSelected.push(element.id + '');
     });
-    // eslint-disable-next-line
-    console.log('List all selectUli : ', this.listUtilitiesSelected);
-    // eslint-disable-next-line
-    console.log('List all uti db : ', this.productPostForm.controls.utilities.value);
 
     event.preventDefault();
   }
@@ -229,40 +281,35 @@ export class ManageAllProductpostComponent implements OnInit {
   loadData(event) {
     event.first = true;
     event.rows = 10;
-    this.getlistCar();
-    this.getListPostProduct();
-    this.sortOptions = [
-      { label: 'Mới nhất', value: '!productPostResponseDTO.createdDate' },
-      { label: 'Cũ nhất', value: 'productPostResponseDTO.createdDate' },
-      { label: 'Tên', value: 'productPostResponseDTO.projectName' }
-    ];
-    this.getProvince();
-    this.getProductType();
-    this.getDirection();
-    this.getLegalStatus();
-    this.getUtility();
   }
 
   /**
    * get all post product
    */
-  // eslint-disable-next-line
   getListPostProduct() {
     this.postService.query().subscribe(res => {
       this.posts = res.body;
-      // eslint-disable-next-line
-      console.log('List all post : ', this.posts);
     });
   }
   onSortChange(event: { value: any }) {
     const value = event.value;
+    switch (value) {
+      case 1: {
+        this.posts.sort(function(obj1: any, obj2: any) {
+          return new Date(obj2.productPostResponseDTO.createdDate).valueOf() - new Date(obj1.productPostResponseDTO.createdDate).valueOf();
+        });
+        break;
+      }
+      case 2: {
+        this.posts.sort(function(obj1: any, obj2: any) {
+          return new Date(obj1.productPostResponseDTO.createdDate).valueOf() - new Date(obj2.productPostResponseDTO.createdDate).valueOf();
+        });
+        break;
+      }
 
-    if (value.indexOf('!') === 0) {
-      this.sortOrder = -1;
-      this.sortField = value.substring(1, value.length);
-    } else {
-      this.sortOrder = 1;
-      this.sortField = value;
+      default: {
+        break;
+      }
     }
   }
 
@@ -276,8 +323,6 @@ export class ManageAllProductpostComponent implements OnInit {
   }
   /*  add picture to list */
   onUpload(event, fileUpload) {
-    // eslint-disable-next-line
-    console.log('da qua day');
     const listFile = [];
     for (const file of event.files) {
       listFile.push(file);
@@ -285,11 +330,7 @@ export class ManageAllProductpostComponent implements OnInit {
     listFile.forEach(element => {
       this.postService.upload(element).subscribe(
         res => {
-          // eslint-disable-next-line
-          console.log('element', element);
           this.uploadedFiles.push(res.body);
-          // eslint-disable-next-line
-          console.log('res-body', res.body);
           this.isUploadedFile = true;
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh thành công!!' });
         },

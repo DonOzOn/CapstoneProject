@@ -1,0 +1,350 @@
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
+  <p-footer>
+    <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy" (click)="cd.reject()"></button>
+    <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Lưu lại" (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
+<!-- Heading -->
+
+<!--Grid row-->
+<div class="row wow fadeIn">
+  <!--Grid column-->
+  <div class="col-md-12 mb-4">
+    <!--Card-->
+    <div class="card">
+      <!--Card content-->
+      <div class="card-body  p-0">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-body">
+              <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
+                <p-button (click)="don()" class="mb-3" icon="pi pi-plus" label="Tạo bài đăng"></p-button>
+              </div>
+              <div class="row col-md-12 m-0 p-0 d-flex justify-content-center">
+                <p-dataView
+                  #dv
+                  [value]="news"
+                  [loading]="loading"
+                  [paginator]="true"
+                  [rows]="20"
+                  [lazy]="true"
+                  (onLazyLoad)="loadData($event)"
+                  paginatorPosition="both"
+                  filterBy="title"
+                  [sortField]="sortField"
+                  [sortOrder]="sortOrder"
+                >
+                  <p-header>
+                    <div class="ui-helper-clearfix">
+                      <div class="ui-g">
+                        <div class="ui-g-12 ui-md-3">
+                          <p-dropdown
+                            [options]="sortOptions"
+                            [(ngModel)]="sortKey"
+                            placeholder="Sắp xếp"
+                            (onChange)="onSortChange($event)"
+                            [style]="{'min-width':'140px'}"
+                          ></p-dropdown>
+                        </div>
+                        <div class="ui-g-6 ui-md-7 filter-container">
+                          <div class="ui-g-6 ui-md-4 p-0">
+                            <div style="position:relative">
+                              <input
+                                type="search"
+                                size="12"
+                                pInputText
+                                placeholder="Tìm theo tên"
+                                (keyup)="dv.filter($event.target.value)"
+                              />
+                            </div>
+                          </div>
+                          <div class="ui-g-6 ui-md-4 p-0">
+                            <div style="position:relative">
+                              <p-calendar
+                                dateFormat="dd/mm/yy"
+                                [styleClass]="{'width': '20px'}"
+                                [(ngModel)]="from"
+                                (onSelect)="fromChange(from)"
+                                placeholder="Từ ngày"
+                                (onBlur)="getListNew()"
+                                [monthNavigator]="true"
+                                [yearNavigator]="true"
+                                yearRange="1900:2030"
+                              >
+                              </p-calendar>
+                            </div>
+                          </div>
+                          <div class="ui-g-6 ui-md-4 p-0">
+                            <div>
+                              <p-calendar
+                                dateFormat="dd/mm/yy"
+                                [styleClass]="{'width': '10px'}"
+                                placeholder="Đến ngày"
+                                [(ngModel)]="to"
+                                (onSelect)="toChange(value)"
+                                (onBlur)="getListNew()"
+                                [monthNavigator]="true"
+                                [yearNavigator]="true"
+                                yearRange="1900:2030"
+                              >
+                              </p-calendar>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="ui-g-6 ui-md-2" style="text-align:right">
+                          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                        </div>
+                      </div>
+                    </div>
+                  </p-header>
+                  <ng-template let-new pTemplate="listItem">
+                    <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9 ;">
+                    <div class="ui-g-12 ui-md-3" style="text-align:center">
+                        <img *ngIf="new.imageUrl !== null" src = "{{imageUrl}}{{new.imageUrl}}" class="img-thumbnail rounded float-left mx-auto d-block" style="height: 150px; width: 600px;" alt = "Responsive image">
+                        <img *ngIf="new.imageUrl === null" src = "../../../../content/img/default-image.jpg" class="img-thumbnail rounded  mx-auto d-block" style="height: 150px; width: 600px;" alt = "Responsive image">
+
+                    </div>
+                      <div class="ui-g-12 ui-md-8 new-details">
+                        <div class="ui-g">
+                          <div class="ui-g-3 ui-sm-6">Tiêu đề:</div>
+                          <div class="ui-g-9 ui-sm-6 text-uppercase font-weight-bold pt-0" style="font-size: 22px;">
+                            <b>{{new.title}}</b>
+                          </div>
+
+                          <div class="ui-g-3 ui-sm-6">Miêu tả:</div>
+                          <div class="ui-g-9 ui-sm-6"><b>{{new.decription}}</b></div>
+
+                          <div class="ui-g-3 ui-sm-6">Ngày đăng:</div>
+                          <div class="ui-g-9 ui-sm-6"><b>{{new.createdDate | date:'HH:mm dd/MM/yyyy'}}</b></div>
+                          <div class="ui-g-3 ui-sm-6">Người đăng:</div>
+                          <div class="ui-g-9 ui-sm-6"><b>{{new.createdBy}}</b></div>
+                        </div>
+                      </div>
+                      <div class="ui-g-12 ui-md-1 search-icon py-3">
+                        <button
+                          class="d-flex justify-content-start"
+                          pButton
+                          type="button"
+                          icon=""
+                          (click)="selectNews($event, new)"
+                          label="Xem"
+                        ></button>
+                        <button
+                          class="d-flex justify-content-end mt-5 ui-button-danger"
+                          pButton
+                          type="button"
+                          icon=""
+                          (click)="deleteNews(new.id)"
+                          label="Xoá"
+                        ></button>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template let-new pTemplate="gridItem">
+                    <div style="padding:.5em" class="ui-g-12 ui-md-5">
+                      <p-panel [header]="new.title" [style]="{'text-align':'center'}">
+                        <img *ngIf="new.imageUrl !== null" src = "{{imageUrl}}{{new.imageUrl}}" class="img-thumbnail rounded mx-auto d-block" style="height: 100px;" alt = "Responsive image">
+                        <img *ngIf="new.imageUrl === null" src = "../../../../content/img/default-image.jpg" class="img-thumbnail rounded  mx-auto d-block" style="height: 100px;" alt = "Responsive image">
+                        <div class="post-detail">{{new.description}}</div>
+                        <div class="post-detail">{{new.createdDate | date:'HH:mm dd/MM/yyyy'}}</div>
+                        <div class="post-detail">{{new.createdBy}}</div>
+                        <hr class="ui-widget-content" style="border-top:0" />
+                        <button pButton type="button" icon="" (click)="selectNews($event, new)" label="Xem"></button>
+                        <button class="ui-button-danger" pButton type="button" icon="" (click)="deleteNews(new.id)" label="Xoá"></button>
+                      </p-panel>
+                    </div>
+                  </ng-template>
+                </p-dataView>
+
+                <p-dialog
+                  header="Chi tiết tin"
+                  [(visible)]="displayDialog"
+                  [responsive]="true"
+                  showEffect="fade"
+                  [modal]="true"
+                  [style]="{width: '80%'}"
+                  (onAfterHide)="onDialogHide()"
+                >
+                  <div class="ui-g">
+                    <div class="ui-g-12">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <form [formGroup]="newsPostForm" (ngSubmit)="postNews()">
+                            <div class="row mb-2">
+                              <div class="col-md-12">
+                                <div class="card">
+                                  <div class="card-body">
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="card-body">
+                                          <!-- Tiêu đề -->
+                                          <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
+                                            <div class="col-md-2 px-3">
+                                              <label class="m-0 py-1">Tiêu đề<label style="color: Red;">*</label></label>
+                                            </div>
+                                            <div class="col-md-10 pl-4">
+                                              <span class="ui-float-label pl-2 ml-2">
+                                                <input
+                                                  id="float-input"
+                                                  type="text"
+                                                  formControlName="title"
+                                                  style="width: 100%;"
+                                                  pInputText
+                                                />
+                                                <label class="pl-2" for="float-input">Tiêu đề</label>
+                                              </span>
+                                              <div
+                                                class="pl-3"
+                                                *ngIf="newsPostForm.controls.title.invalid && (newsPostForm.controls.title.dirty || newsPostForm.controls.title.touched)"
+                                              >
+                                                <small class="form-text text-danger" *ngIf="newsPostForm.controls.title.errors?.required">
+                                                  Tiêu đề không được để trống</small
+                                                >
+                                                <small class="form-text text-danger" *ngIf="newsPostForm.get('title').errors.maxlength">
+                                                  Tiêu đề dài nhất có 100 một kí tự.
+                                                </small>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <!-- Tiêu đề -->
+                                          <div class="row col-md-12 m-0 p-0 d-flex justify-content-left my-3">
+                                            <div class="col-md-2 px-3">
+                                              <label class="m-0 py-1">Miêu tả ngắn<label style="color: Red;">*</label></label>
+                                            </div>
+                                            <div class="col-md-10 pl-4">
+                                              <span class="ui-float-label pl-2 ml-2">
+                                                <textarea
+                                                  id="float-input"
+                                                  rows="5"
+                                                  cols="30"
+                                                  formControlName="decription"
+                                                  pInputTextarea
+                                                  autoResize="autoResize"
+                                                ></textarea>
+                                                <label class="pl-2" for="float-input">Miêu tả ngắn</label>
+                                              </span>
+                                              <div
+                                                class="pl-3"
+                                                *ngIf="newsPostForm.controls.decription.invalid && (newsPostForm.controls.decription.dirty || newsPostForm.controls.decription.touched)"
+                                              >
+                                                <small
+                                                  class="form-text text-danger"
+                                                  *ngIf="newsPostForm.controls.decription.errors?.required"
+                                                >
+                                                  Miêu tả ngắn không được để trống</small
+                                                >
+                                                <small
+                                                  class="form-text text-danger"
+                                                  *ngIf="newsPostForm.get('decription').errors.maxlength"
+                                                >
+                                                  Miêu tả ngắn dài nhất có 200 một kí tự.
+                                                </small>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <!-- Chọn avatar -->
+                                          <div class="row col-md-12 m-0 p-0 ml-4 d-flex justify-content-left my-2">
+                                            <h6 class="first">Ảnh bìa</h6>
+                                            <div class="input-group ml-5">
+                                              <p-fileUpload
+                                                #fileUpload
+                                                name="demo[]"
+                                                multiple="multiple"
+                                                accept="image/*"
+                                                [showUploadButton]="true"
+                                                (uploadHandler)="onUpload($event,fileUpload)"
+                                                customUpload="true"
+                                                cancelLabel="Bỏ"
+                                                chooseLabel="Chọn hình"
+                                                uploadLabel="Tải lên"
+                                                (onRemove)="onRemove($event)"
+                                                fileLimit="1"
+                                                maxFileSize="1000000"
+                                                class="ml-5 pl-5"
+                                              >
+                                                <ng-template pTemplate="content">
+                                                  <ul *ngIf="uploadedFiles">
+                                                    <label *ngIf="uploadedFiles.length > 0">Tải lên thành công: </label>
+                                                    <li *ngFor="let file of uploadedFiles">{{file}}</li>
+                                                  </ul>
+                                                </ng-template>
+                                              </p-fileUpload>
+                                            </div>
+                                          </div>
+                                          <!-- Mô tả -->
+                                          <div class="row col-md-12 mt-3 m-0 p-0 d-flex justify-content-left">
+                                            <div class="col-md-2 px-4">
+                                              <label class="m-0 py-1 ">Mô tả<label style="color: Red;">*</label></label>
+                                            </div>
+                                            <div class="col-md-10 pl-4">
+                                              <span class="ui-float-label pl-2 ml-2">
+                                                <p-editor
+                                                  formControlName="content"
+                                                  [(ngModel)]="text1"
+                                                  [style]="{'height':'1000px'}"
+                                                ></p-editor>
+                                                <button
+                                                  pButton
+                                                  type="button"
+                                                  label="Clear"
+                                                  icon="pi pi-times"
+                                                  (click)="text1=null"
+                                                ></button>
+                                              </span>
+                                              <div
+                                                class="pl-3"
+                                                *ngIf="newsPostForm.controls.decription.invalid && (newsPostForm.controls.content.dirty || newsPostForm.controls.content.touched)"
+                                              >
+                                                <small class="form-text text-danger" *ngIf="newsPostForm.controls.content.errors?.required">
+                                                  Mô tả không được để trống</small
+                                                >
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row mb-2">
+                              <div class="col-md-12 d-flex justify-content-center">
+                                <button
+                                  pButton
+                                  type="button"
+                                  type="submit"
+                                  *ngIf="new?.id === null"
+                                  [disabled]="newsPostForm.invalid"
+                                  label="Đăng tin"
+                                  style="width: 200px;height: 50px;"
+                                ></button>
+                              </div>
+                              <div class="col-md-12 d-flex justify-content-center">
+                                <button
+                                  pButton
+                                  type="button"
+                                  type="submit"
+                                  *ngIf="new?.id !== null"
+                                  [disabled]="newsPostForm.invalid"
+                                  label="Cập nhật"
+                                  style="width: 200px;height: 50px;"
+                                ></button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </p-dialog>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/.Card-->
+  </div>
+</div>

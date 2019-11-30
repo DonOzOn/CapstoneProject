@@ -23,11 +23,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -215,10 +214,16 @@ public class PostResource {
      *
      */
     @GetMapping("/product-post/search-by-date")
-    public ResponseEntity<List<PostResponeDTO>> getAllPostProduct(@RequestParam(value = "from") Instant from, @RequestParam(value = "to") Instant to) {
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProduct(@RequestParam(value = "from") String from, @RequestParam(value = "to") String to) throws ParseException {
+
+        Date fromDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(from);
+        Instant fromIns = fromDate.toInstant();
+        Date toDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(to);
+        Instant toIns = toDate.toInstant();
         List<PostResponeDTO> responeDTOList =  new ArrayList<>();
-        List<ProductPostResponseDTO> postList =  productPostService.findAllFromTo(from , to).stream()
+        List<ProductPostResponseDTO> postList =  productPostService.findAllFromTo(fromIns , toIns).stream()
             .map(ProductPostResponseDTO::new).collect(Collectors.toList());
+        log.debug("REST request to update Post Date: {}", postList);
         if(postList != null){
             for (ProductPostResponseDTO pr: postList) {
                 PostResponeDTO postResponeDTO = new PostResponeDTO();
@@ -250,12 +255,16 @@ public class PostResource {
         postRequestDTO.getProductPostRequestDTO().setProduct(postRequestDTO.getProductRequestDTO().getId());
         Optional<ProductPostResponseDTO> productPostResponseDTO = productPostService.update(postRequestDTO.getProductPostRequestDTO()).map(ProductPostResponseDTO::new);
         Optional<ProductResponseDTO> product = productService.updateProduct(postRequestDTO.getProductRequestDTO()).map(ProductResponseDTO::new);
-        Optional<ImageDTO> image = imageService.updateImage(postRequestDTO.getImageDTO()).map(ImageDTO::new);
+        if( postRequestDTO.getImageDTO() != null ){
+            Optional<ImageDTO> image = imageService.updateImage(postRequestDTO.getImageDTO()).map(ImageDTO::new);
+            postResponeDTO.setImageDTO(image.get());
+        }else{
+            postResponeDTO.setImageDTO(null);
+        }
         Optional<UsingImageResponseDTO> usingImageResponseDTO = usingImageService.findByProductPost(postRequestDTO.getProductRequestDTO().getId()).map(UsingImageResponseDTO::new);
 
         postResponeDTO.setProductPostResponseDTO(productPostResponseDTO.get());
         postResponeDTO.setProductResponseDTO(product.get());
-        postResponeDTO.setImageDTO(image.get());
         postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO.get());
 
         return new ResponseEntity<>(postResponeDTO, HttpStatus.OK);

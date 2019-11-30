@@ -44,7 +44,7 @@ public class ProductPostService {
      * List all product post by date from to
      * **/
     public List<ProductPost> findAllFromTo(Instant from, Instant to){
-        return productPostRepository.findAllByCreatedDateBetweenAndStatusIsTrue(from, to);
+        return productPostRepository.findAllByStatusIsTrueAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(from, to);
     }
 
     /**
