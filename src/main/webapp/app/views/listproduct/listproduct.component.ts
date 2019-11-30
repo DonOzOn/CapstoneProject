@@ -27,7 +27,7 @@ export class ListproductComponent implements OnInit {
   listPost: any[] = [];
   listPost2: any;
   listNews: any[] = [];
-  post: PostRespone[];
+  post: PostRespone[] = [];
   choose = [
     { value: 1, name: 'Mới nhất' },
     { value: 2, name: 'Cũ nhất' },
@@ -73,14 +73,24 @@ export class ListproductComponent implements OnInit {
     this.getlistNews();
     this.activatedRoute.firstChild.data.subscribe(res => {
       this.post = res.typeSearch.body;
+      // eslint-disable-next-line
+      console.log('post type: ', res.typeSearch);
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     });
 
-    this.activatedRoute.firstChild.data.subscribe(res => {
-      this.post = res.typeChildSearch.body;
-    });
+    this.activatedRoute.firstChild.data.subscribe(
+      res => {
+        this.post = res.typeSearch.body;
+        // eslint-disable-next-line
+        console.log('post type child : ', res.typeSearch);
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      },
+      err => {
+        // eslint-disable-next-line
+        console.log('err type child : ', err);
+      }
+    );
     // this.redirectTo(this.activatedRoute.snapshot.url.toString());
-    // eslint-disable-next-line
-    console.log('post active', this.activatedRoute.data);
   }
 
   redirectTo(uri: string) {
