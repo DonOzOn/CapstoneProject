@@ -69,7 +69,7 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     private ProductType productType;
 
     @JsonManagedReference
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "using_utilities", inverseJoinColumns = {
         @JoinColumn(name = "utilities_id", referencedColumnName = "id")}, joinColumns = {
         @JoinColumn(name = "product_id", referencedColumnName = "id")})

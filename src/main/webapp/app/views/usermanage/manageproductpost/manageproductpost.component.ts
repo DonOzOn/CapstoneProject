@@ -434,7 +434,7 @@ export class ManageproductpostComponent implements OnInit {
         district: this.formAddress.controls.districtCode.value,
         address: this.formAddress.controls.address.value,
         content: this.productPostForm.controls.content.value,
-        shortDescription: null,
+        shortDescription: this.productPostForm.controls.content.value.substr(0, 51),
         product: null,
         status: true
       };
@@ -460,10 +460,13 @@ export class ManageproductpostComponent implements OnInit {
         status: true
       };
       this.post.productRequestDTO = product;
+      // eslint-disable-next-line
+      console.log('this.post.productRequestDTO :', this.post.productRequestDTO);
       this.post.productPostRequestDTO = productPost;
       this.post.imageDTO = image;
       this.post.usingImageRequestDTO = usingImage;
       this.post.listImage = this.uploadedFiles;
+      // eslint-disable-next-line
       this.confirmationService.confirm({
         message: 'Bạn có chắc chắn muốn sửa bài đăng này?',
         accept: () => {
