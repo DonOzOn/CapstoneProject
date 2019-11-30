@@ -8,8 +8,28 @@ import { NewsService } from 'app/core/news/news.service';
 })
 export class NewspageComponent implements OnInit {
   listNews: any[] = [];
-  constructor(private newService: NewsService) {}
-
+  config: any;
+  count: any;
+  public labels: any = {
+    previousLabel: 'Previous',
+    nextLabel: 'Next'
+  };
+  constructor(private newService: NewsService) {
+    for (let i = 0; i < this.count; i++) {
+      this.listNews.push({
+        id: i + 1,
+        value: 'items number' + (i + 1)
+      });
+    }
+    this.config = {
+      itemsPerPage: 4,
+      currentPage: 1,
+      totalItems: this.count
+    };
+  }
+  pageChanged(event) {
+    this.config.currentPage = event;
+  }
   ngOnInit() {
     this.getlistNews();
   }
@@ -17,6 +37,23 @@ export class NewspageComponent implements OnInit {
   getlistNews() {
     this.newService.getListNews().subscribe(res => {
       this.listNews = res.body;
+    });
+  }
+  /*  get total page*/
+  getTotalPage() {
+    this.newService.getListNews().subscribe(res => {
+      this.count = res.body.length;
+      return this.count;
+    });
+  }
+  /*  get  list 4 new*/
+  getlist4New() {
+    this.newService.getListNews().subscribe(res => {
+      this.listNews = res.body;
+      this.listNews.sort(function(obj1, obj2) {
+        return obj2.timeCreate - obj1.timeCreate;
+      });
+      this.listNews = res.body.slice(0, 4);
     });
   }
 }

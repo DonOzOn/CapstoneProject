@@ -1,7 +1,7 @@
 package com.realestatebrokerage.service.dto;
 
-import com.realestatebrokerage.domain.par_man;
-import com.realestatebrokerage.domain.par_woman;
+import com.realestatebrokerage.domain.ParWoman;
+
 
 public class par_womanDTO {
     private Long id;
@@ -10,7 +10,7 @@ public class par_womanDTO {
     public par_womanDTO() {
     }
 
-    public par_womanDTO(par_woman par_woman) {
+    public par_womanDTO(ParWoman par_woman) {
         this.id = par_woman.getId();
         this.name_par = par_woman.getName_par();
     }

@@ -1,7 +1,7 @@
 package com.realestatebrokerage.service.dto;
 
-import com.realestatebrokerage.domain.direction_house;
-import com.realestatebrokerage.domain.par_man;
+
+import com.realestatebrokerage.domain.DirectionHouse;
 
 public class direction_houseDTO {
     private Long id;
@@ -18,7 +18,7 @@ public class direction_houseDTO {
     public direction_houseDTO() {
     }
 
-    public direction_houseDTO(direction_house direction_house) {
+    public direction_houseDTO(DirectionHouse direction_house) {
         this.id = direction_house.getId();
         this.name_par = direction_house.getName_par();
         this.sinhkhi = direction_house.getSinhkhi();

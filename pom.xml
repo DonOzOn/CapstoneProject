@@ -337,6 +337,11 @@
             <artifactId>infinispan-directory-provider</artifactId>
             <version>9.4.16.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>2.1.11.RELEASE</version>
+        </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
 
