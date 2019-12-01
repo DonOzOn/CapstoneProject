@@ -228,13 +228,14 @@
             </div>
             <ul class="card-deck px-0 col-md-12  m-0">
                 <li class="card col-md-4 p-2 mx-2 rounded" *ngFor="let item of listNews">
-                    <img class="card-img-top" src="../../../content/img/sg-1.jpg" alt="Card image cap">
+                    <img *ngIf="item.imageUrl !== 0" class="card-img-top" src="{{imageUrl}}{{item.imageUrl}}" alt="Card image cap">
+                    <img *ngIf="item.imageUrl === 0" class="card-img-top" src="../../../content/img/default-image.jpg" alt="Card image cap">
                     <a href="#">
-                        <h5 class="card-title pt-2 px-1 m-0">{{item.Name}}</h5>
+                        <h5 class="card-title py-2 px-1 mx-1 giveMeEllipsisTitle  border-top font-weight-bold">{{item.title}}</h5>
                     </a>
                     <div class="card-body p-1">
-                        <p class="card-text border-bottom py-1">{{item.sortDescription}}</p>
-                        <div class="d-inline-flex col-md-12 px-0 justify-content-end">
+                        <p class="card-text  py-1 giveMeEllipsis border-top">{{item.decription}}</p>
+                        <div class="d-inline-flex col-md-12 px-0 pt-3 justify-content-end border-top">
                             <button class="btn blue-gradient col-md-6 text-light" [routerLink]="[ '/news', item.id , 'detail' ]" mdbWavesEffect>Xem thêm</button>
                         </div>
                     </div>

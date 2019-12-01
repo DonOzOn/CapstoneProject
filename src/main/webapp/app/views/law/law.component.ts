@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NewsService } from 'app/core/news/news.service';
+import { SERVER_API_URL } from 'app/app.constants';
 
 @Component({
   selector: 'app-law',
@@ -6,7 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./law.component.scss']
 })
 export class LawComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
+  imageUrl = SERVER_API_URL + '/api/upload/files/';
+  constructor(private newService: NewsService) {}
+  list4News: any[] = [];
+  ngOnInit() {
+    this.getlist4News();
+  }
+  /*  get  list 4 new*/
+  getlist4News() {
+    this.newService.getListNews().subscribe(res => {
+      this.list4News = res.body;
+      // eslint-disable-next-line
+      console.log('Listnew  : ', this.list4News);
+      this.list4News.sort(function(obj1, obj2) {
+        return obj2.timeCreate - obj1.timeCreate;
+      });
+      this.list4News = res.body.slice(0, 4);
+    });
+  }
 }

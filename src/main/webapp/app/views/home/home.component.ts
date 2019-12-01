@@ -4,6 +4,8 @@ import { AddressService } from 'app/core/address/address.service';
 import { PostService } from 'app/core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { SERVER_API_URL } from 'app/app.constants';
+import { NewsService } from 'app/core/news/news.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,24 +14,36 @@ import { SERVER_API_URL } from 'app/app.constants';
 })
 export class HomeComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
-  config: any;
+  list4News: any[] = [];
   count: any;
-  listPost: any[] = [];
   choose = [{ value: '', name: 'Toàn bộ' }, { value: 1, name: 'Mua bán' }, { value: 2, name: 'Cho thuê' }];
   chooseForm = this.fb.group({
     choose: ['']
   });
   listProvinces = [];
   post: PostRespone[] = [];
+  /* pagination */
+  public directionLinks = true;
+  public autoHide = false;
+  public responsive = true;
+  public maxSize = 5;
+  listPagination: any[] = [];
+  config: any;
   public labels: any = {
     previousLabel: 'Previous',
     nextLabel: 'Next'
   };
   responsiveOptions;
-  product = [{ title: 'Hồ Chí Minh' }, { title: 'Hà Nội' }, { title: 'Đà Nẵng' }, { title: 'Hải Phòng' }];
-  constructor(private addressService: AddressService, private fb: FormBuilder, private postService: PostService) {
+
+  constructor(
+    private addressService: AddressService,
+    private fb: FormBuilder,
+    private postService: PostService,
+    private newService: NewsService,
+    private router: Router
+  ) {
     for (let i = 0; i < this.count; i++) {
-      this.listPost.push({
+      this.listPagination.push({
         id: i + 1,
         value: 'items number' + (i + 1)
       });
@@ -67,13 +81,20 @@ export class HomeComponent implements OnInit {
       }
     ];
   }
-
+  /*  get total page in pagination*/
+  getTotalPage() {
+    this.postService.query().subscribe(res => {
+      this.count = res.body.length;
+      return this.count;
+    });
+  }
   pageChanged(event) {
     this.config.currentPage = event;
   }
 
   ngOnInit() {
     this.getProvince();
+    this.getlist4News();
     this.getListPostProduct();
   }
 
@@ -93,11 +114,20 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  /*  get total page*/
-  getTotalPage() {
-    this.postService.query().subscribe(res => {
-      this.count = res.body.length;
-      return this.count;
+  goToNews(id: any) {
+    // tslint:disable-next-line: no-unused-expression
+    this.router.navigate(['/news', id, 'detail']);
+  }
+  /*  get  list 4 new*/
+  getlist4News() {
+    this.newService.getListNews().subscribe(res => {
+      this.list4News = res.body;
+      // eslint-disable-next-line
+      console.log('Listnew  : ', this.list4News);
+      this.list4News.sort(function(obj1, obj2) {
+        return obj2.timeCreate - obj1.timeCreate;
+      });
+      this.list4News = res.body.slice(0, 4);
     });
   }
   onChange($event) {}
