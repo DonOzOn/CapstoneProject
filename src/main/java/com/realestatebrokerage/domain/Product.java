@@ -8,6 +8,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -34,14 +37,20 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @Field
     @Size(max = 50)
     @Column(name = "price", length = 50)
     private String price;
 
+
+    @Field
     @Size(max = 50)
     @Column(name = "area", length = 50)
     private String area;
 
+
+    @IndexedEmbedded(depth = 1, prefix = "direction_")
     @OneToOne
     @JoinColumn(referencedColumnName = "id", name = "direction_id")
     private Direction direction;
@@ -60,10 +69,14 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Column(name = "number_bedroom", length = 50)
     private Integer numberBedroom;
 
+    @IndexedEmbedded(depth = 1, prefix = "typeChild_")
+    @ContainedIn
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", name = "product_type_child_id")
     private ProductTypeChild productTypeChild;
 
+    @IndexedEmbedded(depth = 1, prefix = "type_")
+    @ContainedIn
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", name = "product_type_id")
     private ProductType productType;

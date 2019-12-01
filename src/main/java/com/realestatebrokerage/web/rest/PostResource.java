@@ -5,15 +5,13 @@ import com.realestatebrokerage.domain.Image;
 import com.realestatebrokerage.domain.Product;
 import com.realestatebrokerage.domain.ProductPost;
 import com.realestatebrokerage.domain.UsingImage;
-import com.realestatebrokerage.service.ImageService;
-import com.realestatebrokerage.service.ProductPostService;
-import com.realestatebrokerage.service.ProductService;
-import com.realestatebrokerage.service.UsingImageService;
+import com.realestatebrokerage.service.*;
 import com.realestatebrokerage.service.dto.*;
 import com.realestatebrokerage.web.rest.errors.LoginAlreadyUsedException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.hibernate.search.jpa.FullTextEntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -42,6 +42,8 @@ public class PostResource {
     private UsingImageService usingImageService;
     @Autowired
     private ProductPostService productPostService;
+    @Autowired
+    private HibernateSearchService hibernateSearchService;
 
     /**
      * create product post
@@ -300,5 +302,19 @@ public class PostResource {
         log.debug("REST request to delete Post Product: {}", id);
         productPostService.deleteByID(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    /**
+     * {@code GET /Post} : full text.
+     *
+     */
+    @GetMapping("/product-post/search")
+    public ResponseEntity<List<ProductPostResponseDTO>> fullTextSearch(@RequestParam(value = "searchKey") String searchKey) throws InterruptedException {
+        List<ProductPostResponseDTO> responeDTOList = new ArrayList<>();
+
+        responeDTOList = hibernateSearchService.fuzzySearch(searchKey).stream().map(ProductPostResponseDTO::new).collect(Collectors.toList());
+
+        return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
     }
 }

@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.Field;
 
 
 import javax.persistence.*;
@@ -23,6 +25,7 @@ import java.util.Set;
  * A direction.
  */
 @Entity
+@Embeddable
 @Table(name = "direction")
 public class Direction{
 
@@ -32,6 +35,7 @@ public class Direction{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Field
     @Size(max = 50)
     @Column(name = "direction_name", length = 50)
     private String directionName;

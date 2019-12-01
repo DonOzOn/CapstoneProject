@@ -3,6 +3,12 @@ package com.realestatebrokerage.service;
 import com.realestatebrokerage.domain.*;
 import com.realestatebrokerage.repository.*;
 import com.realestatebrokerage.service.dto.ProductPostRequestDTO;
+import com.realestatebrokerage.service.dto.ProductPostResponseDTO;
+import liquibase.util.Validate;
+import org.apache.lucene.search.Query;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +16,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -33,6 +41,8 @@ public class ProductPostService {
     private UserService userService;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     /**
      * List all product post
@@ -143,5 +153,36 @@ public class ProductPostService {
                 return productPostRepository.save(productPost);
             });
     }
+    /**
+     * search by key word
+     * @return a list of all user
+     */
+    public List<ProductPostResponseDTO> initializeHibernateSearch(String keyword) {
+        try {
+            log.debug("Search post by keyword: {}", keyword);
+            Validate.notNull(entityManager, "Entity manager can't be null");
+            FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+            fullTextEntityManager.createIndexer().startAndWait();
+            QueryBuilder qb = fullTextEntityManager.getSearchFactory()
+                .buildQueryBuilder()
+                .forEntity(User.class)
+                .get();
+
+            Query query = qb.keyword()
+                .onFields("login", "email", "lastName")
+                .matching(keyword)
+                .createQuery();
+
+            org.hibernate.search.jpa.FullTextQuery jpaQuery
+                = fullTextEntityManager.createFullTextQuery(query, User.class);
+            List<ProductPost> postList = jpaQuery.getResultList();
+            List<ProductPostResponseDTO> userDTOList = postList.stream().map(ProductPostResponseDTO::new).collect(Collectors.toList());
+            return userDTOList;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }
