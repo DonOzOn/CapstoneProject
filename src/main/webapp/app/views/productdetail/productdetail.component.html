@@ -194,7 +194,8 @@
 
                     <div class="col-sm-12 d-flex">
                         <div class="col-sm-4 px-0">
-                            <img class="img-profile rounded-circle img-responsive" src="{{imageUrl}}{{productdetail.productPostResponseDTO.user.imageUrl}}">
+                            <img class="img-profile rounded-circle img-responsive" *ngIf="productdetail.productPostResponseDTO.user.imageUrl !== null" src="{{imageUrl}}{{productdetail.productPostResponseDTO.user.imageUrl}}">
+                            <img class="img-profile rounded-circle img-responsive" *ngIf="productdetail.productPostResponseDTO.user.imageUrl === null" src="../../../content/img/default-avar.png">
                         </div>
                         <div class="col-sm-8 py-2">
                             <div class="text text-capitalize">{{productdetail.productPostResponseDTO.user.firstName}} {{productdetail.productPostResponseDTO.user.lastName}}</div>

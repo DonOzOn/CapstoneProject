@@ -8,6 +8,11 @@
     background-color: white;
     color: #428bca;
   }
+  .btnFind :hover {
+    background-color: #428bca;
+    color: white;
+    border: none;
+  }
   .form-control {
     width: 100%;
     color: #428bca;
@@ -21,6 +26,14 @@ img {
   background-position: center;
   height: 75vh;
   background-attachment: fixed;
+}
+
+.txtSearch {
+  padding-top: 190px;
+}
+
+.icon-slide {
+  margin-top: -30px;
 }
 
 /* carouselTop custom */
@@ -145,14 +158,32 @@ ul li .card .new-card {
   margin-right: 0.6em;
 }
 
+/*Content, Title short*/
+
 .giveMeEllipsis {
   word-break: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  line-height: 1.2em;
+  line-height: 1.5em;
+  /* fallback */
+  max-height: 4.8em;
+  min-height: 3.6em;
+  /* fallback */
+  -webkit-line-clamp: 3;
+  /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.giveMeEllipsisTitle {
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 1.5em;
   /* fallback */
   max-height: 3.6em;
+  min-height: 2.4em;
   /* fallback */
   -webkit-line-clamp: 2;
   /* number of lines to show */

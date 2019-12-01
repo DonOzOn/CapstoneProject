@@ -16,6 +16,7 @@ import { ToastModule } from 'primeng/toast';
 import { TabViewModule } from 'primeng/components/tabview/tabview';
 import { CodeHighlighterModule } from 'primeng/components/codehighlighter/codehighlighter';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -24,6 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatCheckboxModule,
     MatToolbarModule,
     MatListModule,
+    NgxPaginationModule,
     CommonModule,
     HomeRoutingModule,
     FlickityModule,
