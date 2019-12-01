@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsService } from 'app/core/news/news.service';
 import { SERVER_API_URL } from 'app/app.constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-law',
@@ -9,8 +10,8 @@ import { SERVER_API_URL } from 'app/app.constants';
 })
 export class LawComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
-  constructor(private newService: NewsService) {}
   list4News: any[] = [];
+  constructor(private newService: NewsService, private router: Router) {}
   ngOnInit() {
     this.getlist4News();
   }
@@ -25,5 +26,9 @@ export class LawComponent implements OnInit {
       });
       this.list4News = res.body.slice(0, 4);
     });
+  }
+  goToNews(id: any) {
+    // tslint:disable-next-line: no-unused-expression
+    this.router.navigate(['/news', id, 'detail']);
   }
 }

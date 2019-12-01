@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { Ng7DynamicBreadcrumbService } from 'ng7-dynamic-breadcrumb';
+import { LoginService } from 'app/core/login/login.service';
 
 @Component({
   selector: 'app-usermanage',
@@ -19,13 +20,21 @@ export class UsermanageComponent implements OnInit {
     lastLinkColor: 'black',
     symbol: ' ▶ '
   };
-  constructor(private router: Router, private ng7DynamicBreadcrumbService: Ng7DynamicBreadcrumbService) {
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private ng7DynamicBreadcrumbService: Ng7DynamicBreadcrumbService
+  ) {
     this.ngcheckEvents();
   }
 
   ngOnInit() {
     const breadcrumb = { customText: 'This is Custom Text', dynamicText: 'Level 2 ' };
     this.ng7DynamicBreadcrumbService.updateBreadcrumbLabels(breadcrumb);
+  }
+  logout() {
+    this.loginService.logout();
+    this.router.navigate(['/login']);
   }
   ngcheckEvents() {
     this.router.events.subscribe(event => {

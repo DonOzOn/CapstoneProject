@@ -22,7 +22,7 @@
             </div>
             <div class="carouselTop container-fluid ">
                 <!-- You can use owl-carousel selector to include its component -->
-                <owl-carousel [options]="{items: 7, dots: false, navigation: false, autoplay:true, autoplayTimeout:5000, autoplayHoverPause:false, loop:true}" [items]="listProvinces" [carouselClasses]="['owl-theme', 'row', 'sliding']">
+                <owl-carousel [options]="{items: 6, dots: false, navigation: false, autoplay:true, autoplayTimeout:5000, autoplayHoverPause:false, loop:true}" [items]="listProvinces" [carouselClasses]="['owl-theme', 'row', 'sliding']">
                     <div class="d-flex justify-content-center align-content-center carouselTopPanding" *ngFor="let item of listProvinces;let i = index">
                         <div class="" [ngStyle]="{'background': ' repeat scroll center center / 80px 80px'}">
                             <a class="" id="city" href="#"><i class="fa fa-map-marker-alt faa-float animated"></i>{{item.name}}</a>
