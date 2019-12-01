@@ -146,6 +146,61 @@ public class PostResource {
     }
 
     /**
+     * {@code GET /Post} : get all Post by productPostType.
+     *
+     */
+    @GetMapping("/product-post/productposttypeSearch")
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProducProductPostType(@RequestParam("postType") Long postType) {
+        log.debug("get by productPostType : {}", postType);
+        List<PostResponeDTO> responeDTOList = new ArrayList<>();
+        List<ProductPostResponseDTO> postList = productPostService.findAllByProductPostType(postType).stream()
+            .map(ProductPostResponseDTO::new).collect(Collectors.toList());
+        if (postList != null) {
+            for (ProductPostResponseDTO pr : postList) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                postResponeDTO.setProductPostResponseDTO(pr);
+                ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
+                postResponeDTO.setProductResponseDTO(productResponseDTO);
+                UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                postResponeDTO.setImageDTO(imageDTO);
+                responeDTOList.add(postResponeDTO);
+            }
+            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    /**
+     * {@code GET /Post} : get all Post by province.
+     *
+     */
+    @GetMapping("/product-post/province")
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProducbyProvince(@RequestParam("province") String province) {
+        log.debug("get by province : {}", province);
+        List<PostResponeDTO> responeDTOList = new ArrayList<>();
+        List<ProductPostResponseDTO> postList = productPostService.findAllByProvince(province).stream()
+            .map(ProductPostResponseDTO::new).collect(Collectors.toList());
+        if (postList != null) {
+            for (ProductPostResponseDTO pr : postList) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                postResponeDTO.setProductPostResponseDTO(pr);
+                ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
+                postResponeDTO.setProductResponseDTO(productResponseDTO);
+                UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                postResponeDTO.setImageDTO(imageDTO);
+                responeDTOList.add(postResponeDTO);
+            }
+            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+
+    /**
      * {@code GET /Post} : get all Post by product type and product posttype.
      *
      */
@@ -210,6 +265,10 @@ public class PostResource {
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
+
+
+
+
 
     /**
      * {@code GET /Post} : get all Post.

@@ -25,7 +25,7 @@
                 <owl-carousel [options]="{items: 6, dots: false, navigation: false, autoplay:true, autoplayTimeout:5000, autoplayHoverPause:false, loop:true}" [items]="listProvinces" [carouselClasses]="['owl-theme', 'row', 'sliding']">
                     <div class="d-flex justify-content-center align-content-center carouselTopPanding" *ngFor="let item of listProvinces;let i = index">
                         <div class="" [ngStyle]="{'background': ' repeat scroll center center / 80px 80px'}">
-                            <a class="" id="city" href="#"><i class="fa fa-map-marker-alt faa-float animated"></i>{{item.name}}</a>
+                            <a class="" id="city" [routerLink]="['/listproduct','postByProvince', item.code, item.name]"><i class="fa fa-map-marker-alt faa-float animated"></i>{{item.name}}</a>
                         </div>
                     </div>
                 </owl-carousel>

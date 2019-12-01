@@ -7,7 +7,7 @@ import { UserRouteAccessService } from './core/auth/user-route-access-service';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule)
   },
   {
