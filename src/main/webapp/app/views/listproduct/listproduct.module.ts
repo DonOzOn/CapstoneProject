@@ -20,8 +20,8 @@ import { Ng7DynamicBreadcrumbModule } from 'ng7-dynamic-breadcrumb';
     ButtonsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    Ng7DynamicBreadcrumbModule,
     MDBBootstrapModule.forRoot(),
-    Ng7DynamicBreadcrumbModule
   ],
   providers: [],
   exports: [ListproductComponent]

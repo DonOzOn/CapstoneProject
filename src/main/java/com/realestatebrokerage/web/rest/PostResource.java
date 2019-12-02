@@ -5,15 +5,13 @@ import com.realestatebrokerage.domain.Image;
 import com.realestatebrokerage.domain.Product;
 import com.realestatebrokerage.domain.ProductPost;
 import com.realestatebrokerage.domain.UsingImage;
-import com.realestatebrokerage.service.ImageService;
-import com.realestatebrokerage.service.ProductPostService;
-import com.realestatebrokerage.service.ProductService;
-import com.realestatebrokerage.service.UsingImageService;
+import com.realestatebrokerage.service.*;
 import com.realestatebrokerage.service.dto.*;
 import com.realestatebrokerage.web.rest.errors.LoginAlreadyUsedException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.hibernate.search.jpa.FullTextEntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -42,6 +42,8 @@ public class PostResource {
     private UsingImageService usingImageService;
     @Autowired
     private ProductPostService productPostService;
+    @Autowired
+    private HibernateSearchService hibernateSearchService;
 
     /**
      * create product post
@@ -144,6 +146,61 @@ public class PostResource {
     }
 
     /**
+     * {@code GET /Post} : get all Post by productPostType.
+     *
+     */
+    @GetMapping("/product-post/productposttypeSearch")
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProducProductPostType(@RequestParam("postType") Long postType) {
+        log.debug("get by productPostType : {}", postType);
+        List<PostResponeDTO> responeDTOList = new ArrayList<>();
+        List<ProductPostResponseDTO> postList = productPostService.findAllByProductPostType(postType).stream()
+            .map(ProductPostResponseDTO::new).collect(Collectors.toList());
+        if (postList != null) {
+            for (ProductPostResponseDTO pr : postList) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                postResponeDTO.setProductPostResponseDTO(pr);
+                ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
+                postResponeDTO.setProductResponseDTO(productResponseDTO);
+                UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                postResponeDTO.setImageDTO(imageDTO);
+                responeDTOList.add(postResponeDTO);
+            }
+            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    /**
+     * {@code GET /Post} : get all Post by province.
+     *
+     */
+    @GetMapping("/product-post/province")
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProducbyProvince(@RequestParam("province") String province) {
+        log.debug("get by province : {}", province);
+        List<PostResponeDTO> responeDTOList = new ArrayList<>();
+        List<ProductPostResponseDTO> postList = productPostService.findAllByProvince(province).stream()
+            .map(ProductPostResponseDTO::new).collect(Collectors.toList());
+        if (postList != null) {
+            for (ProductPostResponseDTO pr : postList) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                postResponeDTO.setProductPostResponseDTO(pr);
+                ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
+                postResponeDTO.setProductResponseDTO(productResponseDTO);
+                UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                postResponeDTO.setImageDTO(imageDTO);
+                responeDTOList.add(postResponeDTO);
+            }
+            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+
+    /**
      * {@code GET /Post} : get all Post by product type and product posttype.
      *
      */
@@ -208,6 +265,10 @@ public class PostResource {
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
+
+
+
+
 
     /**
      * {@code GET /Post} : get all Post.
@@ -300,5 +361,19 @@ public class PostResource {
         log.debug("REST request to delete Post Product: {}", id);
         productPostService.deleteByID(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    /**
+     * {@code GET /Post} : full text.
+     *
+     */
+    @GetMapping("/product-post/search")
+    public ResponseEntity<List<ProductPostResponseDTO>> fullTextSearch(@RequestParam(value = "searchKey") String searchKey) throws InterruptedException {
+        List<ProductPostResponseDTO> responeDTOList = new ArrayList<>();
+
+        responeDTOList = hibernateSearchService.fuzzySearch(searchKey).stream().map(ProductPostResponseDTO::new).collect(Collectors.toList());
+
+        return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
     }
 }

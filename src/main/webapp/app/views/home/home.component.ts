@@ -125,7 +125,7 @@ export class HomeComponent implements OnInit {
       // eslint-disable-next-line
       console.log('Listnew  : ', this.list4News);
       this.list4News.sort(function(obj1, obj2) {
-        return obj2.timeCreate - obj1.timeCreate;
+        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
       });
       this.list4News = res.body.slice(0, 4);
     });

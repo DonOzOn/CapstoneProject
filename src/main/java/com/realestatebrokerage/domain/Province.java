@@ -1,5 +1,9 @@
 package com.realestatebrokerage.domain;
 
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,6 +15,7 @@ public class Province {
     @Id
     private String code;
 
+    @Field
     @Column(name = "name")
     private String name;
 

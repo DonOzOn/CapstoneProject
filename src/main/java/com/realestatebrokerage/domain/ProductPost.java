@@ -3,6 +3,13 @@ package com.realestatebrokerage.domain;
 import org.apache.commons.lang3.StringUtils;
 
 import com.realestatebrokerage.config.Constants;
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
+import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Parameter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,6 +23,15 @@ import java.util.Set;
  * A product_post.
  */
 @Entity
+@Indexed
+@AnalyzerDef(name = "customanalyzer",
+    tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+    filters = {
+        @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+        @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
+            @Parameter(name = "language", value = "English")
+        })
+    })
 @Table(name = "product_post")
 public class ProductPost extends AbstractAuditingEntity implements Serializable {
 
@@ -30,6 +46,8 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     private User user;
 
     @Size(min=1, max = 50)
+    @Field(index= Index.YES, store= Store.NO)
+    @Analyzer(definition = "customanalyzer")
     @Column(name = "project_name", length = 200)
     private String projectName;
 
@@ -39,6 +57,8 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
 
     @Size(min=1, max = 100)
     @Column(name = "product_post_title", length = 100)
+    @Field(index= Index.YES,  store= Store.NO)
+    @Analyzer(definition = "customanalyzer")
     private String productPostTitle;
 
     @Column(name = "total_like")
@@ -53,18 +73,22 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @Column(name = "total_share")
     private Integer totalShare;
 
+    @IndexedEmbedded
     @ManyToOne
     @JoinColumn(name="ward_code",referencedColumnName="code")
     private Ward ward;
 
+    @IndexedEmbedded
     @ManyToOne
     @JoinColumn(name="province_code",referencedColumnName="code")
     private Province province;
 
+    @IndexedEmbedded
     @ManyToOne
     @JoinColumn(name="district_code",referencedColumnName="code")
     private District district;
 
+    @IndexedEmbedded
     @Size(max = 50)
     @Column(name = "address")
     private String address;
@@ -77,6 +101,7 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @Column(name = "content")
     private String content;
 
+    @IndexedEmbedded
     @OneToOne
     @JoinColumn(referencedColumnName = "id", name = "product_id")
     private Product product;

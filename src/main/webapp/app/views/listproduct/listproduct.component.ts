@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { PostService } from '../../core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { SERVER_API_URL } from 'app/app.constants';
@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ListProductPostService } from 'app/core/service/listproductpost.service';
 import { Ng7DynamicBreadcrumbService } from 'ng7-dynamic-breadcrumb';
 import { NewsService } from 'app/core/news/news.service';
-
+// import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 @Component({
   selector: 'app-listproduct',
   templateUrl: './listproduct.component.html',
@@ -22,12 +22,16 @@ export class ListproductComponent implements OnInit {
     lastLinkColor: 'black',
     symbol: ' ▶ '
   };
+  postType = new FormControl('');
+  price = new FormControl('');
+  area = new FormControl('');
   config: any;
   count: any;
   listPost: any[] = [];
   listPost2: any;
-  listNews: any[] = [];
+  list4News: any[] = [];
   post: PostRespone[] = [];
+  filteredProducts = [];
   choose = [
     { value: 1, name: 'Mới nhất' },
     { value: 2, name: 'Cũ nhất' },
@@ -70,29 +74,31 @@ export class ListproductComponent implements OnInit {
     const breadcrumb = { customText: 'This is Custom Text', dynamicText: 'Level 2 ' };
     this.ng7DynamicBreadcrumbService.updateBreadcrumbLabels(breadcrumb);
     // this.getListPostProduct();
-    this.getlistNews();
+    this.getlist4News();
     this.activatedRoute.firstChild.data.subscribe(res => {
       this.post = res.typeSearch.body;
-      // eslint-disable-next-line
-      console.log('post type: ', res.typeSearch);
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     });
+    // this.price.valueChanges
+    // .pipe(
+    //   debounceTime(200),
+    //   distinctUntilChanged(),
+    //   tap(() => (
+    //     this.post.filter(postItem =>{
+    //         postItem.productResponseDTO.price = this.postType.value
+    //     })
 
-    this.activatedRoute.firstChild.data.subscribe(
-      res => {
-        this.post = res.typeSearch.body;
-        // eslint-disable-next-line
-        console.log('post type child : ', res.typeSearch);
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      },
-      err => {
-        // eslint-disable-next-line
-        console.log('err type child : ', err);
-      }
-    );
+    //   ))
+    // )
+    // .subscribe();
+
     // this.redirectTo(this.activatedRoute.snapshot.url.toString());
   }
 
+  /**
+   * Redirects to
+   * @param uri
+   */
   redirectTo(uri: string) {
     this.router.navigateByUrl('/404', { skipLocationChange: true }).then(() => this.router.navigate([uri]));
   }
@@ -101,8 +107,6 @@ export class ListproductComponent implements OnInit {
   getListPostProduct() {
     this.postService.query().subscribe(res => {
       this.post = res.body;
-      // eslint-disable-next-line
-      console.log('List all post : ', this.post);
     });
   }
   /*  get total page*/
@@ -113,13 +117,13 @@ export class ListproductComponent implements OnInit {
     });
   }
   /*  get  list 4 new*/
-  getlistNews() {
+  getlist4News() {
     this.newService.getListNews().subscribe(res => {
-      this.listNews = res.body;
-      this.listNews.sort(function(obj1, obj2) {
-        return obj2.timeCreate - obj1.timeCreate;
+      this.list4News = res.body;
+      this.list4News.sort(function(obj1, obj2) {
+        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
       });
-      this.listNews = res.body.slice(0, 4);
+      this.list4News = res.body.slice(0, 4);
     });
   }
   /*  change sort */

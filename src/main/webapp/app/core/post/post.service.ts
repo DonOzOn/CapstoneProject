@@ -17,6 +17,11 @@ export class PostService {
 
   constructor(private http: HttpClient, private alertService: JhiAlertService) {}
 
+  /**
+   * Creates post service
+   * @param post
+   * @returns create
+   */
   create(post: IPostRequest): Observable<HttpResponse<IPostRequest>> {
     return this.http.post<IPostRequest>(this.resourceUrl, post, { observe: 'response' }).pipe(
       tap((response: HttpResponse<IPostRequest>) => {
@@ -28,12 +33,22 @@ export class PostService {
     );
   }
 
+  /**
+   * Uploads post service
+   * @param uploadFiles
+   * @returns upload
+   */
   upload(uploadFiles: File): Observable<HttpResponse<any>> {
     const formData: FormData = new FormData();
     formData.append('file', uploadFiles, uploadFiles.name);
     return this.http.post<any>(this.resourceUrlImage, formData, { observe: 'response' });
   }
 
+  /**
+   * Updates post service
+   * @param post
+   * @returns update
+   */
   update(post: IPostRequest): Observable<HttpResponse<IPostRequest>> {
     return this.http.put<IPostRequest>(this.resourceUrl, post, { observe: 'response' }).pipe(
       tap((response: HttpResponse<IPostRequest>) => {
@@ -45,6 +60,11 @@ export class PostService {
     );
   }
 
+  /**
+   * Toggles status
+   * @param id
+   * @returns status
+   */
   toggleStatus(id): Observable<HttpResponse<IPostRespone>> {
     return this.http.put(`${this.resourceUrl}/${id}/toggle-status`, { observe: 'response' }).pipe(
       tap((response: HttpResponse<IPostRespone>) => {
@@ -56,14 +76,30 @@ export class PostService {
     );
   }
 
+  /**
+   * Finds post service
+   * @param id
+   * @returns find
+   */
   find(id: any): Observable<IPostRespone> {
     return this.http.get<IPostRespone>(`${this.resourceUrl}/${id}`);
   }
 
+  /**
+   * Lists all by user id
+   * @param id
+   * @returns all by user id
+   */
   listAllByUserID(id: any): Observable<HttpResponse<IPostRespone[]>> {
     return this.http.get<IPostRespone[]>(`${this.resourceUrl}/user/${id}`, { observe: 'response' });
   }
 
+  /**
+   * Lists all by type
+   * @param idType
+   * @param postTypeID
+   * @returns all by type
+   */
   listAllByType(idType: any, postTypeID: any): Observable<HttpResponse<IPostRespone[]>> {
     const param = {
       id: idType,
@@ -72,6 +108,37 @@ export class PostService {
     return this.http.get<IPostRespone[]>(`${this.resourceUrl}/typeSearch`, { params: param, observe: 'response' });
   }
 
+  /**
+   * Lists all by product post type
+   * @param idType
+   * @param postTypeID
+   * @returns all by product post type
+   */
+  listAllByProductPostType(postTypes: any): Observable<HttpResponse<IPostRespone[]>> {
+    const param = {
+      postType: postTypes
+    };
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/productposttypeSearch`, { params: param, observe: 'response' });
+  }
+
+  /**
+   * Lists all by province
+   * @param provinces
+   * @returns all by province
+   */
+  listAllByProvince(provinces: any): Observable<HttpResponse<IPostRespone[]>> {
+    const param = {
+      province: provinces
+    };
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/province`, { params: param, observe: 'response' });
+  }
+
+  /**
+   * Lists all by type child
+   * @param idTypeChild
+   * @param postTypeID
+   * @returns all by type child
+   */
   listAllByTypeChild(idTypeChild: any, postTypeID: any): Observable<HttpResponse<IPostRespone[]>> {
     const param = {
       id: idTypeChild,
@@ -80,10 +147,29 @@ export class PostService {
     return this.http.get<IPostRespone[]>(`${this.resourceUrl}/typeChildSearch`, { params: param, observe: 'response' });
   }
 
+  /**
+   * Fulls text search
+   * @param searchKey
+   * @returns text search
+   */
+  fullTextSearch(searchKey: any): Observable<HttpResponse<IPostRespone[]>> {
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/search`, { params: searchKey, observe: 'response' });
+  }
+
+  /**
+   * Querys post service
+   * @returns query
+   */
   query(): Observable<HttpResponse<IPostRespone[]>> {
     return this.http.get<IPostRespone[]>(this.resourceUrl, { observe: 'response' });
   }
 
+  /**
+   * Searchbys date
+   * @param fromDate
+   * @param toDate
+   * @returns date
+   */
   searchbyDate(fromDate: any, toDate: any): Observable<HttpResponse<IPostRespone[]>> {
     const param = {
       from: fromDate,
@@ -92,6 +178,11 @@ export class PostService {
     return this.http.get<IPostRespone[]>(`${this.resourceUrl}/search-by-date`, { params: param, observe: 'response' });
   }
 
+  /**
+   * Deletes post service
+   * @param id
+   * @returns delete
+   */
   delete(id: any): Observable<HttpResponse<any>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

@@ -25,7 +25,7 @@
                 <owl-carousel [options]="{items: 6, dots: false, navigation: false, autoplay:true, autoplayTimeout:5000, autoplayHoverPause:false, loop:true}" [items]="listProvinces" [carouselClasses]="['owl-theme', 'row', 'sliding']">
                     <div class="d-flex justify-content-center align-content-center carouselTopPanding" *ngFor="let item of listProvinces;let i = index">
                         <div class="" [ngStyle]="{'background': ' repeat scroll center center / 80px 80px'}">
-                            <a class="" id="city" href="#"><i class="fa fa-map-marker-alt faa-float animated"></i>{{item.name}}</a>
+                            <a class="" id="city" [routerLink]="['/listproduct','postByProvince', item.code, item.name]"><i class="fa fa-map-marker-alt faa-float animated"></i>{{item.name}}</a>
                         </div>
                     </div>
                 </owl-carousel>
@@ -37,7 +37,7 @@
         <div class="col-md-12" style="background-color: #afc0cf;">
             <p-carousel class="px-1" [value]="post" styleClass="custom-carousel" [numVisible]="4" [numScroll]="3" [circular]="true" [autoplayInterval]="7000" [responsiveOptions]="responsiveOptions">
                 <p-header>
-                    <a class="h3 font-weight-bold text-uppercase" href="#">HÓT NHẤT <sup><button type="button" class="btn btn-danger text-white bg-danger btn-sm px-1 py-0"><strong>Hot</strong></button></sup></a>
+                    <a class="h3 font-weight-bold text-uppercase" href="#">NỔI BẬT NHẤT <sup><button type="button" class="btn btn-danger text-white bg-danger btn-sm px-1 py-0"><strong>Hot</strong></button></sup></a>
                 </p-header>
                 <ng-template let-post pTemplate="item">
                     <div class="card mx-2">
@@ -51,8 +51,8 @@
                             </div>
                         </div>
                         <div class="card-body text-center">
-                            <h5 class="card-title giveMeEllipsis font-weight-bold" data-toggle="tooltip " data-placement="top " title="Liên hệ"><a [routerLink]="[ '/product', post.productPostResponseDTO.id,'productdetail']">{{post.productPostResponseDTO.productPostTitle}}</a></h5>
-                            <p class="card-text font-weight-light font-italic"><i class="fas fa-map-marked-alt"></i>{{post.productPostResponseDTO.ward.name}}, {{post.productPostResponseDTO.district.name}}, {{post.productPostResponseDTO.province.name}}</p>
+                            <h5 class="card-title giveMeEllipsisSlide font-weight-bold" data-toggle="tooltip " data-placement="top " title="Liên hệ"><a [routerLink]="[ '/product', post.productPostResponseDTO.id,'productdetail']">{{post.productPostResponseDTO.productPostTitle}}</a></h5>
+                            <p class="card-text font-weight-light font-italic giveMeEllipsisSlide"><i class="fas fa-map-marked-alt"></i>{{post.productPostResponseDTO.ward.name}}, {{post.productPostResponseDTO.district.name}}, {{post.productPostResponseDTO.province.name}}</p>
                         </div>
                         <div class="card-body border-top d-flex col-md-12">
                             <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-start">{{post.productPostResponseDTO.productPostType.productPostTypeName}}: </h5>
@@ -91,8 +91,8 @@
                             </div>
                         </div>
                         <div class="card-body text-center">
-                            <h5 class="card-title giveMeEllipsis font-weight-bold" data-toggle="tooltip " data-placement="top " title="Liên hệ"><a [routerLink]="[ '/product', post.productPostResponseDTO.id,'productdetail']">{{post.productPostResponseDTO.productPostTitle}}</a></h5>
-                            <p class="card-text font-weight-light font-italic"><i class="fas fa-map-marked-alt"></i>{{post.productPostResponseDTO.ward.name}}, {{post.productPostResponseDTO.district.name}}, {{post.productPostResponseDTO.province.name}}</p>
+                            <h5 class="card-title giveMeEllipsisSlide font-weight-bold" data-toggle="tooltip " data-placement="top " title="Liên hệ"><a [routerLink]="[ '/product', post.productPostResponseDTO.id,'productdetail']">{{post.productPostResponseDTO.productPostTitle}}</a></h5>
+                            <p class="card-text font-weight-light font-italic giveMeEllipsisSlide"><i class="fas fa-map-marked-alt"></i>{{post.productPostResponseDTO.ward.name}}, {{post.productPostResponseDTO.district.name}}, {{post.productPostResponseDTO.province.name}}</p>
                         </div>
                         <div class="card-body border-top d-flex col-md-12">
                             <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-start">{{post.productPostResponseDTO.productPostType.productPostTypeName}}: </h5>
@@ -153,7 +153,7 @@
                 <div class="card-body p-1">
                     <p class="card-text  py-1 giveMeEllipsis border-top">{{item.decription}}</p>
                     <div class="d-inline-flex col-md-12 px-0 pt-3 justify-content-end border-top">
-                        <button (click)="goToNews(item.id)" class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem thêm</button>
+                        <button (click)="goToNews(item.id)" class="btn blue-gradient col-md-6 text-light">Xem thêm</button>
                     </div>
                 </div>
             </li>

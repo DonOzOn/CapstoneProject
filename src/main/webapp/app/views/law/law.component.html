@@ -1,24 +1,24 @@
 <router-outlet>
 </router-outlet>
-<div class="container-fluid my-5 px-0 col-md-12 new">
+<div class="container-fluid my-5 px-2 col-md-12 new">
     <div class="col-md-12 px-0 ">
         <h3 class=""><a href="#">Tin tức</a></h3>
     </div>
     <div class="col-md-12 px-0 pb-2 mb-3 border-bottom border-white ">
         <span class="grey-text small">CẬP NHẬT CÁC THÔNG TIN MỚI NHẤT VỀ THỊ TRƯỜNG BẤT ĐỘNG SẢN
-                            </span>
+            </span>
     </div>
-    <ul class="card-deck px-0 col-md-12  m-0" style="max-height: 150px;">
+    <ul class="card-deck px-0 col-md-12  m-0">
         <li class="card col-md-4 p-2 mx-2 rounded" *ngFor="let item of list4News">
-            <img *ngIf="item.imageUrl !== 0" class="card-img-top" src="{{imageUrl}}{{item.imageUrl}}" alt="Card image cap">
-            <img *ngIf="item.imageUrl === 0" class="card-img-top" src="../../../content/img/default-image.jpg" alt="Card image cap">
+            <img *ngIf="item.imageUrl !== 0" class="card-img-top h-50 img-responsive" src="{{imageUrl}}{{item.imageUrl}}" alt="Card image cap">
+            <img *ngIf="item.imageUrl === 0" class="card-img-top h-50 img-responsive" src="../../../content/img/default-image.jpg" alt="Card image cap">
             <a [routerLink]="[ '/news', item.id , 'detail' ]">
                 <h5 class="card-title py-2 px-1 mx-1 giveMeEllipsisTitle  border-top font-weight-bold">{{item.title}}</h5>
             </a>
             <div class="card-body p-1">
                 <p class="card-text  py-1 giveMeEllipsis border-top">{{item.decription}}</p>
-                <div class="d-inline-flex col-md-12 px-0 pt-3 justify-content-end border-top">
-                    <button (click)="goToNews(item.id)" class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem thêm</button>
+                <div class="d-flex col-md-12 px-0 pt-3 justify-content-end border-top">
+                    <a class="btn blue-gradient text-light col-md-6" role="button" [routerLink]="[ '/news', item.id , 'detail' ]" mdbWavesEffect>Xem thêm</a>
                 </div>
             </div>
         </li>
