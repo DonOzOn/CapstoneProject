@@ -79,9 +79,9 @@ public class ParController {
         }
         parId = sum%9;
         System.out.println(parId);
-       //par_womanDTO par_womanDTO = parWomanService.findByID(parId).map(par_womanDTO::new).orElse(null);
-        //Optional<ParWoman> par_womanDTO = parWomanService.findByID(parId);
+       par_womanDTO par_womanDTO = parWomanService.findByID(parId).map(par_womanDTO::new).orElse(null);
+//        Optional<ParWoman> par_womanDTO = parWomanService.findByID(parId);
         System.out.println(parWomanService.findByID(parId).toString());
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(par_womanDTO, HttpStatus.OK);
     }
 }
