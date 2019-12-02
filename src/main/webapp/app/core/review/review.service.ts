@@ -59,6 +59,6 @@ export class ReviewService {
   }
 
   delete(id: any): Observable<HttpResponse<any>> {
-    return this.http.delete(`${this.newsResourceUrl}/${id}`, { observe: 'response' });
+    return this.http.delete<any>(`${this.newsResourceUrl}/${id}`, { observe: 'response' });
   }
 }

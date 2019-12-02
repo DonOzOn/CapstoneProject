@@ -24,7 +24,7 @@ public class NewService {
      * **/
     public List<News> findAll(){
         log.debug("getall");
-        return newRepository.findAllByStatusIsTrue();
+        return newRepository.findAll();
     }
 
 
@@ -77,10 +77,10 @@ public class NewService {
     /**
      * delete new
      * */
-    public Optional<News> deleteNews(NewsDTO newDTO) {
-        return Optional.of(newRepository.findById(newDTO.getId())).filter(Optional::isPresent).map(Optional::get)
+    public void deleteNews(Long id) {
+         Optional.of(newRepository.findById(id)).filter(Optional::isPresent).map(Optional::get)
             .map(news -> {
-                news.setStatus(false);
+                news.setStatus(!news.getStatus());
                 return newRepository.save(news);
             });
 

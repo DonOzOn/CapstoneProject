@@ -139,4 +139,18 @@ jhipster:
 # ===================================================================
 
 application:
+  fire-base:
+    {
+      'type': 'service_account',
+      'project_id': 'bdsdonnv',
+      'private_key_id': '7b1f3a64e1e5cb5f4c44aeeae36fbb486972be95',
+      'private_key': "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC09Bo+P+3ixBaG\nyPcMiK6vFLjL1gh4qBW2b3lImAOaQjMhCXrusSm+bvtweCk3i7VU+anQ+mwmF4Sp\nLFvIbG4rX5iN5unR+9PrKpsH6O5KI6mwnuQpSMnGUXYW/mLKZ5tsBK+FQezwRY2Z\nFAOcv2rgW7aa19xJqtpuDFbq2oucSlCBcFUhu+rpy7OBTzSDSgHfomqne/D9ISWL\nk6NFE5bWmSeUD8sH7omA9dly+mkGb5p8+JZXcxMooF7OEnBAkvyJpRoI/QiJTbeq\n6SivshuLPOsFhxBe8wf13YFJHjg868NzP506C82PD+lOpuzhKMo02ISkqzjdzrJP\nDRa+v3r1AgMBAAECggEAFJdAUzwQFEFO9OhyYE0/X3His2M4FI6/5cIakX2mz0tg\nKQ68m+OyBdb4KqypuAXgTPqZ7ctJOi5r7Jo9GXnpMWtP3zna+oeG7lgrSwOg9fPH\n7+6stNvxBe2oG+a3lCOlBm4kEOxXC2JGwhgKbzBC96PIDCerDADymRozW8choteL\nBNfkvYu0drTGdF3vZ1Gkvmy1DYKp9ojh0DbAGZazvkWKUCV7p9R5Ydq+1OsmEmYS\nB6jryaLTi19Geh8+ZPzj0wLDQg+vHtfoXhYrDhQIHSMhWtRBcSWRjzE4ybQudEl5\np9BtHE14LSsI9u1kS9WDB5TEWoZIJ3lsM4PNJoEbkwKBgQDYLhsXDVKSSbXDnHIG\nrGHVXWo1s6rAhi1Ye6YEs8tD/Ai8IZ+l444+HruwL/tYlTNNuZBpH7C8acLssAWZ\nhtcjMSwaEoIpy/BMHHW0cxHlPEXe9zInG+Ogv4j1zjIxZ7gV34+6YRS0rzONUuYG\nNtblZWxHpoiO2ZQGNOjQVTl+UwKBgQDWSOZ7FRmVyJEz8bBwyYjcQ9SSLe1A1Qzh\n+1RM6DUbFsy/fgxCAEak7w2HUHzksJmSM15yTPhHZOpBV00rKgKsf+mRnzh044la\nQWI72EhThAKmcmknwlj18EHnzrejD1sN1uXwG31n10npgFUnxwqvccQndYpLNhrc\ninZdTGMolwKBgQDEFBWoNAJIA6lk0lquaN6X+5HhQaRH2av5jLWJoFZmxIxbr5ex\njJOxDokohmzQ7QtKnVw5rW/NhZQywHljxmUOW4Rn5Y/AP2Umc83jLVf291NcqBQK\nWwZ9AB1G7o6iNzRGSq9/2pxAQoVc0usmicki6nprBsbn4rubYZQlmpd6VwKBgQCp\nBB8m/eGMTwKYog21KIEWmznTgv4boO/kXsSDVLRuhXFBqT4p4OXXueZF0KpyBwla\nU8IvDZ7XUTWkDCQF48DwJoQoJBn3uHDiC6hb46BIn1snxh5DCfv5IGQbXuVha/85\nz0LWPBiSCzF1R4/jLA+1ilpZdVB7OlW9lkj+Ff4wSQKBgQCdHBKvDIjy28OcU0e0\nbwXQTjBYPHqJGHmeSVrVQIdBiBDyvO8ttUq7zHJqayYQNg+NAHLlNmM2VAVuzqeS\n1DEjZGY1VeawM7sCGZ2xY7IoDmPOCuDrfFt5Zlpxo2irS4TvvQckO3nXXZJWZTWE\nmdbKqsGPC4ZCIxyF8oLZhswRPw==\n-----END PRIVATE KEY-----\n",
+      'client_email': 'firebase-adminsdk-4dbnr@bdsdonnv.iam.gserviceaccount.com',
+      'client_id': '110177302321852333246',
+      'auth_uri': 'https://accounts.google.com/o/oauth2/auth',
+      'token_uri': 'https://oauth2.googleapis.com/token',
+      'auth_provider_x509_cert_url': 'https://www.googleapis.com/oauth2/v1/certs',
+      'client_x509_cert_url': 'https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-4dbnr%40bdsdonnv.iam.gserviceaccount.com',
+    }
+
   base-location: C:\images\

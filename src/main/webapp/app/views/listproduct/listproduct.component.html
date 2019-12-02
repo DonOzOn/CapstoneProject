@@ -6,7 +6,7 @@
                 <a [routerLink]="[ '/search']" class="search_icon"><i class="fas fa-search"></i></a>
             </div>
         </div>
-
+<form [formGroup]="filterForm">
         <div class=" d-flex justify-content-end col-md-8 ">
             <div class="text-center px-2">
                 <select class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
@@ -17,7 +17,7 @@
             </select>
             </div>
             <div class="text-center px-2">
-                <select [formControl]="postType" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+                <select formControlName="postType" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
                         <option value="" selected disabled>Loại BĐS</option>
                         <option value="1">Tất cả</option>
                         <option value="2">Mua bán</option>
@@ -25,9 +25,9 @@
             </select>
             </div>
             <div class="text-center px-2">
-                <select [formControl]="price" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+                <select formControlName="price" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
                         <option value="" selected disabled>Khoảng giá</option>
-                        <option value="1">Khoảng giá</option>
+                        <option value="1">Tất cả</option>
                         <option value="2">dưới 300 triệu</option>
                         <option value="3">300-500 triệu</option>
                         <option value="4">500-800 triệu</option>
@@ -39,10 +39,11 @@
                         <option value="10">10 tỷ - 20 tỷ</option>
                         <option value="11">20 tỷ - 30 tỷ</option>
                         <option value="12">30 tỷ - 50 tỷ</option>
+                        <option value="13">Trên 50 tỷ</option>
             </select>
             </div>
             <div class="text-center px-2">
-                <select [formControl]="area" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+                <select formControlName="area" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
                         <option value="" selected disabled>Diện tích</option>
                         <option value="1">Tất cả</option>
                         <option value="2">Dưới 30m2</option>
@@ -70,6 +71,8 @@
             </select>
             </div>
         </div>
+
+</form>
     </div>
 </div>
 

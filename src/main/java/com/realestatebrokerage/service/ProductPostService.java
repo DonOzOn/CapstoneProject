@@ -48,7 +48,7 @@ public class ProductPostService {
      * List all product post
      * **/
     public List<ProductPost> findAll(){
-        return productPostRepository.findAllByStatusTrue();
+        return productPostRepository.findAll();
     }
     /**
      * List all product post by date from to
@@ -163,7 +163,7 @@ public class ProductPostService {
         log.debug("run in delete post product: {}", id);
         Optional.of(productPostRepository.findById(id)).filter(Optional::isPresent).map(Optional::get)
             .map(productPost -> {
-                productPost.setStatus(false);
+                productPost.setStatus(!productPost.isStatus());
                 return productPostRepository.save(productPost);
             });
     }

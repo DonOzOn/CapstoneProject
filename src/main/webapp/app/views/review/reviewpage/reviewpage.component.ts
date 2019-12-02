@@ -128,8 +128,9 @@ export class ReviewpageComponent implements OnInit {
   getListReview() {
     this.reviewService.getListReview().subscribe(res => {
       this.reviews = res.body;
-      // eslint-disable-next-line
-      console.log('review: ', this.reviews);
+      this.reviews = this.reviews.filter(review => {
+        return (review.status = true);
+      });
     });
   }
 
@@ -167,7 +168,7 @@ export class ReviewpageComponent implements OnInit {
    * @param url
    */
   redirectTo(url: string) {
-    this.router.navigateByUrl('/admin', { skipLocationChange: true }).then(() => this.router.navigate([url]));
+    this.router.navigateByUrl('/usermanage', { skipLocationChange: true }).then(() => this.router.navigate([url]));
   }
 
   /**
@@ -243,7 +244,7 @@ export class ReviewpageComponent implements OnInit {
                 this.redirectTo('/manage-review')
               )
             ),
-          // eslint-disable-next-line
+            // eslint-disable-next-line
             (err: any) => (
               this.alertService.error(err.error.title),
               this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Đăng bài đăng thất bại!' })

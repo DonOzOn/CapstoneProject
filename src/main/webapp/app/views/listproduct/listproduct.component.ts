@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { PostService } from '../../core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { SERVER_API_URL } from 'app/app.constants';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ListProductPostService } from 'app/core/service/listproductpost.service';
 import { Ng7DynamicBreadcrumbService } from 'ng7-dynamic-breadcrumb';
 import { NewsService } from 'app/core/news/news.service';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 // import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 @Component({
   selector: 'app-listproduct',
@@ -22,9 +22,12 @@ export class ListproductComponent implements OnInit {
     lastLinkColor: 'black',
     symbol: ' ▶ '
   };
-  postType = new FormControl('');
-  price = new FormControl('');
-  area = new FormControl('');
+  text: '';
+  filterForm = this.fb.group({
+    postType: [''],
+    price: [''],
+    area: ['']
+  });
   config: any;
   count: any;
   listPost: any[] = [];
@@ -46,7 +49,6 @@ export class ListproductComponent implements OnInit {
     nextLabel: 'Next'
   };
   constructor(
-    private listProductPostService: ListProductPostService,
     private newService: NewsService,
     private postService: PostService,
     private fb: FormBuilder,
@@ -71,28 +73,118 @@ export class ListproductComponent implements OnInit {
   }
 
   ngOnInit() {
+    // if (this.route.params.textSearch) {
+    //   // eslint-disable-next-line
+    //   console.log('textSearch: ', this.route.params.textSearch);
+    // }
     const breadcrumb = { customText: 'This is Custom Text', dynamicText: 'Level 2 ' };
     this.ng7DynamicBreadcrumbService.updateBreadcrumbLabels(breadcrumb);
     // this.getListPostProduct();
     this.getlist4News();
     this.activatedRoute.firstChild.data.subscribe(res => {
-      this.post = res.typeSearch.body;
+      this.filteredProducts = res.typeSearch.body;
+      this.post = this.filteredProducts;
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     });
+    this.filterFunction();
+
     // this.price.valueChanges
-    // .pipe(
-    //   debounceTime(200),
-    //   distinctUntilChanged(),
-    //   tap(() => (
-    //     this.post.filter(postItem =>{
-    //         postItem.productResponseDTO.price = this.postType.value
+    //   .pipe(
+    //     tap(() =>
+    //       // eslint-disable-next-line
+    //       console.log('price value ',  this.price.value)
+    //     ),
+    //     tap(() => {
+    //       switch (this.price.value) {
+    //         case 1:
+    //           this.post = this.filteredProducts;
+    //           break;
+    //         case 2:
+    //           this.filterPrice(0, 300000000);
+    //           break;
+    //         case 3:
+    //           this.filterPrice(300000000, 500000000);
+    //           break;
+    //         default:
+    //           break;
+    //       }
     //     })
+    //   )
+    //   .subscribe();
+  }
 
-    //   ))
-    // )
-    // .subscribe();
+  filterPrice(from: any, to: any) {
+    if (to === 0) {
+      this.post = this.filteredProducts.filter(postItem => {
+        // eslint-disable-next-line
+        return parseInt(postItem.productResponseDTO.price) >= from;
+      });
+    } else {
+      this.post = this.filteredProducts.filter(postItem => {
+        // eslint-disable-next-line
+        return parseInt(postItem.productResponseDTO.price) >= from && parseInt(postItem.productResponseDTO.price) <= to;
+      });
+    }
+  }
 
-    // this.redirectTo(this.activatedRoute.snapshot.url.toString());
+  filterArea(from: any, to: any) {
+    this.post = this.filteredProducts.filter(postItem => {
+      // eslint-disable-next-line
+      return parseInt(postItem.productResponseDTO.area) >= from && parseInt(postItem.productResponseDTO.area) <= to;
+    });
+  }
+
+  filterFunction() {
+    this.filterForm.controls.price.valueChanges
+      .pipe(
+        debounceTime(200),
+        distinctUntilChanged()
+      )
+      .subscribe(val => {
+        switch (val) {
+          case '1':
+            this.post = this.filteredProducts;
+            break;
+          case '2':
+            this.filterPrice(0, 300000000);
+            break;
+          case '3':
+            this.filterPrice(300000000, 500000000);
+            break;
+          case '4':
+            this.filterPrice(500000000, 700000000);
+            break;
+          case '5':
+            this.filterPrice(700000000, 1000000000);
+            break;
+          case '6':
+            this.filterPrice(1000000000, 3000000000);
+            break;
+          case '7':
+            this.filterPrice(3000000000, 5000000000);
+            break;
+          case '8':
+            this.filterPrice(5000000000, 7000000000);
+            break;
+          case '9':
+            this.filterPrice(7000000000, 10000000000);
+            break;
+          case '10':
+            this.filterPrice(10000000000, 20000000000);
+            break;
+          case '11':
+            this.filterPrice(20000000000, 30000000000);
+            break;
+          case '12':
+            this.filterPrice(30000000000, 50000000000);
+            break;
+          case '13':
+            this.filterPrice(50000000000, 0);
+            break;
+          default:
+            break;
+        }
+      });
   }
 
   /**

@@ -337,6 +337,18 @@
             <artifactId>infinispan-directory-provider</artifactId>
             <version>9.4.16.Final</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>6.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gms</groupId>
+            <artifactId>google-services</artifactId>
+            <version>3.0.0</version>
+            <scope>runtime</scope>
+        </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
 
