@@ -46,14 +46,14 @@
                             </div>
                         </div>
 
-                        <div class="forum-item">
+                        <div class="forum-item" *ngFor="let item of reviews | paginate: config">
                             <div class="row px-0">
                                 <div class="col-md-9">
                                     <div class="forum-icon">
                                         <i class="fa fa-commenting-o"></i>
                                     </div>
-                                    <a class="forum-item-title">Tin tức - Thời sự - Bản tin </a>
-                                    <div class="forum-sub-title">Những thông báo quan trọng từ ban quản lý trang, danh sách các tài khoản bị cấm chat, block.</div>
+                                    <a class="forum-item-title">{{item.title}} </a>
+                                    <div class="forum-sub-title">{{item.decription}}</div>
                                 </div>
                                 <div class="d-flex col-md-3 p-0">
                                     <div class="col-md-4 forum-info px-0">
@@ -84,169 +84,10 @@
 
                             </div>
                         </div>
-                        <div class="forum-item">
-                            <div class="row px-0">
-                                <div class="col-md-9">
-                                    <div class="forum-icon">
-                                        <i class="fa fa-commenting-o"></i>
-                                    </div>
-                                    <a href="#" class="forum-item-title">Tin tức - Thời sự - Bản tin </a>
-                                    <div class="forum-sub-title">Những thông báo quan trọng từ ban quản lý trang, danh sách các tài khoản bị cấm chat, block.</div>
-                                </div>
-                                <div class="d-flex col-md-3 p-0">
-                                    <div class="col-md-4 forum-info px-0">
-                                        <span class="views-number">
-                                                    1216
-                                                </span>
-                                        <div>
-                                            <small>Xem</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 forum-info px-0">
-                                        <span class="views-number">
-                                                    368
-                                                </span>
-                                        <div>
-                                            <small>Bình luận</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 forum-info px-0">
-                                        <span class="views-number">
-                                                    140
-                                                </span>
-                                        <div>
-                                            <small>Thích</small>
-                                        </div>
-                                    </div>
-                                </div>
 
-                            </div>
-                        </div>
-                        <div class="forum-item">
-                            <div class="row px-0">
-                                <div class="col-md-9">
-                                    <div class="forum-icon">
-                                        <i class="fa fa-commenting-o"></i>
-                                    </div>
-                                    <a href="#" class="forum-item-title">Tin tức - Thời sự - Bản tin </a>
-                                    <div class="forum-sub-title">Những thông báo quan trọng từ ban quản lý trang, danh sách các tài khoản bị cấm chat, block.</div>
-                                </div>
-                                <div class="d-flex col-md-3 p-0">
-                                    <div class="col-md-4 forum-info px-0">
-                                        <span class="views-number">
-                                                        1216
-                                                    </span>
-                                        <div>
-                                            <small>Xem</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 forum-info px-0">
-                                        <span class="views-number">
-                                                        368
-                                                    </span>
-                                        <div>
-                                            <small>Bình luận</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 forum-info px-0">
-                                        <span class="views-number">
-                                                        140
-                                                    </span>
-                                        <div>
-                                            <small>Thích</small>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="forum-item">
-                            <div class="row px-0">
-                                <div class="col-md-9">
-                                    <div class="forum-icon">
-                                        <i class="fa fa-question-circle"></i>
-                                    </div>
-                                    <a href="#" class="forum-item-title">Tin tức - Thời sự - Bản tin </a>
-                                    <div class="forum-sub-title">Những thông báo quan trọng từ ban quản lý trang, danh sách các tài khoản bị cấm chat, block.</div>
-                                </div>
-                                <div class="d-flex col-md-3 p-0">
-                                    <div class="col-md-4 forum-info px-0">
-                                        <span class="views-number">
-                                                    1216
-                                                </span>
-                                        <div>
-                                            <small>Xem</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 forum-info px-0">
-                                        <span class="views-number">
-                                                    368
-                                                </span>
-                                        <div>
-                                            <small>Bình luận</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 forum-info px-0">
-                                        <span class="views-number">
-                                                    140
-                                                </span>
-                                        <div>
-                                            <small>Thích</small>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="forum-item">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <div class="forum-icon">
-                                        <i class="fa fa-commenting-o"></i>
-                                    </div>
-                                    <a href="#" class="forum-item-title">Tin tức - Thời sự - Bản tin </a>
-                                    <div class="forum-sub-title">Những thông báo quan trọng từ ban quản lý trang, danh sách các tài khoản bị cấm chat, block.</div>
-                                </div>
-                                <div class="d-flex col-md-3 p-0">
-                                    <div class="col-md-4 forum-info px-0">
-                                        <span class="views-number">
-                                                        1216
-                                                    </span>
-                                        <div>
-                                            <small>Xem</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 forum-info px-0">
-                                        <span class="views-number">
-                                                        368
-                                                    </span>
-                                        <div>
-                                            <small>Bình luận</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 forum-info px-0">
-                                        <span class="views-number">
-                                                        140
-                                                    </span>
-                                        <div>
-                                            <small>Thích</small>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <nav aria-label="" class="mt-2">
+                        <nav *ngIf="reviews" aria-label="" class="mt-2">
                             <ul class="pagination pg-blue justify-content-end">
-                                <li class="page-item disabled px-2">
-                                    <a class="page-link" tabindex="-1" mdbWavesEffect><i class="fas fa-angle-double-left"></i></a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" mdbWavesEffect>1 <span class="sr-only">(current)</span></a></li>
-                                <li class="page-item"><a class="page-link" mdbWavesEffect>2</a></li>
-                                <li class="page-item"><a class="page-link" mdbWavesEffect>3</a></li>
-                                <li class="page-item pl-2">
-                                    <a class="page-link" mdbWavesEffect><i class="fas fa-angle-double-right"></i></a>
-                                </li>
+                                <pagination-controls [previousLabel]="labels.previousLabel" [nextLabel]="labels.nextLabel" (pageChange)="pageChanged($event)"></pagination-controls>
                             </ul>
                         </nav>
                     </div>

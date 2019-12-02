@@ -88,6 +88,7 @@ export class ReviewpageComponent implements OnInit {
         this.currentUser = userAuthen;
       });
     });
+    this.getListReview();
   }
 
   /**
@@ -122,11 +123,13 @@ export class ReviewpageComponent implements OnInit {
   }
 
   /**
-   * Gets list new
+   * Gets list review
    */
-  getListNew() {
-    this.reviewService.getListNews().subscribe(res => {
+  getListReview() {
+    this.reviewService.getListReview().subscribe(res => {
       this.reviews = res.body;
+      // eslint-disable-next-line
+      console.log('review: ', this.reviews);
     });
   }
 
@@ -240,7 +243,7 @@ export class ReviewpageComponent implements OnInit {
                 this.redirectTo('/manage-review')
               )
             ),
-            // eslint-disable-next-line
+          // eslint-disable-next-line
             (err: any) => (
               this.alertService.error(err.error.title),
               this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Đăng bài đăng thất bại!' })

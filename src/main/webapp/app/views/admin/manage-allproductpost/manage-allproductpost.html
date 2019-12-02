@@ -63,7 +63,7 @@
                                             <div class="ui-g-12 ui-md-7 post-details">
                                                 <div class="ui-g">
                                                     <div class="ui-g-3 ui-sm-6">Tiêu đề: </div>
-                                                    <div class="ui-g-9 ui-sm-6 text-primary font-weight-bold" [routerLink]="[ '/product', post.productPostResponseDTO.id,'productdetail']"><u>{{post.productPostResponseDTO?.productPostTitle}}</u></div>
+                                                    <div class="ui-g-9 ui-sm-6 text-primary font-weight-bold text-uppercase" [routerLink]="[ '/product', post.productPostResponseDTO.id,'productdetail']"><u>{{post.productPostResponseDTO?.productPostTitle}}</u></div>
 
                                                     <div class="ui-g-3 ui-sm-6">Tên sản phẩm: </div>
                                                     <div class="ui-g-9 ui-sm-6"><b>{{post.productPostResponseDTO?.projectName}}</b></div>
@@ -84,7 +84,7 @@
                                         <div style="padding:.5em" class="ui-g-12 ui-md-5">
                                             <p-panel [header]="post.productPostResponseDTO?.projectName" [style]="{'text-align':'center'}">
                                                 <img src="{{imageUrl}}{{post.imageDTO.img1}}" class="img-thumbnail rounded mx-auto d-block" style="height: 100px;" alt="Responsive image">
-                                                <div class="post-detail text-primary font-weight-bold" [routerLink]="[ '/product', post.productPostResponseDTO.id,'productdetail']"><u>{{post.productPostResponseDTO?.productPostTitle}}</u></div>
+                                                <div class="post-detail text-primary font-weight-bold text-uppercase" [routerLink]="[ '/product', post.productPostResponseDTO.id,'productdetail']"><u>{{post.productPostResponseDTO?.productPostTitle}}</u></div>
                                                 <div class="post-detail">{{post.productPostResponseDTO?.createdDate | date:'HH:mm dd/MM/yyyy'}}</div>
                                                 <hr class="ui-widget-content" style="border-top:0">
                                                 <!-- <button pButton type="button" icon="pi pi-search" (click)="selectPostproduct($event, post)" style="margin-top:0"></button> -->

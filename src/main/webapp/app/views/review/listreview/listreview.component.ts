@@ -1,12 +1,64 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ReviewService } from 'app/core/review/review.service';
+import { IReview } from 'app/core/review/review.model';
 @Component({
   selector: 'app-listreview',
   templateUrl: './listreview.component.html',
   styleUrls: ['./listreview.component.scss']
 })
 export class ListreviewComponent implements OnInit {
-  constructor() {}
+  reviews: IReview[];
+  countReview: any;
+  /* pagination */
+  listPagination: any[] = [];
+  config: any;
+  public directionLinks = true;
+  public autoHide = false;
+  public responsive = true;
+  public maxSize = 5;
+  public labels: any = {
+    previousLabel: 'Previous',
+    nextLabel: 'Next'
+  };
+  constructor(private reviewService: ReviewService, ) {
+    for (let i = 0; i < this.countReview; i++) {
+      this.listPagination.push({
+        id: i + 1,
+        value: 'items number' + (i + 1)
+      });
+    }
+    this.config = {
+      itemsPerPage: 10,
+      currentPage: 1,
+      totalItems: this.countReview
+    };
+  }
 
-  ngOnInit() {}
+   /*  get total page in pagination*/
+   getTotalPage() {
+    this.reviewService.getListReview().subscribe(res => {
+      this.countReview = res.body.length;
+            // eslint-disable-next-line
+            console.log('count: ', this.countReview);
+      return this.countReview;
+    });
+  }
+  pageChanged(event) {
+    this.config.currentPage = event;
+  }
+  ngOnInit() {
+    this.getTotalPage();
+   this.getListReview();
+  }
+
+  /**
+   * Gets list review
+   */
+  getListReview() {
+    this.reviewService.getListReview().subscribe(res => {
+      this.reviews = res.body;
+      // eslint-disable-next-line
+      console.log('review: ', this.reviews);
+    });
+  }
 }
