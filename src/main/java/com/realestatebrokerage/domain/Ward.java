@@ -1,6 +1,8 @@
 package com.realestatebrokerage.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.Field;
 
 import javax.persistence.*;
 
@@ -10,6 +12,8 @@ public class Ward {
     @Id
     private String code;
 
+    @ContainedIn
+    @Field
     @Column(name = "name")
     private String name;
 

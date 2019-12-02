@@ -136,8 +136,6 @@ export class PostproductComponent implements OnInit {
       return value.name !== event.file.name;
     });
     this.uploadedFiles = filtered;
-    // eslint-disable-next-line
-    console.log('after delete uploadedFiles: ', this.uploadedFiles);
   }
   /* get ward when select distric */
   selectedDistrict() {

@@ -33,6 +33,38 @@ export class TypeChildResolve implements Resolve<any> {
     return new this.detainew();
   }
 }
+
+@Injectable({ providedIn: 'root' })
+export class PostTypeResolve implements Resolve<any> {
+  detainew: any;
+  constructor(private service: PostService) {}
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const postType = route.params.postType ? route.params.postType : null;
+    // eslint-disable-next-line
+    console.log('da qua day1', postType);
+
+    if (postType) {
+      // eslint-disable-next-line
+      console.log('da qua day', postType);
+      return this.service.listAllByProductPostType(postType);
+    }
+    return new this.detainew();
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class ProvinceResolve implements Resolve<any> {
+  detainew: any;
+  constructor(private service: PostService) {}
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const province = route.params.province ? route.params.province : null;
+    if (province) {
+      return this.service.listAllByProvince(province);
+    }
+    return new this.detainew();
+  }
+}
+
 const routes: Routes = [
   {
     path: '',
@@ -50,8 +82,12 @@ const routes: Routes = [
         data: {
           breadcrumb: [
             {
+              label: 'Trang chủ',
+              url: '/home'
+            },
+            {
               label: '{{title}}',
-              url: '/admin'
+              url: '/postTypeSearch/:postType/:title'
             },
             {
               label: '{{titleChild}}',
@@ -69,15 +105,57 @@ const routes: Routes = [
         data: {
           breadcrumb: [
             {
-              label: '{{title}}',
-              url: '/admin'
+              label: 'Trang chủ',
+              url: '/home'
+            },
+            {
+              label: '/postTypeSearch/:postType}}/:title',
+              url: ''
             },
             {
               label: '{{titleChild}}',
-              url: '/admin'
+              url: ''
             },
             {
               label: '{{titleVeryChild}}',
+              url: ''
+            }
+          ]
+        }
+      },
+      {
+        path: 'postTypeSearch/:postType/:postTypeName',
+        component: ListproductComponent,
+        resolve: {
+          typeSearch: PostTypeResolve
+        },
+        data: {
+          breadcrumb: [
+            {
+              label: 'Trang chủ',
+              url: '/home'
+            },
+            {
+              label: '{{postTypeName}}',
+              url: ''
+            }
+          ]
+        }
+      },
+      {
+        path: 'postByProvince/:province/:provinceName',
+        component: ListproductComponent,
+        resolve: {
+          typeSearch: ProvinceResolve
+        },
+        data: {
+          breadcrumb: [
+            {
+              label: 'Trang chủ',
+              url: '/home'
+            },
+            {
+              label: '{{provinceName}}',
               url: ''
             }
           ]

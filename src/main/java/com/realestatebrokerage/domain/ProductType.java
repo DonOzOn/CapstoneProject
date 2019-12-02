@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.Field;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -22,6 +24,7 @@ import java.util.Set;
  * A product_type.
  */
 @Entity
+@Embeddable
 @Table(name = "product_type")
 public class ProductType{
 
@@ -31,6 +34,7 @@ public class ProductType{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Field
     @Size(max = 50)
     @Column(name = "product_type_name", length = 50)
     private String productTypeName;

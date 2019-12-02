@@ -52,6 +52,25 @@
   background-color: white;
 }
 
+/*Sort description*/
+
+.giveMeEllipsis {
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 1.2em;
+  /* fallback */
+  max-height: 3.6em;
+  min-height: 3.6em;
+  /* fallback */
+  -webkit-line-clamp: 2;
+  /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+/*Breadcrumb*/
+
 .bc-icons-2 .breadcrumb-item + .breadcrumb-item::before {
   content: none;
 }

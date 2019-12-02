@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { AddressService } from 'app/core/address/address.service';
+import { PostService } from 'app/core/post/post.service';
+import { PostRespone } from 'app/core/post/model/postRespone.model';
+import { SERVER_API_URL } from 'app/app.constants';
+import { NewsService } from 'app/core/news/news.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,31 +13,57 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  cars: any[];
+  imageUrl = SERVER_API_URL + '/api/upload/files/';
+  list4News: any[] = [];
+  count: any;
   choose = [{ value: '', name: 'Toàn bộ' }, { value: 1, name: 'Mua bán' }, { value: 2, name: 'Cho thuê' }];
   chooseForm = this.fb.group({
     choose: ['']
   });
-
-  children = [
-    { title: 'Hồ Chí Minh' },
-    { title: 'Hà Nội' },
-    { title: 'Đà Nẵng' },
-    { title: 'Hải Phòng' },
-    { title: 'Child 5' },
-    { title: 'Child 1' },
-    { title: 'Child 2' },
-    { title: 'Child 3' },
-    { title: 'Child 4' },
-    { title: 'Child 5' },
-    { title: 'Child 6' },
-    { title: 'Child 7' },
-    { title: 'Child 8' }
-  ];
+  listProvinces = [];
+  post: PostRespone[] = [];
+  /* pagination */
+  public directionLinks = true;
+  public autoHide = false;
+  public responsive = true;
+  public maxSize = 5;
+  listPagination: any[] = [];
+  config: any;
+  public labels: any = {
+    previousLabel: 'Previous',
+    nextLabel: 'Next'
+  };
   responsiveOptions;
-  product = [{ title: 'Hồ Chí Minh' }, { title: 'Hà Nội' }, { title: 'Đà Nẵng' }, { title: 'Hải Phòng' }];
-  constructor(private fb: FormBuilder) {
+
+  constructor(
+    private addressService: AddressService,
+    private fb: FormBuilder,
+    private postService: PostService,
+    private newService: NewsService,
+    private router: Router
+  ) {
+    for (let i = 0; i < this.count; i++) {
+      this.listPagination.push({
+        id: i + 1,
+        value: 'items number' + (i + 1)
+      });
+    }
+    this.config = {
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: this.count
+    };
     this.responsiveOptions = [
+      {
+        breakpoint: '1920px',
+        numVisible: 5,
+        numScroll: 5
+      },
+      {
+        breakpoint: '1600px',
+        numVisible: 4,
+        numScroll: 4
+      },
       {
         breakpoint: '1024px',
         numVisible: 3,
@@ -49,8 +81,54 @@ export class HomeComponent implements OnInit {
       }
     ];
   }
+  /*  get total page in pagination*/
+  getTotalPage() {
+    this.postService.query().subscribe(res => {
+      this.count = res.body.length;
+      return this.count;
+    });
+  }
+  pageChanged(event) {
+    this.config.currentPage = event;
+  }
+
   ngOnInit() {
-    this.cars = this.children;
+    this.getProvince();
+    this.getlist4News();
+    this.getListPostProduct();
+  }
+
+  getListPostProduct() {
+    this.postService.query().subscribe(res => {
+      this.post = res.body;
+      // eslint-disable-next-line
+      console.log('List  : ', this.post);
+    });
+  }
+  /*  get all provinces */
+  getProvince() {
+    this.addressService.filterProvince().subscribe((res: any) => {
+      this.listProvinces = res.body;
+      // eslint-disable-next-line
+      console.log('List all post : ', this.listProvinces);
+    });
+  }
+
+  goToNews(id: any) {
+    // tslint:disable-next-line: no-unused-expression
+    this.router.navigate(['/news', id, 'detail']);
+  }
+  /*  get  list 4 new*/
+  getlist4News() {
+    this.newService.getListNews().subscribe(res => {
+      this.list4News = res.body;
+      // eslint-disable-next-line
+      console.log('Listnew  : ', this.list4News);
+      this.list4News.sort(function(obj1, obj2) {
+        return obj2.timeCreate - obj1.timeCreate;
+      });
+      this.list4News = res.body.slice(0, 4);
+    });
   }
   onChange($event) {}
 }

@@ -22,9 +22,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import { TopBannerComponent } from 'app/TopBannerComponent';
 
 @NgModule({
-  declarations: [PostproductComponent],
+  declarations: [PostproductComponent, TopBannerComponent],
   imports: [
     CommonModule,
     PostproductRoutingModule,
@@ -50,6 +51,6 @@ import { ToastModule } from 'primeng/toast';
     ToastModule
   ],
   providers: [],
-  exports: [PostproductComponent]
+  exports: [PostproductComponent, TopBannerComponent]
 })
 export class PostProductModule {}

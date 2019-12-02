@@ -16,7 +16,7 @@
                         <a class="nav-link active" [routerLink]="[ '']">Trang chủ</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link" [routerLink]="['/listproduct','postTypeSearch', 1 , 'Mua bán']" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Mua bán</a>
                         <div class="dropdown-menu multi-level">
                             <div class="dropdown-submenu">
@@ -58,7 +58,7 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link"  [routerLink]="['/listproduct','typeSearch', 1 , 2 ,'Mua bán', 'Căn hộ']" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link"  [routerLink]="['/listproduct','postTypeSearch', 2 , 'Cho thuê']" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Cho thuê</a>
                         <div class="dropdown-menu multi-level">
                             <div class="dropdown-submenu">

@@ -5,7 +5,7 @@
         position: relative;
         height: 0;
     }
-
+    
     .map-container iframe {
         left: 0;
         top: 0;
@@ -27,28 +27,28 @@
                     <a class="list-group-item active waves-effect">
                         <i class="fas fa-chart-pie mr-3"></i>Quản lí chung
                     </a>
-                    <a [routerLink]="['/admin']" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-user mr-3"></i>Quản lí người dùng</a>
-                    <a [routerLink]="['/manageallproductpost']" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-map mr-3"></i>Quản lí bài đăng</a>
-                    <a href="#" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-money-bill-alt mr-3"></i>Quản lí bài review</a>
-                    <a [routerLink]="['/managenews']"  class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-money-bill-alt mr-3"></i>Quản lí tin tức</a>
-                    <a href="#" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-money-bill-alt mr-3"></i>Danh sách người dùng đang online</a>
-                    <a href="#" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-money-bill-alt mr-3"></i>Thông báo</a>
-                    <a href="#" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-money-bill-alt mr-3"></i>Đăng xuất</a>
+                    <a [routerLink]="['/admin']" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
+                        <i class="fas fa-user mr-3 faa-ring"></i>Quản lí người dùng</a>
+                    <a [routerLink]="['/manageallproductpost']" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
+                        <i class="fas fa-table mr-3 faa-ring"></i>Quản lí bài đăng mua bán</a>
+                    <a href="#" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
+                        <i class="fas fa-question-circle mr-3 faa-ring"></i>Quản lí bài diễn đàn</a>
+                    <a [routerLink]="['/managenews']" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
+                        <i class="fas fa-newspaper mr-3 faa-ring"></i>Quản lí tin tức</a>
+                    <a href="#" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
+                        <i class="fas fa-network-wired mr-3 faa-ring"></i>Danh sách người dùng đang online</a>
+                    <a href="#" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
+                        <i class="fas fa-comment-alt mr-3 faa-ring"></i>Thông báo</a>
+                    <a (click)="logout()" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
+                        <i class="fas fa-sign-out-alt mr-3 faa-ring"></i>Đăng xuất</a>
                 </div>
 
             </div>
             <!-- Sidebar -->
             <!--Main layout-->
             <div class="col-md-9 float-right">
-                    <!--Card content-->
-            <app-ng7-dynamic-breadcrumb [bgColor]="breadcrumbConfig['bgColor']" [fontSize]="breadcrumbConfig['fontSize']" [fontColor]="breadcrumbConfig['fontColor']" [lastLinkColor]="breadcrumbConfig['lastLinkColor']" [symbol]="breadcrumbConfig['symbol']">Quản lí chung</app-ng7-dynamic-breadcrumb>
+                <!--Card content-->
+                <app-ng7-dynamic-breadcrumb [bgColor]="breadcrumbConfig['bgColor']" [fontSize]="breadcrumbConfig['fontSize']" [fontColor]="breadcrumbConfig['fontColor']" [lastLinkColor]="breadcrumbConfig['lastLinkColor']" [symbol]="breadcrumbConfig['symbol']">Quản lí chung</app-ng7-dynamic-breadcrumb>
                 <router-outlet></router-outlet>
             </div>
             <!--Main layout-->

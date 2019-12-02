@@ -1,70 +1,70 @@
 <div class="container-fluid">
     <div class="row">
-        <img src="/content/img/cropped-welcome-to-danang.jpg" class="img-fluid">
-        <div class="card-img-overlay">
-            <form class="col-md-12 d-flex justify-content-center align-content-center" [formGroup]="chooseForm">
-                <select (change)="onChange($event)" class="col-md-1 rounded form-control form-control-lg" formControlName="choose">
-                              <option *ngFor="let item of choose" [ngValue]="item.value" >
-                                {{item.name}}
-                              </option>
-                </select>
-                <div class="input-group hoverable text-dark rounded col-md-6 px-2">
-                    <input class="form-control form-control-lg my-0" type="text" placeholder="Search " aria-label="Search">
-                </div>
-                <div class="btnFind  p-0 rounded col-md-1">
-                    <button class="form-control form-control-lg" [routerLink]="[ '/search']">Tìm kiếm</button>
-                </div>
-            </form>
-        </div>
-        <div class="carouselTop container-fluid ">
-            <!-- You can use owl-carousel selector to include its component -->
-            <owl-carousel [options]="{items: 8, dots: false, navigation: false}" [items]="children" [carouselClasses]="['owl-theme', 'row', 'sliding']">
-                <div class="d-flex justify-content-center align-content-center carouselTopPanding" *ngFor="let item of children;let i = index">
-                    <div class="" [ngStyle]="{'background': ' repeat scroll center center / 80px 80px'}">
-                        <a class="" id="city" href="#"><i class="fa fa-map-marker-alt faa-float animated"></i>{{item.title}}</a>
+        <div class="card border-0">
+            <img src="/content/img/cropped-welcome-to-danang.jpg" class="img-fluid">
+            <div class="card-img-overlay">
+                <form class="col-md-12 d-flex justify-content-center align-content-center txtSearch" [formGroup]="chooseForm">
+                    <div class="col-md-2 d-flex px-0">
+                        <select (change)="onChange($event)" class="col-md-8 offset-md-4 justify-content-end text-center rounded form-control form-control-lg" formControlName="choose">
+                        <option *ngFor="let item of choose" [ngValue]="item.value" >
+                          {{item.name}}
+                        </option>
+                    </select>
                     </div>
-                </div>
-            </owl-carousel>
+
+                    <div class="input-group hoverable text-dark rounded col-md-6 px-2">
+                        <input class="form-control form-control-lg my-0 text-dark" type="text" placeholder="Search " aria-label="Search">
+                    </div>
+                    <div class="btnFind  p-0 rounded col-md-2">
+                        <button class="form-control form-control-lg col-md-8" [routerLink]="[ '/search']">Tìm kiếm</button>
+                    </div>
+                </form>
+            </div>
+            <div class="carouselTop container-fluid ">
+                <!-- You can use owl-carousel selector to include its component -->
+                <owl-carousel [options]="{items: 6, dots: false, navigation: false, autoplay:true, autoplayTimeout:5000, autoplayHoverPause:false, loop:true}" [items]="listProvinces" [carouselClasses]="['owl-theme', 'row', 'sliding']">
+                    <div class="d-flex justify-content-center align-content-center carouselTopPanding" *ngFor="let item of listProvinces;let i = index">
+                        <div class="" [ngStyle]="{'background': ' repeat scroll center center / 80px 80px'}">
+                            <a class="" id="city" [routerLink]="['/listproduct','postByProvince', item.code, item.name]"><i class="fa fa-map-marker-alt faa-float animated"></i>{{item.name}}</a>
+                        </div>
+                    </div>
+                </owl-carousel>
+            </div>
         </div>
     </div>
 
     <div class="row mt-4">
-        <div class="col-md-12">
-            <p-carousel [value]="cars" styleClass="custom-carousel" [numVisible]="4" [numScroll]="3" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
+        <div class="col-md-12" style="background-color: #afc0cf;">
+            <p-carousel class="px-1" [value]="post" styleClass="custom-carousel" [numVisible]="4" [numScroll]="3" [circular]="true" [autoplayInterval]="7000" [responsiveOptions]="responsiveOptions">
                 <p-header>
-                    <h3><a href="#">Hot nhất</a></h3>
+                    <a class="h3 font-weight-bold text-uppercase" href="#">HÓT NHẤT <sup><button type="button" class="btn btn-danger text-white bg-danger btn-sm px-1 py-0"><strong>Hot</strong></button></sup></a>
                 </p-header>
-                <ng-template let-car pTemplate="item">
-                    <div class="row col-md-12">
-                        <div class="p-grid p-nogutter" style="background-color: white; height: 450px;width: auto">
-                            <div class="p-col-12">
-                                <img class="img-thumbnail rounded mx-auto d-block" src="/content/img/du lịch Đà Nẵng 1(1).jpg" style="width: auto;height: auto;" />
+                <ng-template let-post pTemplate="item">
+                    <div class="card mx-2">
+                        <img class="img-thumbnail rounded mx-auto d-block card-img-top" src="{{imageUrl}}{{post.imageDTO.img1}}" />
+                        <div class="d-flex flex-row icon-slide">
+                            <div class="col-md-6 d-flex justify-content-start">
+                                <p class="text-warning font-weight-bold"><i class="fas fa-street-view fa-lg text-warning"></i>2km</p>
                             </div>
-                            <div class="p-col-12 text-center m-0">
-                                <div class="d-flex flex-row">
-                                    <div class="col-md-6 d-flex justify-content-start">
-                                        <p class="" style="color: black"><i class="fas fa-street-view"></i>2km</p>
-                                    </div>
-                                    <div class="col-md-6 d-flex justify-content-end float-right">
-                                        <p class="" style="color: black"><i class="fas fa-chart-area"></i>90m<sup>2</sup></p>
-                                    </div>
-                                </div>
+                            <div class="col-md-6 d-flex justify-content-end float-right">
+                                <p class="text-warning font-weight-bold"><i class="fas fa-chart-area fa-lg text-warning"></i>{{post.productPostResponseDTO.product.area}}m<sup>2</sup></p>
                             </div>
-                            <div class="p-col-12 text-center">
-                                <h5 class="card-title giveMeEllipsis" data-toggle="tooltip " data-placement="top " title="Liên hệ " style="font-weight:bold "><a href="#">Cho thuê căn hộ mini cao cấp quận Bình Thạnh, phòng mới, nội thất đầy đủ</a></h5>
-                                <p class="card-text ml-2"><i class="fas fa-map-marked-alt "></i>Thạch Hoà , Thạch Thất, Hà Nội</p>
-                            </div>
-                            <hr>
-                            <div class="p-col-12 text-center">
-                                <h5 class="col-md-12 m-0 p-0"><i class="fas fa-dollar-sign "></i>10tr-30tr/tháng</h5>
-                            </div>
-                            <hr>
-                            <div class="p-col-12 d-flex flex-row">
-
-                                <img src="/content/img/don.jpg " style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle ml-4" alt="Cinque Terre ">
-                                <a href="#" class="col-md-7 card-text my-0  pl-2 pt-2 pr-0 text-left" data-placement="top " title="donozonsdfsdfsdfds" style="max-width: 100px;"> donozon</a>
-                                <!-- <button pButton type="button" class="ui-button-secondary" icon="pi pi-star"></button> -->
-                                <a href="#" class="btn btn-outline-primary viewdetail ml-2 pb-1">Xem chi tiết>></a>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title giveMeEllipsis font-weight-bold" data-toggle="tooltip " data-placement="top " title="Liên hệ"><a [routerLink]="[ '/product', post.productPostResponseDTO.id,'productdetail']">{{post.productPostResponseDTO.productPostTitle}}</a></h5>
+                            <p class="card-text font-weight-light font-italic"><i class="fas fa-map-marked-alt"></i>{{post.productPostResponseDTO.ward.name}}, {{post.productPostResponseDTO.district.name}}, {{post.productPostResponseDTO.province.name}}</p>
+                        </div>
+                        <div class="card-body border-top d-flex col-md-12">
+                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-start">{{post.productPostResponseDTO.productPostType.productPostTypeName}}: </h5>
+                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price >= 100000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000000}}tỷ</h5>
+                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 100000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000}} triệu</h5>
+                        </div>
+                        <div class="card-footer text-muted d-flex flex-row p-3">
+                            <img *ngIf="post.productPostResponseDTO.user.imageUrl !== null" src="{{imageUrl}}{{post.productPostResponseDTO.user.imageUrl}}" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{post.productPostResponseDTO.createdBy}}">
+                            <img *ngIf="post.productPostResponseDTO.user.imageUrl === null" src="../../../content/img/default-avar.png" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{post.productPostResponseDTO.createdBy}}">
+                            <a href="#" class="col-md-5 card-text my-0  pl-2 pt-2 pr-0 text-left text-capitalize text-truncate" data-placement="top " title="{{post.productPostResponseDTO.user.firstName}} {{post.productPostResponseDTO.user.lastName}}" style="max-width: 100px;">{{post.productPostResponseDTO.user.firstName}} {{post.productPostResponseDTO.user.lastName}}</a>
+                            <div class="d-flex col-md-5 px-0 justify-content-end">
+                                <a class="btn blue-gradient rounded text-light col-md-12" [routerLink]="['/product', post.productPostResponseDTO.id,'productdetail']" role="button">Chi tiết</a>
                             </div>
                         </div>
                     </div>
@@ -73,44 +73,38 @@
         </div>
     </div>
 
-
-    <div class="row mt-3">
-        <div class="col-md-12">
-            <p-carousel [value]="cars" styleClass="custom-carousel" [numVisible]="4" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
+    <div class="row mt-4">
+        <div class="col-md-12" style="background-color: #acbfd1;">
+            <p-carousel class="px-1 border-0" [value]="post" styleClass="custom-carousel" [numVisible]="4" [numScroll]="3" [circular]="true" [autoplayInterval]="7000" [responsiveOptions]="responsiveOptions">
                 <p-header>
-                    <h3><a href="#">Mới nhất</a></h3>
+                    <a class="h3 font-weight-bold text-uppercase" href="#">MỚI NHẤT <sup><button type="button" class="btn btn-warning text-white bg-warning btn-sm px-1 py-0"><strong>New</strong></button></sup></a>
                 </p-header>
-                <ng-template let-car pTemplate="item">
-                    <div class="row col-md-12">
-                        <div class="p-grid p-nogutter" style="background-color: white; height: 450px;width: auto">
-                            <div class="p-col-12">
-                                <img class="img-thumbnail rounded mx-auto d-block" src="/content/img/du lịch Đà Nẵng 1(1).jpg" style="width: auto;height: auto;" />
+                <ng-template let-post pTemplate="item">
+                    <div class="card mx-2">
+                        <img class="img-thumbnail rounded mx-auto d-block card-img-top" src="{{imageUrl}}{{post.imageDTO.img1}}" />
+                        <div class="d-flex flex-row icon-slide">
+                            <div class="col-md-6 d-flex justify-content-start">
+                                <p class="text-warning font-weight-bold"><i class="fas fa-street-view fa-lg text-warning"></i>2km</p>
                             </div>
-                            <div class="p-col-12 text-center m-0">
-                                <div class="d-flex flex-row">
-                                    <div class="col-md-6 d-flex justify-content-start">
-                                        <p class="" style="color: black"><i class="fas fa-street-view"></i>2km</p>
-                                    </div>
-                                    <div class="col-md-6 d-flex justify-content-end float-right">
-                                        <p class="" style="color: black"><i class="fas fa-chart-area"></i>90m<sup>2</sup></p>
-                                    </div>
-                                </div>
+                            <div class="col-md-6 d-flex justify-content-end float-right">
+                                <p class="text-warning font-weight-bold"><i class="fas fa-chart-area fa-lg text-warning"></i>{{post.productPostResponseDTO.product.area}}m<sup>2</sup></p>
                             </div>
-                            <div class="p-col-12 text-center">
-                                <h5 class="card-title giveMeEllipsis" data-toggle="tooltip " data-placement="top " title="Liên hệ " style="font-weight:bold "><a href="#">Cho thuê căn hộ mini cao cấp quận Bình Thạnh, phòng mới, nội thất đầy đủ</a></h5>
-                                <p class="card-text ml-2"><i class="fas fa-map-marked-alt "></i>Thạch Hoà , Thạch Thất, Hà Nội</p>
-                            </div>
-                            <hr>
-                            <div class="p-col-12 text-center">
-                                <h5 class="col-md-12 m-0 p-0"><i class="fas fa-dollar-sign "></i>10tr-30tr/tháng</h5>
-                            </div>
-                            <hr>
-                            <div class="p-col-12 d-flex flex-row">
-
-                                <img src="/content/img/don.jpg " style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle ml-4" alt="Cinque Terre ">
-                                <a href="#" class="col-md-7 card-text my-0  pl-2 pt-2 pr-0 text-left" data-placement="top " title="donozonsdfsdfsdfds" style="max-width: 100px;"> donozon</a>
-                                <!-- <button pButton type="button" class="ui-button-secondary" icon="pi pi-star"></button> -->
-                                <a href="#" class="btn btn-outline-primary viewdetail ml-2 pb-1">Xem chi tiết>></a>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title giveMeEllipsis font-weight-bold" data-toggle="tooltip " data-placement="top " title="Liên hệ"><a [routerLink]="[ '/product', post.productPostResponseDTO.id,'productdetail']">{{post.productPostResponseDTO.productPostTitle}}</a></h5>
+                            <p class="card-text font-weight-light font-italic"><i class="fas fa-map-marked-alt"></i>{{post.productPostResponseDTO.ward.name}}, {{post.productPostResponseDTO.district.name}}, {{post.productPostResponseDTO.province.name}}</p>
+                        </div>
+                        <div class="card-body border-top d-flex col-md-12">
+                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-start">{{post.productPostResponseDTO.productPostType.productPostTypeName}}: </h5>
+                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price >= 100000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000000}}tỷ</h5>
+                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 100000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000}} triệu</h5>
+                        </div>
+                        <div class="card-footer text-muted d-flex flex-row p-3">
+                            <img *ngIf="post.productPostResponseDTO.user.imageUrl !== null" src="{{imageUrl}}{{post.productPostResponseDTO.user.imageUrl}}" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{post.productPostResponseDTO.createdBy}}">
+                            <img *ngIf="post.productPostResponseDTO.user.imageUrl === null" src="../../../content/img/default-avar.png" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{post.productPostResponseDTO.createdBy}}">
+                            <a href="#" class="col-md-5 card-text my-0  pl-2 pt-2 pr-0 text-left text-capitalize text-truncate" data-placement="top " title="{{post.productPostResponseDTO.user.firstName}} {{post.productPostResponseDTO.user.lastName}}" style="max-width: 100px;">{{post.productPostResponseDTO.user.firstName}} {{post.productPostResponseDTO.user.lastName}}</a>
+                            <div class="d-flex col-md-5 px-0 justify-content-end">
+                                <a class="btn blue-gradient rounded text-light col-md-12" [routerLink]="['/product', post.productPostResponseDTO.id,'productdetail']" role="button">Chi tiết</a>
                             </div>
                         </div>
                     </div>
@@ -118,147 +112,52 @@
             </p-carousel>
         </div>
     </div>
+
     <div class="row  p-0 mt-3">
         <div class="col-md-8 ml-5 advertising py-5">
         </div>
     </div>
-    <div class="row mt-3 mx-1 d-inline-flex">
-        <ul>
-            <li class="col-md-12 d-flex p-0">
-                <div class="col-md-9 px-0 d-flex justify-content-start">
-                    <div class="card cardbot rounded">
-                        <div class="row no-gutters">
-                            <div class="col-md-3 waves-light" style="background: #868e96;">
-                                <img src="/content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="...">
-                                <div class="card-img-overlay col-md-12 p-2 d-flex align-items-start">
-                                    <h4 class="card-text text-light strong col-md-6 p-0 m-0 d-flexbox">70<span>&#37;</span></h4>
-                                    <h1 class="card-text text-light strong col-md-6 text-right p-0 m-0">
-                                        <i class="fab fa-hotjar text-danger"></i>
-                                    </h1>
-                                </div>
-                                <div class="card-img-overlay col-md-12 p-2 d-flex align-items-end">
-                                    <p class="card-text text-light strong col-md-6 p-0 m-0"> <i class="fas fa-map-marked-alt"></i> 3km</p>
-                                    <p class="card-text text-light strong col-md-6 text-right p-0 m-0"> <i class="fas fa-chart-area"></i>100m<sup>2</sup></p>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="card-body py-0">
-                                    <a href="#">
-                                        <h5 class="card-title">Alice Liddel</h5>
-                                    </a>
-                                    <p class="card-text">Alice is a freelance web designer and developer based in London. She is specialized in HTML5, CSS3, JavaScript, Bootstrap, etc...</p>
-                                    <div class=" d-inline-flex col-md-12 px-0 small">
-                                        <p class="grey-text my-1 px-0 col-md-7">Địa chỉ: Thạch Hoà , Thạch Thất, Hà Nội</p>
-                                        <p class="grey-text my-1 px-0 col-md-5 text-right"><i>Thời gian: 2 ngày trước</i></p>
-                                    </div>
-                                    <hr class="my-1">
-                                    <div class=" d-inline-flex col-md-12 px-0 mt-2">
-                                        <p class="text-dark my-1 pt-1 px-0 col-md-2 strong">30tỷ</p>
-                                        <p class="grey-text my-1 pt-2 px-0 col-md-2 small text-left">800m<sup>2</sup></p>
-                                        <div class="grey-text my-1 p-0 col-md-8 d-inline-flex">
-                                            <div class="col-md-1 pr-0 pt-1 img">
-                                                <img src="/content/img/sg-1.jpg" class="avatar rounded-circle img-responsive img" alt="...">
-                                            </div>
-                                            <p class="text-dark my-1 pt-1 pl-4 col-md-6 small">Nguyễn Trọng Hiếu</p>
-                                            <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" href="#">
-                                                <div class="advertisingSide col-md-3 px-1 ">
-                                                    <img src="/content/img/chat-blue.svg" class="card-img img-responsive " alt="...">
-                                                </div> Chat ngay
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
+    <div class="row mt-3 col-md-12 d-inline-flex " style="background-color: #acbfd1;">
+        <div class="card rounded col-md-8 p-3 my-3 bg-white" style="min-height: 370px;">
+            <div style="min-height: 290px;">
+                <div class="mb-2" *ngFor="let item of post | paginate: config ; let i = index">
+                    <a [routerLink]="[ '/product', item.productPostResponseDTO.id,'productdetail']">
+                        <h5 class="card-header">{{item.productPostResponseDTO.productPostTitle}}</h5>
+                    </a>
                 </div>
-                <div class="col-md-3 d-flex ml-3 justify-content-end">
-                    <img src="/content/img/sg-1.jpg " class="h-100 img-responsive " alt="... ">
-                </div>
-
-            </li>
-        </ul>
-    </div>
-    <div class="row">
-        <div class="col-md-8 text-right px-0">
-            <nav aria-label=" " class="mt-2 d-flex  justify-content-end">
-                <ul class="pagination pg-blue ">
-                    <li class="page-item disabled px-2 ">
-                        <a class="page-link " tabindex="-1 " mdbWavesEffect><i class="fas fa-angle-double-left "></i></a>
-                    </li>
-                    <li class="page-item active "><a class="page-link " mdbWavesEffect>1 <span class="sr-only ">(current)</span></a></li>
-                    <li class="page-item "><a class="page-link " mdbWavesEffect>2</a></li>
-                    <li class="page-item "><a class="page-link " mdbWavesEffect>3</a></li>
-                    <li class="page-item pl-2 ">
-                        <a class="page-link " mdbWavesEffect><i class="fas fa-angle-double-right "></i></a>
-                    </li>
+            </div>
+            <nav aria-label="" *ngIf="post.length !== 0" class="mt-2">
+                <ul class="pagination pg-blue justify-content-end rounded">
+                    <pagination-controls [previousLabel]="labels.previousLabel" [maxSize]="maxSize" [nextLabel]="labels.nextLabel" [directionLinks]="directionLinks" [autoHide]="autoHide" [responsive]="responsive" (pageChange)="pageChanged($event)"></pagination-controls>
                 </ul>
             </nav>
         </div>
     </div>
+
+
     <div class="container-fluid my-5 px-0 col-md-12 new">
         <div class="col-md-12 px-0 ">
             <h3 class=""><a href="#">Tin tức</a></h3>
         </div>
         <div class="col-md-12 px-0 pb-2 mb-3 border-bottom border-white ">
             <span class="grey-text small">CẬP NHẬT CÁC THÔNG TIN MỚI NHẤT VỀ THỊ TRƯỜNG BẤT ĐỘNG SẢN
-                </span>
+                    </span>
         </div>
+        <ul class="card-deck px-0 col-md-12  m-0">
+            <li class="card col-md-4 p-2 mx-2 rounded" *ngFor="let item of list4News">
+                <img *ngIf="item.imageUrl !== 0" class="card-img-top" src="{{imageUrl}}{{item.imageUrl}}" alt="Card image cap">
+                <img *ngIf="item.imageUrl === 0" class="card-img-top" src="../../../content/img/default-image.jpg" alt="Card image cap">
+                <a [routerLink]="[ '/news', item.id , 'detail' ]">
+                    <h5 class="card-title py-2 px-1 mx-1 giveMeEllipsisTitle  border-top font-weight-bold">{{item.title}}</h5>
+                </a>
+                <div class="card-body p-1">
+                    <p class="card-text  py-1 giveMeEllipsis border-top">{{item.decription}}</p>
+                    <div class="d-inline-flex col-md-12 px-0 pt-3 justify-content-end border-top">
+                        <button (click)="goToNews(item.id)" class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem thêm</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
-    <div class="row mt-1">
-        <div class="col-md-12 p-0">
-            <div class="card-deck p-0 m-0 d-flex justify-content-center">
-                <div class="card col-md-3 p-2 mr-3 rounded">
-                    <img class="card-img-top" src="/content/img/sg-1.jpg" alt="Card image cap">
-                    <a href="#">
-                        <h5 class="card-title pt-2 px-1 m-0">Alice Liddel</h5>
-                    </a>
-                    <div class="card-body p-1">
-                        <p class="card-text border-bottom py-1">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <div class="d-inline-flex col-md-12 px-0 justify-content-end">
-                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem thêm</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card col-md-3 p-2 mr-3 rounded">
-                    <img class="card-img-top" src="/content/img/sg-1.jpg" alt="Card image cap">
-                    <a href="#">
-                        <h5 class="card-title pt-2 px-1 m-0">Alice Liddel</h5>
-                    </a>
-                    <div class="card-body p-1">
-                        <p class="card-text border-bottom py-1">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <div class="d-inline-flex col-md-12 px-0 justify-content-end">
-                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem thêm</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card col-md-3 p-2 mr-3 rounded">
-                    <img class="card-img-top" src="/content/img/sg-1.jpg" alt="Card image cap">
-                    <a href="#">
-                        <h5 class="card-title pt-2 px-1 m-0">Alice Liddel</h5>
-                    </a>
-                    <div class="card-body p-1">
-                        <p class="card-text border-bottom py-1">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <div class="d-inline-flex col-md-12 px-0 justify-content-end">
-                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem thêm</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card col-md-3 p-2 ml-3 rounded">
-                    <img class="card-img-top" src="/content/img/sg-1.jpg" alt="Card image cap">
-                    <a href="#">
-                        <h5 class="card-title pt-2 px-1 m-0">Alice Liddel</h5>
-                    </a>
-                    <div class="card-body p-1">
-                        <p class="card-text border-bottom py-1">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <div class="d-inline-flex col-md-12 px-0 justify-content-end">
-                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem thêm</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>

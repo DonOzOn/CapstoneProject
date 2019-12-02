@@ -3,6 +3,7 @@ package com.realestatebrokerage.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -45,18 +46,57 @@ public class Review extends AbstractAuditingEntity implements Serializable {
     @Column(length = 200, name = "decription")
     private String  decription;
 
-    @Column(length = 500, name = "content")
+    @Lob
+    @Column(name = "content")
     private String  content;
+
+    @Column(name = "type")
+    private boolean type  ;
+
+    @Size(max = 256)
+    @Column(name = "image_url", length = 256)
+    private String imageUrl;
 
     @NotNull
     @Column(nullable = false)
     private boolean status = false;
 
+
     public Review() {
 
     }
 
+    public Review(User user, String title, Integer totalLike, Integer totalReport, Integer totalShare, Ward ward, Province province, District district, String decription, String content, boolean type, @Size(max = 256) String imageUrl, @NotNull boolean status) {
+        this.user = user;
+        this.title = title;
+        this.totalLike = totalLike;
+        this.totalReport = totalReport;
+        this.totalShare = totalShare;
+        this.ward = ward;
+        this.province = province;
+        this.district = district;
+        this.decription = decription;
+        this.content = content;
+        this.type = type;
+        this.imageUrl = imageUrl;
+        this.status = status;
+    }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public boolean isType() {
+        return type;
+    }
+
+    public void setType(boolean type) {
+        this.type = type;
+    }
 
     public Long getId() {
         return id;

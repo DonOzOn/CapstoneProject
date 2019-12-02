@@ -1,3 +1,10 @@
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
+  <p-footer>
+    <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy" (click)="cd.reject()"></button>
+    <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Lưu lại" (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
 <div class="container-fluid px-0 d-flex">
     <div class="container mb-4 col-md-8">
         <div class="row">
@@ -29,10 +36,185 @@
                                     </a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
                                 <li class="breadcrumb-item pt-2"><a class="text-muted" href="#">Căn hộ</a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
                                 <li class="breadcrumb-item pt-2 active">TP HỒ CHÍ MINH</li>
+
+                                <li class="breadcrumb-item ml-5 pl-5" style="margin-left: 300px;"> <button (click)="don()" pButton icon="pi pi-plus" type="button" label="Tạo bài review/câu hỏi" class="ui-button-rounded"></button> </li>
                             </ol>
                         </nav>
                     </div>
+                    <p-dialog
+                    header="Đăng bài"
+                    [(visible)]="displayDialog"
+                    [responsive]="true"
+                    showEffect="fade"
+                    [modal]="true"
+                    [style]="{width: '80%'}"
+                    (onAfterHide)="onDialogHide()"
+                  >
+                    <div class="ui-g">
+                      <div class="ui-g-12">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <form [formGroup]="reviewPostForm" (ngSubmit)="postReview()">
+                              <div class="row mb-2">
+                                <div class="col-md-12">
+                                  <div class="card">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="card-body">
+                                            <!-- Tiêu đề -->
+                                            <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
+                                              <div class="col-md-2 px-3">
+                                                <label class="m-0 py-1">Tiêu đề<label style="color: Red;">*</label></label>
+                                              </div>
+                                              <div class="col-md-10 pl-4">
+                                                <span class="ui-float-label pl-2 ml-2">
+                                                  <input
+                                                    id="float-input"
+                                                    type="text"
+                                                    formControlName="title"
+                                                    style="width: 100%;"
+                                                    pInputText
+                                                  />
+                                                  <label class="pl-2" for="float-input">Tiêu đề</label>
+                                                </span>
+                                                <div
+                                                  class="pl-3"
+                                                  *ngIf="reviewPostForm.controls.title.invalid && (reviewPostForm.controls.title.dirty || reviewPostForm.controls.title.touched)"
+                                                >
+                                                  <small class="form-text text-danger" *ngIf="reviewPostForm.controls.title.errors?.required">
+                                                    Tiêu đề không được để trống</small
+                                                  >
+                                                  <small class="form-text text-danger" *ngIf="reviewPostForm.get('title').errors.maxlength">
+                                                    Tiêu đề dài nhất có 100 một kí tự.
+                                                  </small>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <!-- Tiêu đề -->
+                                            <div class="row col-md-12 m-0 p-0 d-flex justify-content-left my-3">
+                                              <div class="col-md-2 px-3">
+                                                <label class="m-0 py-1">Miêu tả ngắn<label style="color: Red;">*</label></label>
+                                              </div>
+                                              <div class="col-md-10 pl-4">
+                                                <span class="ui-float-label pl-2 ml-2">
+                                                  <textarea
+                                                    id="float-input"
+                                                    rows="5"
+                                                    cols="30"
+                                                    formControlName="decription"
+                                                    pInputTextarea
+                                                    autoResize="autoResize"
+                                                  ></textarea>
+                                                  <label class="pl-2" for="float-input">Miêu tả ngắn</label>
+                                                </span>
+                                                <div
+                                                  class="pl-3"
+                                                  *ngIf="reviewPostForm.controls.decription.invalid && (reviewPostForm.controls.decription.dirty || reviewPostForm.controls.decription.touched)">
+                                                  <small
+                                                    class="form-text text-danger"
+                                                    *ngIf="reviewPostForm.get('decription').errors.maxlength"
+                                                  >
+                                                    Miêu tả ngắn dài nhất có 200 một kí tự.
+                                                  </small>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="row col-md-12 m-0 p-0 d-flex justify-content-left my-3">
+                                              <div class="col-md-2 px-2 pl-3">
+                                                <label class="m-0 py-1">Loại bài đăng<label style="color: Red;">*</label></label>
+                                              </div>
+                                              <div class="col-md-10 pl-4">
+                                                <span class="ui-float-label pl-2 ml-2">
+                                                    <p-selectButton formControlName="type" [options]="types" (onChange) = "selectOnchange($event)" [(ngModel)]="selectedType"></p-selectButton>
+                                                </span>
+                                              </div>
+                                            </div>
 
+                                            <!-- Chọn avatar -->
+                                            <div class="row col-md-12 m-0 p-0 ml-3 d-flex justify-content-left my-2">
+                                              <h6 class="first">Ảnh bìa</h6>
+                                              <div class="input-group ml-5 pl-5">
+                                                <p-fileUpload
+                                                  #fileUpload
+                                                  name="demo[]"
+                                                  multiple="multiple"
+                                                  accept="image/*"
+                                                  [showUploadButton]="true"
+                                                  (uploadHandler)="onUpload($event,fileUpload)"
+                                                  customUpload="true"
+                                                  cancelLabel="Bỏ"
+                                                  chooseLabel="Chọn hình"
+                                                  uploadLabel="Tải lên"
+                                                  (onRemove)="onRemove($event)"
+                                                  fileLimit="1"
+                                                  maxFileSize="1000000"
+                                                  class="ml-5 pl-5"
+                                                >
+                                                  <ng-template pTemplate="content">
+                                                    <ul *ngIf="uploadedFiles">
+                                                      <label *ngIf="uploadedFiles.length > 0">Tải lên thành công: </label>
+                                                      <li *ngFor="let file of uploadedFiles">{{file}}</li>
+                                                    </ul>
+                                                  </ng-template>
+                                                </p-fileUpload>
+                                              </div>
+                                            </div>
+                                            <!-- Mô tả -->
+                                            <div class="row col-md-12 mt-3 m-0 p-0 d-flex justify-content-left">
+                                              <div class="col-md-2 px-4">
+                                                <label class="m-0 py-1 ">Mô tả<label style="color: Red;">*</label></label>
+                                              </div>
+                                              <div class="col-md-10 pl-4">
+                                                <span class="ui-float-label pl-2 ml-2">
+                                                  <p-editor
+                                                    formControlName="content"
+                                                    [(ngModel)]="text1"
+                                                    [style]="{'height':'1000px'}"
+                                                  ></p-editor>
+                                                  <button
+                                                    pButton
+                                                    type="button"
+                                                    label="Clear"
+                                                    icon="pi pi-times"
+                                                    (click)="text1=null"
+                                                  ></button>
+                                                </span>
+                                                <div
+                                                  class="pl-3"
+                                                  *ngIf="reviewPostForm.controls.decription.invalid && (reviewPostForm.controls.content.dirty || reviewPostForm.controls.content.touched)"
+                                                >
+                                                  <small class="form-text text-danger" *ngIf="reviewPostForm.controls.content.errors?.required">
+                                                    Mô tả không được để trống</small
+                                                  >
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row mb-2">
+                                <div class="col-md-12 d-flex justify-content-center">
+                                  <button
+                                    pButton
+                                    type="button"
+                                    type="submit"
+                                    [disabled]="reviewPostForm.invalid"
+                                    label="Đăng tin"
+                                    style="width: 200px;height: 50px;"
+                                  ></button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </p-dialog>
                     <div class="ibox-content forum-container">
 
                         <!-- Thảo luận -->
