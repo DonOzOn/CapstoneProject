@@ -3,6 +3,7 @@ import com.realestatebrokerage.domain.ProductPost;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.BooleanJunction;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,14 +42,20 @@ public class HibernateSearchService {
         initializeHibernateSearch();
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
         QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(ProductPost.class).get();
-        Query luceneQuery = qb.keyword().fuzzy()
+
+        Query luceneQuery =
+          qb.bool().must(qb.keyword().fuzzy()
             .withEditDistanceUpTo(2)
             .withPrefixLength(0)
             .onFields("productPostTitle","projectName",
                 "province.name","ward.name","district.name","product.price",
                 "product.area","product.direction_directionName","product.type_productTypeName",
                 "product.typeChild_productTypeChildName")
-            .matching(searchTerm).createQuery();
+            .matching(searchTerm).createQuery())
+              .must(qb.keyword().onField("status").matching(true).createQuery())
+              .createQuery()
+            ;
+
         javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, ProductPost.class);
         List<ProductPost> BaseballCardList = null;
         try {

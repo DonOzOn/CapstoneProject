@@ -7,10 +7,25 @@ import { OwlModule } from 'ngx-owl-carousel';
 import { ProductdetailComponent } from './productdetail.component';
 import { ProductRoutingModule } from './productdetail-routing.module';
 import { GalleriaModule } from 'primeng/galleria';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [ProductdetailComponent],
-  imports: [CommonModule, ProductRoutingModule, FlickityModule, MDBBootstrapModule.forRoot(), OwlModule, GalleriaModule],
+  imports: [
+    CommonModule,
+    ProductRoutingModule,
+    FlickityModule,
+    MDBBootstrapModule.forRoot(),
+    OwlModule,
+    GalleriaModule,
+    ReactiveFormsModule,
+    MessagesModule,
+    MessageModule,
+    ToastModule
+  ],
   providers: [],
   exports: [ProductdetailComponent]
 })

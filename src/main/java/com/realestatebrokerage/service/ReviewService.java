@@ -34,7 +34,7 @@ public class ReviewService {
      * **/
     public List<Review> findAll(){
         log.debug("getall");
-        return reviewRepository.findAllByStatusIsTrue();
+        return reviewRepository.findAll();
     }
 
 
@@ -142,10 +142,10 @@ public class ReviewService {
     /**
      * delete review
      * */
-    public Optional<Review> deleteReview(ReviewRequestDTO reviewRequestDTO) {
-        return Optional.of(reviewRepository.findById(reviewRequestDTO.getId())).filter(Optional::isPresent).map(Optional::get)
+    public void deleteReview(Long id) {
+         Optional.of(reviewRepository.findById(id)).filter(Optional::isPresent).map(Optional::get)
             .map(review -> {
-                review.setStatus(false);
+                review.setStatus(!review.isStatus());
                 return reviewRepository.save(review);
             });
 

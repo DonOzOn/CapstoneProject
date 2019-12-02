@@ -369,11 +369,25 @@ public class PostResource {
      *
      */
     @GetMapping("/product-post/search")
-    public ResponseEntity<List<ProductPostResponseDTO>> fullTextSearch(@RequestParam(value = "searchKey") String searchKey) throws InterruptedException {
-        List<ProductPostResponseDTO> responeDTOList = new ArrayList<>();
+    public ResponseEntity<List<PostResponeDTO>> fullTextSearch(@RequestParam(value = "searchKey") String searchKey) throws InterruptedException {
+        List<ProductPostResponseDTO> postResponeDTOList = new ArrayList<>();
+        List<PostResponeDTO> responeDTOList = new ArrayList<>();
+        postResponeDTOList = hibernateSearchService.fuzzySearch(searchKey).stream().map(ProductPostResponseDTO::new).collect(Collectors.toList());
 
-        responeDTOList = hibernateSearchService.fuzzySearch(searchKey).stream().map(ProductPostResponseDTO::new).collect(Collectors.toList());
-
-        return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        if (postResponeDTOList != null) {
+            for (ProductPostResponseDTO pr : postResponeDTOList) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                postResponeDTO.setProductPostResponseDTO(pr);
+                ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
+                postResponeDTO.setProductResponseDTO(productResponseDTO);
+                UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                postResponeDTO.setImageDTO(imageDTO);
+                responeDTOList.add(postResponeDTO);
+            }
+            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 }

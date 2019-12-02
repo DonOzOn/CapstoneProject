@@ -50,6 +50,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Page<User> findAllByLoginNot(Pageable pageable, String login);
 
     @Query("SELECT DISTINCT u from User u"
-        + "  WHERE (:name IS NULL OR u.login LIKE %:name%) AND (u.activated = true)")
+        + "  WHERE (:name IS NULL OR u.login LIKE %:name%) ")
     Page<User> findAllUser(@Param("name") String name, Pageable pageable);
 }

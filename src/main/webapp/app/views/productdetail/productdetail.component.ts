@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from 'app/core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { ActivatedRoute } from '@angular/router';
 import { SERVER_API_URL } from 'app/app.constants';
 import { NewsService } from 'app/core/news/news.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { NotificationService } from 'app/core/notification/notification.service';
+import { IGuestCareProduct } from 'app/core/guest-care-product/guest-care-product.model';
+import { GuestCareProductService } from 'app/core/guest-care-product/guest-care-product.service';
+import { JhiAlertService } from 'ng-jhipster';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-productdetail',
   templateUrl: './productdetail.component.html',
-  styleUrls: ['./productdetail.component.scss']
+  styleUrls: ['./productdetail.component.scss'],
+  providers: [MessageService]
 })
 export class ProductdetailComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
@@ -17,7 +23,21 @@ export class ProductdetailComponent implements OnInit {
   productdetail: any;
   listNews: any[];
   productdetal: PostRespone;
-  constructor(private postService: PostService, private newService: NewsService, private activatedRoute: ActivatedRoute) {}
+  inforForm = this.fb.group({
+    name: ['', Validators.maxLength(50)],
+    phone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
+    email: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(256)]],
+    mess: ['', [Validators.maxLength(200)]]
+  });
+  constructor(
+    private newService: NewsService,
+    private activatedRoute: ActivatedRoute,
+    private notificationService: NotificationService,
+    private guestCareProductService: GuestCareProductService,
+    private fb: FormBuilder,
+    private alertService: JhiAlertService,
+    private messageService: MessageService
+  ) {}
   ngOnInit() {
     this.activatedRoute.data.subscribe(res => {
       this.productdetail = res.detailProduct;
@@ -47,5 +67,24 @@ export class ProductdetailComponent implements OnInit {
       });
       this.listNews = res.body.slice(0, 4);
     });
+  }
+  send() {
+    const data: IGuestCareProduct = this.inforForm.getRawValue();
+    data.user = this.productdetail.productPostResponseDTO.user.id;
+    data.productPost = this.productdetail.productPostResponseDTO.id;
+    this.guestCareProductService
+      .create(data)
+      .subscribe(() => this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã gửi liên hệ thành công!' })),
+      // eslint-disable-next-line
+      (err: any) => (
+        this.alertService.error(err.error.title),
+        this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Gửi liên hệ  thất bại!' })
+      );
+
+    this.notificationService
+      .sendMessage(
+        'dySN_Pgy_xc:APA91bHXer2Gm9CeKYxdc3HZJk0PwcxvUt9dGZallmU6GwcCe5uxND1zGZWYftabzygyrqweItnbMZEVa9l-AZUHpW01MNuH3X4DNSsSIOU5zaL1FObo4d6LW533ne7nm_-HKhXVEBv-'
+      )
+      .subscribe();
   }
 }

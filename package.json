@@ -76,7 +76,6 @@
     "@types/node": "10.12.27",
     "@typescript-eslint/eslint-plugin": "2.0.0",
     "@typescript-eslint/eslint-plugin-tslint": "2.0.0",
-    "@typescript-eslint/parser": "2.0.0",
     "angular2-template-loader": "0.6.2",
     "autoprefixer": "9.6.1",
     "base-href-webpack-plugin": "2.0.0",

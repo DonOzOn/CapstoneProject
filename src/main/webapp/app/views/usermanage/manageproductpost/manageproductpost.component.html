@@ -1,5 +1,4 @@
-<!-- Heading -->
-<div class="card mb-2 wow fadeIn">
+
             <p-toast [style]="{marginTop: '80px'}"></p-toast>
             <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
                 <p-footer>
@@ -9,18 +8,6 @@
                         (click)="cd.accept()"></button>
                 </p-footer>
             </p-confirmDialog>
-    <!--Card content-->
-    <div class="card-body d-sm-flex justify-content-between">
-
-        <h5 class="mb-1 mb-sm-0 pt-1">
-            <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Quản lý tài khoản</a>
-            <span>/</span>
-            <span>Quản lý bài đăng mua bán</span>
-        </h5>
-    </div>
-
-</div>
-<!-- Heading -->
 
 <!--Grid row-->
 <div class="row wow fadeIn">
@@ -37,7 +24,7 @@
                     <div class="col-md-12">
                         <div class="card-body">
                             <div class="row col-md-12 m-0 p-0 d-flex justify-content-center">
-                                <p-dataView #dv [value]="posts" [paginator]="true" [lazy]="true" (onLazyLoad)="loadData($event)" [rows]="10" paginatorPosition="both" filterBy="productPostResponseDTO.productPostTitle" [sortField]="sortField" [sortOrder]="sortOrder">
+                                <p-dataView #dv [value]="posts" [paginator]="true" [lazy]="true" (onLazyLoad)="loadData($event)" [rows]="10" paginatorPosition="both" filterBy="productPostResponseDTO.productPostTitle">
                                     <p-header>
                                         <div class="ui-helper-clearfix">
                                             <div class="ui-g">

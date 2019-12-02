@@ -119,6 +119,10 @@
                           <div class="ui-g-9 ui-sm-6"><b>{{new.createdDate | date:'HH:mm dd/MM/yyyy'}}</b></div>
                           <div class="ui-g-3 ui-sm-6">Người đăng:</div>
                           <div class="ui-g-9 ui-sm-6"><b>{{new.createdBy}}</b></div>
+                          <div class="ui-g-3 ui-sm-6">Trạng thái: </div>
+                          <div class="ui-g-9 ui-sm-6" *ngIf="new.status"><span class="badge badge-success">Tồn tại</span></div>
+                          <div class="ui-g-9 ui-sm-6" *ngIf="!new.status"><span class="badge badge-danger">Không tồn tạ<i></i></span></div>
+
                         </div>
                       </div>
                       <div class="ui-g-12 ui-md-1 search-icon py-3">
@@ -130,15 +134,12 @@
                           (click)="selectNews($event, new)"
                           label="Xem"
                         ></button>
-                        <button
-                          class="d-flex justify-content-end mt-5 ui-button-danger"
-                          pButton
-                          type="button"
-                          icon=""
-                          (click)="deleteNews(new.id)"
-                          label="Xoá"
-                        ></button>
-                      </div>
+                        <button class="btn btn-warning d-flex justify-content-center" *ngIf="new.status" (click)="deleteNews(new.id)"
+                        >Tắt</button>
+                     <button class="btn btn-success d-flex justify-content-end" *ngIf="!new.status" (click)="deleteNews(new.id)"
+                        >Bật</button>
+
+                    </div>
                     </div>
                   </ng-template>
                   <ng-template let-new pTemplate="gridItem">

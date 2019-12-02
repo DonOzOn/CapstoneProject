@@ -35,9 +35,18 @@ import { Ng7DynamicBreadcrumbModule } from 'ng7-dynamic-breadcrumb';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ManageGuestCareComponent } from './manage-guest-care-product/manage-guest-care-product.component';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
-  declarations: [UsermanageComponent, ProfileComponent, ManageproductpostComponent, ManagereviewpostComponent, NotificationComponent],
+  declarations: [
+    UsermanageComponent,
+    ProfileComponent,
+    ManageproductpostComponent,
+    ManagereviewpostComponent,
+    NotificationComponent,
+    ManageGuestCareComponent
+  ],
   imports: [
     CommonModule,
     UsermanageRoutingModule,
@@ -71,9 +80,17 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     ToastModule,
     InputTextareaModule,
     RealestatebrokerageSharedModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    TableModule
   ],
   providers: [],
-  exports: [UsermanageComponent, ProfileComponent, ManageproductpostComponent, ManagereviewpostComponent, NotificationComponent]
+  exports: [
+    UsermanageComponent,
+    ProfileComponent,
+    ManageproductpostComponent,
+    ManagereviewpostComponent,
+    NotificationComponent,
+    ManageGuestCareComponent
+  ]
 })
 export class UsermanageModule {}

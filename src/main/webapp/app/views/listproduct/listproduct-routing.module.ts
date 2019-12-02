@@ -12,8 +12,6 @@ export class TypeResolve implements Resolve<any> {
     const type = route.params.type ? route.params.type : null;
     const postType = route.params.postType ? route.params.postType : null;
     if (type !== null && postType !== null) {
-      // eslint-disable-next-line
-      console.log('valuetype', type);
       return this.service.listAllByType(type, postType);
     }
     return new this.detainew();
@@ -40,12 +38,7 @@ export class PostTypeResolve implements Resolve<any> {
   constructor(private service: PostService) {}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const postType = route.params.postType ? route.params.postType : null;
-    // eslint-disable-next-line
-    console.log('da qua day1', postType);
-
     if (postType) {
-      // eslint-disable-next-line
-      console.log('da qua day', postType);
       return this.service.listAllByProductPostType(postType);
     }
     return new this.detainew();
@@ -60,6 +53,19 @@ export class ProvinceResolve implements Resolve<any> {
     const province = route.params.province ? route.params.province : null;
     if (province) {
       return this.service.listAllByProvince(province);
+    }
+    return new this.detainew();
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class FullTextSearchResolve implements Resolve<any> {
+  detainew: any;
+  constructor(private service: PostService) {}
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const textSearch = route.params.textSearch ? route.params.textSearch : null;
+    if (textSearch) {
+      return this.service.fullTextSearch(textSearch);
     }
     return new this.detainew();
   }
@@ -159,6 +165,13 @@ const routes: Routes = [
               url: ''
             }
           ]
+        }
+      },
+      {
+        path: 'fullTextSearch/:textSearch',
+        component: ListproductComponent,
+        resolve: {
+          typeSearch: FullTextSearchResolve
         }
       }
     ]

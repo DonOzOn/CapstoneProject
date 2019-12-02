@@ -289,6 +289,9 @@ export class ManageAllProductpostComponent implements OnInit {
   getListPostProduct() {
     this.postService.query().subscribe(res => {
       this.posts = res.body;
+      this.posts.sort(function(obj1: any, obj2: any) {
+        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
+      });
     });
   }
   onSortChange(event: { value: any }) {

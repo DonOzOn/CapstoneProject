@@ -3,6 +3,7 @@ import { trigger, state, transition, style, animate } from '@angular/animations'
 import { DOCUMENT } from '@angular/common';
 import { NavigationStart, NavigationEnd, Router, NavigationCancel, NavigationError } from '@angular/router';
 import { FacebookService, InitParams } from 'ngx-facebook';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import { FacebookService, InitParams } from 'ngx-facebook';
   styleUrls: ['./app.component.scss'],
   animations: [
     trigger('fade', [state('void', style({ opacity: 0 })), transition(':enter', [animate(300)]), transition(':leave', [animate(500)])])
-  ]
+  ],
+  providers: [MessageService]
 })
 export class AppComponent implements OnInit {
   title = 'RealEstateBrokerageCient';
