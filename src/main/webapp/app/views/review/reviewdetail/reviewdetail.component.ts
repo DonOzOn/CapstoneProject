@@ -9,8 +9,8 @@ import { IReview } from 'app/core/review/review.model';
   styleUrls: ['./reviewdetail.component.scss']
 })
 export class ReviewdetailComponent implements OnInit {
-  id: any;
   detailReview: IReview;
+  id: any;
   constructor(private newService: ReviewService, private activatedRoute: ActivatedRoute, private router: Router) {}
   ngOnInit() {
     this.activatedRoute.data.subscribe(res => {
