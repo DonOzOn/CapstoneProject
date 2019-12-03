@@ -5,39 +5,49 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { tap } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { INotification } from './notification.model';
+import { createRequestOption } from 'app/shared/util/request-util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  public newsResourceUrl = SERVER_API_URL + 'api/notification';
+  public noTiResourceUrl = SERVER_API_URL + 'api/notification';
   public resourceUrl2 = SERVER_API_URL + 'api/sendTopic';
+  formData: INotification[];
 
   constructor(private http: HttpClient, private alertService: JhiAlertService) {}
 
-  sendMessage(token: any): Observable<HttpResponse<INotification[]>> {
+  sendMessage(token: any, title: any, content: any, type: any): Observable<HttpResponse<INotification[]>> {
     const param = {
-      token
+      token,
+      title,
+      content,
+      type
     };
     return this.http.get<INotification[]>(`${this.resourceUrl2}`, { params: param, observe: 'response' });
   }
 
-  getListNoti(): Observable<HttpResponse<INotification[]>> {
-    return this.http.get<INotification[]>(this.newsResourceUrl, { observe: 'response' });
+  sendMessageAndAddNoti(noti: INotification): Observable<HttpResponse<INotification>> {
+    return this.http.post<INotification>(`${this.resourceUrl2}`, noti, { observe: 'response' });
+  }
+
+  getListNoti(reg?: any): Observable<HttpResponse<INotification[]>> {
+    const options = createRequestOption(reg);
+    this.http
+      .get(this.noTiResourceUrl)
+      .toPromise()
+      .then(res => {
+        this.formData = res as INotification[];
+      });
+    return this.http.get<INotification[]>(this.noTiResourceUrl, { params: options, observe: 'response' });
   }
 
   create(noti: INotification): Observable<HttpResponse<INotification>> {
-    return this.http.post<INotification>(this.newsResourceUrl, noti, { observe: 'response' }).pipe(
-      tap((response: HttpResponse<INotification>) => {
-        if (response.ok) {
-          this.alertService.success('Tạo thành công bài đăng', null, null);
-        }
-      })
-    );
+    return this.http.post<INotification>(this.noTiResourceUrl, noti, { observe: 'response' });
   }
 
   toggleStatus(id): Observable<HttpResponse<INotification>> {
-    return this.http.put(`${this.newsResourceUrl}/${id}/toggle-status`, { observe: 'response' }).pipe(
+    return this.http.put(`${this.noTiResourceUrl}/${id}/toggle-status`, { observe: 'response' }).pipe(
       tap((response: HttpResponse<INotification>) => {
         if (response.ok) {
           // const g = response.body;
@@ -48,7 +58,7 @@ export class NotificationService {
   }
 
   find(id: any): Observable<INotification> {
-    return this.http.get<INotification>(`${this.newsResourceUrl}/${id}`);
+    return this.http.get<INotification>(`${this.noTiResourceUrl}/${id}`);
   }
 
   searchbyDate(fromDate: any, toDate: any): Observable<HttpResponse<INotification[]>> {
@@ -56,14 +66,14 @@ export class NotificationService {
       from: fromDate,
       to: toDate
     };
-    return this.http.get<INotification[]>(`${this.newsResourceUrl}/search-by-date`, { params: param, observe: 'response' });
+    return this.http.get<INotification[]>(`${this.noTiResourceUrl}/search-by-date`, { params: param, observe: 'response' });
   }
 
   update(news: INotification): Observable<INotification> {
-    return this.http.put<INotification>(this.newsResourceUrl, news);
+    return this.http.put<INotification>(this.noTiResourceUrl, news);
   }
 
   delete(id: any): Observable<HttpResponse<any>> {
-    return this.http.delete(`${this.newsResourceUrl}/${id}`, { observe: 'response' });
+    return this.http.delete<HttpResponse<any>>(`${this.noTiResourceUrl}/${id}`, { observe: 'response' });
   }
 }

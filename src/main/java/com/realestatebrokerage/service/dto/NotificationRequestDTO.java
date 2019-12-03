@@ -7,9 +7,11 @@ import java.time.Instant;
 
 public class NotificationRequestDTO {
   private Long id;
-    private Long user;
+    private Long userSend;
+    private Long userReceive;
     private Integer  type;
-    private String  content;
+    private String   content;
+    private String   title;
     private boolean status = false;
     private String createdBy;
     private Instant createdDate;
@@ -22,14 +24,24 @@ public class NotificationRequestDTO {
 
     public NotificationRequestDTO(Notification notification) {
         this.id = notification.getId();
-        this.user = notification.getUser().getId();
+        this.userReceive = notification.getUserReceive().getId();
+        this.userSend = notification.getUserSend().getId();
         this.type = notification.getType();
         this.content = notification.getContent();
         this.status = notification.isStatus();
+        this.title = notification.getTitle();
         this.createdBy = notification.getCreatedBy();
         this.createdDate = notification.getCreatedDate();
         this.lastModifiedBy = notification.getLastModifiedBy();
         this.lastModifiedDate = notification.getLastModifiedDate();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Long getId() {
@@ -40,12 +52,20 @@ public class NotificationRequestDTO {
         this.id = id;
     }
 
-    public Long getUser() {
-        return user;
+    public Long getUserSend() {
+        return userSend;
     }
 
-    public void setUser(Long user) {
-        this.user = user;
+    public void setUserSend(Long userSend) {
+        this.userSend = userSend;
+    }
+
+    public Long getUserReceive() {
+        return userReceive;
+    }
+
+    public void setUserReceive(Long userReceive) {
+        this.userReceive = userReceive;
     }
 
     public Integer getType() {
