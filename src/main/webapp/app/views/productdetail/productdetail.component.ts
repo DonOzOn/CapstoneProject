@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'app/core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SERVER_API_URL } from 'app/app.constants';
 import { NewsService } from 'app/core/news/news.service';
 
@@ -15,9 +15,14 @@ export class ProductdetailComponent implements OnInit {
   images: any[];
   listImage: any = [];
   productdetail: any;
-  listNews: any[];
+  list4News: any[];
   productdetal: PostRespone;
-  constructor(private postService: PostService, private newService: NewsService, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private postService: PostService,
+    private newService: NewsService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
   ngOnInit() {
     this.activatedRoute.data.subscribe(res => {
       this.productdetail = res.detailProduct;
@@ -36,16 +41,24 @@ export class ProductdetailComponent implements OnInit {
     });
     // eslint-disable-next-line
     console.log(' post : ', this.listImage);
-    this.getlistNews();
+    this.getlist4News();
   }
+
   /*  get  list 4 new*/
-  getlistNews() {
+  getlist4News() {
     this.newService.getListNews().subscribe(res => {
-      this.listNews = res.body;
-      this.listNews.sort(function(obj1, obj2) {
-        return obj2.timeCreate - obj1.timeCreate;
+      this.list4News = res.body;
+      // eslint-disable-next-line
+      console.log('Listnew  : ', this.list4News);
+      this.list4News.sort(function(obj1, obj2) {
+        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
       });
-      this.listNews = res.body.slice(0, 4);
+      this.list4News = res.body.slice(0, 4);
     });
+  }
+
+  goToNews(id: any) {
+    // tslint:disable-next-line: no-unused-expression
+    this.router.navigate(['/news', id, 'detail']);
   }
 }
