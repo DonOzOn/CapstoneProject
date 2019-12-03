@@ -211,7 +211,7 @@ public class UserService {
      * @param userDTO user to update.
      * @return updated user.
      */
-    public Optional<UserDTO> updateUser(UserDTO userDTO) {
+    public Optional<UserDTO> updateUser(UserRequestDTO userDTO) {
         return Optional.of(userRepository
             .findById(userDTO.getId()))
             .filter(Optional::isPresent)
@@ -223,15 +223,15 @@ public class UserService {
                 user.setLastName(userDTO.getLastName());
                 user.setEmail(userDTO.getEmail().toLowerCase());
                 if(userDTO.getProvince() != null){
-                    Province province = provinceRepository.findById(userDTO.getProvince().getCode()).orElse(null);
+                    Province province = provinceRepository.findById(userDTO.getProvince()).orElse(null);
                     user.setProvince(province);
                 }
                 if(userDTO.getDistrict() != null){
-                    District district = districtRepository.findById(userDTO.getDistrict().getCode()).orElse(null);
+                    District district = districtRepository.findById(userDTO.getDistrict()).orElse(null);
                     user.setDistrict(district);
                 }
                 if(userDTO.getWard() != null){
-                    Ward ward = wardRepository.findById(userDTO.getWard().getCode()).orElse(null);
+                    Ward ward = wardRepository.findById(userDTO.getWard()).orElse(null);
                     user.setWard(ward);
                 }
                 user.setToken(userDTO.getToken());

@@ -113,8 +113,8 @@ public class GuestCareProductService {
 
     }
 
-    public Page<GuestCareProduct> getAllGuest(Pageable pageable) {
-        return guestCareProductRepository.findAllGuest(pageable);
+    public Page<GuestCareProduct> getAllGuest(Long userId, Pageable pageable) {
+        return guestCareProductRepository.findAllGuest(userId, pageable);
     }
 
 

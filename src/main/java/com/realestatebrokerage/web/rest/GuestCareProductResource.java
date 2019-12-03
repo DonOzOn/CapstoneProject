@@ -103,8 +103,9 @@ public class GuestCareProductResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
      */
     @GetMapping("/guest/getAllGuest")
-    public ResponseEntity<List<GuestCareProductResponeDTO>> getAllGuest(Pageable pageable) {
-        final Page<GuestCareProductResponeDTO> page = guestCareProductService.getAllGuest(pageable).map(GuestCareProductResponeDTO::new);
+    public ResponseEntity<List<GuestCareProductResponeDTO>> getAllGuest(Long userid, Pageable pageable) {
+        log.debug("id: {}", userid );
+        final Page<GuestCareProductResponeDTO> page = guestCareProductService.getAllGuest(userid, pageable).map(GuestCareProductResponeDTO::new);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
