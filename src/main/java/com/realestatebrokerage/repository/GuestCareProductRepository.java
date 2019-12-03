@@ -17,6 +17,6 @@ public interface GuestCareProductRepository extends JpaRepository<GuestCareProdu
     public List<GuestCareProduct> findAllByStatusTrueAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(Instant from, Instant to);
 
     @Query("SELECT DISTINCT g from GuestCareProduct g"
-        + "  WHERE (g.status = true)")
-    Page<GuestCareProduct> findAllGuest(Pageable pageable);
+        + "  WHERE (g.status = true) and (g.user.id = :userid)")
+    Page<GuestCareProduct> findAllGuest(@Param("userid")Long userid, Pageable pageable);
 }

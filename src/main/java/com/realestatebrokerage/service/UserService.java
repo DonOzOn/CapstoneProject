@@ -234,7 +234,7 @@ public class UserService {
                     Ward ward = wardRepository.findById(userDTO.getWard()).orElse(null);
                     user.setWard(ward);
                 }
-
+                user.setToken(userDTO.getToken());
                 user.setPhone(userDTO.getPhone());
                 user.setDob(userDTO.getDob());
                 user.setGender(userDTO.isGender());

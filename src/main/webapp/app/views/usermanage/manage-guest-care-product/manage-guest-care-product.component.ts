@@ -11,6 +11,7 @@ import { tap } from 'rxjs/operators';
 import { Table } from 'primeng/table';
 import { GuestCareProductService } from 'app/core/guest-care-product/guest-care-product.service';
 import { IGuestCareProduct } from 'app/core/guest-care-product/guest-care-product.model';
+import { Account } from 'app/core/user/account.model';
 
 @Component({
   selector: 'app-manage-guest-care-product',
@@ -24,7 +25,7 @@ export class ManageGuestCareComponent implements OnInit {
   selectedType: string;
   types: SelectItem[];
   selectedUtility: string[] = [];
-  name = new FormControl('');
+  userid = new FormControl('');
   isUploadedFile;
   false;
   text1 = '<div>Hello!</div><div>Chào mừng tới BDS</div><div><br></div>';
@@ -36,7 +37,8 @@ export class ManageGuestCareComponent implements OnInit {
   });
   /*  List provinces, district, ward, direction */
 
-  currentAccount: IUser;
+  currentAccount: Account;
+  currentUser: IUser;
   guests: IGuestCareProduct[];
 
   pageSize = 10;
@@ -90,6 +92,13 @@ export class ManageGuestCareComponent implements OnInit {
       return parseInt(filter) > value;
     };
     this.loading = true;
+    this.accountService.identity().subscribe((account: Account) => {
+      this.currentAccount = account;
+      this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
+        this.currentUser = userAuthen;
+        this.userid = this.currentUser.id;
+      });
+    });
   }
 
   changeRole(event) {
@@ -118,7 +127,7 @@ export class ManageGuestCareComponent implements OnInit {
 
   fetch(page = 0, sort?) {
     this.guestCareService
-      .query({ page, size: this.pageSize, sort })
+      .query({ userid: this.userid, size: this.pageSize, sort })
       .pipe(tap(() => (this.loading = true)))
       .subscribe((res: HttpResponse<IUser[]>) => this.onSuccess(res.body, res.headers), (res: HttpResponse<any>) => this.onError(res.body));
   }

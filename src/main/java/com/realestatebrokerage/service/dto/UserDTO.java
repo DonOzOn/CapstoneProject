@@ -43,6 +43,8 @@ public class UserDTO {
 
     private Ward ward;
 
+    private String token;
+
     private Province province;
 
     private District district;
@@ -69,6 +71,8 @@ public class UserDTO {
         // Empty constructor needed for Jackson.
     }
 
+
+
     public UserDTO(User user) {
         this.id = user.getId();
         this.login = user.getLogin();
@@ -87,7 +91,7 @@ public class UserDTO {
         if(user.getWard() != null){
             this.ward = user.getWard();
         }
-
+        this.token = user.getToken();
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();
         this.langKey = user.getLangKey();
@@ -100,6 +104,13 @@ public class UserDTO {
             .collect(Collectors.toSet());
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public LocalDate getDob() {
         return dob;

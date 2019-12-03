@@ -48,7 +48,7 @@
         // ...
       });
 
-      function requestPermission() {
+      window.requestPermission = function() {
         console.log('Requesting permission...');
         // [START request_permission]
         Notification.requestPermission().then(permission => {
@@ -62,7 +62,7 @@
                   } else {
                     setTokenSentToServer();
                     console.log('currentToken: ', currentToken);
-                    // window.dispatchEvent(new CustomEvent('subcribeTopicScript', { detail: currentToken }));
+                    window.dispatchEvent(new CustomEvent('saveToken', { detail: currentToken }));
                   }
                 } else {
                   console.log('No Instance ID token available. Request permission to generate one.');
@@ -78,7 +78,7 @@
           }
         });
         // [END request_permission]
-      }
+      };
 
       function getTokenSentToServer() {
         return window.localStorage.getItem('sentToServer');
@@ -96,7 +96,7 @@
               console.log('Service Worker Registered');
             },
             err => {
-              console.log('ERROR:  ',err);
+              console.log('ERROR:  ', err);
             }
           );
         });
