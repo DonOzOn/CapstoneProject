@@ -9,35 +9,55 @@ import { SERVER_API_URL } from 'app/app.constants';
   styleUrls: ['./newspage.component.scss']
 })
 export class NewspageComponent implements OnInit {
+  imageUrl = SERVER_API_URL + '/api/upload/files/';
+  listNews: INews[];
+  countNew: any;
+  list4News: any[] = [];
+  /* pagination */
+  public directionLinks = true;
+  public autoHide = false;
+  public responsive = true;
+  public maxSize = 5;
+  listPagination: any[] = [];
   config: any;
-  count: any;
   public labels: any = {
     previousLabel: 'Previous',
     nextLabel: 'Next'
   };
-  imageUrl = SERVER_API_URL + '/api/upload/files/';
-  listNews: INews[] = [];
+
   constructor(private newService: NewsService) {
-    // for (let i = 0; i < this.count; i++) {
-    //   this.listNews.push({
-    //     id: i + 1,
-    //     value: 'items number' + (i + 1);
-    //   });
-    // }
+    for (let i = 0; i < this.countNew; i++) {
+      this.listPagination.push({
+        id: i + 1,
+        value: 'items number' + (i + 1)
+      });
+    }
     this.config = {
-      itemsPerPage: 4,
+      itemsPerPage: 10,
       currentPage: 1,
-      totalItems: this.count
+      totalItems: this.countNew
     };
   }
 
   ngOnInit() {
     this.getlistNews();
+    this.getTotalPage();
+    this.getlist4News();
     // eslint-disable-next-line
     console.log('dsfdfdf: ', this.listNews);
   }
+
   pageChanged(event) {
     this.config.currentPage = event;
+  }
+  /*  get total page in pagination*/
+  getTotalPage() {
+    this.newService.getListNews().subscribe(res => {
+      this.countNew = res.body.length;
+      // eslint-disable-next-line
+      console.log('totalItem : ', this.countNew);
+      return this.countNew;
+    });
   }
   getlistNews() {
     this.newService.getListNews().subscribe(res => {
@@ -46,13 +66,7 @@ export class NewspageComponent implements OnInit {
       this.listNews = res.body;
     });
   }
-  /*  get total page*/
-  getTotalPage() {
-    this.newService.getListNews().subscribe(res => {
-      this.count = res.body.length;
-      return this.count;
-    });
-  }
+
   /*  get  list 4 new*/
   getlist4New() {
     this.newService.getListNews().subscribe(res => {
@@ -61,6 +75,19 @@ export class NewspageComponent implements OnInit {
       //   // return obj2.createdDate - obj1.createdDate;
       // });
       this.listNews = res.body.slice(0, 4);
+    });
+  }
+
+  /*  get  list 4 new*/
+  getlist4News() {
+    this.newService.getListNews().subscribe(res => {
+      this.list4News = res.body;
+      // eslint-disable-next-line
+      console.log('Listnew  : ', this.list4News);
+      this.list4News.sort(function(obj1, obj2) {
+        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
+      });
+      this.list4News = res.body.slice(0, 4);
     });
   }
 }

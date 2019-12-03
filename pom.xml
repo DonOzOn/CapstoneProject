@@ -341,6 +341,17 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
             <version>2.1.11.RELEASE</version>
+
+        <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>6.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gms</groupId>
+            <artifactId>google-services</artifactId>
+            <version>3.0.0</version>
+            <scope>runtime</scope>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>

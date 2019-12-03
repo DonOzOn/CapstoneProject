@@ -22,10 +22,18 @@
   display: -webkit-box;
   line-height: 1.5em;
   /* fallback */
-  max-height: 3.6em;
+  max-height: 3.3em;
   min-height: 2.4em;
   /* fallback */
   -webkit-line-clamp: 2;
   /* number of lines to show */
   -webkit-box-orient: vertical;
+}
+
+.container-fluid {
+  // padding: 0;
+  margin: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
 }

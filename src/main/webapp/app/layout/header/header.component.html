@@ -20,7 +20,7 @@
                                 Mua bán</a>
                         <div class="dropdown-menu multi-level">
                             <div class="dropdown-submenu">
-                                <a  [routerLink]="['/listproduct','typeSearch', 1 , 1 ,'Mua bán', 'Căn hộ']" class="dropdown-item" data-toggle="dropdown">Căn hộ</a>
+                                <a [routerLink]="['/listproduct','typeSearch', 1 , 1 ,'Mua bán', 'Căn hộ']" class="dropdown-item" data-toggle="dropdown">Căn hộ</a>
                                 <!-- Level 2 -->
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 1 , 1 ,'Mua bán', 'Căn hộ','Căn hộ trung cấp']">Căn hộ trung cấp</a>
@@ -58,7 +58,7 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link"  [routerLink]="['/listproduct','postTypeSearch', 2 , 'Cho thuê']" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link" [routerLink]="['/listproduct','postTypeSearch', 2 , 'Cho thuê']" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Cho thuê</a>
                         <div class="dropdown-menu multi-level">
                             <div class="dropdown-submenu">
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                             <div class="dropdown-submenu">
-                                <a  [routerLink]="['/listproduct','typeSearch', 2 , 2 ,'Cho thuê', 'Căn hộ']" class="dropdown-item" data-toggle="dropdown">Nhà</a>
+                                <a [routerLink]="['/listproduct','typeSearch', 2 , 2 ,'Cho thuê', 'Căn hộ']" class="dropdown-item" data-toggle="dropdown">Nhà</a>
                                 <!-- Level 2 -->
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 9 , 2 ,'Cho thuê', 'Nhà','Nhà riêng']">Nhà riêng</a>
@@ -86,7 +86,7 @@
                                 </div>
                             </div>
                             <div class="dropdown-submenu">
-                                <a  [routerLink]="['/listproduct','typeSearch', 3 , 2 ,'Cho thuê', 'Căn hộ' ]" class="dropdown-item" data-toggle="dropdown">Biệt thự</a>
+                                <a [routerLink]="['/listproduct','typeSearch', 3 , 2 ,'Cho thuê', 'Căn hộ' ]" class="dropdown-item" data-toggle="dropdown">Biệt thự</a>
                                 <!-- Level 2 -->
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 12 , 2 ,'Cho thuê', 'Biệt thự','Biệt thự nghỉ dưỡng']">Biệt thự nghỉ dưỡng</a>
@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                             <div class="dropdown-submenu">
-                                <a  [routerLink]="['/listproduct','typeSearch', 4 , 2 ,'Cho thuê', 'Căn hộ' ]" class="dropdown-item" data-toggle="dropdown">Văn phòng</a>
+                                <a [routerLink]="['/listproduct','typeSearch', 4 , 2 ,'Cho thuê', 'Căn hộ' ]" class="dropdown-item" data-toggle="dropdown">Văn phòng</a>
                                 <!-- Level 2 -->
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 16 , 2 ,'Cho thuê', 'Văn phòng','Văn phòng Officetel']">Văn phòng Officetel</a>
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                             <div class="dropdown-submenu">
-                                <a  [routerLink]="['/listproduct','typeSearch', 5 , 2 ,'Cho thuê', 'Nhà trọ' ]" class="dropdown-item" >Nhà trọ</a>
+                                <a [routerLink]="['/listproduct','typeSearch', 5 , 2 ,'Cho thuê', 'Nhà trọ' ]" class="dropdown-item">Nhà trọ</a>
                             </div>
                         </div>
                     </li>
@@ -144,8 +144,8 @@
                         <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
                     </div>
                 </div>
-                <button type="button" class="btn btn-outline-primary" *ngSwitchCase="true" [routerLink]="[ '/postproduct']">Đăng tin</button>
-                <button type="button" class="btn btn-outline-primary" *ngSwitchCase="false"pTooltip="Đăng nhập để có thể tạo bài đăng" tooltipPosition="bottom"[routerLink]="[ '/login']">Đăng tin</button>
+                <button type="button" class="btn btn-outline-primary createpost" *ngSwitchCase="true" [routerLink]="[ '/postproduct']">Đăng tin</button>
+                <button type="button" class="btn btn-outline-primary createpost" *ngSwitchCase="false" pTooltip="Đăng nhập để có thể tạo bài đăng" tooltipPosition="bottom" [routerLink]="[ '/login']">Đăng tin</button>
             </div>
         </nav>
     </div>

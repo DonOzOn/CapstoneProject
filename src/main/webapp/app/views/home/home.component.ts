@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { AddressService } from 'app/core/address/address.service';
 import { PostService } from 'app/core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
   list4News: any[] = [];
   count: any;
+  searchText = new FormControl('');
   choose = [{ value: '', name: 'Toàn bộ' }, { value: 1, name: 'Mua bán' }, { value: 2, name: 'Cho thuê' }];
   chooseForm = this.fb.group({
     choose: ['']
@@ -98,6 +99,9 @@ export class HomeComponent implements OnInit {
     this.getListPostProduct();
   }
 
+  /**
+   * Gets list post product
+   */
   getListPostProduct() {
     this.postService.query().subscribe(res => {
       this.post = res.body;
@@ -114,10 +118,15 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   * Go to news
+   * @param id
+   */
   goToNews(id: any) {
     // tslint:disable-next-line: no-unused-expression
     this.router.navigate(['/news', id, 'detail']);
   }
+
   /*  get  list 4 new*/
   getlist4News() {
     this.newService.getListNews().subscribe(res => {
@@ -125,10 +134,18 @@ export class HomeComponent implements OnInit {
       // eslint-disable-next-line
       console.log('Listnew  : ', this.list4News);
       this.list4News.sort(function(obj1, obj2) {
-        return obj2.timeCreate - obj1.timeCreate;
+        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
       });
       this.list4News = res.body.slice(0, 4);
     });
   }
+
   onChange($event) {}
+
+  /**
+   * Searchs
+   */
+  search() {
+    this.router.navigate(['/listproduct', 'fullTextSearch', this.searchText.value]);
+  }
 }

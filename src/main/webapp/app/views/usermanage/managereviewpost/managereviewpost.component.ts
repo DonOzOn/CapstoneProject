@@ -160,6 +160,9 @@ export class ManagereviewpostComponent implements OnInit {
   getListReview(id: any) {
     this.reviewService.listAllByUserID(id).subscribe(res => {
       this.reviews = res.body;
+      this.reviews.sort(function(obj1: any, obj2: any) {
+        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
+      });
       // eslint-disable-next-line
       console.log('List all review : ', this.reviews);
     });

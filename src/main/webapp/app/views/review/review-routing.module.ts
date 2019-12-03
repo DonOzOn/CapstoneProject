@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReviewComponent } from './review.component';
 import { ListreviewComponent } from './listreview/listreview.component';
 import { ReviewpageComponent } from './reviewpage/reviewpage.component';
+import { ReviewdetailComponent } from './reviewdetail/reviewdetail.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
       {
         path: 'listreview',
         component: ListreviewComponent
+      },
+      {
+        path: 'reviewdetail',
+        component: ReviewdetailComponent
       }
     ]
   }

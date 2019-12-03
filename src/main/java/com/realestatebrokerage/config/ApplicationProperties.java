@@ -10,6 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
+    private final FireBase fireBase = new FireBase();
     public String baseLocation;
 
     public String getBaseLocation() {
@@ -18,5 +19,100 @@ public class ApplicationProperties {
 
     public void setBaseLocation(String baseLocation) {
         this.baseLocation = baseLocation;
+    }
+    public FireBase getFireBase() {
+        return fireBase;
+    }
+    public static class FireBase {
+        private String type;
+        private String projectId;
+        private String privateKeyId;
+        private String privateKey;
+        private String clientEmail;
+        private String clientId;
+        private String authUri;
+        private String tokenUri;
+        private String authProviderX509CertUrl;
+        private String clientX509CertUrl;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getProjectId() {
+            return projectId;
+        }
+
+        public void setProjectId(String projectId) {
+            this.projectId = projectId;
+        }
+
+        public String getPrivateKeyId() {
+            return privateKeyId;
+        }
+
+        public void setPrivateKeyId(String privateKeyId) {
+            this.privateKeyId = privateKeyId;
+        }
+
+        public String getPrivateKey() {
+            return privateKey;
+        }
+
+        public void setPrivateKey(String privateKey) {
+            this.privateKey = privateKey;
+        }
+
+        public String getClientEmail() {
+            return clientEmail;
+        }
+
+        public void setClientEmail(String clientEmail) {
+            this.clientEmail = clientEmail;
+        }
+
+        public String getClientId() {
+            return clientId;
+        }
+
+        public void setClientId(String clientId) {
+            this.clientId = clientId;
+        }
+
+        public String getAuthUri() {
+            return authUri;
+        }
+
+        public void setAuthUri(String authUri) {
+            this.authUri = authUri;
+        }
+
+        public String getTokenUri() {
+            return tokenUri;
+        }
+
+        public void setTokenUri(String tokenUri) {
+            this.tokenUri = tokenUri;
+        }
+
+        public String getAuthProviderX509CertUrl() {
+            return authProviderX509CertUrl;
+        }
+
+        public void setAuthProviderX509CertUrl(String authProviderX509CertUrl) {
+            this.authProviderX509CertUrl = authProviderX509CertUrl;
+        }
+
+        public String getClientX509CertUrl() {
+            return clientX509CertUrl;
+        }
+
+        public void setClientX509CertUrl(String clientX509CertUrl) {
+            this.clientX509CertUrl = clientX509CertUrl;
+        }
     }
 }

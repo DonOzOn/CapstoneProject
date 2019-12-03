@@ -160,6 +160,21 @@ ul li .card .new-card {
 
 /*Content, Title short*/
 
+.giveMeEllipsisSlide {
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 1.2em;
+  /* fallback */
+  max-height: 3.6em;
+  min-height: 2.4em;
+  /* fallback */
+  -webkit-line-clamp: 2;
+  /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
 .giveMeEllipsis {
   word-break: break-word;
   overflow: hidden;

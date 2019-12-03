@@ -88,6 +88,7 @@ export class ReviewpageComponent implements OnInit {
         this.currentUser = userAuthen;
       });
     });
+    this.getListReview();
   }
 
   /**
@@ -122,11 +123,14 @@ export class ReviewpageComponent implements OnInit {
   }
 
   /**
-   * Gets list new
+   * Gets list review
    */
-  getListNew() {
-    this.reviewService.getListNews().subscribe(res => {
+  getListReview() {
+    this.reviewService.getListReview().subscribe(res => {
       this.reviews = res.body;
+      this.reviews = this.reviews.filter(review => {
+        return (review.status = true);
+      });
     });
   }
 
@@ -164,7 +168,7 @@ export class ReviewpageComponent implements OnInit {
    * @param url
    */
   redirectTo(url: string) {
-    this.router.navigateByUrl('/admin', { skipLocationChange: true }).then(() => this.router.navigate([url]));
+    this.router.navigateByUrl('/usermanage', { skipLocationChange: true }).then(() => this.router.navigate([url]));
   }
 
   /**

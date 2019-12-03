@@ -13,7 +13,7 @@ export class ReviewService {
   public newsResourceUrl = SERVER_API_URL + 'api/review';
   constructor(private http: HttpClient, private alertService: JhiAlertService) {}
 
-  getListNews(): Observable<HttpResponse<IReview[]>> {
+  getListReview(): Observable<HttpResponse<IReview[]>> {
     return this.http.get<IReview[]>(this.newsResourceUrl, { observe: 'response' });
   }
 
@@ -59,6 +59,6 @@ export class ReviewService {
   }
 
   delete(id: any): Observable<HttpResponse<any>> {
-    return this.http.delete(`${this.newsResourceUrl}/${id}`, { observe: 'response' });
+    return this.http.delete<any>(`${this.newsResourceUrl}/${id}`, { observe: 'response' });
   }
 }

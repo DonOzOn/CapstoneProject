@@ -106,6 +106,7 @@ public class ProductPost extends AbstractAuditingEntity implements Serializable 
     @JoinColumn(referencedColumnName = "id", name = "product_id")
     private Product product;
 
+    @Field(index= Index.YES, store= Store.NO)
     @NotNull
     @Column(name = "status", nullable = false)
     private boolean status = false;

@@ -5,6 +5,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ManageproductpostComponent } from './manageproductpost/manageproductpost.component';
 import { ManagereviewpostComponent } from './managereviewpost/managereviewpost.component';
 import { NotificationComponent } from './notification/notification.component';
+import { ManageGuestCareComponent } from './manage-guest-care-product/manage-guest-care-product.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,22 @@ const routes: Routes = [
             },
             {
               label: 'Quản lí bài đăng review - câu hỏi',
+              url: ''
+            }
+          ]
+        }
+      },
+      {
+        path: 'manage-guest-care',
+        component: ManageGuestCareComponent,
+        data: {
+          breadcrumb: [
+            {
+              label: 'Quản lí tài khoản',
+              url: '/usermanage'
+            },
+            {
+              label: 'Danh sách quan tâm sản phẩm',
               url: ''
             }
           ]

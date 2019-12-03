@@ -8,10 +8,11 @@ import { NewsComponent } from './news.component';
 import { NewsRoutingModule } from './news-routing.module';
 import { NewsdetailComponent } from './newsdetail/newsdetail.component';
 import { NewspageComponent } from './newspage/newspage.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [NewsComponent, NewsdetailComponent, NewspageComponent],
-  imports: [CommonModule, NewsRoutingModule, FlickityModule, MDBBootstrapModule.forRoot(), OwlModule],
+  imports: [CommonModule, NewsRoutingModule, NgxPaginationModule, FlickityModule, MDBBootstrapModule.forRoot(), OwlModule],
   providers: [],
   exports: [NewsComponent]
 })

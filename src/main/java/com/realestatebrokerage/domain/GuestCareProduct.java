@@ -20,39 +20,42 @@ public class GuestCareProduct extends AbstractAuditingEntity implements Serializ
     @Column(name = "phone", length = 12)
     private String phone;
 
-    @Email
-    @Size(max = 50)
-    @Column(name = "email", length = 50)
+    @Size(max = 256)
+    @Column(name = "email", length = 256)
     private String email;
+
+    @Size(max = 50)
+    @Column(name = "name", length = 50)
+    private String name;
+
+    @Size(max = 200)
+    @Column(name = "mess", length = 200)
+    private String mess;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", name = "product_post_id")
     private ProductPost productPost;
 
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id", name = "user_id")
+    private User user;
+
     @NotNull
-    @Column(nullable = false)
-    private boolean status = false;
+    @Column(name = "status")
+    private boolean status;
 
 
     public GuestCareProduct() {
     }
 
-    public GuestCareProduct(GuestCareProduct guestCareProduct){
-        this.id = guestCareProduct.getId();
-        this.phone = guestCareProduct.getPhone();
-        this.email = guestCareProduct.getEmail();
-        this.status = guestCareProduct.getStatus();
-        if (guestCareProduct.getProductPost() != null) {
-            this.productPost = guestCareProduct.getProductPost();
-        }
-    }
-
-    public ProductPost getProductPost() {
-        return productPost;
-    }
-
-    public void setProductPost(ProductPost productPost) {
+    public GuestCareProduct(@Size(max = 12) String phone, @Email @Size(max = 256) String email, @Size(max = 50) String name, @Size(max = 200) String mess, ProductPost productPost, User user, @NotNull boolean status) {
+        this.phone = phone;
+        this.email = email;
+        this.name = name;
+        this.mess = mess;
         this.productPost = productPost;
+        this.user = user;
+        this.status = status;
     }
 
     public Long getId() {
@@ -79,7 +82,39 @@ public class GuestCareProduct extends AbstractAuditingEntity implements Serializ
         this.email = email;
     }
 
-    public boolean getStatus() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMess() {
+        return mess;
+    }
+
+    public void setMess(String mess) {
+        this.mess = mess;
+    }
+
+    public ProductPost getProductPost() {
+        return productPost;
+    }
+
+    public void setProductPost(ProductPost productPost) {
+        this.productPost = productPost;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public boolean isStatus() {
         return status;
     }
 

@@ -21,9 +21,11 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { PanelModule } from 'primeng/components/panel/panel';
 import { TabViewModule } from 'primeng/components/tabview/tabview';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ReviewdetailComponent } from './reviewdetail/reviewdetail.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
-  declarations: [ReviewComponent, ListreviewComponent, ReviewpageComponent],
+  declarations: [ReviewComponent, ListreviewComponent, ReviewpageComponent, ReviewdetailComponent],
   imports: [
     CommonModule,
     ReviewRoutingModule,
@@ -36,6 +38,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MessagesModule,
     MessageModule,
     ToastModule,
+    NgxPaginationModule,
     InputTextModule,
     InputTextareaModule,
     SelectButtonModule,
