@@ -33,8 +33,6 @@
                                                   <small class="timestamp"> {{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</small>
                                                   <span  *ngIf="item.status" (click)="seen(item.id)" class="badge badge-success">Chưa xem</span>
                                                  <span *ngIf="!item.status" (click)="seen(item.id)"  class="badge badge-danger">Đã xem<i class="pi pi-check"></i></span>
-                                                  <!-- <p-checkbox  (onChange)="seen(item.id)"></p-checkbox>
-                                                  <input type="checkbox" (change)="seen(item.id)"> -->
                                                 </div>
                                               </div>
                                             </div>
