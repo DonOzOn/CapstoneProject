@@ -384,7 +384,7 @@
                                                             (onTextChange)="countContentNumber()"
                                                             [style]="{'height':'320px'}"></p-editor>
                                                         <button class="mt-2" pButton type="button" label="Clear" icon="pi pi-times"
-                                                        (click)="text1=null"></button>
+                                                        (click)="text1=null" [disabled]="!countContentNumber()"></button>
                                                     </span>
                                                     <!-- <small class="form-text text-danger" *ngIf="productPostForm.get('content').errors.maxlength">
                                                                 Mô tải dài nhất có 255 một kí tự.
