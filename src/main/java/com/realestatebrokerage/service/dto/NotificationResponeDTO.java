@@ -6,9 +6,11 @@ import java.time.Instant;
 
 public class NotificationResponeDTO {
   private Long id;
-    private User user;
+    private User userSend;
+    private User userReceive;
     private Integer  type;
     private String  content;
+    private String title;
     private boolean status = false;
     private String createdBy;
     private Instant createdDate;
@@ -21,14 +23,25 @@ public class NotificationResponeDTO {
 
     public NotificationResponeDTO(Notification notification) {
         this.id = notification.getId();
-        this.user = notification.getUser();
+        this.userSend = notification.getUserSend();
+        this.userReceive = notification.getUserReceive();
         this.type = notification.getType();
         this.content = notification.getContent();
         this.status = notification.isStatus();
+        this.title = notification.getTitle();
         this.createdBy = notification.getCreatedBy();
         this.createdDate = notification.getCreatedDate();
         this.lastModifiedBy = notification.getLastModifiedBy();
         this.lastModifiedDate = notification.getLastModifiedDate();
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Long getId() {
@@ -39,12 +52,20 @@ public class NotificationResponeDTO {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getUserSend() {
+        return userSend;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserSend(User userSend) {
+        this.userSend = userSend;
+    }
+
+    public User getUserReceive() {
+        return userReceive;
+    }
+
+    public void setUserReceive(User userReceive) {
+        this.userReceive = userReceive;
     }
 
     public Integer getType() {

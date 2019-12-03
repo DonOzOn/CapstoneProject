@@ -79,7 +79,16 @@ public class UserService {
             });
     }
 
+    public Optional<User> findUserByToken(String token) {
+        log.debug("find user by token {}", token);
+        return userRepository.findUserByTokenEquals(token);
+    }
 
+
+    public Optional<User> findUserByID(Long id) {
+        log.debug("find user by id {}", id);
+        return userRepository.findById(id);
+    }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
         log.debug("Reset user password for reset key {}", key);

@@ -68,6 +68,14 @@
                                                         Tên
                                                         <p-sortIcon field="name"></p-sortIcon>
                                                     </th>
+                                                    <th pSortableColumn="createdBy">
+                                                        Tài khoản
+                                                        <p-sortIcon field="createdBy"></p-sortIcon>
+                                                    </th>
+                                                    <th pSortableColumn="createdDate">
+                                                        Ngày gửi
+                                                        <p-sortIcon field="createdDate"></p-sortIcon>
+                                                    </th>
                                                     <th pSortableColumn="email">
                                                         Email
                                                         <p-sortIcon field="email"></p-sortIcon>
@@ -93,6 +101,8 @@
                                             <td>
                                                 {{guest.name}}
                                             </td>
+                                            <td>{{guest.createdBy}}</td>
+                                            <td>{{guest.createdDate  | date:'HH:mm dd/MM/yyyy'}}</td>
                                             <td>{{guest.email}}</td>
                                             <td>{{guest.phone}}</td>
                                             <td>{{guest.productPost?.productPostTitle}}</td>

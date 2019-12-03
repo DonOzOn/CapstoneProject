@@ -17,8 +17,8 @@ public class Notification extends AbstractAuditingEntity implements Serializable
     private Long id;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", name = "user_id")
-    private User user;
+    @JoinColumn(referencedColumnName = "id", name = "user_send_id")
+    private User userSend;
 
     @Column(name = "type")
     private Integer type;
@@ -29,18 +29,23 @@ public class Notification extends AbstractAuditingEntity implements Serializable
     @Column(name = "status")
     private boolean status;
 
+    @Column(name = "title")
+    private String title;
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id", name = "user_receive_id")
+    private User userReceive;
+
     public Notification() {
     }
 
-    public Notification(User user, Integer type, String content, boolean status) {
-        this.user = user;
+    public Notification(User userSend, Integer type, String content, boolean status, String title, User userReceive) {
+        this.userSend = userSend;
         this.type = type;
         this.content = content;
         this.status = status;
-    }
-
-    public boolean isStatus() {
-        return status;
+        this.title = title;
+        this.userReceive = userReceive;
     }
 
     public Long getId() {
@@ -51,12 +56,12 @@ public class Notification extends AbstractAuditingEntity implements Serializable
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getUserSend() {
+        return userSend;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserSend(User userSend) {
+        this.userSend = userSend;
     }
 
     public Integer getType() {
@@ -73,5 +78,29 @@ public class Notification extends AbstractAuditingEntity implements Serializable
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public User getUserReceive() {
+        return userReceive;
+    }
+
+    public void setUserReceive(User userReceive) {
+        this.userReceive = userReceive;
     }
 }
