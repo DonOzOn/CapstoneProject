@@ -19,19 +19,12 @@ public class UserRequestDTO {
 
     private Long id;
 
-    @NotBlank
-    @Pattern(regexp = Constants.LOGIN_REGEX)
-    @Size(min = 1, max = 50)
     private String login;
 
-    @Size(max = 50)
     private String firstName;
 
-    @Size(max = 50)
     private String lastName;
 
-    @Email
-    @Size(min = 5, max = 254)
     private String email;
 
     private LocalDate dob;
@@ -40,21 +33,24 @@ public class UserRequestDTO {
 
     private boolean gender;
 
+    private String token;
     private String ward;
 
     private String province;
 
     private String district;
 
-    @Size(max = 256)
     private String imageUrl;
 
     private boolean activated = false;
 
-    @Size(min = 2, max = 10)
     private String langKey;
 
     private Set<String> authorities;
+    private String createdBy;
+    private Instant createdDate;
+    private String lastModifiedBy;
+    private Instant lastModifiedDate;
 
     public UserRequestDTO() {
         // Empty constructor needed for Jackson.
@@ -78,12 +74,57 @@ public class UserRequestDTO {
         if(user.getWard() != null){
             this.ward = user.getWard().getCode();
         }
+        this.token = user.getToken();
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();
         this.langKey = user.getLangKey();
+        this.createdBy = user.getCreatedBy();
+        this.createdDate = user.getCreatedDate();
+        this.lastModifiedBy = user.getLastModifiedBy();
+        this.lastModifiedDate = user.getLastModifiedDate();
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Instant getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public Instant getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Instant lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     public LocalDate getDob() {
