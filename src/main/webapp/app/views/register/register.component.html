@@ -36,7 +36,7 @@
                                 <div class="col">
                                     <!-- First name -->
                                     <label class="form-control-label" for="firstName">Họ</label>
-                                    <input  formControlName="firstName" type="text" id="firstName" name="firstName" class="form-control" placeholder="Họ">
+                                    <input formControlName="firstName" type="text" id="firstName" name="firstName" class="form-control" placeholder="Họ">
                                     <div *ngIf="registerForm.get('firstName').invalid && (registerForm.get('firstName').dirty || registerForm.get('firstName').touched)">
                                         <small class="form-text text-danger" *ngIf="registerForm.get('firstName').errors.required">
                                                     Họ không được để trống.
@@ -215,9 +215,9 @@
                         <p>Bằng cách nhấp vào
                             <em>Đăng ký,</em> bạn đồng ý
                             <a href="" target="_blank">với các điều khoản của chúng tôi</a>
-                        <p class="text-center">Khi bạn nhấn
-                            <em>đăng kí</em> bạn đồng ý với chúng tôi về
-                            <a href="" target="_blank">điều khoản dịch vụ</a>
+                            <p class="text-center">Khi bạn nhấn
+                                <em>đăng kí</em> bạn đồng ý với chúng tôi về
+                                <a href="" target="_blank">điều khoản dịch vụ</a>
 
                     </form>
                     <!-- Default form register -->

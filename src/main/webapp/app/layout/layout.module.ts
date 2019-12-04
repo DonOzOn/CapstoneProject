@@ -13,11 +13,12 @@ import { P500Component } from './error/500.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
 import { GotoTopComponent } from './gotoTop/gotoTop.component';
+import { NewComponent } from './new/new.component';
 
 const routes: Routes = [{ path: 'product', component: ProductdetailComponent }];
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, P403Component, P404Component, P500Component, GotoTopComponent],
+  declarations: [HeaderComponent, FooterComponent, P403Component, P404Component, P500Component, GotoTopComponent, NewComponent],
   imports: [
     NgbModule,
     CommonModule,
@@ -28,6 +29,6 @@ const routes: Routes = [{ path: 'product', component: ProductdetailComponent }];
     RealestatebrokerageSharedModule
   ],
   providers: [],
-  exports: [HeaderComponent, FooterComponent, GotoTopComponent]
+  exports: [HeaderComponent, FooterComponent, GotoTopComponent, NewComponent]
 })
 export class LayoutModule {}

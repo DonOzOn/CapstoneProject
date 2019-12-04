@@ -18,7 +18,6 @@ let self: any;
 })
 export class HomeComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
-  list4News: any[] = [];
   count: any;
   currentAccount: Account;
   currentUser: IUser;
@@ -104,7 +103,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getProvince();
-    this.getlist4News();
     this.getListPostProduct();
     this.accountService.identity().subscribe((account: Account) => {
       this.currentAccount = account;
@@ -164,19 +162,6 @@ export class HomeComponent implements OnInit {
   goToNews(id: any) {
     // tslint:disable-next-line: no-unused-expression
     this.router.navigate(['/news', id, 'detail']);
-  }
-
-  /*  get  list 4 new*/
-  getlist4News() {
-    this.newService.getListNews().subscribe(res => {
-      this.list4News = res.body;
-      // eslint-disable-next-line
-      console.log('Listnew  : ', this.list4News);
-      this.list4News.sort(function(obj1, obj2) {
-        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
-      });
-      this.list4News = res.body.slice(0, 4);
-    });
   }
 
   onChange($event) {}

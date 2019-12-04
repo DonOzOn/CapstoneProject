@@ -32,7 +32,6 @@ export class ListproductComponent implements OnInit {
   count: any;
   listPost: any[] = [];
   listPost2: any;
-  list4News: any[] = [];
   post: PostRespone[] = [];
   filteredProducts = [];
   choose = [
@@ -80,7 +79,6 @@ export class ListproductComponent implements OnInit {
     const breadcrumb = { customText: 'This is Custom Text', dynamicText: 'Level 2 ' };
     this.ng7DynamicBreadcrumbService.updateBreadcrumbLabels(breadcrumb);
     // this.getListPostProduct();
-    this.getlist4News();
     this.activatedRoute.firstChild.data.subscribe(res => {
       this.filteredProducts = res.typeSearch.body;
       this.post = this.filteredProducts;
@@ -206,16 +204,6 @@ export class ListproductComponent implements OnInit {
     this.postService.query().subscribe(res => {
       this.count = res.body.length;
       return this.count;
-    });
-  }
-  /*  get  list 4 new*/
-  getlist4News() {
-    this.newService.getListNews().subscribe(res => {
-      this.list4News = res.body;
-      this.list4News.sort(function(obj1, obj2) {
-        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
-      });
-      this.list4News = res.body.slice(0, 4);
     });
   }
   /*  change sort */
