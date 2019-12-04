@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsService } from 'app/core/news/news.service';
-import { INews } from 'app/core/news/news.model';
+import { INews, News } from 'app/core/news/news.model';
 import { SERVER_API_URL } from 'app/app.constants';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-newspage',
@@ -11,6 +12,7 @@ import { SERVER_API_URL } from 'app/app.constants';
 export class NewspageComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
   listNews: INews[];
+
   countNew: any;
   list4News: any[] = [];
   /* pagination */
@@ -25,7 +27,10 @@ export class NewspageComponent implements OnInit {
     nextLabel: 'Next'
   };
 
-  constructor(private newService: NewsService) {
+  listContent: any = [];
+  listnewdetail: News;
+
+  constructor(private newService: NewsService, private activatedRoute: ActivatedRoute) {
     for (let i = 0; i < this.countNew; i++) {
       this.listPagination.push({
         id: i + 1,

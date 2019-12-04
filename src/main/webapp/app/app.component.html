@@ -4,11 +4,15 @@
 <div class="page-wrap">
     <app-header class="sticky-top d-block"></app-header>
     <p-toast [style]="{marginTop: '80px'}"></p-toast>
-    <div *ngIf="showLoadingIndicator"  class="lds-ripple card-img-overlay"><div></div><div></div></div>
+    <div *ngIf="showLoadingIndicator" class="lds-ripple card-img-overlay">
+        <div></div>
+        <div></div>
+    </div>
     <main class="content">
         <!-- <div  class="lds-hourglass"></div> -->
         <router-outlet>
         </router-outlet>
+        <app-go-to-top></app-go-to-top>
         <div class="fb-customerchat" page_id="102437304576182"></div>
     </main>
     <app-footer></app-footer>

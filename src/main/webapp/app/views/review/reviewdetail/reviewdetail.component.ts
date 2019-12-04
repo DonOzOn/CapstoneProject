@@ -9,14 +9,15 @@ import { IReview } from 'app/core/review/review.model';
   styleUrls: ['./reviewdetail.component.scss']
 })
 export class ReviewdetailComponent implements OnInit {
-  id: any;
   detailReview: IReview;
+  reviewDetail: any;
+  id: any;
   constructor(private newService: ReviewService, private activatedRoute: ActivatedRoute, private router: Router) {}
   ngOnInit() {
     this.activatedRoute.data.subscribe(res => {
-      this.detailReview = res.detailReview;
+      this.reviewDetail = res.body;
       // eslint-disable-next-line
-      console.log('sdsdasdasd: ', res.detailNew);
+      console.log('sdsdasdasd: ', this.reviewDetail);
     });
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SERVER_API_URL } from 'app/app.constants';
 import { NewsService } from 'app/core/news/news.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -26,7 +26,7 @@ export class ProductdetailComponent implements OnInit {
   images: any[];
   listImage: any = [];
   productdetail: any;
-  listNews: any[];
+  list4News: any[];
   productdetal: PostRespone;
   notification: INotification;
   currentAccount: Account;
@@ -46,7 +46,8 @@ export class ProductdetailComponent implements OnInit {
     private alertService: JhiAlertService,
     private messageService: MessageService,
     private accountService: AccountService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
   ngOnInit() {
     this.accountService.identity().subscribe((account: Account) => {
@@ -72,17 +73,25 @@ export class ProductdetailComponent implements OnInit {
     });
     // eslint-disable-next-line
     console.log(' post : ', this.listImage);
-    this.getlistNews();
+    this.getlist4News();
   }
+
   /*  get  list 4 new*/
-  getlistNews() {
+  getlist4News() {
     this.newService.getListNews().subscribe(res => {
-      this.listNews = res.body;
-      this.listNews.sort(function(obj1, obj2) {
-        return obj2.timeCreate - obj1.timeCreate;
+      this.list4News = res.body;
+      // eslint-disable-next-line
+      console.log('Listnew  : ', this.list4News);
+      this.list4News.sort(function(obj1, obj2) {
+        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
       });
-      this.listNews = res.body.slice(0, 4);
+      this.list4News = res.body.slice(0, 4);
     });
+  }
+
+  goToNews(id: any) {
+    // tslint:disable-next-line: no-unused-expression
+    this.router.navigate(['/news', id, 'detail']);
   }
   send() {
     const data: IGuestCareProduct = this.inforForm.getRawValue();
