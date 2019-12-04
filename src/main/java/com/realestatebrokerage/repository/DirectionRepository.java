@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface DirectionRepository extends JpaRepository<Direction, Long> {
     public List<Direction> findAll();
+
 }
