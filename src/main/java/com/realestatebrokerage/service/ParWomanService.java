@@ -23,6 +23,8 @@ public class ParWomanService {
      * Select par of man by ID
      * **/
     public Optional<ParWoman> findByID(Long id){
+        log.debug("fsdfsdfsdf:{}", id);
+        log.debug("women:{}", parWomanRepository.findById(id));
         return parWomanRepository.findById(id);
     }
 }
