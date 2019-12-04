@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-
 import { ListproductRoutingModule } from './listproduct-routing.module';
 import { IconsModule, ButtonsModule } from 'angular-bootstrap-md';
 import { ListproductComponent } from './listproduct.component';
@@ -20,8 +19,8 @@ import { Ng7DynamicBreadcrumbModule } from 'ng7-dynamic-breadcrumb';
     ButtonsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    Ng7DynamicBreadcrumbModule,
     MDBBootstrapModule.forRoot(),
+    Ng7DynamicBreadcrumbModule
   ],
   providers: [],
   exports: [ListproductComponent]

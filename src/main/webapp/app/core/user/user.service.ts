@@ -15,9 +15,8 @@ export class UserService {
   create(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(this.resourceUrl, user);
   }
-
-  update(user: IUser): Observable<IUser> {
-    return this.http.put<IUser>(this.resourceUrl, user);
+  update(user: IUser): Observable<HttpResponse<IUser>> {
+    return this.http.put<IUser>(this.resourceUrl, user, { observe: 'response' });
   }
 
   updateActive(user: IUser): Observable<HttpResponse<IUser>> {

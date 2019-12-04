@@ -4,6 +4,7 @@ import { AdminComponent } from './admin.component';
 import { ManageAllProductpostComponent } from './manage-allproductpost/manage-allproductpost';
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ManageNewsComponent } from './manage-new/manage-news';
+import { ManagereAllReviewpostComponent } from './manage-all-reviewpost/manage-all-reviewpost.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,22 @@ const routes: Routes = [
             },
             {
               label: 'Quản lí bài đăng',
+              url: ''
+            }
+          ]
+        }
+      },
+      {
+        path: 'manageallreview',
+        component: ManagereAllReviewpostComponent,
+        data: {
+          breadcrumb: [
+            {
+              label: 'Quản lí chung',
+              url: '/admin'
+            },
+            {
+              label: 'Quản lí bài đăng review',
               url: ''
             }
           ]

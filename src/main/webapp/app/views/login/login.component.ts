@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   authenticationError: boolean;
   size: boolean;
   closeResult: string;
+  window: any;
   loginForm = this.fb.group({
     username: [''],
     password: [''],

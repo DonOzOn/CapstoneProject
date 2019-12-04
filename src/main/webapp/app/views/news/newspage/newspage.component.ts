@@ -40,7 +40,7 @@ export class NewspageComponent implements OnInit {
     this.config = {
       itemsPerPage: 10,
       currentPage: 1,
-      totalItems: this.countNew,
+      totalItems: this.countNew
     };
   }
 
@@ -48,35 +48,51 @@ export class NewspageComponent implements OnInit {
     this.getlistNews();
     this.getTotalPage();
     this.getlist4News();
+    // eslint-disable-next-line
+    console.log('dsfdfdf: ', this.listNews);
   }
+
   pageChanged(event) {
     this.config.currentPage = event;
   }
-    /*  get total page in pagination*/
-    getTotalPage() {
-      this.newService.getListNews().subscribe(res => {
-        this.countNew = res.body.length;
-        // eslint-disable-next-line
+  /*  get total page in pagination*/
+  getTotalPage() {
+    this.newService.getListNews().subscribe(res => {
+      this.countNew = res.body.length;
+      // eslint-disable-next-line
       console.log('totalItem : ', this.countNew);
-        return this.countNew;
-      });
-    }
+      return this.countNew;
+    });
+  }
   getlistNews() {
     this.newService.getListNews().subscribe(res => {
+      // eslint-disable-next-line
+      console.log('get news: ', res.body);
       this.listNews = res.body;
     });
   }
 
-    /*  get  list 4 new*/
-    getlist4News() {
-      this.newService.getListNews().subscribe(res => {
-        this.list4News = res.body;
-        // eslint-disable-next-line
-        console.log('Listnew  : ', this.list4News);
-        this.list4News.sort(function(obj1, obj2) {
-          return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
-        });
-        this.list4News = res.body.slice(0, 4);
+  /*  get  list 4 new*/
+  getlist4New() {
+    this.newService.getListNews().subscribe(res => {
+      this.listNews = res.body;
+      // this.listNews.sort(function(obj1, obj2) {
+      //   // return obj2.createdDate - obj1.createdDate;
+      // });
+      this.listNews = res.body.slice(0, 4);
+    });
+  }
+
+  /*  get  list 4 new*/
+  getlist4News() {
+    this.newService.getListNews().subscribe(res => {
+      this.list4News = res.body;
+      // eslint-disable-next-line
+      console.log('Listnew  : ', this.list4News);
+      this.list4News.sort(function(obj1, obj2) {
+        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
       });
-    }
+      this.list4News = res.body.slice(0, 4);
+    });
+  }
 }

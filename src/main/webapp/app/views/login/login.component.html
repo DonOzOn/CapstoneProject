@@ -47,8 +47,8 @@
 
                                     <!-- Register -->
                                     <div class="rpw d-flex justify-content-center mb-4">
-                                        <p>Bạn chưa có tài khoản?
-                                            <a (click)="register()">Đăng kí</a>
+                                        <p>Bạn chưa có tài khoản?register
+                                            <a (click)="register()" style="color: coral;">Đăng kí</a>
                                         </p>
                                     </div>
                                     <div class="row d-flex justify-content-center">
@@ -56,8 +56,8 @@
                                         <p>hoặc Đăng nhập với:</p>
                                     </div>
                                     <div class="row d-flex justify-content-center">
-                                        <a href="#" class="mx-2" role="button"><i class="fab fa-facebook light-blue-text"></i></a>
-                                        <a href="#" class="mx-2" role="button"><i class="fab fa-google-plus light-blue-text"></i></a>
+                                        <a href="#" class="mx-2" role="button"><i class="fab fa-facebook light-blue-text" style="width:60px; height: 60px;" ></i></a>
+                                        <a href="#" class="mx-2" role="button"><i class="fab fa-google-plus light-blue-text" style="width:60px; height: 60px;"></i></a>
                                     </div>
                                 </form>
                                 <!-- Default form login -->
@@ -76,7 +76,7 @@
                             <div class="card-body">
                                 <h5 class="card-title text-center">Đăng nhập</h5>
                                 <div class="alert alert-danger" *ngIf="authenticationError">
-                                    <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                                    <strong>Không thể đăng nhập!</strong> Vui lòng kiểm tra thông tin đăng nhập của bạn và thử lại.
                                 </div>
                                 <!-- Default form login -->
                                 <form class="form text-left" role="form" (ngSubmit)="login()" [formGroup]="loginForm">
@@ -100,7 +100,7 @@
                                         </div>
                                         <div>
                                             <!-- Forgot password -->
-                                            <a (click)="requestResetPassword()">Quên mật khẩu?</a>
+                                            <a (click)="requestResetPassword()" class="text-primary">Quên mật khẩu?</a>
                                         </div>
                                     </div>
 
@@ -110,7 +110,7 @@
                                     <!-- Register -->
                                     <div class="rpw d-flex justify-content-center mb-4">
                                         <p>Bạn chưa có tài khoản?
-                                            <a (click)="register()">Đăng kí</a>
+                                            <a  (click)="register()" class="text-primary">Đăng kí</a>
                                         </p>
                                     </div>
                                     <div class="row d-flex justify-content-center">
@@ -118,8 +118,10 @@
                                         <p>hoặc Đăng nhập với:</p>
                                     </div>
                                     <div class="row d-flex justify-content-center">
-                                        <a href="#" class="mx-2" role="button"><i class="fab fa-facebook light-blue-text"></i></a>
-                                        <a href="#" class="mx-2" role="button"><i class="fab fa-google-plus light-blue-text"></i></a>
+                                        <!-- <a href="#" class="mx-2" role="button"><i class="fab fa-facebook light-blue-text"></i></a>
+                                        <a href="#" class="mx-2" role="button"><i class="fab fa-google-plus light-blue-text"></i></a> -->
+                                        <span><a href="#"><img src="../../../content/img/Facebook_Logo_(2019).png"style="width: 32px; height: 31px; margin-right:20px"/></a>
+                                        <a href="#"><img src="../../../content/img/googleplus.png" style="width: 35px; height: 38px;"/></a></span>
                                     </div>
                                 </form>
                                 <!-- Default form login -->

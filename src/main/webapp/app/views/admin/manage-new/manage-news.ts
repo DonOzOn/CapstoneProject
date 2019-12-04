@@ -157,6 +157,7 @@ export class ManageNewsComponent implements OnInit {
         this.alertService.clear();
         this.newsService.delete(id).subscribe(() => {
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã xóa bài đăng thành công!!' });
+          this.getListNew();
         });
       }
     });
@@ -199,6 +200,11 @@ export class ManageNewsComponent implements OnInit {
   getListNew() {
     this.newsService.getListNews().subscribe(res => {
       this.news = res.body;
+      this.news.sort(function(obj1: any, obj2: any) {
+        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
+      });
+      // eslint-disable-next-line
+      console.log('list New: ', this.news);
     });
   }
 

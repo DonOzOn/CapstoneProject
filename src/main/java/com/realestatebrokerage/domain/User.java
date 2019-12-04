@@ -30,7 +30,6 @@ import static org.apache.lucene.analysis.util.CharArraySet.*;
  */
 @Entity
 @Table(name = "user")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -43,7 +42,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Pattern(regexp = Constants.LOGIN_REGEX)
     @Size(min = 1, max = 50)
     @Column(length = 50, unique = true, nullable = false)
-    @Field(termVector = TermVector.YES, analyze= Analyze.YES, store= Store.NO)
     private String login;
 
     @JsonIgnore
@@ -58,8 +56,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Size(max = 50)
     @Column(name = "last_name", length = 50)
-    @Field(termVector = TermVector.YES, analyze= Analyze.YES, store= Store.NO)
     private String lastName;
+
+    @Column(name = "token")
+    private String token;
 
     @ManyToOne
     @JoinColumn(name="province_code",referencedColumnName="code")
@@ -86,7 +86,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Email
     @Size(min = 5, max = 254)
     @Column(length = 254, unique = true)
-    @Field(termVector = TermVector.YES, analyze= Analyze.YES, store= Store.NO)
     private String email;
 
     @NotNull
@@ -123,6 +122,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public Long getId() {
         return id;

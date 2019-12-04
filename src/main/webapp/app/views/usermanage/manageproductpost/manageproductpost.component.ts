@@ -95,7 +95,7 @@ export class ManageproductpostComponent implements OnInit {
 
   post: PostRequest = new PostRequest();
 
-  posts: PostRespone[];
+  posts: PostRespone[] = [];
 
   selectedPost: PostRespone;
 
@@ -238,7 +238,14 @@ export class ManageproductpostComponent implements OnInit {
     this.postService.listAllByUserID(this.currentUser.id).subscribe(res => {
       this.posts = res.body;
       // eslint-disable-next-line
-      console.log('List all post : ', this.posts);
+      console.log('not sort : ', this.posts);
+      this.posts = this.posts.sort((a: any, b: any) => {
+        // eslint-disable-next-line
+        console.log('sort : ');
+        return new Date(b.productPostResponseDTO.createdDate).valueOf() - new Date(a.productPostResponseDTO.createdDate).valueOf();
+      });
+      // eslint-disable-next-line
+      console.log('sorted : ', this.posts);
     });
   }
   onSortChange(event: { value: any }) {
@@ -248,13 +255,13 @@ export class ManageproductpostComponent implements OnInit {
     switch (value) {
       case 1: {
         this.posts.sort(function(obj1: any, obj2: any) {
-          return new Date(obj2.productPostResponseDTO.createdDate).valueOf() - new Date(obj1.productPostResponseDTO.createdDate).valueOf();
+          return new Date(obj1.productPostResponseDTO.createdDate).valueOf() - new Date(obj2.productPostResponseDTO.createdDate).valueOf();
         });
         break;
       }
       case 2: {
         this.posts.sort(function(obj1: any, obj2: any) {
-          return new Date(obj1.productPostResponseDTO.createdDate).valueOf() - new Date(obj2.productPostResponseDTO.createdDate).valueOf();
+          return new Date(obj2.productPostResponseDTO.createdDate).valueOf() - new Date(obj1.productPostResponseDTO.createdDate).valueOf();
         });
         break;
       }

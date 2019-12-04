@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { AddressService } from 'app/core/address/address.service';
 import { PostService } from 'app/core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { SERVER_API_URL } from 'app/app.constants';
 import { NewsService } from 'app/core/news/news.service';
 import { Router } from '@angular/router';
-
+import { AccountService } from 'app/core/auth/account.service';
+import { UserService } from 'app/core/user/user.service';
+import { IUser } from 'app/core/user/user.model';
+import { Account } from 'app/core/user/account.model';
+let self: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,6 +20,9 @@ export class HomeComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
   list4News: any[] = [];
   count: any;
+  currentAccount: Account;
+  currentUser: IUser;
+  searchText = new FormControl('');
   choose = [{ value: '', name: 'Toàn bộ' }, { value: 1, name: 'Mua bán' }, { value: 2, name: 'Cho thuê' }];
   chooseForm = this.fb.group({
     choose: ['']
@@ -34,13 +41,16 @@ export class HomeComponent implements OnInit {
     nextLabel: 'Next'
   };
   responsiveOptions;
+  window: any;
 
   constructor(
     private addressService: AddressService,
     private fb: FormBuilder,
     private postService: PostService,
     private newService: NewsService,
-    private router: Router
+    private userService: UserService,
+    private router: Router,
+    private accountService: AccountService
   ) {
     for (let i = 0; i < this.count; i++) {
       this.listPagination.push({
@@ -96,8 +106,41 @@ export class HomeComponent implements OnInit {
     this.getProvince();
     this.getlist4News();
     this.getListPostProduct();
-  }
+    this.accountService.identity().subscribe((account: Account) => {
+      this.currentAccount = account;
 
+      // eslint-disable-next-line
+      console.log('account: ', account);
+    });
+    self = this;
+    this.window = window;
+    this.window.addEventListener('saveToken', this.saveUserToken);
+    // eslint-disable-next-line
+    console.log('lolololololo: ', this.accountService.isAuthenticated());
+
+    if (this.accountService.isAuthenticated() === true) {
+      this.window.window.requestPermission();
+    }
+    // this.window.addEventListener('subcribeTopicScript', this.test);
+  }
+  saveUserToken(e) {
+    self.userService.find(self.currentAccount.login).subscribe((userAuthen: IUser) => {
+      self.currentUser = userAuthen;
+      self.currentUser.token = e.detail;
+      self.userService.update(self.currentUser).subscribe(res => {
+        // eslint-disable-next-line
+        console.log('update..fdfdf: ', res.body);
+      });
+      // eslint-disable-next-line
+      console.log('save token: ', e.detail);
+    });
+
+    // eslint-disable-next-line
+    console.log('e.detail: ', e.detail);
+  }
+  /**
+   * Gets list post product
+   */
   getListPostProduct() {
     this.postService.query().subscribe(res => {
       this.post = res.body;
@@ -114,10 +157,15 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   * Go to news
+   * @param id
+   */
   goToNews(id: any) {
     // tslint:disable-next-line: no-unused-expression
     this.router.navigate(['/news', id, 'detail']);
   }
+
   /*  get  list 4 new*/
   getlist4News() {
     this.newService.getListNews().subscribe(res => {
@@ -130,5 +178,13 @@ export class HomeComponent implements OnInit {
       this.list4News = res.body.slice(0, 4);
     });
   }
+
   onChange($event) {}
+
+  /**
+   * Searchs
+   */
+  search() {
+    this.router.navigate(['/listproduct', 'fullTextSearch', this.searchText.value]);
+  }
 }

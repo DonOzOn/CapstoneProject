@@ -55,76 +55,83 @@
                                             </div>
                                         </div>
                                     </p-header>
-                                    <ng-template let-post pTemplate="listItem">
-                                        <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
-                                            <div class="ui-g-12 ui-md-3" style="text-align:center">
-                                                <img src="{{imageUrl}}{{post.imageDTO.img1}}" class="img-thumbnail rounded float-left mx-auto d-block" style="height: 150px; width: 600px;" alt="Responsive image">
-                                            </div>
-                                            <div class="ui-g-12 ui-md-7 post-details">
-                                                <div class="ui-g">
-                                                    <div class="ui-g-3 ui-sm-6">Tiêu đề: </div>
+                            <ng-template let-post pTemplate="listItem">
+                                <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+                                    <div class="ui-g-12 ui-md-3" style="text-align:center">
+                                        <img src = "{{imageUrl}}{{post.imageDTO.img1}}" class="img-thumbnail rounded float-left mx-auto d-block" style="height: 150px; width: 600px;" alt = "Responsive image">
+                                    </div>
+                                    <div class="ui-g-12 ui-md-7 post-details">
+                                        <div class="ui-g">
+                                            <div class="ui-g-3 ui-sm-6">Tiêu đề: </div>
                                                     <div class="ui-g-9 ui-sm-6 text-primary font-weight-bold text-uppercase" [routerLink]="[ '/product', post.productPostResponseDTO.id,'productdetail']"><u>{{post.productPostResponseDTO?.productPostTitle}}</u></div>
 
-                                                    <div class="ui-g-3 ui-sm-6">Tên sản phẩm: </div>
-                                                    <div class="ui-g-9 ui-sm-6"><b>{{post.productPostResponseDTO?.projectName}}</b></div>
+                                            <div class="ui-g-3 ui-sm-6">Tên sản phẩm: </div>
+                                            <div class="ui-g-9 ui-sm-6"><b>{{post.productPostResponseDTO?.projectName}}</b></div>
 
-                                                    <div class="ui-g-3 ui-sm-6">Ngày đăng: </div>
-                                                    <div class="ui-g-9 ui-sm-6"><b>{{post.productPostResponseDTO?.createdDate | date:'HH:mm dd/MM/yyyy'}}</b></div>
-                                                    <div class="ui-g-3 ui-sm-6">Người đăng: </div>
-                                                    <div class="ui-g-9 ui-sm-6"><b>{{post.productPostResponseDTO?.createdBy}}</b></div>
-                                                </div>
-                                            </div>
-                                            <div class="ui-g-12 ui-md-1 search-icon py-3">
-                                                <button class="d-flex justify-content-start" pButton type="button" icon="" (click)="selectPostproduct($event, post)" label="Xem"></button>
-                                                <button class="d-flex justify-content-end mt-5 ui-button-danger" pButton type="button" icon="" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)" label="Xoá"></button>
-                                            </div>
+                                            <div class="ui-g-3 ui-sm-6">Ngày đăng: </div>
+                                            <div class="ui-g-9 ui-sm-6"><b>{{post.productPostResponseDTO?.createdDate | date:'HH:mm dd/MM/yyyy'}}</b></div>
+                                            <div class="ui-g-3 ui-sm-6">Người đăng: </div>
+                                            <div class="ui-g-9 ui-sm-6"><b>{{post.productPostResponseDTO?.createdBy}}</b></div>
+                                            <div class="ui-g-3 ui-sm-6">Trạng thái: </div>
+                                            <div class="ui-g-9 ui-sm-6" *ngIf="post.productPostResponseDTO?.status"><span class="badge badge-success">Tồn tại</span></div>
+                                            <div class="ui-g-9 ui-sm-6" *ngIf="!post.productPostResponseDTO?.status"><span class="badge badge-danger">Không tồn tạ<i></i></span></div>
                                         </div>
-                                    </ng-template>
-                                    <ng-template let-post pTemplate="gridItem">
-                                        <div style="padding:.5em" class="ui-g-12 ui-md-5">
-                                            <p-panel [header]="post.productPostResponseDTO?.projectName" [style]="{'text-align':'center'}">
-                                                <img src="{{imageUrl}}{{post.imageDTO.img1}}" class="img-thumbnail rounded mx-auto d-block" style="height: 100px;" alt="Responsive image">
-                                                <div class="post-detail text-primary font-weight-bold text-uppercase" [routerLink]="[ '/product', post.productPostResponseDTO.id,'productdetail']"><u>{{post.productPostResponseDTO?.productPostTitle}}</u></div>
-                                                <div class="post-detail">{{post.productPostResponseDTO?.createdDate | date:'HH:mm dd/MM/yyyy'}}</div>
-                                                <hr class="ui-widget-content" style="border-top:0">
-                                                <!-- <button pButton type="button" icon="pi pi-search" (click)="selectPostproduct($event, post)" style="margin-top:0"></button> -->
-                                                <button pButton type="button" icon="" (click)="selectPostproduct($event, post)" label="Xem"></button>
-                                                <button class="ui-button-danger" pButton type="button" icon="" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)" label="Xoá"></button>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-1 search-icon py-3">
+                                        <button class="d-flex justify-content-start" pButton type="button" icon="" (click)="selectPostproduct($event, post)" label="Xem"></button>
+                                        <button class="btn btn-warning d-flex justify-content-center" *ngIf="post.productPostResponseDTO?.status" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)"
+                                       >Tắt</button>
+                                    <button class="btn btn-success d-flex justify-content-end" *ngIf="!post.productPostResponseDTO?.status" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)"
+                                       >Bật</button>
+                                        <!-- <button class="d-flex justify-content-end mt-5 ui-button-danger" pButton type="button" icon="" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)" label="Xoá"></button> -->
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-post pTemplate="gridItem">
+                                <div style="padding:.5em" class="ui-g-12 ui-md-5">
+                                    <p-panel [header]="post.productPostResponseDTO?.projectName" [style]="{'text-align':'center'}">
+                                        <img src = "{{imageUrl}}{{post.imageDTO.img1}}" class="img-thumbnail rounded mx-auto d-block" style="height: 100px;" alt = "Responsive image">
+                                        <div class="post-detail">{{post.productPostResponseDTO?.productPostTitle}}</div>
+                                        <div class="post-detail">{{post.productPostResponseDTO?.createdDate | date:'HH:mm dd/MM/yyyy'}}</div>
+                                        <hr class="ui-widget-content" style="border-top:0">
+                                        <!-- <button pButton type="button" icon="pi pi-search" (click)="selectPostproduct($event, post)" style="margin-top:0"></button> -->
+                                            <button pButton type="button" icon="" (click)="selectPostproduct($event, post)" label="Xem"></button>
+                                            <button class="ui-button-danger" pButton type="button" icon="" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)" label="Xoá"></button>
 
-                                            </p-panel>
-                                        </div>
-                                    </ng-template>
-                                </p-dataView>
+                                    </p-panel>
+                                </div>
+                            </ng-template>
+                        </p-dataView>
 
-                                <p-dialog header="Chi tiết bài đăng" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '80%'}" (onAfterHide)="onDialogHide()">
-                                    <div class="ui-g" *ngIf="selectedPost">
-                                        <div class="ui-g-12" style="text-align:center">
-                                            <!-- <img src="/content/showcase/images/demo/car/{{selectedCar.brand}}.png"> -->
-                                        </div>
-                                        <div class="ui-g-12">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <form [formGroup]="productPostForm">
+                        <p-dialog header="Chi tiết bài đăng" [(visible)]="displayDialog" [responsive]="true"  showEffect="fade" [modal]="true" [style]="{width: '80%'}" (onAfterHide)="onDialogHide()">
+                            <div class="ui-g" *ngIf="selectedPost">
+                                <div class="ui-g-12" style="text-align:center">
+                                    <!-- <img src="/content/showcase/images/demo/car/{{selectedCar.brand}}.png"> -->
+                                </div>
+                                <div class="ui-g-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form [formGroup]="productPostForm" >
 
-                                                        <div class="row mb-2">
-                                                            <div class="col-md-12">
-                                                                <div class="card">
-                                                                    <div class="card-header">
-                                                                        <h6>I.Thông tin cơ bản</h6>
-                                                                    </div>
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card-body">
-                                                                                    <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
-                                                                                        <div class="col-md-6 p-0">
-                                                                                            <!-- Tên dự án -->
-                                                                                            <div class="row col-md-12 m-0 p-0 mb-3">
-                                                                                                <div class="col-md-5 ">
-                                                                                                    <label class="m-0 py-1">Tên dự án</label>
-                                                                                                </div>
-                                                                                                <div class="col-md-7 p-0">
-                                                                                                    <span class="ui-float-label">
+                                                <div class="row mb-2">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-header">
+                                                                <h6>I.Thông tin cơ bản</h6>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="card-body">
+                                                                            <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
+                                                                                <div class="col-md-6 p-0">
+                                                                                    <!-- Tên dự án -->
+                                                                                    <div class="row col-md-12 m-0 p-0 mb-3">
+                                                                                        <div class="col-md-5 ">
+                                                                                            <label class="m-0 py-1">Tên dự án</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-7 p-0">
+                                                                                            <span class="ui-float-label">
                                                                                                 <input id="float-input" type="text"
                                                                                                     formControlName="projectName" size="30" pInputText>
                                                                                                 <label for="float-input">Tên dự án</label>

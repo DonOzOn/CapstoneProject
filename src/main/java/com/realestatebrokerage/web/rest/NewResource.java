@@ -79,13 +79,13 @@ public class NewResource {
     /**
      * {@code PUT /news} : delete an existing News.
      *
-     * @param newsDTO the news to delete.
+     * @param id the news to delete.
      */
-    @DeleteMapping("/news")
-    public ResponseEntity<Optional<NewsDTO>> deleteNews(@RequestBody NewsDTO newsDTO) {
-        log.debug("REST request to update News : {}", newsDTO);
-        Optional<NewsDTO> updatedUser = newService.deleteNews(newsDTO).map(NewsDTO::new);
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    @DeleteMapping("/news/{id}")
+    public ResponseEntity<Optional<NewsDTO>> deleteNews(@PathVariable Long id) {
+        log.debug("REST request to delete News : {}", id);
+        newService.deleteNews(id);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
 }

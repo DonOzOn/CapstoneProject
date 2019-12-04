@@ -3,7 +3,8 @@
 <app-footer></app-footer> -->
 <div class="page-wrap">
     <app-header class="sticky-top d-block"></app-header>
-    <div *ngIf="showLoadingIndicator" class="lds-ripple">
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <div *ngIf="showLoadingIndicator" class="lds-ripple card-img-overlay">
         <div></div>
         <div></div>
     </div>

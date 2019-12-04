@@ -98,13 +98,13 @@ public class ReviewResource {
     /**
      * {@code Delete /review} : delete an existing review.
      *
-     * @param reviewRequestDTO the review to delete.
+     * @param id the review to delete.
      */
-    @DeleteMapping("/review")
-    public ResponseEntity<Optional<ReviewResponeDTO>> deleteNews(@RequestBody ReviewRequestDTO reviewRequestDTO) {
-        log.debug("REST request to update Review : {}", reviewRequestDTO);
-        Optional<ReviewResponeDTO> updatedUser = reviewService.deleteReview(reviewRequestDTO).map(ReviewResponeDTO::new);
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    @DeleteMapping("/review/{id}")
+    public ResponseEntity<Void> deleteNews(@PathVariable Long id) {
+        log.debug("REST request to update Review : {}", id);
+       reviewService.deleteReview(id);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
 }

@@ -17,11 +17,6 @@ export class PostService {
 
   constructor(private http: HttpClient, private alertService: JhiAlertService) {}
 
-  /**
-   * Creates post service
-   * @param post
-   * @returns create
-   */
   create(post: IPostRequest): Observable<HttpResponse<IPostRequest>> {
     return this.http.post<IPostRequest>(this.resourceUrl, post, { observe: 'response' }).pipe(
       tap((response: HttpResponse<IPostRequest>) => {
@@ -152,8 +147,11 @@ export class PostService {
    * @param searchKey
    * @returns text search
    */
-  fullTextSearch(searchKey: any): Observable<HttpResponse<IPostRespone[]>> {
-    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/search`, { params: searchKey, observe: 'response' });
+  fullTextSearch(searchKeys: any): Observable<HttpResponse<IPostRespone[]>> {
+    const param = {
+      searchKey: searchKeys
+    };
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/search`, { params: param, observe: 'response' });
   }
 
   /**

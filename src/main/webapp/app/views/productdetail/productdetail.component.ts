@@ -1,14 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from 'app/core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SERVER_API_URL } from 'app/app.constants';
 import { NewsService } from 'app/core/news/news.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { NotificationService } from 'app/core/notification/notification.service';
+import { IGuestCareProduct } from 'app/core/guest-care-product/guest-care-product.model';
+import { GuestCareProductService } from 'app/core/guest-care-product/guest-care-product.service';
+import { JhiAlertService } from 'ng-jhipster';
+import { MessageService } from 'primeng/api';
+import { INotification, Notification } from 'app/core/notification/notification.model';
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/user/account.model';
+import { IUser } from 'app/core/user/user.model';
+import { UserService } from 'app/core/user/user.service';
 
 @Component({
   selector: 'app-productdetail',
   templateUrl: './productdetail.component.html',
-  styleUrls: ['./productdetail.component.scss']
+  styleUrls: ['./productdetail.component.scss'],
+  providers: [MessageService]
 })
 export class ProductdetailComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
@@ -17,13 +28,34 @@ export class ProductdetailComponent implements OnInit {
   productdetail: any;
   list4News: any[];
   productdetal: PostRespone;
+  notification: INotification;
+  currentAccount: Account;
+  currentUser: IUser;
+  inforForm = this.fb.group({
+    name: ['', Validators.maxLength(50)],
+    phone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
+    email: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(256)]],
+    mess: ['', [Validators.maxLength(200)]]
+  });
   constructor(
-    private postService: PostService,
     private newService: NewsService,
     private activatedRoute: ActivatedRoute,
+    private notificationService: NotificationService,
+    private guestCareProductService: GuestCareProductService,
+    private fb: FormBuilder,
+    private alertService: JhiAlertService,
+    private messageService: MessageService,
+    private accountService: AccountService,
+    private userService: UserService,
     private router: Router
   ) {}
   ngOnInit() {
+    this.accountService.identity().subscribe((account: Account) => {
+      this.currentAccount = account;
+      this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
+        this.currentUser = userAuthen;
+      });
+    });
     this.activatedRoute.data.subscribe(res => {
       this.productdetail = res.detailProduct;
       // eslint-disable-next-line
@@ -60,5 +92,33 @@ export class ProductdetailComponent implements OnInit {
   goToNews(id: any) {
     // tslint:disable-next-line: no-unused-expression
     this.router.navigate(['/news', id, 'detail']);
+  }
+  send() {
+    const data: IGuestCareProduct = this.inforForm.getRawValue();
+    data.user = this.productdetail.productPostResponseDTO.user.id;
+    data.productPost = this.productdetail.productPostResponseDTO.id;
+    // eslint-disable-next-line
+    console.log(' current User : ', this.currentUser);
+    // eslint-disable-next-line
+    console.log(' current product Detail : ', this.productdetail);
+    this.notification = new Notification();
+    this.notification.type = 1;
+    this.notification.userSend = this.currentUser.id;
+    this.notification.content = 'muốn liên hệ với bạn';
+    this.notification.userReceive = this.productdetail.productPostResponseDTO.user.id;
+    this.notification.title = 'Liên hệ';
+    this.guestCareProductService
+      .create(data)
+      .subscribe(
+        () => (
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã gửi liên hệ thành công!' }),
+          this.notificationService.sendMessageAndAddNoti(this.notification).subscribe()
+        )
+      ),
+      // eslint-disable-next-line
+      (err: any) => (
+        this.alertService.error(err.error.title),
+        this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Gửi liên hệ  thất bại!' })
+      );
   }
 }

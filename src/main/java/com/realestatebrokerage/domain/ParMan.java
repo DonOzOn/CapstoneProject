@@ -14,7 +14,7 @@ public class ParMan {
 
     @Size(max = 50)
     @Column(name = "name_par", length = 50)
-    private String name_par;
+    private String namePar;
 
     public ParMan() {
     }
@@ -31,11 +31,11 @@ public class ParMan {
         this.id = id;
     }
 
-    public String getName_par() {
-        return name_par;
+    public String getNamePar() {
+        return namePar;
     }
 
-    public void setName_par(String name_par) {
-        this.name_par = name_par;
+    public void setNamePar(String namePar) {
+        this.namePar = namePar;
     }
 }

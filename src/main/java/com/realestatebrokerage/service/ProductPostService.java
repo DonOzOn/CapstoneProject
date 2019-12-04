@@ -48,7 +48,7 @@ public class ProductPostService {
      * List all product post
      * **/
     public List<ProductPost> findAll(){
-        return productPostRepository.findAllByStatusTrue();
+        return productPostRepository.findAll();
     }
     /**
      * List all product post by date from to
@@ -109,14 +109,23 @@ public class ProductPostService {
         productPost.setTotalReport(productPostRequestDTO.getTotalReport());
         productPost.setTotalShare(productPost.getTotalShare());
         productPost.setProjectName(productPostRequestDTO.getProjectName());
-        Ward ward = wardRepository.findById(productPostRequestDTO.getWard()).orElse(null);
-        productPost.setWard(ward);
-        District district = districtRepository.findById(productPostRequestDTO.getDistrict()).orElse(null);
-        productPost.setDistrict(district);
-        Province province = provinceRepository.findById(productPostRequestDTO.getProvince()).orElse(null);
-        productPost.setProvince(province);
-        Product product = productRepository.findById(productPostRequestDTO.getProduct()).orElse(null);
-        productPost.setProduct(product);
+        if(productPostRequestDTO.getWard() != null){
+            Ward ward = wardRepository.findById(productPostRequestDTO.getWard()).orElse(null);
+            productPost.setWard(ward);
+        }
+        if(productPostRequestDTO.getDistrict() != null){
+            District district = districtRepository.findById(productPostRequestDTO.getDistrict()).orElse(null);
+            productPost.setDistrict(district);
+        }
+        if(productPostRequestDTO.getProvince() != null){
+            Province province = provinceRepository.findById(productPostRequestDTO.getProvince()).orElse(null);
+            productPost.setProvince(province);
+        }
+
+        if(productPostRequestDTO.getProduct() != null){
+            Product product = productRepository.findById(productPostRequestDTO.getProduct()).orElse(null);
+            productPost.setProduct(product);
+        }
         productPost.setAddress(productPostRequestDTO.getAddress());
         productPost.setShortDescription(productPostRequestDTO.getShortDescription());
         productPost.setContent(productPostRequestDTO.getContent());
@@ -140,14 +149,23 @@ public class ProductPostService {
                 productPost.setTotalReport(postRequestDTO.getTotalReport());
                 productPost.setTotalShare(productPost.getTotalShare());
                 productPost.setProjectName(postRequestDTO.getProjectName());
-                Ward ward = wardRepository.findById(postRequestDTO.getWard()).orElse(null);
-                productPost.setWard(ward);
-                District district = districtRepository.findById(postRequestDTO.getDistrict()).orElse(null);
-                productPost.setDistrict(district);
-                Province province = provinceRepository.findById(postRequestDTO.getProvince()).orElse(null);
-                productPost.setProvince(province);
-                Product product = productRepository.findById(postRequestDTO.getProduct()).orElse(null);
-                productPost.setProduct(product);
+                if(postRequestDTO.getWard() != null){
+                    Ward ward = wardRepository.findById(postRequestDTO.getWard()).orElse(null);
+                    productPost.setWard(ward);
+                }
+                if(postRequestDTO.getDistrict() != null){
+                    District district = districtRepository.findById(postRequestDTO.getDistrict()).orElse(null);
+                    productPost.setDistrict(district);
+                }
+                if(postRequestDTO.getProvince() != null){
+                    Province province = provinceRepository.findById(postRequestDTO.getProvince()).orElse(null);
+                    productPost.setProvince(province);
+                }
+
+                if(postRequestDTO.getProduct() != null){
+                    Product product = productRepository.findById(postRequestDTO.getProduct()).orElse(null);
+                    productPost.setProduct(product);
+                }
                 productPost.setAddress(postRequestDTO.getAddress());
                 productPost.setShortDescription(postRequestDTO.getShortDescription());
                 productPost.setContent(postRequestDTO.getContent());
@@ -163,7 +181,7 @@ public class ProductPostService {
         log.debug("run in delete post product: {}", id);
         Optional.of(productPostRepository.findById(id)).filter(Optional::isPresent).map(Optional::get)
             .map(productPost -> {
-                productPost.setStatus(false);
+                productPost.setStatus(!productPost.isStatus());
                 return productPostRepository.save(productPost);
             });
     }

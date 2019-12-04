@@ -208,8 +208,10 @@ export class PostproductComponent implements OnInit {
   countContentNumber() {
     if (this.productPostForm.value.content.length != null) {
       this.countContent = this.productPostForm.value.content.length;
+      return true;
     } else {
       this.countContent = 0;
+      return false;
     }
   }
 

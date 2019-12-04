@@ -1,13 +1,13 @@
-<!-- Heading -->
-<p-toast [style]="{marginTop: '80px'}"></p-toast>
-<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
-    <p-footer>
-        <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy" (click)="cd.reject()"></button>
-        <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Lưu lại" (click)="cd.accept()"></button>
-    </p-footer>
-</p-confirmDialog>
 
-<!-- Heading -->
+            <p-toast [style]="{marginTop: '80px'}"></p-toast>
+            <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
+                <p-footer>
+                    <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy"
+                        (click)="cd.reject()"></button>
+                    <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Lưu lại"
+                        (click)="cd.accept()"></button>
+                </p-footer>
+            </p-confirmDialog>
 
 <!--Grid row-->
 <div class="row wow fadeIn">
@@ -24,7 +24,7 @@
                     <div class="col-md-12">
                         <div class="card-body">
                             <div class="row col-md-12 m-0 p-0 d-flex justify-content-center">
-                                <p-dataView #dv [value]="posts" [paginator]="true" [lazy]="true" (onLazyLoad)="loadData($event)" [rows]="10" paginatorPosition="both" filterBy="productPostResponseDTO.productPostTitle" [sortField]="sortField" [sortOrder]="sortOrder">
+                                <p-dataView #dv [value]="posts" [paginator]="true" [lazy]="true" (onLazyLoad)="loadData($event)" [rows]="10" paginatorPosition="both" filterBy="productPostResponseDTO.productPostTitle">
                                     <p-header>
                                         <div class="ui-helper-clearfix">
                                             <div class="ui-g">

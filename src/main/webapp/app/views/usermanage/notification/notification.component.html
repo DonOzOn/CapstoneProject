@@ -13,7 +13,34 @@
                         <div class="col-md-12">
                             <div class="card-body">
                                 <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
-                                    <p>Notification Work!!</p>
+                                    <div class="row col-md-12">
+
+                                    <ul class="notifications">
+                                        <li  *ngFor="let item of notis"   class="notification mb-2">
+                                            <div class="media">
+                                              <div class="media-left">
+                                                <div class="media-object">
+                                                  <img  *ngIf="item.userSend.imageUrl !== null" src="{{imageUrl}}{{item.userSend.imageUrl}}" class="img-circle img-thumbnail rounded-circle" style="width: 50px; height: 50px;" alt="Name">
+                                                  <img  *ngIf="item.userSend.imageUrl === null" src="../../../../content/img/default-avar.png" class="img-circle img-thumbnail rounded-circle" style="width: 50px; height: 50px;" alt="Name">
+
+                                                </div>
+                                              </div>
+                                              <div class="media-body">
+                                                <strong class="notification-title"><a href="#"> {{item.userSend.login}}</a> {{item.content}}<a href="#"> với bạn</a></strong>
+                                                <p class="notification-desc mb-0 font-weight-bold"> {{item.title}}</p>
+
+                                                <div class="notification-meta">
+                                                  <small class="timestamp"> {{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</small>
+                                                  <span  *ngIf="item.status" (click)="seen(item.id)" class="badge badge-success">Chưa xem</span>
+                                                 <span *ngIf="!item.status" (click)="seen(item.id)"  class="badge badge-danger">Đã xem<i class="pi pi-check"></i></span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <hr>
+                                        </li>
+                                    </ul>
+                                </div>
+
                                 </div>
 
                             </div>

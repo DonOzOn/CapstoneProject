@@ -20,7 +20,7 @@ export class ListreviewComponent implements OnInit {
     previousLabel: 'Previous',
     nextLabel: 'Next'
   };
-  constructor(private reviewService: ReviewService, ) {
+  constructor(private reviewService: ReviewService) {
     for (let i = 0; i < this.countReview; i++) {
       this.listPagination.push({
         id: i + 1,
@@ -34,12 +34,12 @@ export class ListreviewComponent implements OnInit {
     };
   }
 
-   /*  get total page in pagination*/
-   getTotalPage() {
+  /*  get total page in pagination*/
+  getTotalPage() {
     this.reviewService.getListReview().subscribe(res => {
       this.countReview = res.body.length;
-            // eslint-disable-next-line
-            console.log('count: ', this.countReview);
+      // eslint-disable-next-line
+      console.log('count: ', this.countReview);
       return this.countReview;
     });
   }
@@ -48,7 +48,7 @@ export class ListreviewComponent implements OnInit {
   }
   ngOnInit() {
     this.getTotalPage();
-   this.getListReview();
+    this.getListReview();
   }
 
   /**

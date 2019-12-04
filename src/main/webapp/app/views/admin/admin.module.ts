@@ -31,9 +31,11 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { Ng7DynamicBreadcrumbModule } from 'ng7-dynamic-breadcrumb';
 import { ManageNewsComponent } from './manage-new/manage-news';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ManagereAllReviewpostComponent } from './manage-all-reviewpost/manage-all-reviewpost.component';
+import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
 
 @NgModule({
-  declarations: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent, ManageNewsComponent],
+  declarations: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent, ManageNewsComponent, ManagereAllReviewpostComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -69,9 +71,10 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     SplitButtonModule,
     CheckboxModule,
     Ng7DynamicBreadcrumbModule,
-    InputTextareaModule
+    InputTextareaModule,
+    RealestatebrokerageSharedModule
   ],
   providers: [],
-  exports: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent, ManageNewsComponent]
+  exports: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent, ManageNewsComponent, ManagereAllReviewpostComponent]
 })
 export class AdminModule {}
