@@ -266,9 +266,9 @@
                                             </div>
                                             <div *ngIf="inforForm.get('name').invalid && (inforForm.get('name').dirty || inforForm.get('name').touched)">
                                                 <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.maxlength">
-                          Tên dài nhất có 50 kí tự.
-                        </small>
-                                            </div>
+                                                Tên dài nhất có 50 kí tự.
+                                                </small>
+                                                                    </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -281,14 +281,14 @@
                                             </div>
                                             <div *ngIf="inforForm.get('phone').invalid && (inforForm.get('phone').dirty || inforForm.get('phone').touched)">
                                                 <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.required">
-                          SĐT không được để trống.
-                        </small>
-                                                <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.minlength">
-                          SĐT it nhất có 9 kí tự.
-                        </small>
-                                                <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.maxlength">
-                          SĐT dài nhất có 12 kí tự.
-                        </small>
+                                                    SĐT không được để trống.
+                                                    </small>
+                                                                            <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.minlength">
+                                                    SĐT it nhất có 9 kí tự.
+                                                    </small>
+                                                                            <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.maxlength">
+                                                    SĐT dài nhất có 12 kí tự.
+                                                    </small>
                                             </div>
                                         </div>
                                     </div>
@@ -302,14 +302,14 @@
                                             </div>
                                             <div *ngIf="inforForm.get('email').invalid && (inforForm.get('email').dirty || inforForm.get('email').touched)">
                                                 <small class="form-text text-danger" *ngIf="inforForm.get('email').errors.required">
-                          Email không được để trống.
-                        </small>
-                                                <small class="form-text text-danger" *ngIf="inforForm.get('email').errors.minlength">
-                          Email it nhất có 10 kí tự.
-                        </small>
-                                                <small class="form-text text-danger" *ngIf="inforForm.get('email').errors.maxlength">
-                          Email dài nhất có 256 kí tự.
-                        </small>
+                                                Email không được để trống.
+                                                </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('email').errors.minlength">
+                                                Email it nhất có 10 kí tự.
+                                                </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('email').errors.maxlength">
+                                                Email dài nhất có 256 kí tự.
+                                                </small>
                                             </div>
                                         </div>
                                     </div>
