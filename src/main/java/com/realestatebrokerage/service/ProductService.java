@@ -65,17 +65,25 @@ public class ProductService {
         List<Utilities> utilities = new ArrayList<>();
         product.setPrice(productRequestDTO.getPrice());
         product.setArea(productRequestDTO.getArea());
-        Direction direction = directionRepository.findById(productRequestDTO.getDirection()).orElse(null);
-        product.setDirection(direction);
-        LegalStatus legalStatus = legalStatusRepository.findById(productRequestDTO.getLegalStatus()).orElse(null);
-        product.setLegalStatus(legalStatus);
+        if(productRequestDTO.getDirection() != null) {
+            Direction direction = directionRepository.findById(productRequestDTO.getDirection()).orElse(null);
+            product.setDirection(direction);
+        }
+        if(productRequestDTO.getLegalStatus() != null) {
+            LegalStatus legalStatus = legalStatusRepository.findById(productRequestDTO.getLegalStatus()).orElse(null);
+            product.setLegalStatus(legalStatus);
+        }
         product.setNumberFloor(productRequestDTO.getNumberFloor());
         product.setNumberBedroom(productRequestDTO.getNumberBedroom());
         product.setNumberBathroom(productRequestDTO.getNumberBathroom());
-        ProductType productType = productTypeRepository.findById(productRequestDTO.getProductType()).orElse(null);
-        product.setProductType(productType);
-        ProductTypeChild productTypeChild = productTypeChildRepository.findById(productRequestDTO.getProductTypeChild()).orElse(null);
-        product.setProductTypeChild(productTypeChild);
+        if(productRequestDTO.getProductType() != null) {
+            ProductType productType = productTypeRepository.findById(productRequestDTO.getProductType()).orElse(null);
+            product.setProductType(productType);
+        }
+        if(productRequestDTO.getProductTypeChild() != null) {
+            ProductTypeChild productTypeChild = productTypeChildRepository.findById(productRequestDTO.getProductTypeChild()).orElse(null);
+            product.setProductTypeChild(productTypeChild);
+        }
         product.setStatus(productRequestDTO.isStatus());
 
         for (Long id: productRequestDTO.getUtilities()) {
@@ -93,17 +101,26 @@ public class ProductService {
             .map(product -> {
                 product.setPrice(productRequestDTO.getPrice());
                 product.setArea(productRequestDTO.getArea());
-                Direction direction = directionRepository.findById(productRequestDTO.getDirection()).orElse(null);
-                product.setDirection(direction);
-                LegalStatus legalStatus = legalStatusRepository.findById(productRequestDTO.getLegalStatus()).orElse(null);
-                product.setLegalStatus(legalStatus);
+                if(productRequestDTO.getDirection() != null) {
+                    Direction direction = directionRepository.findById(productRequestDTO.getDirection()).orElse(null);
+                    product.setDirection(direction);
+                }
+                if(productRequestDTO.getLegalStatus() != null) {
+                    LegalStatus legalStatus = legalStatusRepository.findById(productRequestDTO.getLegalStatus()).orElse(null);
+                    product.setLegalStatus(legalStatus);
+                }
                 product.setNumberFloor(productRequestDTO.getNumberFloor());
                 product.setNumberBedroom(productRequestDTO.getNumberBedroom());
                 product.setNumberBathroom(productRequestDTO.getNumberBathroom());
-                ProductType productType = productTypeRepository.findById(productRequestDTO.getProductType()).orElse(null);
-                product.setProductType(productType);
-                ProductTypeChild productTypeChild = productTypeChildRepository.findById(productRequestDTO.getProductTypeChild()).orElse(null);
-                product.setProductTypeChild(productTypeChild);
+                if(productRequestDTO.getProductType() != null) {
+                    ProductType productType = productTypeRepository.findById(productRequestDTO.getProductType()).orElse(null);
+                    product.setProductType(productType);
+                }
+                if(productRequestDTO.getProductTypeChild() != null) {
+                    ProductTypeChild productTypeChild = productTypeChildRepository.findById(productRequestDTO.getProductTypeChild()).orElse(null);
+                    product.setProductTypeChild(productTypeChild);
+                }
+
                 for (Long id: productRequestDTO.getUtilities()) {
                     Utilities utilitiesSearch = utilitiesRepository.findById(id).orElse(null);
                     utilities.add(utilitiesSearch);

@@ -79,7 +79,16 @@ public class UserService {
             });
     }
 
+    public Optional<User> findUserByToken(String token) {
+        log.debug("find user by token {}", token);
+        return userRepository.findUserByTokenEquals(token);
+    }
 
+
+    public Optional<User> findUserByID(Long id) {
+        log.debug("find user by id {}", id);
+        return userRepository.findById(id);
+    }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
         log.debug("Reset user password for reset key {}", key);
@@ -234,7 +243,7 @@ public class UserService {
                     Ward ward = wardRepository.findById(userDTO.getWard()).orElse(null);
                     user.setWard(ward);
                 }
-
+                user.setToken(userDTO.getToken());
                 user.setPhone(userDTO.getPhone());
                 user.setDob(userDTO.getDob());
                 user.setGender(userDTO.isGender());

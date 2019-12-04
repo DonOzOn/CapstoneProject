@@ -9,6 +9,11 @@ import { IGuestCareProduct } from 'app/core/guest-care-product/guest-care-produc
 import { GuestCareProductService } from 'app/core/guest-care-product/guest-care-product.service';
 import { JhiAlertService } from 'ng-jhipster';
 import { MessageService } from 'primeng/api';
+import { INotification, Notification } from 'app/core/notification/notification.model';
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/user/account.model';
+import { IUser } from 'app/core/user/user.model';
+import { UserService } from 'app/core/user/user.service';
 
 @Component({
   selector: 'app-productdetail',
@@ -23,6 +28,9 @@ export class ProductdetailComponent implements OnInit {
   productdetail: any;
   listNews: any[];
   productdetal: PostRespone;
+  notification: INotification;
+  currentAccount: Account;
+  currentUser: IUser;
   inforForm = this.fb.group({
     name: ['', Validators.maxLength(50)],
     phone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
@@ -36,9 +44,17 @@ export class ProductdetailComponent implements OnInit {
     private guestCareProductService: GuestCareProductService,
     private fb: FormBuilder,
     private alertService: JhiAlertService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private accountService: AccountService,
+    private userService: UserService
   ) {}
   ngOnInit() {
+    this.accountService.identity().subscribe((account: Account) => {
+      this.currentAccount = account;
+      this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
+        this.currentUser = userAuthen;
+      });
+    });
     this.activatedRoute.data.subscribe(res => {
       this.productdetail = res.detailProduct;
       // eslint-disable-next-line
@@ -72,19 +88,28 @@ export class ProductdetailComponent implements OnInit {
     const data: IGuestCareProduct = this.inforForm.getRawValue();
     data.user = this.productdetail.productPostResponseDTO.user.id;
     data.productPost = this.productdetail.productPostResponseDTO.id;
+    // eslint-disable-next-line
+    console.log(' current User : ', this.currentUser);
+    // eslint-disable-next-line
+    console.log(' current product Detail : ', this.productdetail);
+    this.notification = new Notification();
+    this.notification.type = 1;
+    this.notification.userSend = this.currentUser.id;
+    this.notification.content = 'muốn liên hệ với bạn';
+    this.notification.userReceive = this.productdetail.productPostResponseDTO.user.id;
+    this.notification.title = 'Liên hệ';
     this.guestCareProductService
       .create(data)
-      .subscribe(() => this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã gửi liên hệ thành công!' })),
+      .subscribe(
+        () => (
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã gửi liên hệ thành công!' }),
+          this.notificationService.sendMessageAndAddNoti(this.notification).subscribe()
+        )
+      ),
       // eslint-disable-next-line
       (err: any) => (
         this.alertService.error(err.error.title),
         this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Gửi liên hệ  thất bại!' })
       );
-
-    this.notificationService
-      .sendMessage(
-        'dySN_Pgy_xc:APA91bHXer2Gm9CeKYxdc3HZJk0PwcxvUt9dGZallmU6GwcCe5uxND1zGZWYftabzygyrqweItnbMZEVa9l-AZUHpW01MNuH3X4DNSsSIOU5zaL1FObo4d6LW533ne7nm_-HKhXVEBv-'
-      )
-      .subscribe();
   }
 }
