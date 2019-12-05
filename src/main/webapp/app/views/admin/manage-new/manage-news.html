@@ -22,7 +22,7 @@
                                 <p-button (click)="don()" class="mb-3" icon="pi pi-plus" label="Tạo bài đăng"></p-button>
                             </div>
                             <div class="row col-md-12 m-0 p-0 d-flex justify-content-center">
-                                <p-dataView #dv [value]="news" [loading]="loading" [paginator]="true" [rows]="20" [lazy]="true" (onLazyLoad)="loadData($event)" paginatorPosition="both" filterBy="title" [sortField]="sortField" [sortOrder]="sortOrder">
+                                <p-dataView #dv [value]="news" [paginator]="true" [rows]="20" [lazy]="true" (onLazyLoad)="loadData($event)" paginatorPosition="both" filterBy="title" [sortField]="sortField" [sortOrder]="sortOrder">
                                     <p-header>
                                         <div class="ui-helper-clearfix">
                                             <div class="ui-g">
@@ -43,7 +43,7 @@
                                                     </div>
                                                     <div class="ui-g-6 ui-md-4 p-0">
                                                         <div>
-                                                            <p-calendar dateFormat="dd/mm/yy" [styleClass]="{'width': '10px'}" placeholder="Đến ngày" [(ngModel)]="to" (onSelect)="toChange(value)" (onBlur)="getListNew()" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+                                                            <p-calendar dateFormat="dd/mm/yy" [styleClass]="{'width': '10px'}" placeholder="Đến ngày" [(ngModel)]="to" (onSelect)="toChange(to)" (onBlur)="getListNew()" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
                                                             </p-calendar>
                                                         </div>
                                                     </div>
@@ -67,48 +67,39 @@
                                                     <div class="ui-g-9 ui-sm-6 text-uppercase font-weight-bold text-primary" [routerLink]="[ '/news', new.id , 'detail' ]">
                                                         <u>{{new.title}}</u>
                                                     </div>
-                                            <div class="ui-g-3 ui-sm-6">Ngày đăng:</div>
-                                            <div class="ui-g-9 ui-sm-6"><b>{{new.createdDate | date:'HH:mm dd/MM/yyyy'}}</b></div>
-                                            <div class="ui-g-3 ui-sm-6">Người đăng:</div>
-                                            <div class="ui-g-9 ui-sm-6"><b>{{new.createdBy}}</b></div>
-                                            <div class="ui-g-3 ui-sm-6">Trạng thái: </div>
-                                            <div class="ui-g-9 ui-sm-6" *ngIf="new.status"><span class="badge badge-success">Tồn tại</span></div>
-                                            <div class="ui-g-9 ui-sm-6" *ngIf="!new.status"><span class="badge badge-danger">Không tồn tạ<i></i></span></div>
+                                                    <div class="ui-g-3 ui-sm-6">Ngày đăng:</div>
+                                                    <div class="ui-g-9 ui-sm-6"><b>{{new.createdDate | date:'HH:mm dd/MM/yyyy'}}</b></div>
+                                                    <div class="ui-g-3 ui-sm-6">Người đăng:</div>
+                                                    <div class="ui-g-9 ui-sm-6"><b>{{new.createdBy}}</b></div>
+                                                    <div class="ui-g-3 ui-sm-6">Trạng thái: </div>
+                                                    <div class="ui-g-9 ui-sm-6" *ngIf="new.status"><span class="badge badge-success">Tồn tại</span></div>
+                                                    <div class="ui-g-9 ui-sm-6" *ngIf="!new.status"><span class="badge badge-danger">Không tồn tạ<i></i></span></div>
 
-                        </div>
-                      </div>
-                      <div class="ui-g-12 ui-md-1 search-icon py-3">
-                        <button
-                          class="d-flex justify-content-start"
-                          pButton
-                          type="button"
-                          icon=""
-                          (click)="selectNews($event, new)"
-                          label="Xem"
-                        ></button>
-                        <button class="btn btn-warning d-flex justify-content-center" *ngIf="new.status" (click)="deleteNews(new.id)"
-                        >Tắt</button>
-                     <button class="btn btn-success d-flex justify-content-end" *ngIf="!new.status" (click)="deleteNews(new.id)"
-                        >Bật</button>
+                                                </div>
+                                            </div>
+                                            <div class="ui-g-12 ui-md-1 search-icon py-3">
+                                                <button class="d-flex justify-content-start" pButton type="button" icon="" (click)="selectNews($event, new)" label="Xem"></button>
+                                                <button class="btn btn-warning d-flex justify-content-center" *ngIf="new.status" (click)="deleteNews(new.id)">Tắt</button>
+                                                <button class="btn btn-success d-flex justify-content-end" *ngIf="!new.status" (click)="deleteNews(new.id)">Bật</button>
 
-                    </div>
-                    </div>
-                  </ng-template>
-                  <ng-template let-new pTemplate="gridItem">
-                    <div style="padding:.5em" class="ui-g-12 ui-md-5">
-                      <p-panel [header]="new.title" [style]="{'text-align':'center'}">
-                        <img *ngIf="new.imageUrl !== null" src = "{{imageUrl}}{{new.imageUrl}}" class="img-thumbnail rounded mx-auto d-block" style="height: 100px;" alt = "Responsive image">
-                        <img *ngIf="new.imageUrl === null" src = "../../../../content/img/default-image.jpg" class="img-thumbnail rounded  mx-auto d-block" style="height: 100px;" alt = "Responsive image">
-                        <div class="post-detail">{{new.description}}</div>
-                        <div class="post-detail">{{new.createdDate | date:'HH:mm dd/MM/yyyy'}}</div>
-                        <div class="post-detail">{{new.createdBy}}</div>
-                        <hr class="ui-widget-content" style="border-top:0" />
-                        <button pButton type="button" icon="" (click)="selectNews($event, new)" label="Xem"></button>
-                        <button class="ui-button-danger" pButton type="button" icon="" (click)="deleteNews(new.id)" label="Xoá"></button>
-                      </p-panel>
-                    </div>
-                  </ng-template>
-                </p-dataView>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template let-new pTemplate="gridItem">
+                                        <div style="padding:.5em" class="ui-g-12 ui-md-5">
+                                            <p-panel [header]="new.title" [style]="{'text-align':'center'}">
+                                                <img *ngIf="new.imageUrl !== null" src="{{imageUrl}}{{new.imageUrl}}" class="img-thumbnail rounded mx-auto d-block" style="height: 100px;" alt="Responsive image">
+                                                <img *ngIf="new.imageUrl === null" src="../../../../content/img/default-image.jpg" class="img-thumbnail rounded  mx-auto d-block" style="height: 100px;" alt="Responsive image">
+                                                <div class="post-detail">{{new.description}}</div>
+                                                <div class="post-detail">{{new.createdDate | date:'HH:mm dd/MM/yyyy'}}</div>
+                                                <div class="post-detail">{{new.createdBy}}</div>
+                                                <hr class="ui-widget-content" style="border-top:0" />
+                                                <button pButton type="button" icon="" (click)="selectNews($event, new)" label="Xem"></button>
+                                                <button class="ui-button-danger" pButton type="button" icon="" (click)="deleteNews(new.id)" label="Xoá"></button>
+                                            </p-panel>
+                                        </div>
+                                    </ng-template>
+                                </p-dataView>
                                 <p-dialog header="Chi tiết tin" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '80%'}" (onAfterHide)="onDialogHide()">
                                     <div class="ui-g">
                                         <div class="ui-g-12">

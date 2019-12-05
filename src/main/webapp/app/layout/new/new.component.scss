@@ -1,20 +1,5 @@
 /*Content, Title short*/
 
-.giveMeEllipsisSlide {
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  line-height: 1.2em;
-  /* fallback */
-  max-height: 3.6em;
-  min-height: 2.4em;
-  /* fallback */
-  -webkit-line-clamp: 2;
-  /* number of lines to show */
-  -webkit-box-orient: vertical;
-}
-
 .giveMeEllipsis {
   word-break: break-word;
   overflow: hidden;
@@ -23,7 +8,7 @@
   line-height: 1.5em;
   /* fallback */
   max-height: 4.8em;
-  min-height: 3.6em;
+  min-height: 4.8em;
   /* fallback */
   -webkit-line-clamp: 3;
   /* number of lines to show */
@@ -37,8 +22,8 @@
   display: -webkit-box;
   line-height: 1.5em;
   /* fallback */
-  max-height: 3.6em;
-  min-height: 2.4em;
+  max-height: 3.3em;
+  min-height: 3.3em;
   /* fallback */
   -webkit-line-clamp: 2;
   /* number of lines to show */

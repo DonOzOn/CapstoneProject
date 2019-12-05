@@ -21,7 +21,6 @@ import { ErrorComponent } from './views/error/error.component';
 import { PostProductModule } from './views/postproduct/postproduct.module';
 import { UsermanageModule } from './views/usermanage/usermanage.module';
 import { LayoutModule } from './layout/layout.module';
-import { LoginComponent } from './views/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RealestatebrokerageSharedModule } from './shared/shared.module';
 import { RealestatebrokerageSharedLibsModule } from './shared/shared-libs.module';
@@ -29,9 +28,10 @@ import { RealestatebrokerageAccountModule } from './views/account/account.module
 import { CheckboxModule } from 'primeng/checkbox';
 import { FacebookModule } from 'ngx-facebook';
 import { ToastModule } from 'primeng/toast';
+import { LoginModule } from './views/login/login.module';
 
 @NgModule({
-  declarations: [AppComponent, ErrorComponent, LoginComponent, RegisterComponent],
+  declarations: [AppComponent, ErrorComponent],
   imports: [
     HomeModule,
     BrowserModule,
@@ -63,7 +63,8 @@ import { ToastModule } from 'primeng/toast';
     RealestatebrokerageAccountModule,
     CheckboxModule,
     FacebookModule.forRoot(),
-    ToastModule
+    ToastModule,
+    LoginModule
   ],
   providers: [],
   bootstrap: [AppComponent]

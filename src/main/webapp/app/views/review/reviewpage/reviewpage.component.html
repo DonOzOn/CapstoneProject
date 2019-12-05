@@ -10,162 +10,6 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated fadeInRight">
-                    <div class="bc-icons-2">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb lighten-4 rounded-0 px-0 my-0">
-                                <li class="breadcrumb-item"><a class="text-muted" href="#"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
-                                <li class="breadcrumb-item pt-2">
-                                    <a class="" href="#">
-                                        <span class="text-muted">Review</span>
-                                    </a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
-                                <li class="breadcrumb-item pt-2"><a class="text-muted" href="#">Căn hộ</a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
-                                <li class="breadcrumb-item pt-2 active">TP HỒ CHÍ MINH</li>
-
-                                <li class="breadcrumb-item ml-5 pl-5" style="margin-left: 300px;"> <button (click)="don()" pButton icon="pi pi-plus" type="button" label="Tạo bài review/câu hỏi" class="ui-button-rounded"></button> </li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <p-dialog header="Đăng bài" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '80%'}" (onAfterHide)="onDialogHide()">
-                        <div class="ui-g">
-                            <div class="ui-g-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <form [formGroup]="reviewPostForm" (ngSubmit)="postReview()">
-                                            <div class="row mb-2">
-                                                <div class="col-md-12">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="card-body">
-                                                                        <!-- Tiêu đề -->
-                                                                        <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
-                                                                            <div class="col-md-2 px-3">
-                                                                                <label class="m-0 py-1">Tiêu đề<label style="color: Red;">*</label></label>
-                                                                            </div>
-                                                                            <div class="col-md-10 pl-4">
-                                                                                <span class="ui-float-label pl-2 ml-2">
-                                                  <input
-                                                    id="float-input"
-                                                    type="text"
-                                                    formControlName="title"
-                                                    style="width: 100%;"
-                                                    pInputText
-                                                  />
-                                                  <label class="pl-2" for="float-input">Tiêu đề</label>
-                                                </span>
-                                                                                <div class="pl-3" *ngIf="reviewPostForm.controls.title.invalid && (reviewPostForm.controls.title.dirty || reviewPostForm.controls.title.touched)">
-                                                                                    <small class="form-text text-danger" *ngIf="reviewPostForm.controls.title.errors?.required">
-                                                    Tiêu đề không được để trống</small
-                                                  >
-                                                  <small class="form-text text-danger" *ngIf="reviewPostForm.get('title').errors.maxlength">
-                                                    Tiêu đề dài nhất có 100 một kí tự.
-                                                  </small>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- Tiêu đề -->
-                                                                        <div class="row col-md-12 m-0 p-0 d-flex justify-content-left my-3">
-                                                                            <div class="col-md-2 px-3">
-                                                                                <label class="m-0 py-1">Miêu tả ngắn<label style="color: Red;">*</label></label>
-                                                                            </div>
-                                                                            <div class="col-md-10 pl-4">
-                                                                                <span class="ui-float-label pl-2 ml-2">
-                                                  <textarea
-                                                    id="float-input"
-                                                    rows="5"
-                                                    cols="30"
-                                                    formControlName="decription"
-                                                    pInputTextarea
-                                                    autoResize="autoResize"
-                                                  ></textarea>
-                                                  <label class="pl-2" for="float-input">Miêu tả ngắn</label>
-                                                </span>
-                                                                                <div class="pl-3" *ngIf="reviewPostForm.controls.decription.invalid && (reviewPostForm.controls.decription.dirty || reviewPostForm.controls.decription.touched)">
-                                                                                    <small class="form-text text-danger" *ngIf="reviewPostForm.get('decription').errors.maxlength">
-                                                    Miêu tả ngắn dài nhất có 200 một kí tự.
-                                                  </small>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row col-md-12 m-0 p-0 d-flex justify-content-left my-3">
-                                                                            <div class="col-md-2 px-2 pl-3">
-                                                                                <label class="m-0 py-1">Loại bài đăng<label style="color: Red;">*</label></label>
-                                                                            </div>
-                                                                            <div class="col-md-10 pl-4">
-                                                                                <span class="ui-float-label pl-2 ml-2">
-                                                    <p-selectButton formControlName="type" [options]="types" (onChange) = "selectOnchange($event)" [(ngModel)]="selectedType"></p-selectButton>
-                                                </span>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <!-- Chọn avatar -->
-                                                                        <div class="row col-md-12 m-0 p-0 ml-3 d-flex justify-content-left my-2">
-                                                                            <h6 class="first">Ảnh bìa</h6>
-                                                                            <div class="input-group ml-5 pl-5">
-                                                                                <p-fileUpload #fileUpload name="demo[]" multiple="multiple" accept="image/*" [showUploadButton]="true" (uploadHandler)="onUpload($event,fileUpload)" customUpload="true" cancelLabel="Bỏ" chooseLabel="Chọn hình" uploadLabel="Tải lên" (onRemove)="onRemove($event)"
-                                                                                    fileLimit="1" maxFileSize="1000000" class="ml-5 pl-5">
-                                                                                    <ng-template pTemplate="content">
-                                                                                        <ul *ngIf="uploadedFiles">
-                                                                                            <label *ngIf="uploadedFiles.length > 0">Tải lên thành công: </label>
-                                                                                            <li *ngFor="let file of uploadedFiles">{{file}}</li>
-                                                                                        </ul>
-                                                                                    </ng-template>
-                                                                                </p-fileUpload>
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- Mô tả -->
-                                                                        <div class="row col-md-12 mt-3 m-0 p-0 d-flex justify-content-left">
-                                                                            <div class="col-md-2 px-4">
-                                                                                <label class="m-0 py-1 ">Mô tả<label style="color: Red;">*</label></label>
-                                                                            </div>
-                                                                            <div class="col-md-10 pl-4">
-                                                                                <span class="ui-float-label pl-2 ml-2">
-                                                  <p-editor
-                                                    formControlName="content"
-                                                    [(ngModel)]="text1"
-                                                    [style]="{'height':'1000px'}"
-                                                  ></p-editor>
-                                                  <button
-                                                    pButton
-                                                    type="button"
-                                                    label="Clear"
-                                                    icon="pi pi-times"
-                                                    (click)="text1=null"
-                                                  ></button>
-                                                </span>
-                                                                                <div class="pl-3" *ngIf="reviewPostForm.controls.decription.invalid && (reviewPostForm.controls.content.dirty || reviewPostForm.controls.content.touched)">
-                                                                                    <small class="form-text text-danger" *ngIf="reviewPostForm.controls.content.errors?.required">
-                                                    Mô tả không được để trống</small
-                                                  >
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row mb-2">
-                                <div class="col-md-12 d-flex justify-content-center">
-                                  <button
-                                    pButton
-                                    type="button"
-                                    type="submit"
-                                    [disabled]="reviewPostForm.invalid"
-                                    label="Đăng tin"
-                                    style="width: 200px;height: 50px;"
-                                  ></button>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </p-dialog>
                     <div class="ibox-content forum-container">
 
                         <!-- Thảo luận -->
@@ -173,452 +17,452 @@
                         <div class="forum-title background-blue rounded">
                             <div class="pull-right forum-desc text-dark px-2 pt-3">
                                 <small>Total posts: 20,800</small>
-                                                                                </div>
-                                                                                <h3 class="p-2 strong">Thảo luận</h3>
-                                                                            </div>
+                            </div>
+                            <h3 class="p-2 strong">Thảo luận</h3>
+                        </div>
 
-                                                                            <div class="forum-item active">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-9">
-                                                                                        <div class="forum-icon">
-                                                                                            <i class="fa fa-bullhorn"></i>
-                                                                                        </div>
-                                                                                        <a href="#" class="forum-item-title">Thông báo <sup><button type="button" class="btn btn-warning btn-sm px-1 py-0"><strong>New</strong></button></sup></a>
-                                                                                        <div class="forum-sub-title">Những thông báo quan trọng từ ban quản lý trang, danh sách các tài khoản bị cấm chat, block.</div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                        <div class="forum-item active">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-bullhorn"></i>
+                                    </div>
+                                    <a href="#" class="forum-item-title">Thông báo <sup><button type="button" class="btn btn-warning btn-sm px-1 py-0"><strong>New</strong></button></sup></a>
+                                    <div class="forum-sub-title">Những thông báo quan trọng từ ban quản lý trang, danh sách các tài khoản bị cấm chat, block.</div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 1216
                             </span>
-                                                                                        <div>
-                                                                                            <small>Views</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 368
                             </span>
-                                                                                        <div>
-                                                                                            <small>Topics</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 140
                             </span>
-                                                                                        <div>
-                                                                                            <small>Posts</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="forum-item">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-9">
-                                                                                        <div class="forum-icon">
-                                                                                            <i class="fa fa-bolt"></i>
-                                                                                        </div>
-                                                                                        <a href="#" class="forum-item-title">Tin tức - Thời sự - Bản tin <sup><button type="button" class="btn btn-warning btn-sm px-1 py-0"><strong>New</strong></button></sup></a>
-                                                                                        <div class="forum-sub-title">Các tin tức mới nhất về thị trường BĐS và các yếu tố liên quan </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forum-item">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-bolt"></i>
+                                    </div>
+                                    <a href="#" class="forum-item-title">Tin tức - Thời sự - Bản tin <sup><button type="button" class="btn btn-warning btn-sm px-1 py-0"><strong>New</strong></button></sup></a>
+                                    <div class="forum-sub-title">Các tin tức mới nhất về thị trường BĐS và các yếu tố liên quan </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 890
                             </span>
-                                                                                        <div>
-                                                                                            <small>Views</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 120
                             </span>
-                                                                                        <div>
-                                                                                            <small>Topics</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 154
                             </span>
-                                                                                        <div>
-                                                                                            <small>Posts</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="forum-item active">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-9">
-                                                                                        <div class="forum-icon">
-                                                                                            <i class="fa fa-comments-o"></i>
-                                                                                        </div>
-                                                                                        <a [routerLink]="[ '/listreview']" class="forum-item-title">Ý kiến - Hỏi đáp - Thảo luận <sup><button type="button" class="btn btn-warning btn-sm px-1 py-0"><strong>New</strong></button></sup></a>
-                                                                                        <div class="forum-sub-title">Nơi mọi người đưa ra các ý kiến, câu hỏi, thảo luận về các vấn đề BĐS, các bài review về nơi bạn đang sống </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forum-item active">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-comments-o"></i>
+                                    </div>
+                                    <a [routerLink]="[ '/listreview']" class="forum-item-title">Ý kiến - Hỏi đáp - Thảo luận <sup><button type="button" class="btn btn-warning btn-sm px-1 py-0"><strong>New</strong></button></sup></a>
+                                    <div class="forum-sub-title">Nơi mọi người đưa ra các ý kiến, câu hỏi, thảo luận về các vấn đề BĐS, các bài review về nơi bạn đang sống </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 680
                             </span>
-                                                                                        <div>
-                                                                                            <small>Views</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 124
                             </span>
-                                                                                        <div>
-                                                                                            <small>Topics</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 61
                             </span>
-                                                                                        <div>
-                                                                                            <small>Posts</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="forum-item">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-9">
-                                                                                        <div class="forum-icon">
-                                                                                            <i class="fa fa-phone"></i>
-                                                                                        </div>
-                                                                                        <a href="#" class="forum-item-title">Liên hệ <sup><button type="button" class="btn btn-warning btn-sm px-1 py-0"><strong>New</strong></button></sup></a>
-                                                                                        <div class="forum-sub-title">Thông tin liên hệ ban quản trị, các chủ đầu tư dự án BĐS </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forum-item">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <a href="#" class="forum-item-title">Liên hệ <sup><button type="button" class="btn btn-warning btn-sm px-1 py-0"><strong>New</strong></button></sup></a>
+                                    <div class="forum-sub-title">Thông tin liên hệ ban quản trị, các chủ đầu tư dự án BĐS </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 1450
                             </span>
-                                                                                        <div>
-                                                                                            <small>Views</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 652
                             </span>
-                                                                                        <div>
-                                                                                            <small>Topics</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 572
                             </span>
-                                                                                        <div>
-                                                                                            <small>Posts</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <!-- Lưu trữ -->
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Lưu trữ -->
 
-                                                                            <div class="forum-title background-blue rounded">
-                                                                                <div class="pull-right forum-desc text-dark px-2 pt-3">
-                                                                                    <small>Total posts: 20,800</small>
-                                                                                </div>
-                                                                                <h3 class="p-2 strong">Lưu trữ</h3>
-                                                                            </div>
+                        <div class="forum-title background-blue rounded">
+                            <div class="pull-right forum-desc text-dark px-2 pt-3">
+                                <small>Total posts: 20,800</small>
+                            </div>
+                            <h3 class="p-2 strong">Lưu trữ</h3>
+                        </div>
 
-                                                                            <div class="forum-item">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-9">
-                                                                                        <div class="forum-icon">
-                                                                                            <i class="fa fa-newspaper-o"></i>
-                                                                                        </div>
-                                                                                        <a href="#" class="forum-item-title">Bài đăng <sup><button type="button" class="btn btn-danger btn-sm px-1 py-0"><strong>Hot</strong></button></sup></a>
-                                                                                        <div class="forum-sub-title">Những bài viết có lượt tương tác cao về những chủ đề nóng trong lĩnh vực BĐS</div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                        <div class="forum-item">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-newspaper-o"></i>
+                                    </div>
+                                    <a href="#" class="forum-item-title">Bài đăng <sup><button type="button" class="btn btn-danger btn-sm px-1 py-0"><strong>Hot</strong></button></sup></a>
+                                    <div class="forum-sub-title">Những bài viết có lượt tương tác cao về những chủ đề nóng trong lĩnh vực BĐS</div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 1516
                             </span>
-                                                                                        <div>
-                                                                                            <small>Views</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 238
                             </span>
-                                                                                        <div>
-                                                                                            <small>Topics</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 180
                             </span>
-                                                                                        <div>
-                                                                                            <small>Posts</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="forum-item">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-9">
-                                                                                        <div class="forum-icon">
-                                                                                            <i class="fa fa-picture-o"></i>
-                                                                                        </div>
-                                                                                        <a href="#" class="forum-item-title">Thư viện hình ảnh</a>
-                                                                                        <div class="forum-sub-title"> Nơi lưu trữ những hình ảnh về nhà, thiết kế nội ngoại thất đẹp </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forum-item">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-picture-o"></i>
+                                    </div>
+                                    <a href="#" class="forum-item-title">Thư viện hình ảnh</a>
+                                    <div class="forum-sub-title"> Nơi lưu trữ những hình ảnh về nhà, thiết kế nội ngoại thất đẹp </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 1766
                             </span>
-                                                                                        <div>
-                                                                                            <small>Views</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 321
                             </span>
-                                                                                        <div>
-                                                                                            <small>Topics</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 42
                             </span>
-                                                                                        <div>
-                                                                                            <small>Posts</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="forum-item">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-9">
-                                                                                        <div class="forum-icon">
-                                                                                            <i class="fa fa-star-o"></i>
-                                                                                        </div>
-                                                                                        <a href="#" class="forum-item-title">Bảng xếp hạng</a>
-                                                                                        <div class="forum-sub-title">Nơi những người có đóng góp to lớn cho cộng đồng này được vinh danh</div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forum-item">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <a href="#" class="forum-item-title">Bảng xếp hạng</a>
+                                    <div class="forum-sub-title">Nơi những người có đóng góp to lớn cho cộng đồng này được vinh danh</div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 765
                             </span>
-                                                                                        <div>
-                                                                                            <small>Views</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 90
                             </span>
-                                                                                        <div>
-                                                                                            <small>Topics</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 11
                             </span>
-                                                                                        <div>
-                                                                                            <small>Posts</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="forum-item">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-9">
-                                                                                        <div class="forum-icon">
-                                                                                            <i class="fa fa-ambulance"></i>
-                                                                                        </div>
-                                                                                        <a href="#" class="forum-item-title">Dịch vụ</a>
-                                                                                        <div class="forum-sub-title">Dịch vụ thiết kế nội, ngoại thất, dịch vụ chuyển nhà của các đối tác liên quan</div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forum-item">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-ambulance"></i>
+                                    </div>
+                                    <a href="#" class="forum-item-title">Dịch vụ</a>
+                                    <div class="forum-sub-title">Dịch vụ thiết kế nội, ngoại thất, dịch vụ chuyển nhà của các đối tác liên quan</div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 2550
                             </span>
-                                                                                        <div>
-                                                                                            <small>Views</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 122
                             </span>
-                                                                                        <div>
-                                                                                            <small>Topics</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                 92
                             </span>
-                                                                                        <div>
-                                                                                            <small>Posts</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                                                            <!-- Khu vực -->
+                        <!-- Khu vực -->
 
-                                                                            <div class="forum-title background-blue rounded">
-                                                                                <div class="pull-right forum-desc text-dark px-2 pt-3">
-                                                                                    <small>Total posts: 20,800</small>
-                                                                                </div>
-                                                                                <h3 class="p-2 strong">Khu vực</h3>
-                                                                            </div>
+                        <div class="forum-title background-blue rounded">
+                            <div class="pull-right forum-desc text-dark px-2 pt-3">
+                                <small>Total posts: 20,800</small>
+                            </div>
+                            <h3 class="p-2 strong">Khu vực</h3>
+                        </div>
 
-                                                                            <div class="forum-item">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-9">
-                                                                                        <div class="forum-icon">
-                                                                                            <i class="fa fa-map-marker"></i>
-                                                                                        </div>
-                                                                                        <a href="#" class="forum-item-title">Khu vưc Hà Nội <sup><button type="button" class="btn btn-danger btn-sm px-1 py-0"><strong>Hot</strong></button></sup></a>
-                                                                                        <div class="forum-sub-title">Những câu hỏi, review về BĐS tại thủ đô Hà Nội</div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                        <div class="forum-item">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-map-marker"></i>
+                                    </div>
+                                    <a href="#" class="forum-item-title">Khu vưc Hà Nội <sup><button type="button" class="btn btn-danger btn-sm px-1 py-0"><strong>Hot</strong></button></sup></a>
+                                    <div class="forum-sub-title">Những câu hỏi, review về BĐS tại thủ đô Hà Nội</div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                     1516
                                 </span>
-                                                                                        <div>
-                                                                                            <small>Views</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                     238
                                 </span>
-                                                                                        <div>
-                                                                                            <small>Topics</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                     180
                                 </span>
-                                                                                        <div>
-                                                                                            <small>Posts</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="forum-item">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-9">
-                                                                                        <div class="forum-icon">
-                                                                                            <i class="fa fa-map-marker"></i>
-                                                                                        </div>
-                                                                                        <a href="#" class="forum-item-title">Khu vực TP Đà Nẵng</a>
-                                                                                        <div class="forum-sub-title"> Những câu hỏi, review về BĐS tại TP Đà Nẵng </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forum-item">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-map-marker"></i>
+                                    </div>
+                                    <a href="#" class="forum-item-title">Khu vực TP Đà Nẵng</a>
+                                    <div class="forum-sub-title"> Những câu hỏi, review về BĐS tại TP Đà Nẵng </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                     1766
                                 </span>
-                                                                                        <div>
-                                                                                            <small>Views</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                     321
                                 </span>
-                                                                                        <div>
-                                                                                            <small>Topics</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                     42
                                 </span>
-                                                                                        <div>
-                                                                                            <small>Posts</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="forum-item">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-9">
-                                                                                        <div class="forum-icon">
-                                                                                            <i class="fa fa-map-marker"></i>
-                                                                                        </div>
-                                                                                        <a href="#" class="forum-item-title">Khu vực TP Hồ Chí Minh</a>
-                                                                                        <div class="forum-sub-title">Những câu hỏi, review về BĐS tại TP Hồ Chí Minh </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forum-item">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-map-marker"></i>
+                                    </div>
+                                    <a href="#" class="forum-item-title">Khu vực TP Hồ Chí Minh</a>
+                                    <div class="forum-sub-title">Những câu hỏi, review về BĐS tại TP Hồ Chí Minh </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                     765
                                 </span>
-                                                                                        <div>
-                                                                                            <small>Views</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                     90
                                 </span>
-                                                                                        <div>
-                                                                                            <small>Topics</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                     11
                                 </span>
-                                                                                        <div>
-                                                                                            <small>Posts</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="forum-item">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-9">
-                                                                                        <div class="forum-icon">
-                                                                                            <i class="fa fa-map-marker"></i>
-                                                                                        </div>
-                                                                                        <a href="#" class="forum-item-title">Khu vực khác</a>
-                                                                                        <div class="forum-sub-title">Những câu hỏi, review về BĐS ở các khu vực khác</div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forum-item">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-map-marker"></i>
+                                    </div>
+                                    <a href="#" class="forum-item-title">Khu vực khác</a>
+                                    <div class="forum-sub-title">Những câu hỏi, review về BĐS ở các khu vực khác</div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                     2550
                                 </span>
-                                                                                        <div>
-                                                                                            <small>Views</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                     122
                                 </span>
-                                                                                        <div>
-                                                                                            <small>Topics</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1 forum-info">
-                                                                                        <span class="views-number">
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
                                     92
                                 </span>
-                                                                                        <div>
-                                                                                            <small>Posts</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
