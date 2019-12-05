@@ -1,4 +1,3 @@
-import { RegisterComponent } from './views/register/register.component';
 import './vendor.ts';
 import { CoreModule } from './core/core.module';
 import { MDBBootstrapModule, ButtonsModule, PopoverModule, TooltipModule, IconsModule } from 'angular-bootstrap-md';
