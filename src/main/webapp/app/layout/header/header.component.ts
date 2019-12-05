@@ -17,6 +17,9 @@ export class HeaderComponent implements OnInit {
   account: Account;
   authSubscription: Subscription;
   modalRef: NgbModalRef;
+  isShowDropdown  = false;
+  isShowCart = false;
+  isShowMenu = false;
   constructor(
     private loginService: LoginService,
     private accountService: AccountService,
@@ -59,5 +62,15 @@ export class HeaderComponent implements OnInit {
   }
   requestChangePassword() {
     this.router.navigate(['/account/password']);
+  }
+
+  showMenu() {
+    this.isShowMenu = ! this.isShowMenu;
+  }
+  showDropdown() {
+    this.isShowDropdown = !this.isShowDropdown;
+  }
+  showCart() {
+    this.isShowCart = !this.isShowCart;
   }
 }
