@@ -56,7 +56,7 @@ export class ReviewComponent implements OnInit {
 
   displayDialog: boolean;
 
-  selectedType: string;
+  selectedType: boolean;
 
   types: SelectItem[];
 
@@ -78,7 +78,7 @@ export class ReviewComponent implements OnInit {
     private userService: UserService,
     private messageService: MessageService
   ) {
-    this.types = [{ label: 'Review', value: 0 }, { label: 'Câu hỏi', value: 1 }];
+    this.types = [{ label: 'Review', value: true }, { label: 'Câu hỏi', value: false }];
   }
 
   ngOnInit() {
@@ -89,6 +89,10 @@ export class ReviewComponent implements OnInit {
       });
     });
     this.getListReview();
+  }
+
+  isAuthenticated() {
+    return this.accountService.isAuthenticated();
   }
 
   /**
@@ -176,6 +180,8 @@ export class ReviewComponent implements OnInit {
    */
   postReview() {
     if (this.reviewPostForm.valid) {
+      // eslint-disable-next-line
+      console.log('dfgdfgdfgdfgdfg: ');
       this.confirm();
     }
   }
@@ -208,20 +214,6 @@ export class ReviewComponent implements OnInit {
   }
 
   /**
-   * Selects onchange
-   * @param event
-   */
-  selectOnchange(event) {
-    // eslint-disable-next-line
-    console.log('value select : ', event.value);
-    if (event.value === 0) {
-      this.reviewPostForm.controls.type.setValue(false);
-    } else {
-      this.reviewPostForm.controls.type.setValue(true);
-    }
-  }
-
-  /**
    * Confirms manage news component
    */
   confirm() {
@@ -232,6 +224,7 @@ export class ReviewComponent implements OnInit {
         message: 'Bạn có chắc chắn muốn tạo bài đăng?',
         accept: () => {
           const data: IReview = this.reviewPostForm.getRawValue();
+          data.type = this.selectedType;
           data.imageUrl = this.uploadedFiles[0];
           data.user = this.currentUser.id;
           this.alertService.clear();

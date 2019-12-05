@@ -30,9 +30,11 @@ export class CommonService {
     // Filter query parameters
     let queryParams = null;
     if (params) {
-      // tslint:disable-next-line:forin
+      // eslint-disable-next-line
       for (const key in params) {
+        // eslint-disable-next-line
         const chkKey = '/{' + key;
+        // eslint-disable-next-line
         if (apiUriTemplate.indexOf(chkKey) < 0) {
           if (!queryParams) {
             queryParams = {};
