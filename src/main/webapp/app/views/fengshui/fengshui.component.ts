@@ -3,7 +3,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { IPar } from 'app/core/par/par.model';
 import { ParService } from 'app/core/par/parService';
 import { IDirecHouse } from 'app/core/par/model/direcHouse.model';
-import { faLeaf } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-fengshui',
