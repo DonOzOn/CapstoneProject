@@ -59,23 +59,23 @@ export class PostproductComponent implements OnInit {
     projectName: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     type: [null, Validators.required],
     address: [null],
-    provinceCode: [null],
-    districtCode: [null],
-    wardCode: [null],
+    provinceCode: [null, Validators.required],
+    districtCode: [null, Validators.required],
+    wardCode: [null, Validators.required],
     productTypeID: [null, Validators.required],
     productTypeChildID: [null, Validators.required],
     // eslint-disable-next-line
-    price: [null, [Validators.maxLength(50), Validators.pattern('^[0-9]*$')]],
-    area: [null, [Validators.maxLength(50), Validators.pattern('^[0-9]*$')]],
-    directionID: [null],
+    price: [null, [Validators.required, Validators.maxLength(15), Validators.pattern('^[0-9]*$')]],
+    area: [null, [Validators.required, Validators.maxLength(5), Validators.pattern('^[0-9]*$')]],
+    directionID: [null, Validators.required],
     legalStatusID: [null, Validators.required],
     projectPostTitle: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
     // eslint-disable-next-line
-    numFloor: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
+    numFloor: [null, [Validators.required, Validators.max(200), Validators.pattern('^[0-9]*$')]],
     // eslint-disable-next-line
-    numBathroom: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
+    numBathroom: [null, [Validators.required, Validators.max(20), Validators.pattern('^[0-9]*$')]],
     // eslint-disable-next-line
-    numBedroom: [null, [Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
+    numBedroom: [null, [Validators.required, Validators.max(20), Validators.pattern('^[0-9]*$')]],
     content: [this.text1, Validators.maxLength(255)],
     utilities: [null]
   });

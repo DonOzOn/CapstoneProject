@@ -13,52 +13,53 @@
                 </div>
             </div>
             <div class="content">
-                <div  class="direction">
+                <div class="direction">
                     <div class="title">
                         <div class="content-title">
-                            <p><img src=""/></p>
-                            <p class="text-title">Xem tuổi xây nhà</p>
+                            <p><img src="" /></p>
+                            <p class="text-title">Xem hướng nhà</p>
                         </div>
                     </div>
                     <div class="content-direction">
                         <div class="icon-direction">
-                            <img src="/content/img/xay-nha.png"/>
+                            <img src="/content/img/xay-nha.png" />
                         </div>
                         <div class="info-see">
                             <div class="info-personal">
                                 <div class="content-info">
-                                    <form [formGroup] = "formdata" (ngSubmit) = "onClickSubmit(formdata.value)">
-                                    <div class="year">
-                                        <p>Năm sinh (âm lịch)</p>
-                                        <div class="slect-year">
-                                            <select name="yearitem" formControlName = "yearitem" id="year">
-                                                <option *ngFor="let item of listYear">{{item}}</option>
-                                            </select>
-                                            <span class="drop"></span>
+                                    <form [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)">
+                                        <div class="year">
+                                            <p>Năm sinh (âm lịch)</p>
+                                            <div class="slect-year">
+                                                <select name="yearitem" formControlName="yearitem" id="year">
+                                                    <option *ngFor="let item of listYear">{{item}}</option>
+                                                </select>
+                                                <span class="drop"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="gender inteneded-year">
-                                        <p>Giới tính</p>
-                                        <div class="slect-gender">
-                                            <select name="genderitem" formControlName = "genderitem" class="select-year">
-                                                <option *ngFor="let item of gender">{{item}}</option>
-                                                
-                                            </select>
-                                            <span class="drop"></span>
+                                        <div class="gender inteneded-year">
+                                            <p>Giới tính</p>
+                                            <div class="slect-gender">
+                                                <select name="genderitem" formControlName="genderitem"
+                                                    class="select-year">
+                                                    <option *ngFor="let item of gender">{{item}}</option>
+
+                                                </select>
+                                                <span class="drop"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="result">
-                                        <input type="submit" class="btn-result" value="XEM KẾT QUẢ">
-                                    </div>
-                                </form>
+                                        <div class="result">
+                                            <input type="submit" class="btn-result" value="XEM KẾT QUẢ">
+                                        </div>
+                                    </form>
                                 </div>
-                                <p> Year entered is : {{yearitem}} </p>
+                               
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="default">
-                    <div class="content-default">
+                    <div class="content-default" *ngIf="!searchPar">
                         <div class="you-know">
                             <p>Bạn có biết?</p>
                         </div>
@@ -215,6 +216,114 @@
                                 </div>
                             </div>
                         </div>
+                    </div> 
+                    <div class="result" style="display: block;" *ngIf="searchPar">
+                        <div class="title-result">
+                            <p>Kết quả</p>
+                        </div>
+                        <div class="info">
+                            <p class="info-homeowners title-info">THÔNG TIN GIA CHỦ</p>
+                            <!--Làm sau-->
+                            <div class="homeowners">
+                                <div class="homeowners-content">
+                                    <div class="info-detail">
+                                        <div class="item-info">
+                                            <span class="txt-circle"></span>
+                                            <p class="txt-left">Năm sinh âm lịch</p>
+                                            <p class="txt-right txt-year-birth">{{yearitem}}</p>
+                                        </div>
+                                        <div class="item-info">
+                                            <span class="txt-circle"></span>
+                                            <p class="txt-left">Cung mệnh</p>
+                                            <p class="txt-right txt-year-birth">{{direction.name_par}}</p>
+                                        </div>
+                                        <div class="item-info">
+                                            <span class="txt-circle"></span>
+                                            <p class="txt-left">Giới tính</p>
+                                            <p class="txt-right txt-year-birth">{{genderitem}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="log-supply">
+                                        <img src="" class="mascot">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="directions">
+                            <p class="title-info">
+                                CÁC HƯỚNG TỐT VÀ HƯỚNG XẤU CỦA BẠN - MỆNH <span class="my-par">{{direction.name_par}}
+                                    <!--chèn Par--></span>
+                            </p>
+                            <div class="direction-par">
+                                <div class="content-par">
+                                    <div class="info-direction">
+                                        <div class="type-direction">
+                                            <!--Huong tot-->
+                                            <div class="item">
+                                                <p class="title-supply">
+                                                    HƯỚNG TỐT
+                                                </p>
+                                                <div class="direction-supply direction-good ">
+                                                    <div class="supply-item">
+                                                        <span class="txt-cricle"></span>
+                                                        <p>{{direction.diennien}} - Diên niên</p>
+                                                        <p>Mọi sự ổn định</p>
+                                                    </div>
+                                                    <div class="supply-item">
+                                                        <span class="txt-cricle"></span>
+                                                        <p>{{direction.sinhkhi}} - Sinh khí</p>
+                                                        <p>Phúc lộc vẹn toàn</p>
+                                                    </div>
+                                                    <div class="supply-item">
+                                                        <span class="txt-cricle"></span>
+                                                        <p>{{direction.thieny}} - Thiên y</p>
+                                                        <p>Gặp thiên thời che chở</p>
+                                                    </div>
+                                                    <div class="supply-item">
+                                                        <span class="txt-cricle"></span>
+                                                        <p>{{direction.phucvi}} - Phúc vị</p>
+                                                        <p>Được sự giúp đỡ</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--Huong xau-->
+                                            <div class="item">
+                                                <p class="title-supply">
+                                                    HƯỚNG XẤU
+                                                </p>
+                                                <div class="direction-supply direction-bad">
+                                                        <div class="supply-item">
+                                                                <span class="txt-cricle"></span>
+                                                                <p>{{direction.tuyetmenh}} - Tuyệt mệnh</p>
+                                                                <p>Chết chóc</p>
+                                                            </div>
+                                                            <div class="supply-item">
+                                                                <span class="txt-cricle"></span>
+                                                                <p>{{direction.nguquy}} - Ngũ quỷ</p>
+                                                                <p>Gặp tai họa</p>
+                                                            </div>
+                                                            <div class="supply-item">
+                                                                <span class="txt-cricle"></span>
+                                                                <p>{{direction.lucsat}} - Lục sát</p>
+                                                                <p>Nhà có sát khí</p>
+                                                            </div>
+                                                            <div class="supply-item">
+                                                                <span class="txt-cricle"></span>
+                                                                <p>{{direction.hoahai}} - Họa hại</p>
+                                                                <p>Nhà có hung khí</p>
+                                                            </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="compass">
+                                        <div class="compass-content">
+                                            <img src="/content/img/amduong.png" class="bagua">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -222,17 +331,17 @@
                 <div class="container">
                     <div class="box-title">
                         <div class="row">
-                        <div class="col-sm-8 title-left">
-                            <h2>
-                                <a href="#">Tin tức</a>
-                                <span class=""></span>
-                            </h2>
-                            <span class="grey-text small">
-                                Cập nhật các thông tin mới nhất về thị trường bất động sản
-                            </span>
+                            <div class="col-sm-8 title-left">
+                                <h2>
+                                    <a href="#">Tin tức</a>
+                                    <span class=""></span>
+                                </h2>
+                                <span class="grey-text small">
+                                    Cập nhật các thông tin mới nhất về thị trường bất động sản
+                                </span>
+                            </div>
+
                         </div>
-                        
-                    </div>
                     </div>
                     <div class="row mt-1 mb-5">
                         <div class="col-md-12 p-0">
@@ -243,9 +352,11 @@
                                         <h5 class="card-title pt-2 px-1 m-0">Alice Liddel</h5>
                                     </a>
                                     <div class="card-body p-1">
-                                        <p class="card-text border-bottom py-1">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <p class="card-text border-bottom py-1">Some quick example text to build on the
+                                            card title and make up the bulk of the card's content.</p>
                                         <div class="d-inline-flex col-md-12 px-0 justify-content-end">
-                                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem thêm</button>
+                                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem
+                                                thêm</button>
                                         </div>
                                     </div>
                                 </div>
@@ -255,9 +366,11 @@
                                         <h5 class="card-title pt-2 px-1 m-0">Alice Liddel</h5>
                                     </a>
                                     <div class="card-body p-1">
-                                        <p class="card-text border-bottom py-1">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <p class="card-text border-bottom py-1">Some quick example text to build on the
+                                            card title and make up the bulk of the card's content.</p>
                                         <div class="d-inline-flex col-md-12 px-0 justify-content-end">
-                                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem thêm</button>
+                                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem
+                                                thêm</button>
                                         </div>
                                     </div>
                                 </div>
@@ -267,9 +380,11 @@
                                         <h5 class="card-title pt-2 px-1 m-0">Alice Liddel</h5>
                                     </a>
                                     <div class="card-body p-1">
-                                        <p class="card-text border-bottom py-1">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <p class="card-text border-bottom py-1">Some quick example text to build on the
+                                            card title and make up the bulk of the card's content.</p>
                                         <div class="d-inline-flex col-md-12 px-0 justify-content-end">
-                                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem thêm</button>
+                                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem
+                                                thêm</button>
                                         </div>
                                     </div>
                                 </div>
@@ -279,9 +394,11 @@
                                         <h5 class="card-title pt-2 px-1 m-0">Alice Liddel</h5>
                                     </a>
                                     <div class="card-body p-1">
-                                        <p class="card-text border-bottom py-1">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <p class="card-text border-bottom py-1">Some quick example text to build on the
+                                            card title and make up the bulk of the card's content.</p>
                                         <div class="d-inline-flex col-md-12 px-0 justify-content-end">
-                                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem thêm</button>
+                                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem
+                                                thêm</button>
                                         </div>
                                     </div>
                                 </div>

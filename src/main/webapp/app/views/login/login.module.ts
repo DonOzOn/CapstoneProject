@@ -15,9 +15,9 @@ import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from '../register/register.component';
-import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
-import { RealestatebrokerageSharedLibsModule } from 'app/shared/shared-libs.module';
 import { RealestatebrokerageAccountModule } from '../account/account.module';
+import { RealestatebrokerageSharedLibsModule } from 'app/shared/shared-libs.module';
+import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],

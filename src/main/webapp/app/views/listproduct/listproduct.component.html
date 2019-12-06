@@ -37,9 +37,9 @@
                         <option value="2">Mua bán</option>
                         <option value="3">Cho thuê</option>
             </select>
-            </div>
-            <div class="text-center px-1">
-                <select formControlName="price" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+                </div>
+                <div class="text-center px-2">
+                    <select formControlName="price" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
                         <option value="" selected disabled>Khoảng giá</option>
                         <option value="1">Tất cả</option>
                         <option value="2">dưới 300 triệu</option>
@@ -55,9 +55,9 @@
                         <option value="12">30 tỷ - 50 tỷ</option>
                         <option value="13">Trên 50 tỷ</option>
             </select>
-            </div>
-            <div class="text-center px-1">
-                <select formControlName="area" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+                </div>
+                <div class="text-center px-2">
+                    <select formControlName="area" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
                         <option value="" selected disabled>Diện tích</option>
                         <option value="1">Tất cả</option>
                         <option value="2">Dưới 30m2</option>
@@ -69,9 +69,9 @@
                         <option value="8">300 m2 - 500 m2</option>
                         <option value="9">500 m2 trở lên</option>
             </select>
-            </div>
-            <div class="text-center px-1">
-                <select class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+                </div>
+                <div class="text-center px-2">
+                    <select class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
                         <option value="" selected disabled>Lọc nâng cao</option>
                         <option value="1">Tất cả</option>
                         <option value="2">Dưới 30m2</option>
@@ -83,10 +83,10 @@
                         <option value="8">300 m2 - 500 m2</option>
                         <option value="9">500 m2 trở lên</option>
             </select>
+                </div>
             </div>
-        </div>
 
-</form>
+        </form>
     </div>
 </div>
 
@@ -254,32 +254,6 @@
                     abc
                 </div>
             </div>
-        </div>
-
-
-        <div class="container-fluid my-5 px-0 col-md-12 new">
-            <div class="col-md-12 px-0 ">
-                <h3 class=""><a href="#">Tin tức</a></h3>
-            </div>
-            <div class="col-md-12 px-0 pb-2 mb-3 border-bottom border-white ">
-                <span class="grey-text small">CẬP NHẬT CÁC THÔNG TIN MỚI NHẤT VỀ THỊ TRƯỜNG BẤT ĐỘNG SẢN
-                    </span>
-            </div>
-            <ul class="card-deck px-0 col-md-12  m-0">
-                <li class="card col-md-4 p-2 mx-2 rounded" *ngFor="let item of list4News">
-                    <img *ngIf="item.imageUrl !== 0" class="card-img-top h-50 img-responsive" src="{{imageUrl}}{{item.imageUrl}}" alt="Card image cap">
-                    <img *ngIf="item.imageUrl === 0" class="card-img-top h-50 img-responsive" src="../../../content/img/default-image.jpg" alt="Card image cap">
-                    <a [routerLink]="[ '/news', item.id , 'detail' ]">
-                        <h5 class="card-title py-2 px-1 mx-1 giveMeEllipsisTitle  border-top font-weight-bold">{{item.title}}</h5>
-                    </a>
-                    <div class="card-body p-1">
-                        <p class="card-text  py-1 giveMeEllipsis border-top">{{item.decription}}</p>
-                        <div class="d-inline-flex col-md-12 px-0 pt-3 justify-content-end border-top">
-                            <a class="btn blue-gradient text-light" role="button" [routerLink]="[ '/news', item.id , 'detail' ]">Xem thêm</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
         </div>
     </div>
 </div>

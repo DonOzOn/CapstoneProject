@@ -9,10 +9,8 @@
             <p-toast [style]="{marginTop: '80px'}"></p-toast>
             <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
                 <p-footer>
-                    <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy"
-                        (click)="cd.reject()"></button>
-                    <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Lưu lại"
-                        (click)="cd.accept()"></button>
+                    <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy" (click)="cd.reject()"></button>
+                    <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Lưu lại" (click)="cd.accept()"></button>
                 </p-footer>
             </p-confirmDialog>
         </div>
@@ -36,33 +34,30 @@
                                                     <!-- Tên dự án -->
                                                     <div class="row col-md-12 m-0 p-0 mb-3">
                                                         <div class="col-md-5 ">
-                                                            <label class="m-0 py-1">Tên dự án</label>
+                                                            <label class="m-0 py-1">Tên dự án<label
+                                                                    style="color: Red;">*</label></label>
                                                         </div>
                                                         <div class="col-md-7 p-0">
                                                             <span class="ui-float-label">
                                                                 <input id="float-input" type="text"
                                                                     formControlName="projectName" size="30" pInputText>
-                                                                <label for="float-input">Tên dự án</label>
+                                                                <label for="float-input">Cá nhân hoặc tên dự án</label>
                                                             </span>
-                                                            <div
-                                                                *ngIf="productPostForm.get('projectName').invalid && (productPostForm.get('projectName').dirty || productPostForm.get('projectName').touched)">
-                                                                <small class="form-text text-danger"
-                                                                    *ngIf="productPostForm.get('projectName').errors.required">
+                                                            <div *ngIf="productPostForm.get('projectName').invalid && (productPostForm.get('projectName').dirty || productPostForm.get('projectName').touched)">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('projectName').errors.required">
                                                                     Tên dự án không được để trống.
                                                                 </small>
-                                                                <small class="form-text text-danger"
-                                                                    *ngIf="productPostForm.get('projectName').errors.minlength">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('projectName').errors.minlength">
                                                                     Tên dự án it nhất có 5 một kí tự.
                                                                 </small>
-                                                                <small class="form-text text-danger"
-                                                                    *ngIf="productPostForm.get('projectName').errors.maxlength">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('projectName').errors.maxlength">
                                                                     Tên dự án dài nhất có 50 kí tự.
                                                                 </small>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <!-- Loại hình -->
-                                                    <div class="row col-md-12 m-0 p-0 mb-2">
+                                                    <div class="row col-md-12 m-0 p-0 mb-3">
                                                         <div class="col-md-5 py-1">
                                                             <label class="m-0">Loại hình<label
                                                                     style="color: Red;">*</label></label>
@@ -72,58 +67,46 @@
                                                                 <p-selectButton [options]="types" formControlName="type"
                                                                     [(ngModel)]="selectedType"></p-selectButton>
                                                             </span>
-                                                            <div
-                                                                *ngIf="productPostForm.controls.type.invalid && (productPostForm.controls.type.dirty || productPostForm.controls.type.touched)">
-                                                                <small class="form-text text-danger"
-                                                                    *ngIf="productPostForm.controls.type.errors?.required">
+                                                            <div *ngIf="productPostForm.controls.type.invalid && (productPostForm.controls.type.dirty || productPostForm.controls.type.touched)">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.controls.type.errors?.required">
                                                                     Hình thức không được để trống</small>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <!-- Loại BĐS -->
-                                                    <div class="row col-md-12 m-0 p-0 mb-2">
+                                                    <div class="row col-md-12 m-0 p-0 mb-3">
                                                         <div class="col-md-5 py-1">
                                                             <label class="m-0">Loại BĐS<label
                                                                     style="color: Red;">*</label></label>
 
                                                         </div>
                                                         <div class="col-md-7 p-0">
-                                                            <ng-select [items]="listProductType"
-                                                                (change)="selectedProductTypeChild()"
-                                                                bindLabel="productTypeName" bindValue="id"
-                                                                placeholder="--- Loại BĐS ---"
-                                                                formControlName="productTypeID">
+                                                            <ng-select [items]="listProductType" (change)="selectedProductTypeChild()" bindLabel="productTypeName" bindValue="id" placeholder="--- Loại BĐS ---" formControlName="productTypeID">
                                                                 <ng-template ng-option-tmp let-item="item">
                                                                     {{item.productTypeName}}
                                                                 </ng-template>
                                                             </ng-select>
-                                                            <div
-                                                                *ngIf="productPostForm.controls.productTypeID.invalid && (productPostForm.controls.productTypeID.dirty || productPostForm.controls.productTypeID.touched)">
-                                                                <span class="form-text text-danger"
-                                                                    *ngIf="productPostForm.controls.productTypeID.errors?.required">
-                                                                    Loại BĐS không được để trống</span>
+                                                            <div *ngIf="productPostForm.controls.productTypeID.invalid && (productPostForm.controls.productTypeID.dirty || productPostForm.controls.productTypeID.touched)">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.controls.productTypeID.errors?.required">
+                                                                    Loại BĐS không được để trống</small>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <!-- Loại BĐS -->
-                                                    <div class="row col-md-12 m-0 p-0 mb-2">
+                                                    <div class="row col-md-12 m-0 p-0 mb-3">
                                                         <div class="col-md-5 py-1">
-
+                                                            <label class="m-0">Loại BĐS chi tiết<label
+                                                                    style="color: Red;">*</label></label>
                                                         </div>
                                                         <div class="col-md-7 p-0">
-                                                            <ng-select [items]="listProductTypeChild"
-                                                                bindLabel="productTypeChildName" bindValue="id"
-                                                                placeholder="--- ---"
-                                                                formControlName="productTypeChildID">
+                                                            <ng-select [items]="listProductTypeChild" bindLabel="productTypeChildName" bindValue="id" placeholder="---Loại BDS chi tiết ---" formControlName="productTypeChildID">
                                                                 <ng-template ng-option-tmp let-item="item">
                                                                     {{item.productTypeChildName}}
                                                                 </ng-template>
                                                             </ng-select>
-                                                            <div
-                                                                *ngIf="productPostForm.controls.productTypeChildID.invalid && (productPostForm.controls.productTypeChildID.dirty || productPostForm.controls.productTypeChildID.touched)">
-                                                                <span class="form-text text-danger"
-                                                                    *ngIf="productPostForm.controls.productTypeChildID.errors?.required">
-                                                                    loại BĐS không được để trống</span>
+                                                            <div *ngIf="productPostForm.controls.productTypeChildID.invalid && (productPostForm.controls.productTypeChildID.dirty || productPostForm.controls.productTypeChildID.touched)">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.controls.productTypeChildID.errors?.required">
+                                                                    Loại BĐS chi tiết không được để trống</small>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -132,80 +115,64 @@
                                                 <div class="col-md-6">
                                                     <form [formGroup]="formAddress">
                                                         <!-- Tỉnh/Thành phố -->
-                                                        <div class="row col-md-12 m-0 p-0 mb-2">
+                                                        <div class="row col-md-12 m-0 p-0 mb-3">
                                                             <div class="col-md-5 py-1">
                                                                 <label class="m-0">Tỉnh/Thành phố<label
                                                                         style="color: Red;">*</label></label>
 
                                                             </div>
                                                             <div class="col-md-7 p-0">
-                                                                <ng-select [items]="listProvinces"
-                                                                    (change)="selectedProvince()" bindLabel="name"
-                                                                    bindValue="code"
-                                                                    placeholder="--- Chọn Tỉnh/Thành ---"
-                                                                    formControlName="provinceCode">
+                                                                <ng-select [items]="listProvinces" (change)="selectedProvince()" bindLabel="name" bindValue="code" placeholder="--- Chọn Tỉnh/Thành ---" formControlName="provinceCode">
                                                                     <ng-template ng-option-tmp let-item="item">
                                                                         {{item.name}}
                                                                     </ng-template>
                                                                 </ng-select>
-                                                                <div
-                                                                    *ngIf="formAddress.controls.provinceCode.invalid && (formAddress.controls.provinceCode.dirty || formAddress.controls.provinceCode.touched)">
-                                                                    <span class="form-text text-danger"
-                                                                        *ngIf="formAddress.controls.provinceCode.errors?.required">
-                                                                        Tỉnh/Thành không được để trống</span>
+                                                                <div *ngIf="formAddress.controls.provinceCode.invalid && (formAddress.controls.provinceCode.dirty || formAddress.controls.provinceCode.touched)">
+                                                                    <small class="form-text text-danger" *ngIf="formAddress.controls.provinceCode.errors?.required">
+                                                                        Tỉnh/Thành không được để trống</small>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <!-- Quận/Huyện -->
-                                                        <div class="row col-md-12 m-0 p-0 mb-2">
+                                                        <div class="row col-md-12 m-0 p-0 mb-3">
                                                             <div class="col-md-5 py-1">
                                                                 <label class="m-0">Quận/Huyện<label
                                                                         style="color: Red;">*</label></label>
 
                                                             </div>
                                                             <div class="col-md-7 p-0">
-                                                                <ng-select [items]="listDistrict" bindLabel="name"
-                                                                    bindValue="code" (change)="selectedDistrict()"
-                                                                    placeholder="--- Chọn Quận/Huyện ---"
-                                                                    formControlName="districtCode">
+                                                                <ng-select [items]="listDistrict" bindLabel="name" bindValue="code" (change)="selectedDistrict()" placeholder="--- Chọn Quận/Huyện ---" formControlName="districtCode">
                                                                     <ng-template ng-option-tmp let-item="item">
                                                                         {{item.name}}
                                                                     </ng-template>
                                                                 </ng-select>
-                                                                <div
-                                                                    *ngIf="formAddress.controls.districtCode.invalid && (formAddress.controls.districtCode.dirty || formAddress.controls.districtCode.touched)">
-                                                                    <span class="form-text text-danger"
-                                                                        *ngIf="formAddress.controls.districtCode.errors?.required">
-                                                                        Quận/Huyện không được để trống</span>
+                                                                <div *ngIf="formAddress.controls.districtCode.invalid && (formAddress.controls.districtCode.dirty || formAddress.controls.districtCode.touched)">
+                                                                    <small class="form-text text-danger" *ngIf="formAddress.controls.districtCode.errors?.required">
+                                                                        Quận/Huyện không được để trống</small>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <!-- Xã/Phường -->
-                                                        <div class="row col-md-12 m-0 p-0 mb-2">
+                                                        <div class="row col-md-12 m-0 p-0 mb-3">
                                                             <div class="col-md-5 py-1">
                                                                 <label class="m-0">Xã/Phường<label
                                                                         style="color: Red;">*</label></label>
 
                                                             </div>
                                                             <div class="col-md-7 p-0">
-                                                                <ng-select [items]="listWard" bindLabel="name"
-                                                                    bindValue="code"
-                                                                    placeholder="--- Chọn Xã/Phường ---"
-                                                                    formControlName="wardCode">
+                                                                <ng-select [items]="listWard" bindLabel="name" bindValue="code" placeholder="--- Chọn Xã/Phường ---" formControlName="wardCode">
                                                                     <ng-template ng-option-tmp let-item="item">
                                                                         {{item.name}}
                                                                     </ng-template>
                                                                 </ng-select>
-                                                                <div
-                                                                    *ngIf="formAddress.controls.wardCode.invalid && (formAddress.controls.wardCode.dirty || formAddress.controls.wardCode.touched)">
-                                                                    <span class="form-text text-danger"
-                                                                        *ngIf="formAddress.controls.wardCode.errors?.required">
-                                                                        Xã/Phường không được để trống</span>
+                                                                <div *ngIf="formAddress.controls.wardCode.invalid && (formAddress.controls.wardCode.dirty || formAddress.controls.wardCode.touched)">
+                                                                    <small class="form-text text-danger" *ngIf="formAddress.controls.wardCode.errors?.required">
+                                                                        Xã/Phường không được để trống</small>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <!-- Địa chỉ -->
-                                                        <div class="row col-md-12 m-0 p-0 mb-2">
+                                                        <div class="row col-md-12 m-0 p-0 mb-3">
                                                             <div class="col-md-5 ">
                                                                 <label class="m-0 py-1">Địa chỉ</label>
                                                             </div>
@@ -214,13 +181,11 @@
                                                                     <input id="float-input" class="form-control"
                                                                         type="text" formControlName="address" size="30"
                                                                         pInputText>
-                                                                    <label for="float-input">Địa chỉ</label>
+                                                                    <label for="float-input">Địa chỉ </label>
                                                                 </span>
-                                                                <div
-                                                                    *ngIf="formAddress.controls.address.invalid && (formAddress.controls.address.dirty || formAddress.controls.address.touched)">
-                                                                    <span class="form-text text-danger"
-                                                                        *ngIf="formAddress.controls.address.errors?.required">
-                                                                        Địa chỉ không được để trống</span>
+                                                                <div *ngIf="formAddress.controls.address.invalid && (formAddress.controls.address.dirty || formAddress.controls.address.touched)">
+                                                                    <small class="form-text text-danger" *ngIf="formAddress.controls.address.errors?.required">
+                                                                        Địa chỉ không được để trống</small>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -250,7 +215,8 @@
                                                     <!-- Giá tiền -->
                                                     <div class="row col-md-12 m-0 p-0 mb-4">
                                                         <div class="col-md-5 ">
-                                                            <label class="m-0 py-1">Giá tiền(VNĐ)</label>
+                                                            <label class="m-0 py-1">Giá tiền(VNĐ)<label
+                                                                    style="color: Red;">*</label></label>
                                                         </div>
                                                         <div class="col-md-7 p-0">
                                                             <span class="ui-float-label">
@@ -258,23 +224,24 @@
                                                                     formControlName="price" size="30" pInputText>
                                                                 <label for="float-input">Giá tiền </label>
                                                             </span>
-                                                            <div
-                                                                *ngIf="productPostForm.get('price').invalid && (productPostForm.get('price').dirty || productPostForm.get('price').touched)">
-                                                                <small class="form-text text-danger"
-                                                                    *ngIf="productPostForm.get('price').errors.pattern">
+                                                            <div *ngIf="productPostForm.get('price').invalid && (productPostForm.get('price').dirty || productPostForm.get('price').touched)">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('price').errors.required">
+                                                                    Giá tiền không được để trống</small>
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('price').errors.pattern">
                                                                     Giá tiền không hợp lệ.
                                                                 </small>
-                                                                <small class="form-text text-danger"
-                                                                    *ngIf="productPostForm.get('price').errors.maxlength">
-                                                                    Giá tiền dài nhất có 50 kí tự.
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('price').errors.maxlength">
+                                                                    Giá tiền lớn nhất có 15 chữ số.
                                                                 </small>
+
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <!-- Diện tích -->
                                                     <div class="row col-md-12 m-0 p-0 mb-4">
                                                         <div class="col-md-5 ">
-                                                            <label class="m-0 py-1">Diện tích(m<sup>2</sup>)</label>
+                                                            <label class="m-0 py-1">Diện tích(m<sup>2</sup>)<label
+                                                                    style="color: Red;">*</label></label>
                                                         </div>
                                                         <div class="col-md-7 p-0">
                                                             <span class="ui-float-label">
@@ -282,15 +249,14 @@
                                                                     formControlName="area" size="30" pInputText>
                                                                 <label for="float-input">Diện tích </label>
                                                             </span>
-                                                            <div
-                                                                *ngIf="productPostForm.get('area').invalid && (productPostForm.get('area').dirty || productPostForm.get('area').touched)">
-                                                                <small class="form-text text-danger"
-                                                                    *ngIf="productPostForm.get('area').errors.pattern">
+                                                            <div *ngIf="productPostForm.get('area').invalid && (productPostForm.get('area').dirty || productPostForm.get('area').touched)">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('area').errors.required">
+                                                                    Diện tích không được để trống</small>
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('area').errors.pattern">
                                                                     Diện tích không hợp lệ.
                                                                 </small>
-                                                                <small class="form-text text-danger"
-                                                                    *ngIf="productPostForm.get('area').errors.maxlength">
-                                                                    Diện tích dài nhất có 50 kí tự.
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('area').errors.maxlength">
+                                                                    Diện tích lớn nhất có 5 chữ số.
                                                                 </small>
                                                             </div>
                                                         </div>
@@ -301,17 +267,20 @@
                                                     <!-- Hướng nhà-->
                                                     <div class="row col-md-12 m-0 p-0 mb-4">
                                                         <div class="col-md-5 py-1 px-0">
-                                                            <label class="m-0">Hướng nhà</label>
+                                                            <label class="m-0">Hướng nhà<label
+                                                                    style="color: Red;">*</label></label>
 
                                                         </div>
                                                         <div class="col-md-7 p-0">
-                                                            <ng-select [items]="listDirection" bindLabel="directionName"
-                                                                bindValue="id" placeholder="--- Chọn Hướng nhà ---"
-                                                                formControlName="directionID">
+                                                            <ng-select [items]="listDirection" bindLabel="directionName" bindValue="id" placeholder="--- Chọn Hướng nhà ---" formControlName="directionID">
                                                                 <ng-template ng-option-tmp let-item="item">
                                                                     {{item.directionName}}
                                                                 </ng-template>
                                                             </ng-select>
+                                                            <div *ngIf="productPostForm.get('directionID').invalid && (productPostForm.get('directionID').dirty || productPostForm.get('directionID').touched)">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.get('directionID').errors.required">
+                                                                    Hướng nhà không được để trống</small>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <!-- Tình trạng pháp lí-->
@@ -322,18 +291,13 @@
 
                                                         </div>
                                                         <div class="col-md-7 p-0">
-                                                            <ng-select [items]="listLegalStatus"
-                                                                bindLabel="legalStatusName" bindValue="id"
-                                                                placeholder="--- Tình trạng pháp lý ---"
-                                                                formControlName="legalStatusID">
+                                                            <ng-select [items]="listLegalStatus" bindLabel="legalStatusName" bindValue="id" placeholder="--- Tình trạng pháp lý ---" formControlName="legalStatusID">
                                                                 <ng-template ng-option-tmp let-item="item">
                                                                     {{item.legalStatusName}}
                                                                 </ng-template>
                                                             </ng-select>
-                                                            <div
-                                                                *ngIf="productPostForm.controls.legalStatusID.invalid && (productPostForm.controls.legalStatusID.dirty || productPostForm.controls.legalStatusID.touched)">
-                                                                <small class="form-text text-danger"
-                                                                    *ngIf="productPostForm.controls.legalStatusID.errors?.required">
+                                                            <div *ngIf="productPostForm.controls.legalStatusID.invalid && (productPostForm.controls.legalStatusID.dirty || productPostForm.controls.legalStatusID.touched)">
+                                                                <small class="form-text text-danger" *ngIf="productPostForm.controls.legalStatusID.errors?.required">
                                                                     Tình trạng pháp lý không được để trống</small>
                                                             </div>
                                                         </div>
@@ -355,17 +319,13 @@
                                                             pInputText>
                                                         <label class="pl-2" for="float-input">Tiêu đề</label>
                                                     </span>
-                                                    <div class="pl-3"
-                                                        *ngIf="productPostForm.controls.projectPostTitle.invalid && (productPostForm.controls.projectPostTitle.dirty || productPostForm.controls.projectPostTitle.touched)">
-                                                        <small class="form-text text-danger"
-                                                            *ngIf="productPostForm.controls.projectPostTitle.errors?.required">
+                                                    <div class="pl-3" *ngIf="productPostForm.controls.projectPostTitle.invalid && (productPostForm.controls.projectPostTitle.dirty || productPostForm.controls.projectPostTitle.touched)">
+                                                        <small class="form-text text-danger" *ngIf="productPostForm.controls.projectPostTitle.errors?.required">
                                                             Tiêu đề không được để trống</small>
-                                                        <small class="form-text text-danger"
-                                                            *ngIf="productPostForm.get('projectPostTitle').errors.minlength">
+                                                        <small class="form-text text-danger" *ngIf="productPostForm.get('projectPostTitle').errors.minlength">
                                                             Tiêu đề ít nhất có 1 kí tự.
                                                         </small>
-                                                        <small class="form-text text-danger"
-                                                            *ngIf="productPostForm.get('projectPostTitle').errors.maxlength">
+                                                        <small class="form-text text-danger" *ngIf="productPostForm.get('projectPostTitle').errors.maxlength">
                                                             Tiêu đề dài nhất có 100 một kí tự.
                                                         </small>
                                                     </div>
@@ -383,8 +343,9 @@
                                                         <p-editor formControlName="content" [(ngModel)]="text1"
                                                             (onTextChange)="countContentNumber()"
                                                             [style]="{'height':'320px'}"></p-editor>
-                                                        <button class="mt-2" pButton type="button" label="Clear" icon="pi pi-times"
-                                                        (click)="text1=null" [disabled]="!countContentNumber()"></button>
+                                                        <button class="mt-2" pButton type="button" label="Xóa nội dung"
+                                                            icon="pi pi-times" (click)="text1=null"
+                                                            [disabled]="!countContentNumber()"></button>
                                                     </span>
                                                     <!-- <small class="form-text text-danger" *ngIf="productPostForm.get('content').errors.maxlength">
                                                                 Mô tải dài nhất có 255 một kí tự.
@@ -399,20 +360,17 @@
 
                                                 </div>
                                                 <div class="col-md-10 pl-4">
-                                                    <span class="ui-float-label pl-2 ml-2">
-                                                        <p-fileUpload  #fileUpload name="demo[]" multiple="multiple" accept="image/*"
-                                                             [showUploadButton]="true"
+                                                    <span class="ui-float-label ui-fileupload-buttonbar">
+                                                        <p-fileUpload #fileUpload name="demo[]" multiple="multiple"
+                                                            accept="image/*" [showUploadButton]="true"
                                                             (uploadHandler)="onUpload($event,fileUpload)"
-                                                            customUpload="true"
-                                                            cancelLabel="Bỏ"
-                                                            chooseLabel="Chọn hình"
-                                                            uploadLabel="Tải lên"
-                                                            (onRemove)= "onRemove($event)"
-                                                            fileLimit="10"
-                                                            maxFileSize="1000000">
+                                                            customUpload="true" cancelLabel="Bỏ" chooseLabel="Chọn hình"
+                                                            uploadLabel="Tải lên" (onRemove)="onRemove($event)"
+                                                            fileLimit="10" maxFileSize="1000000">
                                                             <ng-template pTemplate="content">
                                                                 <ul *ngIf="uploadedFiles">
-                                                                    <label *ngIf="uploadedFiles.length > 0">Tải lên thành công: </label>
+                                                                    <label *ngIf="uploadedFiles.length > 0">Tải lên
+                                                                        thành công: </label>
                                                                     <li *ngFor="let file of uploadedFiles">{{file}}</li>
                                                                 </ul>
                                                             </ng-template>
@@ -444,52 +402,28 @@
                                                     <div class="col-md-12 m-0 p-0 mb-3">
                                                         <div class="ui-g" style="width:250px;margin-bottom:10px">
                                                             <div class="ui-g-12">
-                                                                <p-checkbox formControlName="utilities"
-                                                                    [(ngModel)]="listUtilitiesSelected" name="utility"
-                                                                    (onChange)="checkItemChecked()" value="1"
-                                                                    label="Trường học"></p-checkbox>
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="1" label="Trường học"></p-checkbox>
                                                             </div>
                                                             <div class="ui-g-12">
-                                                                <p-checkbox formControlName="utilities"
-                                                                    [(ngModel)]="listUtilitiesSelected" name="utility"
-                                                                    (onChange)="checkItemChecked()" value="2"
-                                                                    label="Rạp phim"></p-checkbox>
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="2" label="Rạp phim"></p-checkbox>
                                                             </div>
                                                             <div class="ui-g-12">
-                                                                <p-checkbox formControlName="utilities"
-                                                                    [(ngModel)]="listUtilitiesSelected" name="utility"
-                                                                    (onChange)="checkItemChecked()" value="3"
-                                                                    label="Bệnh viện"></p-checkbox>
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="3" label="Bệnh viện"></p-checkbox>
                                                             </div>
                                                             <div class="ui-g-12">
-                                                                <p-checkbox formControlName="utilities"
-                                                                    [(ngModel)]="listUtilitiesSelected" name="utility"
-                                                                    (onChange)="checkItemChecked()" value="4"
-                                                                    label="Nhà Hàng"></p-checkbox>
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="4" label="Nhà Hàng"></p-checkbox>
                                                             </div>
                                                             <div class="ui-g-12">
-                                                                <p-checkbox formControlName="utilities"
-                                                                    [(ngModel)]="listUtilitiesSelected" name="utility"
-                                                                    (onChange)="checkItemChecked()" value="5"
-                                                                    label="Siêu Thị"></p-checkbox>
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="5" label="Siêu Thị"></p-checkbox>
                                                             </div>
                                                             <div class="ui-g-12">
-                                                                <p-checkbox formControlName="utilities"
-                                                                    [(ngModel)]="listUtilitiesSelected" name="utility"
-                                                                    (onChange)="checkItemChecked()" value="6"
-                                                                    label="Sân Bay"></p-checkbox>
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="6" label="Sân Bay"></p-checkbox>
                                                             </div>
                                                             <div class="ui-g-12">
-                                                                <p-checkbox formControlName="utilities"
-                                                                    [(ngModel)]="listUtilitiesSelected" name="utility"
-                                                                    (onChange)="checkItemChecked()" value="7"
-                                                                    label="Sân Bóng"></p-checkbox>
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="7" label="Sân Bóng"></p-checkbox>
                                                             </div>
                                                             <div class="ui-g-12">
-                                                                <p-checkbox formControlName="utilities"
-                                                                    [(ngModel)]="listUtilitiesSelected" name="utility"
-                                                                    (onChange)="checkItemChecked()" value="8"
-                                                                    label="Xe Buýt"></p-checkbox>
+                                                                <p-checkbox formControlName="utilities" [(ngModel)]="listUtilitiesSelected" name="utility" (onChange)="checkItemChecked()" value="8" label="Xe Buýt"></p-checkbox>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -501,7 +435,8 @@
                                                         <!-- Số tầng -->
                                                         <div class="row col-md-12 m-0 p-0 mb-4">
                                                             <div class="col-md-5 ">
-                                                                <label class="m-0 py-1">Số tầng</label>
+                                                                <label class="m-0 py-1">Số tầng<label
+                                                                        style="color: Red;">*</label></label>
                                                             </div>
                                                             <div class="col-md-7 p-0">
                                                                 <span class="ui-float-label">
@@ -509,15 +444,15 @@
                                                                         formControlName="numFloor" size="30" pInputText>
                                                                     <label for="float-input">Số tầng</label>
                                                                 </span>
-                                                                <div
-                                                                    *ngIf="productPostForm.get('numFloor').invalid && (productPostForm.get('numFloor').dirty || productPostForm.get('numFloor').touched)">
-                                                                    <small class="form-text text-danger"
-                                                                        *ngIf="productPostForm.get('numFloor').errors.pattern">
+                                                                <div *ngIf="productPostForm.get('numFloor').invalid && (productPostForm.get('numFloor').dirty || productPostForm.get('numFloor').touched)">
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numFloor').errors.required">
+                                                                        Số tầng không được để trống
+                                                                    </small>
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numFloor').errors.pattern">
                                                                         Số tầng không hợp lệ.
                                                                     </small>
-                                                                    <small class="form-text text-danger"
-                                                                        *ngIf="productPostForm.get('numFloor').errors.maxlength">
-                                                                        Số tầng dài nhất có 11 số.
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numFloor').errors.max">
+                                                                        Số tầng không lơn hơn 200.
                                                                     </small>
                                                                 </div>
                                                             </div>
@@ -525,7 +460,8 @@
                                                         <!-- Số phòng tắm -->
                                                         <div class="row col-md-12 m-0 p-0 mb-4">
                                                             <div class="col-md-5 ">
-                                                                <label class="m-0 py-1">Số phòng tắm</label>
+                                                                <label class="m-0 py-1">Số phòng tắm<label
+                                                                        style="color: Red;">*</label></label>
                                                             </div>
                                                             <div class="col-md-7 p-0">
                                                                 <span class="ui-float-label">
@@ -534,15 +470,15 @@
                                                                         pInputText>
                                                                     <label for="float-input">Số phòng tắm </label>
                                                                 </span>
-                                                                <div
-                                                                    *ngIf="productPostForm.get('numBathroom').invalid && (productPostForm.get('numBathroom').dirty || productPostForm.get('numBathroom').touched)">
-                                                                    <small class="form-text text-danger"
-                                                                        *ngIf="productPostForm.get('numBathroom').errors.pattern">
+                                                                <div *ngIf="productPostForm.get('numBathroom').invalid && (productPostForm.get('numBathroom').dirty || productPostForm.get('numBathroom').touched)">
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numBathroom').errors.required">
+                                                                        Số phòng tắm không được để trống
+                                                                    </small>
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numBathroom').errors.pattern">
                                                                         Số phòng tắm không hợp lệ.
                                                                     </small>
-                                                                    <small class="form-text text-danger"
-                                                                        *ngIf="productPostForm.get('numBathroom').errors.maxlength">
-                                                                        Số phòng tắm dài nhất có 11 số.
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numBathroom').errors.max">
+                                                                        Số phòng tắm nhỏ hơn 20.
                                                                     </small>
                                                                 </div>
                                                             </div>
@@ -550,7 +486,8 @@
                                                         <!-- Số phòng ngủ -->
                                                         <div class="row col-md-12 m-0 p-0 mb-4">
                                                             <div class="col-md-5 ">
-                                                                <label class="m-0 py-1">Số phòng ngủ</label>
+                                                                <label class="m-0 py-1">Số phòng ngủ <label
+                                                                        style="color: Red;">*</label></label>
                                                             </div>
                                                             <div class="col-md-7 p-0">
                                                                 <span class="ui-float-label">
@@ -559,15 +496,15 @@
                                                                         pInputText>
                                                                     <label for="float-input">Số phòng ngủ </label>
                                                                 </span>
-                                                                <div
-                                                                    *ngIf="productPostForm.get('numBedroom').invalid && (productPostForm.get('numBedroom').dirty || productPostForm.get('numBedroom').touched)">
-                                                                    <small class="form-text text-danger"
-                                                                        *ngIf="productPostForm.get('numBedroom').errors.pattern">
+                                                                <div *ngIf="productPostForm.get('numBedroom').invalid && (productPostForm.get('numBedroom').dirty || productPostForm.get('numBedroom').touched)">
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numBedroom').errors.required">
+                                                                        Số phòng ngủ không được để trống
+                                                                    </small>
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numBedroom').errors.pattern">
                                                                         Số phòng ngủ không hợp lệ.
                                                                     </small>
-                                                                    <small class="form-text text-danger"
-                                                                        *ngIf="productPostForm.get('numBedroom').errors.maxlength">
-                                                                        Số phòng ngủ dài nhất có 11 số.
+                                                                    <small class="form-text text-danger" *ngIf="productPostForm.get('numBedroom').errors.max">
+                                                                        Số phòng ngủ nhỏ hơn 20.
                                                                     </small>
                                                                 </div>
                                                             </div>
@@ -584,9 +521,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12 d-flex justify-content-center">
-                        <button pButton type="button" type="submit"
-                            [disabled]="productPostForm.invalid && formAddress.invalid" label="Đăng tin"
-                            style="width: 200px;height: 50px;"></button>
+                        <button pButton type="button" type="submit" [disabled]="productPostForm.invalid && formAddress.invalid" label="Đăng tin" style="width: 200px;height: 50px;"></button>
                     </div>
                 </div>
             </form>
@@ -597,12 +532,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card-body">
-                                            <ins class="adsbygoogle"
-                                            style="display:block"
-                                            data-ad-client="ca-pub-8504781071264859"
-                                            data-ad-slot="2029121527"
-                                            data-ad-format="auto"
-                                            data-full-width-responsive="true"></ins>
+                                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8504781071264859" data-ad-slot="2029121527" data-ad-format="auto" data-full-width-responsive="true"></ins>
                                     </div>
                                 </div>
                             </div>
@@ -615,5 +545,5 @@
     </div>
 </div>
 <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-   </script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>

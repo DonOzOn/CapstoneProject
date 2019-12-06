@@ -2,8 +2,12 @@ package com.realestatebrokerage.service.dto;
 
 
 import com.realestatebrokerage.domain.DirectionHouse;
+import com.realestatebrokerage.domain.ParMan;
 
-public class direction_houseDTO {
+import javax.persistence.Column;
+import javax.validation.constraints.Size;
+
+public class DirectionHouseDTO {
     private Long id;
     private String name_par;
     private String sinhkhi;
@@ -15,20 +19,19 @@ public class direction_houseDTO {
     private String lucsat;
     private String hoahai;
 
-    public direction_houseDTO() {
+    public DirectionHouseDTO() {
     }
-
-    public direction_houseDTO(DirectionHouse direction_house) {
-        this.id = direction_house.getId();
-        this.name_par = direction_house.getName_par();
-        this.sinhkhi = direction_house.getSinhkhi();
-        this.thieny = direction_house.getThieny();
-        this.diennien = direction_house.getDiennien();
-        this.phucvi = direction_house.getPhucvi();
-        this.tuyetmenh = direction_house.getTuyetmenh();
-        this.nguquy = direction_house.getNguquy();
-        this.lucsat = direction_house.getLucsat();
-        this.hoahai = direction_house.getHoahai();
+    public DirectionHouseDTO(DirectionHouse directionHouse) {
+        this.id = directionHouse.getId();
+        this.name_par = directionHouse.getName_par();
+        this.sinhkhi = directionHouse.getSinhkhi();
+        this.thieny = directionHouse.getThieny();
+        this.diennien = directionHouse.getDiennien();
+        this.phucvi = directionHouse.getPhucvi();
+        this.tuyetmenh = directionHouse.getTuyetmenh();
+        this.nguquy = directionHouse.getNguquy();
+        this.lucsat = directionHouse.getLucsat();
+        this.hoahai = directionHouse.getHoahai();
     }
 
     public Long getId() {
