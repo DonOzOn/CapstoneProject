@@ -14,6 +14,8 @@ import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { IUser } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
+import { LikedService } from 'app/core/liked/liked.service';
+import { LikedPost } from 'app/core/liked/model/liked-post.model';
 
 @Component({
   selector: 'app-productdetail',
@@ -31,6 +33,8 @@ export class ProductdetailComponent implements OnInit {
   notification: INotification;
   currentAccount: Account;
   currentUser: IUser;
+  liked = false;
+  likedPost: LikedPost;
   inforForm = this.fb.group({
     name: ['', Validators.maxLength(50)],
     phone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
@@ -47,19 +51,16 @@ export class ProductdetailComponent implements OnInit {
     private messageService: MessageService,
     private accountService: AccountService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private likedService: LikedService
   ) {}
   ngOnInit() {
-    this.accountService.identity().subscribe((account: Account) => {
-      this.currentAccount = account;
-      this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
-        this.currentUser = userAuthen;
-      });
-    });
     this.activatedRoute.data.subscribe(res => {
       this.productdetail = res.detailProduct;
       // eslint-disable-next-line
-      console.log(' post : ', this.productdetail.imageDTO);
+      console.log(' post : ', this.productdetail.productPostResponseDTO.id);
+      // eslint-disable-next-line
+      console.log(' user : ', this.currentUser);
       this.listImage.push(this.productdetail.imageDTO.img1);
       this.listImage.push(this.productdetail.imageDTO.img2);
       this.listImage.push(this.productdetail.imageDTO.img3);
@@ -70,9 +71,18 @@ export class ProductdetailComponent implements OnInit {
       this.listImage.push(this.productdetail.imageDTO.img8);
       this.listImage.push(this.productdetail.imageDTO.img9);
       this.listImage.push(this.productdetail.imageDTO.img10);
+      this.accountService.identity().subscribe((account: Account) => {
+        this.currentAccount = account;
+        this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
+          this.currentUser = userAuthen;
+          this.likedService.checkStatusPost(this.currentUser.id, this.productdetail.productPostResponseDTO.id).subscribe(post => {
+            this.likedPost = post.body;
+            this.liked = this.likedPost.status;
+          });
+        });
+      });
     });
-    // eslint-disable-next-line
-    console.log(' post : ', this.listImage);
+
     this.getlist4News();
   }
 
@@ -120,5 +130,12 @@ export class ProductdetailComponent implements OnInit {
         this.alertService.error(err.error.title),
         this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Gửi liên hệ  thất bại!' })
       );
+  }
+
+  checkLike(postId) {
+    this.likedService.checkLikedPost(this.currentUser.id, postId).subscribe(res => {
+      this.likedPost = res.body;
+      this.liked = this.likedPost.status;
+    });
   }
 }

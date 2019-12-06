@@ -62,6 +62,17 @@ public class ReviewService {
         return reviewRepository.findAllByStatusTrueAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(from, to);
     }
 
+    /**
+     * update product post
+     * */
+    public Optional<Review>  updateLiked(Long reviewId, int num) {
+        log.debug("run in update post product: {}", reviewId);
+        return Optional.of(reviewRepository.findById(reviewId)).filter(Optional::isPresent).map(Optional::get)
+            .map(review -> {
+                review.setTotalLike(num);
+                return reviewRepository.save(review);
+            });
+    }
 
     /**
      * create review/question
