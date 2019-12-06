@@ -18,6 +18,7 @@ export class FengshuiComponent implements OnInit {
   formdata;
   genderitem;
   searchPar: boolean;
+  isMan: boolean;
   constructor(private parService: ParService) {}
 
   ngOnInit() {
@@ -40,12 +41,14 @@ export class FengshuiComponent implements OnInit {
         // eslint-disable-next-line
         console.log('res body : ', res);
         this.direction = res;
+        this.isMan = true;
       });
     } else {
       this.parService.findwoman(data.yearitem).subscribe(res => {
         // eslint-disable-next-line
         console.log('res body : ', res);
         this.direction = res;
+        this.isMan = false;
       });
     }
     // eslint-disable-next-line
