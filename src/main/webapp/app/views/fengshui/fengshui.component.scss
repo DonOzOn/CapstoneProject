@@ -64,7 +64,7 @@
   margin: auto;
 }
 .feng-shui .content .direction .title .content-title p {
-  padding: 10px 6px 10px 20px;
+  padding: 13px 8px 10px 55px;
 }
 
 .feng-shui .content .text-title {
@@ -479,7 +479,7 @@ ul {
 }
 
 .feng-shui .content .default .result .info {
-  padding: 20px 0;
+  padding: 0 0;
   border-bottom: 1px solid #ddd;
 }
 .feng-shui .content .default .result .title-info {
@@ -546,7 +546,7 @@ ul {
   .supply-item {
   width: 100%;
   display: inline-block;
-  margin-bottom: 10px;
+  height: 40px;
 }
 .feng-shui
   .content
@@ -634,7 +634,7 @@ ul {
 .feng-shui .content .default .result .directions .direction-par .content-par .compass .compass-content {
   text-align: center;
   position: relative;
-  top: -44px;
+  top: -1px;
 }
 
 .feng-shui .content .default .result .directions .direction-par .content-par .compass .compass-content img {
@@ -653,7 +653,6 @@ img {
   width: 89%;
 }
 .feng-shui .content .default .result .info .homeowners .homeowners-content {
-  width: 55%;
   margin: auto;
 }
 .feng-shui .content .default .result .info .homeowners .homeowners-content .info-detail {
@@ -661,7 +660,6 @@ img {
   margin-left: 20px;
 }
 .feng-shui .content .default .result .info .homeowners .homeowners-content .info-detail {
-  width: 56%;
   float: left;
 }
 .feng-shui .content .default .result .info .homeowners .homeowners-content .info-detail .item-info {
@@ -698,10 +696,39 @@ img {
   width: 43%;
 }
 .feng-shui .content .default .result .info .homeowners .homeowners-content .log-supply {
-  width: 44%;
   float: left;
-  text-align: right;
 }
 .feng-shui .content .default .result .info .homeowners .homeowners-content .log-supply img {
-  width: 90%;
+  width: 50%;
+}
+.feng-shui .content .default .result .more-feng-shui {
+  margin: 20px 0;
+  clear: left;
+}
+.feng-shui .content .default .result .more-feng-shui .more-content {
+  background: #e5f4fb;
+  padding: 15px 17px;
+  border-radius: 5px;
+}
+.feng-shui .content .default .result .more-feng-shui .more-content p:first-child {
+  font-size: 17px;
+  color: #27406d;
+  font-weight: 700;
+}
+.feng-shui .content .default .result .more-feng-shui .more-content .see-feng-shui:nth-child(2) {
+  padding: 10px 0;
+}
+.feng-shui .content .default .result .more-feng-shui .more-content .see-feng-shui .txt-cricle {
+  background: #174474;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  display: block;
+  float: left;
+  margin-top: 7px;
+}
+.feng-shui .content .default .result .more-feng-shui .more-content .see-feng-shui a {
+  font-size: 16px;
+  font-style: italic;
 }
