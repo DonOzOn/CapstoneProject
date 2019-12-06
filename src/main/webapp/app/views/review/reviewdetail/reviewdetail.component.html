@@ -34,57 +34,36 @@
                                     <p>{{detailReview.decription}}</p>
                                     <hr>
                                     <div class="col-md-12">
-                                        <img *ngIf="detailReview.imageUrl !== null" src="{{imageUrl}}{{detailReview.imageUrl}}" class="img-thumbnail rounded  mx-auto d-block py-4" alt="{{detailReview.title}}">
-                                        <img *ngIf="detailReview.imageUrl === null" src="../../../../content/img/default-image.jpg" class="img-thumbnail rounded  mx-auto d-block py-4" alt="{{detailReview.title}}">
+                                        <img *ngIf="detailReview.imageUrl !== null" src="{{imageUrl}}{{detailReview.imageUrl}}" class="img-fluid rounded  mx-auto d-block py-4" alt="{{detailReview.title}}">
+                                        <img *ngIf="detailReview.imageUrl === null" src="../../../../content/img/default-image.jpg" class="img-fluid rounded  mx-auto d-block py-4" alt="{{detailReview.title}}">
                                         <div [innerHTML]="detailReview.content" class="news-content text-justify">
                                         </div>
 
                                     </div>
                                     <hr>
-                                    <div class="news-footer">
+                                    <div class="news-footer d-flex justify-content-start">
                                         <div class="news-likes">
                                             <button type="button" class="btn btn-outline-secondary"><i class="fa fa-thumbs-o-up text-primary"></i> <span class="badge">Thích</span></button>
-                                            <button type="button" class="btn btn-outline-secondary"><i class="fa fa-share text-primary"></i><span class="badge">Chia sẻ</span></button>
+                                            <button type="button" class="btn btn-outline-secondary"><i class="fas fa-share-alt"></i><span class="badge">Chia sẻ</span></button>
                                         </div>
-                                    </div>
-                                    <hr>
-                                    <div class="news-tags">
-                                        <h5>Tags</h5>
-                                        <button type="button" class="btn btn-sm btn-secondary">
-                                          Education <span class="badge badge-light">4</span>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-secondary">
-                                          Entertainment <span class="badge badge-light">4</span>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-secondary">
-                                          Automobile <span class="badge badge-light">4</span>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-secondary">
-                                          Insurance <span class="badge badge-light">4</span>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-secondary">
-                                          Energy <span class="badge badge-light">4</span>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-secondary">
-                                          Health <span class="badge badge-light">4</span>
-                                        </button>
                                     </div>
                                     <hr>
                                     <div class="news-author">
                                         <div class="d-flex flex-row">
                                             <div class="col-md-auto">
-                                                <a href="#" title="{{detailReview.firstName}} {{detailReview.lastName}}"><img src="//www.gravatar.com/avatar/021e64775176cc4c7018e5e867f17de2?s=250&d=mm&r=x" alt="Author image" class="rounded-circle" style="width:100px"></a>
+                                                <a *ngIf="detailReview.user.imageUrl !== null" title="{{detailReview.user.firstName}} {{detailReview.user.lastName}}"><img src="{{imageUrl}}{{detailReview.user.imageUrl}}" class="rounded-circle" style="width:100px"></a>
+                                                <a *ngIf="detailReview.user.imageUrl === null" title="{{detailReview.user.firstName}} {{detailReview.user.lastName}}"><img src="../../../../content/img/default-avar.png" class="rounded-circle" style="width:100px"></a>
                                             </div>
                                             <div class="col">
                                                 <div class="auth-title">
-                                                    <h4 class="author h4"><a href="/author/biswajit/">Biswajit Saha</a></h4>
+                                                    <h4 class="author h4 text-primary font-weight-normal" title="{{detailReview.user.firstName}} {{detailReview.user.lastName}}">{{detailReview.user.firstName}} {{detailReview.user.lastName}}</h4>
                                                     <div class="bio">
-                                                        Developer at GBJ solution. I love to travel, make new friends. I prefer tea over coffee.
+                                                        Email: {{detailReview.user.email}}
                                                     </div>
                                                     <ul class="list-unstyled list-inline">
-                                                        <li class="list-inline-item"><a href="https://twitter.com/gbjsolution" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                                                        <li class="list-inline-item"><a href="https://www.facebook.com/gbjsolution" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                                                        <li class="list-inline-item"><a href="http://gbjsolution.com" target="_blank"><i class="fa fa-globe"></i></a></li>
+                                                        <li class="list-inline-item"><a target="_blank"><i class="fab fa-facebook"></i></a></li>
+                                                        <li class="list-inline-item"><a target="_blank"><i class="fab fa-google-plus"></i></a></li>
+                                                        <li class="list-inline-item"><a target="_blank"><i class="fa fa-globe"></i></a></li>
                                                         <li class="list-inline-item"><i class="fa fa-map-marker"></i> India</li>
                                                     </ul>
                                                 </div>
@@ -97,77 +76,72 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <div class="col-md-3">
-            <div class="d-flex flex-row mb-2">
-                <div class="col-md-12" style="background-color: gray;height: 500px;">
+        <div class="col-md-3 mb-2 flex-column d-flex">
+            <div class="d-flex flex-row mb-4">
+                <div class="col-md-12" style="background-color: gray; min-height: 400px;">
                     <div class="card">
                         <div class="card-body">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row mt-5" style="background-color: white">
-                <div class="col-md-12 px-0">
-                    <div class="d-flexbox justify-content-center col-md-12 rounded">
-                        <div class="col-md-12 p-0 text-center">
-                            <h5 class="strong mb-3">Có thể bạn quan tâm</h5>
-                        </div>
-                        <div class="card border-0 ">
-                            <div class="row no-gutters col-md-12 p-0">
-                                <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
-                                    <img src="/content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="...">
+            <div class="col-md-12 px-0">
+                <div class="d-flexbox justify-content-center col-md-12 rounded" style="background-color: white">
+                    <div class="col-md-12 p-0 text-center">
+                        <h5 class="strong mb-3">Có thể bạn quan tâm</h5>
+                    </div>
+                    <div class="card border-0 ">
+                        <div class="row no-gutters col-md-12 p-0">
+                            <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
+                                <img src="/content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="...">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body p-0 col-md-12 ">
+                                    <a href="#" class="card-title m-0 strong">
+                                        Alice Liddel Alice AA Liddel Liddel
+                                    </a>
+                                    <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
                                 </div>
-                                <div class="col-md-7">
-                                    <div class="card-body p-0 col-md-12 ">
-                                        <a href="#" class="card-title m-0 strong">
+                            </div>
+                        </div>
+                        <hr class="grey-text my-3">
+                    </div>
+                    <div class="card border-0">
+                        <div class="row no-gutters col-md-12 p-0">
+                            <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
+                                <img src="/content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="...">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body p-0 col-md-12 ">
+                                    <a href="#" class="card-title m-0 strong">
                                             Alice Liddel Alice AA Liddel Liddel
                                         </a>
-                                        <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
-                                    </div>
+                                    <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
                                 </div>
                             </div>
-                            <hr class="grey-text my-3">
                         </div>
-                        <div class="card border-0">
-                            <div class="row no-gutters col-md-12 p-0">
-                                <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
-                                    <img src="/content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="...">
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="card-body p-0 col-md-12 ">
-                                        <a href="#" class="card-title m-0 strong">
+                        <hr class="grey-text my-3">
+                    </div>
+                    <div class="card border-0">
+                        <div class="row no-gutters col-md-12 p-0">
+                            <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
+                                <img src="/content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="...">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body p-0 col-md-12 ">
+                                    <a href="#" class="card-title m-0 strong">
                                                 Alice Liddel Alice AA Liddel Liddel
                                             </a>
-                                        <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
-                                    </div>
+                                    <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
                                 </div>
                             </div>
-                            <hr class="grey-text my-3">
                         </div>
-                        <div class="card border-0">
-                            <div class="row no-gutters col-md-12 p-0">
-                                <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
-                                    <img src="/content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="...">
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="card-body p-0 col-md-12 ">
-                                        <a href="#" class="card-title m-0 strong">
-                                                    Alice Liddel Alice AA Liddel Liddel
-                                                </a>
-                                        <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="grey-text my-3">
-                        </div>
-
-
+                        <hr class="grey-text my-3">
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
 </div>
