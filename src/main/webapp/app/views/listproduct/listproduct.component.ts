@@ -381,6 +381,7 @@ export class ListproductComponent implements OnInit {
       return;
     }
     this.sortedData = data.sort((a, b) => {
+      // eslint-disable-next-line
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         // case 'code':
