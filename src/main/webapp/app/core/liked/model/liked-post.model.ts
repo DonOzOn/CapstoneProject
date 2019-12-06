@@ -1,15 +1,31 @@
-export interface ILikedPost {}
+export interface ILikedPost {
+  id?: any;
+  user?: any;
+  productPost?: any;
+  status?: boolean;
+  createdBy?: string;
+  createdDate?: Date;
+  lastModifiedBy?: string;
+  lastModifiedDate?: Date;
+}
 export class LikedPost implements ILikedPost {
-  constructor() // public productRequestDTO?: Product,
-  // public productPostRequestDTO?: ProductPost,
-  // public imageDTO?: Image,
-  // public usingImageRequestDTO?: UsingImage,
-  // public listImage?: any
-  {
-    // this.productRequestDTO = productRequestDTO ? productRequestDTO : null;
-    // this.productPostRequestDTO = productPostRequestDTO ? productPostRequestDTO : null;
-    // this.imageDTO = imageDTO ? imageDTO : null;
-    // this.usingImageRequestDTO = usingImageRequestDTO ? usingImageRequestDTO : null;
-    // this.listImage = listImage ? listImage : null;
+  constructor(
+    public id?: any,
+    public user?: any,
+    public productPost?: any,
+    public status?: boolean,
+    public createdBy?: string,
+    public createdDate?: Date,
+    public lastModifiedBy?: string,
+    public lastModifiedDate?: Date
+  ) {
+    this.id = id ? id : null;
+    this.user = user ? user : null;
+    this.productPost = productPost ? productPost : null;
+    this.status = status ? status : null;
+    this.createdBy = createdBy ? createdBy : null;
+    this.createdDate = createdDate ? createdDate : null;
+    this.lastModifiedBy = lastModifiedBy ? lastModifiedBy : null;
+    this.lastModifiedDate = lastModifiedDate ? lastModifiedDate : null;
   }
 }

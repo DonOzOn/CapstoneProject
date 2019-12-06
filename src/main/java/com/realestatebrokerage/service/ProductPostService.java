@@ -183,7 +183,17 @@ public class ProductPostService {
                 return productPostRepository.save(productPost);
             });
     }
-
+    /**
+     * update product post
+     * */
+    public Optional<ProductPost>  updateLiked(Long postId, int num) {
+        log.debug("run in update post product: {}", postId);
+        return Optional.of(productPostRepository.findById(postId)).filter(Optional::isPresent).map(Optional::get)
+            .map(productPost -> {
+                productPost.setTotalLike(num);
+                return productPostRepository.save(productPost);
+            });
+    }
     /**
      * delete product post
      * */
