@@ -44,7 +44,7 @@
 
       messaging.onMessage(payload => {
         console.log('Message received. ', payload);
-        // window.dispatchEvent(new CustomEvent('reloadNoti'));
+        window.dispatchEvent(new CustomEvent('messageRecieve', { detail: payload }));
         // ...
       });
 

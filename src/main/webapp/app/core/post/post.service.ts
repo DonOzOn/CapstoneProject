@@ -16,7 +16,6 @@ export class PostService {
   public resourceUrlImage = SERVER_API_URL + 'api/upload';
 
   constructor(private http: HttpClient, private alertService: JhiAlertService) {}
-
   create(post: IPostRequest): Observable<HttpResponse<IPostRequest>> {
     return this.http.post<IPostRequest>(this.resourceUrl, post, { observe: 'response' }).pipe(
       tap((response: HttpResponse<IPostRequest>) => {
@@ -183,5 +182,9 @@ export class PostService {
    */
   delete(id: any): Observable<HttpResponse<any>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  filterByCharacter(req?: any): Observable<HttpResponse<IPostRespone[]>> {
+    return this.http.get<IPostRespone[]>(this.resourceUrl, { params: req, observe: 'response' });
   }
 }

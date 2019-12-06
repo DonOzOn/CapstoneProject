@@ -39,15 +39,13 @@ public class Product extends AbstractAuditingEntity implements Serializable {
 
 
     @Field
-    @Size(max = 50)
-    @Column(name = "price", length = 50)
-    private String price;
+    @Column(name = "price")
+    private Long price;
 
 
     @Field
-    @Size(max = 50)
-    @Column(name = "area", length = 50)
-    private String area;
+    @Column(name = "area")
+    private Long area;
 
 
     @IndexedEmbedded(depth = 1, prefix = "direction_")
@@ -60,13 +58,13 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     private LegalStatus legalStatus;
 
 
-    @Column(name = "number_floor", length = 50)
+    @Column(name = "number_floor")
     private Integer numberFloor;
 
-    @Column(name = "number_bathroom", length = 50)
+    @Column(name = "number_bathroom")
     private Integer numberBathroom;
 
-    @Column(name = "number_bedroom", length = 50)
+    @Column(name = "number_bedroom")
     private Integer numberBedroom;
 
     @IndexedEmbedded(depth = 1, prefix = "typeChild_")
@@ -104,19 +102,19 @@ public class Product extends AbstractAuditingEntity implements Serializable {
         this.id = id;
     }
 
-    public String getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
-    public String getArea() {
+    public Long getArea() {
         return area;
     }
 
-    public void setArea(String area) {
+    public void setArea(Long area) {
         this.area = area;
     }
 

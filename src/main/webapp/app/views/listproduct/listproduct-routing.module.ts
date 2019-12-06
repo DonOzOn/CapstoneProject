@@ -115,8 +115,8 @@ const routes: Routes = [
               url: '/home'
             },
             {
-              label: '/postTypeSearch/:postType}}/:title',
-              url: ''
+              label: '{{title}}',
+              url: '/postTypeSearch/:postType/:title'
             },
             {
               label: '{{titleChild}}',

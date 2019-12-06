@@ -5,14 +5,13 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.realestatebrokerage.config.ApplicationProperties;
+import com.google.firebase.FirebaseApp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.google.api.client.googleapis.util.Utils;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 
 @Configuration

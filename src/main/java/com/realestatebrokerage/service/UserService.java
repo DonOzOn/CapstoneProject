@@ -48,8 +48,6 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-
-
     @Autowired
     ProvinceRepository provinceRepository;
     @Autowired

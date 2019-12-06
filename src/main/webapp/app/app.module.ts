@@ -27,6 +27,8 @@ import { RealestatebrokerageAccountModule } from './views/account/account.module
 import { CheckboxModule } from 'primeng/checkbox';
 import { FacebookModule } from 'ngx-facebook';
 import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 import { LoginModule } from './views/login/login.module';
 
 @NgModule({
@@ -62,6 +64,8 @@ import { LoginModule } from './views/login/login.module';
     RealestatebrokerageAccountModule,
     CheckboxModule,
     FacebookModule.forRoot(),
+    MessagesModule,
+    MessageModule,
     ToastModule,
     LoginModule
   ],

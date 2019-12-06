@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 public class ProductRequestDTO {
     private Long id;
-    private String price;
-    private String area;
+    private Long price;
+    private Long area;
     private Long direction;
     private Long legalStatus;
     private Integer numberFloor;
@@ -65,19 +65,19 @@ public class ProductRequestDTO {
         this.id = id;
     }
 
-    public String getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
-    public String getArea() {
+    public Long getArea() {
         return area;
     }
 
-    public void setArea(String area) {
+    public void setArea(Long area) {
         this.area = area;
     }
 

@@ -33,9 +33,17 @@ import { ManageNewsComponent } from './manage-new/manage-news';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ManagereAllReviewpostComponent } from './manage-all-reviewpost/manage-all-reviewpost.component';
 import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
+import { ManageAllReportPostComponent } from './manage-all-report-productpost/manage-all-report-productpost';
 
 @NgModule({
-  declarations: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent, ManageNewsComponent, ManagereAllReviewpostComponent],
+  declarations: [
+    AdminComponent,
+    ManageAllProductpostComponent,
+    ManageUserComponent,
+    ManageNewsComponent,
+    ManagereAllReviewpostComponent,
+    ManageAllReportPostComponent
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -75,6 +83,13 @@ import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
     RealestatebrokerageSharedModule
   ],
   providers: [],
-  exports: [AdminComponent, ManageAllProductpostComponent, ManageUserComponent, ManageNewsComponent, ManagereAllReviewpostComponent]
+  exports: [
+    AdminComponent,
+    ManageAllProductpostComponent,
+    ManageUserComponent,
+    ManageNewsComponent,
+    ManagereAllReviewpostComponent,
+    ManageAllReportPostComponent
+  ]
 })
 export class AdminModule {}

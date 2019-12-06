@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Ng7DynamicBreadcrumbService } from 'ng7-dynamic-breadcrumb';
 import { NewsService } from 'app/core/news/news.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-// import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { AddressService } from 'app/core/address/address.service';
 @Component({
   selector: 'app-listproduct',
   templateUrl: './listproduct.component.html',
@@ -24,10 +24,16 @@ export class ListproductComponent implements OnInit {
   };
   text: '';
   filterForm = this.fb.group({
-    postType: [''],
-    price: [''],
-    area: ['']
+    postType: [null],
+    price: [null],
+    area: [null],
+    province: [null],
+    district: [null],
+    ward: [null]
   });
+  listProvinces: [];
+  listDistrict: [];
+  listWard: [];
   config: any;
   count: any;
   listPost: any[] = [];
@@ -48,6 +54,7 @@ export class ListproductComponent implements OnInit {
     nextLabel: 'Next'
   };
   constructor(
+    private addressService: AddressService,
     private newService: NewsService,
     private postService: PostService,
     private fb: FormBuilder,
@@ -84,31 +91,11 @@ export class ListproductComponent implements OnInit {
       this.post = this.filteredProducts;
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     });
-    this.filterFunction();
+    // this.filterFunction();
 
-    // this.price.valueChanges
-    //   .pipe(
-    //     tap(() =>
-    //       // eslint-disable-next-line
-    //       console.log('price value ',  this.price.value)
-    //     ),
-    //     tap(() => {
-    //       switch (this.price.value) {
-    //         case 1:
-    //           this.post = this.filteredProducts;
-    //           break;
-    //         case 2:
-    //           this.filterPrice(0, 300000000);
-    //           break;
-    //         case 3:
-    //           this.filterPrice(300000000, 500000000);
-    //           break;
-    //         default:
-    //           break;
-    //       }
-    //     })
-    //   )
-    //   .subscribe();
+    this.getProvince();
+    this.selectedDistrict();
+    this.selectedProvince();
   }
 
   filterPrice(from: any, to: any) {
@@ -130,6 +117,39 @@ export class ListproductComponent implements OnInit {
       // eslint-disable-next-line
       return parseInt(postItem.productResponseDTO.area) >= from && parseInt(postItem.productResponseDTO.area) <= to;
     });
+  }
+
+  /*  get all provinces */
+  getProvince() {
+    this.addressService.filterProvince().subscribe((res: any) => {
+      this.listProvinces = res.body;
+      // eslint-disable-next-line
+      console.log('Province choose: ', this.filterForm.value.province);
+      this.selectedProvince();
+    });
+  }
+
+  /* get ward when select distric */
+  selectedDistrict() {
+    if (this.filterForm.value.district != null) {
+      this.addressService.filterWard(this.filterForm.value.district).subscribe((res: any) => {
+        this.listWard = res.body;
+        this.filterForm.controls.ward.reset();
+      });
+    }
+  }
+
+  /* get district when select distric */
+  selectedProvince() {
+    if (this.filterForm.value.province != null) {
+      this.addressService.filterDistrict(this.filterForm.value.province).subscribe((res: any) => {
+        this.listDistrict = res.body;
+        // eslint-disable-next-line
+        console.log('List District: ', this.listDistrict);
+        this.filterForm.controls.district.reset();
+        this.filterForm.controls.ward.reset();
+      });
+    }
   }
 
   filterFunction() {
