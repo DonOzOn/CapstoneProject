@@ -10,7 +10,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.bridge.builtin.LongBridge;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -39,11 +41,13 @@ public class Product extends AbstractAuditingEntity implements Serializable {
 
 
     @Field
+    @FieldBridge(impl = LongBridge.class)
     @Column(name = "price")
     private Long price;
 
 
     @Field
+    @FieldBridge(impl = LongBridge.class)
     @Column(name = "area")
     private Long area;
 
