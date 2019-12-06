@@ -184,7 +184,12 @@ export class PostService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  /**
+   * Filters by character
+   * @param [req]
+   * @returns by character
+   */
   filterByCharacter(req?: any): Observable<HttpResponse<IPostRespone[]>> {
-    return this.http.get<IPostRespone[]>(this.resourceUrl, { params: req, observe: 'response' });
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/filters`, { params: req, observe: 'response' });
   }
 }

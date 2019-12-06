@@ -1,99 +1,104 @@
 <div class="container-fluid h-100 search-group py-2 d-inline-flex">
-    <div class="container d-inline-flex">
-        <div class="d-flex justify-content-start h-100 col-md-4 px-0">
-            <div class="searchbar">
-                <input class="search_input" type="text" name="" placeholder="Search...">
-                <a [routerLink]="[ '/search']" class="search_icon"><i class="fas fa-search"></i></a>
-            </div>
-        </div>
-<form [formGroup]="filterForm">
-        <div class=" d-flex justify-content-end col-md-8 float-right">
-            <div class="text-left px-1">
-            <select formControlName="province" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
-                        <option value="" selected disabled>Tỉnh/Thành phố</option>
-                        <option value="0">Tất cả</option>
-                        <option *ngFor="let item of listProvinces" value="item.code">{{item.name}}</option>
-
-            </select>
-            </div>
-            <div class="text-left px-1">
-                    <select formControlName="district" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
-                                <option value="" selected disabled>Quận/Huyện</option>
-                                <option value="0">Tất cả</option>
-                                <option *ngFor="let district of listDistrict" value="district.code">{{district.name}}</option>
-                    </select>
-                    </div>
-                    <div class="text-left px-1">
-                            <select formControlName="ward" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
-                                        <option value="" selected disabled>Phường/Xã</option>
-                                        <option value="0">Tất cả</option>
-                                <option *ngFor="let item of listWard" value="item.code">{{item.name}}</option>
-                            </select>
-                            </div>
-            <div class="text-center px-1">
-                <select formControlName="postType" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
-                        <option value="" selected disabled>Loại BĐS</option>
-                        <option value="1">Tất cả</option>
-                        <option value="2">Mua bán</option>
-                        <option value="3">Cho thuê</option>
-            </select>
-                </div>
-                <div class="text-center px-2">
-                    <select formControlName="price" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
-                        <option value="" selected disabled>Khoảng giá</option>
-                        <option value="1">Tất cả</option>
-                        <option value="2">dưới 300 triệu</option>
-                        <option value="3">300-500 triệu</option>
-                        <option value="4">500-800 triệu</option>
-                        <option value="5">800 triệu - 1 tỷ</option>
-                        <option value="6">1 tỷ - 3 tỷ</option>
-                        <option value="7">3 tỷ - 5 tỷ</option>
-                        <option value="8">5 tỷ - 7 tỷ</option>
-                        <option value="9">7 tỷ - 10 tỷ</option>
-                        <option value="10">10 tỷ - 20 tỷ</option>
-                        <option value="11">20 tỷ - 30 tỷ</option>
-                        <option value="12">30 tỷ - 50 tỷ</option>
-                        <option value="13">Trên 50 tỷ</option>
-            </select>
-                </div>
-                <div class="text-center px-2">
-                    <select formControlName="area" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
-                        <option value="" selected disabled>Diện tích</option>
-                        <option value="1">Tất cả</option>
-                        <option value="2">Dưới 30m2</option>
-                        <option value="3">30 m2 - 50 m2</option>
-                        <option value="4">50 m2 - 70 m2</option>
-                        <option value="5">70 m2 - 100 m2</option>
-                        <option value="6">100 m2 - 150 m2</option>
-                        <option value="7">150 m2 - 300 m2</option>
-                        <option value="8">300 m2 - 500 m2</option>
-                        <option value="9">500 m2 trở lên</option>
-            </select>
-                </div>
-                <div class="text-center px-2">
-                    <select class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
-                        <option value="" selected disabled>Lọc nâng cao</option>
-                        <option value="1">Tất cả</option>
-                        <option value="2">Dưới 30m2</option>
-                        <option value="3">30 m2 - 50 m2</option>
-                        <option value="4">50 m2 - 70 m2</option>
-                        <option value="5">70 m2 - 100 m2</option>
-                        <option value="6">100 m2 - 150 m2</option>
-                        <option value="7">150 m2 - 300 m2</option>
-                        <option value="8">300 m2 - 500 m2</option>
-                        <option value="9">500 m2 trở lên</option>
-            </select>
-                </div>
-            </div>
-
-        </form>
+  <div class="container d-inline-flex">
+    <div class="d-flex justify-content-start h-100 col-md-4 px-0">
+      <div class="searchbar">
+        <input class="search_input" type="text" name="" placeholder="Search..." />
+        <a [routerLink]="['/search']" class="search_icon"><i class="fas fa-search"></i></a>
+      </div>
     </div>
+    <form [formGroup]="filterForm">
+      <div class=" d-flex justify-content-end col-md-8 float-right">
+        <div class="text-left px-1">
+          <select formControlName="province"  (change)="selectedProvince()" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+            <option value="" selected disabled>Tỉnh/Thành phố</option>
+            <option value="0">Tất cả</option>
+            <option *ngFor="let item of listProvinces" value="{{item.code}}">{{item.name}}</option>
+          </select>
+        </div>
+        <div class="text-left px-1">
+          <select formControlName="district"  (change)="selectedDistrict()" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+            <option value="" selected disabled>Quận/Huyện</option>
+            <option value="0">Tất cả</option>
+            <option *ngFor="let district of listDistrict" value="{{district.code}}">{{ district.name }}</option>
+          </select>
+        </div>
+        <div class="text-left px-1">
+          <select formControlName="ward" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+            <option value="" selected disabled>Phường/Xã</option>
+            <option value="0">Tất cả</option>
+            <option *ngFor="let item of listWard" value="{{item.code}}">{{ item.name }}</option>
+          </select>
+        </div>
+        <div class="text-center px-1">
+          <select formControlName="postType" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+            <option value="" selected disabled>Loại BĐS</option>
+            <option value="0">Tất cả</option>
+            <option value="1">Mua bán</option>
+            <option value="2">Cho thuê</option>
+          </select>
+        </div>
+        <div class="text-center px-2">
+          <select formControlName="price" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+            <option value="" selected disabled>Khoảng giá</option>
+            <option value="0">Tất cả</option>
+            <option value="1">dưới 300 triệu</option>
+            <option value="2">300-500 triệu</option>
+            <option value="3">500-800 triệu</option>
+            <option value="4">800 triệu - 1 tỷ</option>
+            <option value="5">1 tỷ - 3 tỷ</option>
+            <option value="6">3 tỷ - 5 tỷ</option>
+            <option value="7">5 tỷ - 7 tỷ</option>
+            <option value="8">7 tỷ - 10 tỷ</option>
+            <option value="9">10 tỷ - 20 tỷ</option>
+            <option value="10">20 tỷ - 30 tỷ</option>
+            <option value="11">30 tỷ - 50 tỷ</option>
+            <option value="12">Trên 50 tỷ</option>
+          </select>
+        </div>
+        <div class="text-center px-2">
+          <select formControlName="area" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+            <option value="" selected disabled>Diện tích</option>
+            <option value="0">Tất cả</option>
+            <option value="1">Dưới 30m2</option>
+            <option value="2">30 m2 - 50 m2</option>
+            <option value="3">50 m2 - 70 m2</option>
+            <option value="4">70 m2 - 100 m2</option>
+            <option value="5">100 m2 - 150 m2</option>
+            <option value="6">150 m2 - 300 m2</option>
+            <option value="7">300 m2 - 500 m2</option>
+            <option value="8">500 m2 trở lên</option>
+          </select>
+        </div>
+        <div class="text-center px-2">
+          <select class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+            <option value="" selected disabled>Lọc nâng cao</option>
+            <option value="0">Tất cả</option>
+            <option value="1">Dưới 30m2</option>
+            <option value="2">30 m2 - 50 m2</option>
+            <option value="3">50 m2 - 70 m2</option>
+            <option value="4">70 m2 - 100 m2</option>
+            <option value="5">100 m2 - 150 m2</option>
+            <option value="6">150 m2 - 300 m2</option>
+            <option value="7">300 m2 - 500 m2</option>
+            <option value="8">500 m2 trở lên</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 
 <div class="container">
-    <div class="bc-icons-2">
-        <app-ng7-dynamic-breadcrumb [bgColor]="breadcrumbConfig['bgColor']" [fontSize]="breadcrumbConfig['fontSize']" [fontColor]="breadcrumbConfig['fontColor']" [lastLinkColor]="breadcrumbConfig['lastLinkColor']" [symbol]="breadcrumbConfig['symbol']">Quản lí chung</app-ng7-dynamic-breadcrumb>
-        <!-- <nav aria-label="breadcrumb">
+  <div class="bc-icons-2">
+    <app-ng7-dynamic-breadcrumb
+      [bgColor]="breadcrumbConfig['bgColor']"
+      [fontSize]="breadcrumbConfig['fontSize']"
+      [fontColor]="breadcrumbConfig['fontColor']"
+      [lastLinkColor]="breadcrumbConfig['lastLinkColor']"
+      [symbol]="breadcrumbConfig['symbol']"
+      >Quản lí chung</app-ng7-dynamic-breadcrumb
+    >
+    <!-- <nav aria-label="breadcrumb">
             <ol class="breadcrumb lighten-4 rounded-0 px-0 my-0">
                 <li class="breadcrumb-item"><a class="text-muted" href="#"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
                 <li class="breadcrumb-item pt-2">
@@ -104,156 +109,194 @@
                 <li class="breadcrumb-item pt-2 active">TP HỒ CHÍ MINH</li>
             </ol>
         </nav> -->
-    </div>
+  </div>
 
-    <div class="my-2 d-flex">
-        <form class="justify-content-start " [formGroup]="chooseForm">
-            <select *ngIf="post.length !== 0" (change)="onChange($event)" class="btn btn-secondary" formControlName="choose">
-                  <option value="" disabled>Chọn sắp xếp</option>
-                  <option *ngFor="let item of choose" [ngValue]="item.value" >
-                    {{item.name}}
-                  </option>
-                </select>
-        </form>
-        <h4 class="justify-content-end pl-5 pt-1">
-            <!-- <div class="text-mute strong">"Mua bán" "căn hộ chung cư" tại "TP HỒ CHÍ MINH" </div> -->
-            <!-- <div class="text-mute strong" > "Có {{post.length}} kết quả đươc tìm thấy"  </div> -->
-            <div class="text-mute strong"> "Có {{post.length}} kết quả đươc tìm thấy" </div>
-        </h4>
-    </div>
-    <div class="container px-0 py-2">
-        <div class="row col-md-12 mx-0 px-0 content">
-            <div class="col-md-8 px-0">
-                <div class="card rounded mb-4" *ngFor="let item of post | paginate: config">
-                    <div class="row no-gutters">
-                        <div class="col-md-4 waves-light">
-                            <img src="{{imageUrl}}{{item.imageDTO.img1}}" class="card-img h-100 img-responsive rounded mx-auto d-block" style="max-height: 220px;" alt="...">
-                            <div class="card-img-overlay col-md-12 p-2 d-flex align-items-start">
-                                <h4 class="card-text text-warning strong col-md-6 p-0 m-0 d-flexbox">70<span>&#37;</span></h4>
-                                <h1 class="card-text text-warning strong col-md-6 text-right p-0 m-0">
-                                    <i class="fab fa-hotjar text-danger"></i>
-                                </h1>
-                            </div>
-                            <div class="card-img-overlay col-md-12 p-2 d-flex align-items-end">
-                                <p class="card-text text-warning strong col-md-6 p-0 m-0"><i class="fas fa-street-view"></i> km</p>
-                                <p class="card-text text-warning strong col-md-6 text-right p-0 m-0"> <i class="fas fa-chart-area"></i> {{item.productPostResponseDTO.product.area}} m<sup>2</sup></p>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body pb-1">
-                                <a [routerLink]="[ '/product', item.productPostResponseDTO.id,'productdetail']">
-                                    <h5 class="card-title">{{item.productPostResponseDTO.productPostTitle}}</h5>
-                                </a>
-                                <div innerHTML="{{item.productPostResponseDTO.content}}" class="card-text giveMeEllipsisList"></div>
-                                <div class=" d-inline-flex col-md-12 px-0 pt-2 small">
-                                    <p class="grey-text my-1 px-0 col-md-7">{{item.productPostResponseDTO.address}}, {{item.productPostResponseDTO.ward.name}}, {{item.productPostResponseDTO.district.name}}, {{item.productPostResponseDTO.province.name}}</p>
-                                    <p class="grey-text my-1 px-0 col-md-5 d-flex justify-content-end align-items-end"><i>{{item.productPostResponseDTO.createdDate | date : 'dd/MM/yyyy'}}</i></p>
-                                </div>
-                                <hr class="my-1">
-                                <div class=" d-inline-flex col-md-12 px-0">
-                                    <p class="text-dark my-1 pt-1 px-0 col-md-2 strong text-left" *ngIf="item.productPostResponseDTO.product.price >= 100000000">{{item.productPostResponseDTO.product.price/1000000000}}tỷ</p>
-                                    <p class="text-dark my-1 pt-1 px-0 col-md-2 strong text-left" *ngIf="item.productPostResponseDTO.product.price < 100000000">{{item.productPostResponseDTO.product.price/1000000}}tỷ</p>
-                                    <p class="text-dark my-1 pt-2 px-0 col-md-2 small text-left">{{item.productPostResponseDTO.product.area}}m<sup>2</sup></p>
-                                    <div class="my-1 p-0 col-md-8 d-inline-flex">
-                                        <div class="col-md-2 px-2 pt-1 img">
-                                            <img src="{{imageUrl}}{{item.productPostResponseDTO.user.imageUrl}}" *ngIf="item.productPostResponseDTO.user.imageUrl !== null" class="card-img rounded-circle img-responsive img" alt="...">
-                                            <img src="../../../content/img/default-avar.png" *ngIf="item.productPostResponseDTO.user.imageUrl === null" class="card-img rounded-circle img-responsive img" alt="...">
-                                        </div>
-                                        <p class="text-dark my-1 pt-1 pl-2 col-md-6 small text-left text-capitalize">{{item.productPostResponseDTO.user.firstName}} {{item.productPostResponseDTO.user.lastName}}</p>
-                                        <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" href="#">
-                                            <div class="col-md-3 px-1 ">
-                                                <img src="../../../content/img/chat-blue.svg" class="card-img img-responsive " alt="...">
-                                            </div> Chat ngay
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <nav aria-label="" *ngIf="post.length !== 0" class="mt-2">
-                    <ul class="pagination pg-blue justify-content-end">
-                        <pagination-controls [previousLabel]="labels.previousLabel" [nextLabel]="labels.nextLabel" (pageChange)="pageChanged($event)"></pagination-controls>
-                    </ul>
-                </nav>
+  <div class="my-2 d-flex">
+    <form class="justify-content-start " [formGroup]="chooseForm">
+      <select *ngIf="post.length !== 0" (change)="onChange($event)" class="btn btn-secondary" formControlName="choose">
+        <option value="" disabled>Chọn sắp xếp</option>
+        <option *ngFor="let item of choose" [ngValue]="item.value">
+          {{ item.name }}
+        </option>
+      </select>
+    </form>
+    <h4 class="justify-content-end pl-5 pt-1">
+      <!-- <div class="text-mute strong">"Mua bán" "căn hộ chung cư" tại "TP HỒ CHÍ MINH" </div> -->
+      <!-- <div class="text-mute strong" > "Có {{post.length}} kết quả đươc tìm thấy"  </div> -->
+      <div class="text-mute strong">"Có {{ post.length }} kết quả đươc tìm thấy"</div>
+    </h4>
+  </div>
+  <div class="container px-0 py-2">
+    <div class="row col-md-12 mx-0 px-0 content">
+      <div class="col-md-8 px-0">
+        <div class="card rounded mb-4" *ngFor="let item of post | paginate: config">
+          <div class="row no-gutters">
+            <div class="col-md-4 waves-light">
+              <img
+                src="{{ imageUrl }}{{ item.imageDTO.img1 }}"
+                class="card-img h-100 img-responsive rounded mx-auto d-block"
+                style="max-height: 220px;"
+                alt="..."
+              />
+              <div class="card-img-overlay col-md-12 p-2 d-flex align-items-start">
+                <h4 class="card-text text-warning strong col-md-6 p-0 m-0 d-flexbox">70<span>&#37;</span></h4>
+                <h1 class="card-text text-warning strong col-md-6 text-right p-0 m-0">
+                  <i class="fab fa-hotjar text-danger"></i>
+                </h1>
+              </div>
+              <div class="card-img-overlay col-md-12 p-2 d-flex align-items-end">
+                <p class="card-text text-warning strong col-md-6 p-0 m-0"><i class="fas fa-street-view"></i> km</p>
+                <p class="card-text text-warning strong col-md-6 text-right p-0 m-0">
+                  <i class="fas fa-chart-area"></i> {{ item.productPostResponseDTO.product.area }} m<sup>2</sup>
+                </p>
+              </div>
             </div>
-
-
-            <div class="col-md-4 px-0">
-                <div class="d-flexbox mb-4 right-side col-md-11 px-0 offset-md-1 rounded">
-                    <div class="col-md-12 px-2">
-                        <p class="text-dark strong mb-2">Có thể bạn quan tâm</p>
-                    </div>
-                    <div class="card border-0 px-2">
-                        <div class="row no-gutters col-md-12 p-0">
-                            <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
-                                <img src="../../../content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="...">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="card-body p-0 col-md-12 ">
-                                    <a href="#" class="card-title m-0 strong">
-                                        Alice Liddel Alice AA Liddel Liddel
-                                    </a>
-                                    <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="grey-text my-3">
-                    </div>
-                    <div class="card border-0 px-2">
-                        <div class="row no-gutters col-md-12 p-0">
-                            <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
-                                <img src="../../../content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="...">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="card-body p-0 col-md-12 ">
-                                    <a href="#" class="card-title m-0 strong">
-                                            Alice Liddel Alice AA Liddel Liddel
-                                        </a>
-                                    <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="grey-text my-3">
-                    </div>
-                    <div class="card border-0 px-2">
-                        <div class="row no-gutters col-md-12 p-0">
-                            <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
-                                <img src="../../../content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="...">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="card-body p-0 col-md-12 ">
-                                    <a href="#" class="card-title m-0 strong">
-                                                Alice Liddel Alice AA Liddel Liddel
-                                            </a>
-                                    <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="grey-text my-3">
-                    </div>
-
-
+            <div class="col-md-8">
+              <div class="card-body pb-1">
+                <a [routerLink]="['/product', item.productPostResponseDTO.id, 'productdetail']">
+                  <h5 class="card-title">{{ item.productPostResponseDTO.productPostTitle }}</h5>
+                </a>
+                <div innerHTML="{{ item.productPostResponseDTO.content }}" class="card-text giveMeEllipsisList"></div>
+                <div class=" d-inline-flex col-md-12 px-0 pt-2 small">
+                  <p class="grey-text my-1 px-0 col-md-7">
+                    {{ item.productPostResponseDTO.address }}, {{ item.productPostResponseDTO.ward.name }},
+                    {{ item.productPostResponseDTO.district.name }}, {{ item.productPostResponseDTO.province.name }}
+                  </p>
+                  <p class="grey-text my-1 px-0 col-md-5 d-flex justify-content-end align-items-end">
+                    <i>{{ item.productPostResponseDTO.createdDate | date: 'dd/MM/yyyy' }}</i>
+                  </p>
                 </div>
-                <div class="d-flexbox mb-4 right-side rounded col-md-11 px-0 offset-md-1">
-                    <div class="col-md-12 px-1">
-                        <p class="text-dark strong my-0">Từ khóa có liên quan <span class="text-primary">?</span> </p>
+                <hr class="my-1" />
+                <div class=" d-inline-flex col-md-12 px-0">
+                  <p
+                    class="text-dark my-1 pt-1 px-0 col-md-2 strong text-left"
+                    *ngIf="item.productPostResponseDTO.product.price >= 100000000"
+                  >
+                    {{ item.productPostResponseDTO.product.price / 1000000000 }}tỷ
+                  </p>
+                  <p
+                    class="text-dark my-1 pt-1 px-0 col-md-2 strong text-left"
+                    *ngIf="item.productPostResponseDTO.product.price < 100000000"
+                  >
+                    {{ item.productPostResponseDTO.product.price / 1000000 }}tỷ
+                  </p>
+                  <p class="text-dark my-1 pt-2 px-0 col-md-2 small text-left">
+                    {{ item.productPostResponseDTO.product.area }}m<sup>2</sup>
+                  </p>
+                  <div class="my-1 p-0 col-md-8 d-inline-flex">
+                    <div class="col-md-2 px-2 pt-1 img">
+                      <img
+                        src="{{ imageUrl }}{{ item.productPostResponseDTO.user.imageUrl }}"
+                        *ngIf="item.productPostResponseDTO.user.imageUrl !== null"
+                        class="card-img rounded-circle img-responsive img"
+                        alt="..."
+                      />
+                      <img
+                        src="../../../content/img/default-avar.png"
+                        *ngIf="item.productPostResponseDTO.user.imageUrl === null"
+                        class="card-img rounded-circle img-responsive img"
+                        alt="..."
+                      />
                     </div>
-                    <div class="col-md-12 px-2">
-                        <a class="small" href="#">abc xyz</a>
-                    </div>
-                    <div class="col-md-12 px-2">
-                        <a class="small" href="#">abc xyz</a>
-                    </div>
-                    <div class="col-md-12 px-2">
-                        <a class="small" href="#">abc xyz</a>
-                    </div>
+                    <p class="text-dark my-1 pt-1 pl-2 col-md-6 small text-left text-capitalize">
+                      {{ item.productPostResponseDTO.user.firstName }} {{ item.productPostResponseDTO.user.lastName }}
+                    </p>
+                    <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" href="#">
+                      <div class="col-md-3 px-1 ">
+                        <img src="../../../content/img/chat-blue.svg" class="card-img img-responsive " alt="..." />
+                      </div>
+                      Chat ngay
+                    </a>
+                  </div>
                 </div>
-
-                <div class="d-flexbox mb-4 right-side rounded col-md-11 offset-md-1">
-                    abc
-                </div>
+              </div>
             </div>
+          </div>
         </div>
+        <nav aria-label="" *ngIf="post.length !== 0" class="mt-2">
+          <ul class="pagination pg-blue justify-content-end">
+            <pagination-controls
+              [previousLabel]="labels.previousLabel"
+              [nextLabel]="labels.nextLabel"
+              (pageChange)="pageChanged($event)"
+            ></pagination-controls>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="col-md-4 px-0">
+        <div class="d-flexbox mb-4 right-side col-md-11 px-0 offset-md-1 rounded">
+          <div class="col-md-12 px-2">
+            <p class="text-dark strong mb-2">Có thể bạn quan tâm</p>
+          </div>
+          <div class="card border-0 px-2">
+            <div class="row no-gutters col-md-12 p-0">
+              <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
+                <img src="../../../content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="..." />
+              </div>
+              <div class="col-md-7">
+                <div class="card-body p-0 col-md-12 ">
+                  <a href="#" class="card-title m-0 strong">
+                    Alice Liddel Alice AA Liddel Liddel
+                  </a>
+                  <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
+                </div>
+              </div>
+            </div>
+            <hr class="grey-text my-3" />
+          </div>
+          <div class="card border-0 px-2">
+            <div class="row no-gutters col-md-12 p-0">
+              <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
+                <img src="../../../content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="..." />
+              </div>
+              <div class="col-md-7">
+                <div class="card-body p-0 col-md-12 ">
+                  <a href="#" class="card-title m-0 strong">
+                    Alice Liddel Alice AA Liddel Liddel
+                  </a>
+                  <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
+                </div>
+              </div>
+            </div>
+            <hr class="grey-text my-3" />
+          </div>
+          <div class="card border-0 px-2">
+            <div class="row no-gutters col-md-12 p-0">
+              <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
+                <img src="../../../content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="..." />
+              </div>
+              <div class="col-md-7">
+                <div class="card-body p-0 col-md-12 ">
+                  <a href="#" class="card-title m-0 strong">
+                    Alice Liddel Alice AA Liddel Liddel
+                  </a>
+                  <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
+                </div>
+              </div>
+            </div>
+            <hr class="grey-text my-3" />
+          </div>
+        </div>
+        <div class="d-flexbox mb-4 right-side rounded col-md-11 px-0 offset-md-1">
+          <div class="col-md-12 px-1">
+            <p class="text-dark strong my-0">Từ khóa có liên quan <span class="text-primary">?</span></p>
+          </div>
+          <div class="col-md-12 px-2">
+            <a class="small" href="#">abc xyz</a>
+          </div>
+          <div class="col-md-12 px-2">
+            <a class="small" href="#">abc xyz</a>
+          </div>
+          <div class="col-md-12 px-2">
+            <a class="small" href="#">abc xyz</a>
+          </div>
+        </div>
+
+        <div class="d-flexbox mb-4 right-side rounded col-md-11 offset-md-1">
+          abc
+        </div>
+      </div>
     </div>
+  </div>
 </div>

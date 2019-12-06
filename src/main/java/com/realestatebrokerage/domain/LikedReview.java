@@ -6,8 +6,8 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "user_care_product")
-public class UserCareProduct extends AbstractAuditingEntity implements Serializable {
+@Table(name = "liked_review")
+public class LikedReview extends AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -19,34 +19,20 @@ public class UserCareProduct extends AbstractAuditingEntity implements Serializa
     private User user;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", name = "product_post_id")
-    private ProductPost productPost;
+    @JoinColumn(referencedColumnName = "id", name = "review_id")
+    private Review review;
 
     @NotNull
     @Column(nullable = false)
     private boolean status = false;
 
-
-    public UserCareProduct() {
+    public LikedReview() {
     }
 
-    public UserCareProduct(UserCareProduct careProduct){
-        this.id = careProduct.getId();
-        if (careProduct.getUser() != null) {
-            this.user = careProduct.getUser();
-        }
-        this.status = careProduct.getStatus();
-        if (careProduct.getProductPost() != null) {
-            this.productPost = careProduct.getProductPost();
-        }
-    }
-
-    public ProductPost getProductPost() {
-        return productPost;
-    }
-
-    public void setProductPost(ProductPost productPost) {
-        this.productPost = productPost;
+    public LikedReview(User user, Review review, @NotNull boolean status) {
+        this.user = user;
+        this.review = review;
+        this.status = status;
     }
 
     public Long getId() {
@@ -65,7 +51,15 @@ public class UserCareProduct extends AbstractAuditingEntity implements Serializa
         this.user = user;
     }
 
-    public boolean getStatus() {
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
+    }
+
+    public boolean isStatus() {
         return status;
     }
 
