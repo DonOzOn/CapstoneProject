@@ -108,62 +108,14 @@
                                             <td>{{guest.productPost?.productPostTitle}}</td>
                                             <td>{{guest.mess}}</td>
                                             <td class="text-center" >
-                                               <button class="btn btn-warning"(click)="confirmOnOFF(user)"
+                                               <button class="btn btn-warning"(click)="confirmOnOFF(guest)"
                                                       >Xóa</button>
                                             </td>
                                         </tr>
 
                                     </ng-template>
                                     </p-table>
-                                    <p-dialog header="Chi tiết người dùng" *ngIf="selectedUser" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '30%'}">
-                                        <div class="ui-g ui-fluid" >
-                                            <div class="ui-g-12">
-                                                <div class="ui-g-4">
-                                                    <label for="firstName">Họ</label>
-                                                </div>
-                                                <div class="ui-g-8">
-                                                    <input pInputText disabled id="firstName" [(ngModel)]="selectedUser.firstName" />
-                                                </div>
-                                            </div>
-                                            <div class="ui-g-12">
-                                                <div class="ui-g-4">
-                                                    <label for="lastName">Tên</label>
-                                                </div>
-                                                <div class="ui-g-8">
-                                                    <input pInputText  disabled id="lastName" [(ngModel)]="selectedUser.lastName" />
-                                                </div>
-                                            </div>
-                                            <div class="ui-g-12">
-                                                <div class="ui-g-4">
-                                                    <label for="login">Tên tài khoản</label>
-                                                </div>
-                                                <div class="ui-g-8">
-                                                    <input pInputText id="login"  disabled [(ngModel)]="selectedUser.login" />
-                                                </div>
-                                            </div>
-                                            <div class="ui-g-12">
-                                                <div class="ui-g-4">
-                                                    <label for="email">Email</label>
-                                                </div>
-                                                <div class="ui-g-8">
-                                                    <input disabled pInputText id="email"  [(ngModel)]="selectedUser.email" />
-                                                </div>
-                                            </div>
-                                            <div class="ui-g-12">
-                                                <div class="ui-g-4 pt-2">
-                                                    <label for="role">Quyền</label>
-                                                </div>
-                                                <div class="ui-g-8">
-                                                    <p-selectButton id="role" [options]="types" (onChange) = "changeRole($event)" [(ngModel)]="selectedType"></p-selectButton>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p-footer>
-                                            <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                                                <button type="button"  [disabled]="currentAccount.login === user.login" pButton icon="fa fa-check" (click)="save(selectedUser)" label="Lưu"></button>
-                                            </div>
-                                        </p-footer>
-                                    </p-dialog>
+
                             </div>
 
                         </div>

@@ -50,6 +50,16 @@ public class ProductPostService {
     public List<ProductPost> findAll(){
         return productPostRepository.findAll();
     }
+
+    /**
+     * Filter by product post and product character
+     * **/
+    public Page<ProductPost> filterProductPost(String province, String district, String ward,
+                                              Long postType, Long priceFrom, Long priceTo,
+                                               Long areaFrom, Long areaTo, Long direction,
+                                               Integer numBathroom, Integer numBedroom ,Pageable pageable ){
+        return productPostRepository.filterByAllCharracter(province, district, ward, postType, priceFrom, priceTo,areaFrom, areaTo,direction,numBathroom, numBedroom, pageable);
+    }
     /**
      * List all product post by date from to
      * **/

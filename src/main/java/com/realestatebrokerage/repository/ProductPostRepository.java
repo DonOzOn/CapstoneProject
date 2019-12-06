@@ -1,7 +1,6 @@
 package com.realestatebrokerage.repository;
 
 import com.realestatebrokerage.domain.ProductPost;
-import com.realestatebrokerage.domain.ProductPostType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,9 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.query.Param;
 
-import javax.validation.constraints.NotNull;
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,5 +35,30 @@ public interface ProductPostRepository extends JpaRepository<ProductPost, Long> 
     public List<ProductPost> findAllByProvince(@Param("province")String province);
 
     public Optional<ProductPost> findAllByStatusTrueAndProductIdAndProductPostTypeId(Long id, Long postTypeID);
+
+    @Query(value = "SELECT pp FROM ProductPost pp WHERE" +
+        "(:province IS NULL OR pp.province.code = :province) " +
+        "AND (:district IS NULL OR pp.district.code = :district)"
+        +"AND (:ward IS NULL OR pp.ward.code = :ward)"
+        +"AND (:postType IS NULL OR pp.productPostType.id = :postType)"
+        +"AND (:priceFrom IS NULL OR pp.product.price >= :priceFrom)"
+        +"AND (:priceTo IS NULL OR pp.product.price < :priceTo)"
+        +"AND (:areaFrom IS NULL OR pp.product.area >= :areaFrom )"
+        +"AND (:areaTo IS NULL OR pp.product.area < :areaTo)"
+        +"AND (:direction IS NULL OR pp.product.direction.id = :direction)"
+        +"AND (:numBathroom IS NULL OR (pp.product.numberBathroom = :numBathroom))"
+        +"AND (:numBedroom IS NULL OR (pp.product.numberBedroom = :numBedroom))")
+    public Page<ProductPost> filterByAllCharracter(@Param("province") String province,
+                                                    @Param("district")String district,
+                                                    @Param("ward") String ward,
+                                                    @Param("postType") Long postType,
+                                                    @Param("priceFrom") Long priceFrom,
+                                                    @Param("priceTo") Long priceTo,
+                                                    @Param("areaFrom") Long areaFrom,
+                                                    @Param("areaTo") Long areaTo,
+                                                    @Param("direction") Long direction,
+                                                    @Param("numBathroom") Integer numBathroom,
+                                                    @Param("numBedroom") Integer numBedroom,
+                                                   Pageable pageable );
 
 }

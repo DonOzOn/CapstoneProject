@@ -115,6 +115,8 @@ export class HomeComponent implements OnInit {
     self = this;
     this.window = window;
     this.window.addEventListener('saveToken', this.saveUserToken);
+    this.window.addEventListener('messageRecieve', this.messageRecieved);
+
     // eslint-disable-next-line
     console.log('lolololololo: ', this.accountService.isAuthenticated());
 
@@ -122,6 +124,11 @@ export class HomeComponent implements OnInit {
       this.window.window.requestPermission();
     }
     // this.window.addEventListener('subcribeTopicScript', this.test);
+  }
+
+  messageRecieved(e) {
+    // eslint-disable-next-line
+    console.log('saaaaaaaa: ', e.detail);
   }
   saveUserToken(e) {
     self.userService.find(self.currentAccount.login).subscribe((userAuthen: IUser) => {

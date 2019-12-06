@@ -14,7 +14,6 @@ import java.util.stream.Stream;
 import com.realestatebrokerage.config.ApplicationProperties;
 import com.realestatebrokerage.web.rest.errors.StorageException;
 import com.realestatebrokerage.web.rest.errors.StorageFileNotFoundException;
-import liquibase.util.file.FilenameUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -29,6 +28,7 @@ public class StorageService {
     public StorageService(ApplicationProperties properties) {
         this.rootLocation = Paths.get(properties.getBaseLocation());
     }
+
 
     public String store(MultipartFile file) {
         long currentTS = Long.valueOf(String.valueOf(System.currentTimeMillis()/1000));
@@ -49,8 +49,8 @@ public class StorageService {
                 return filename;
             }
         }
-        catch (IOException e) {
-            throw new StorageException("Failed to store file " + filename, e);
+        catch (IOException ex) {
+            throw new StorageException("Failed to store file " + filename);
         }
     }
 
@@ -60,8 +60,8 @@ public class StorageService {
                 .filter(path -> !path.equals(this.rootLocation))
                 .map(this.rootLocation::relativize);
         }
-        catch (IOException e) {
-            throw new StorageException("Failed to read stored files", e);
+        catch (IOException a) {
+            throw new StorageException("Failed to read stored files" + a);
         }
     }
     public Stream<Path> loadListAsResource(List<String> filename) {
@@ -78,8 +78,8 @@ public class StorageService {
                         "Could not read file: " + fname);
                 }
             }
-            catch (MalformedURLException e) {
-                throw new StorageFileNotFoundException("Could not read file: " + fname, e);
+            catch (MalformedURLException b) {
+                throw new StorageFileNotFoundException("Could not read file: " + fname);
             }
         }
         return resources.stream().map(this.rootLocation::relativize);
@@ -101,8 +101,8 @@ public class StorageService {
                     "Could not read file: " + filename);
             }
         }
-        catch (MalformedURLException e) {
-            throw new StorageFileNotFoundException("Could not read file: " + filename, e);
+        catch (MalformedURLException c) {
+            throw new StorageFileNotFoundException("Could not read file: " + filename);
         }
     }
 
@@ -115,10 +115,10 @@ public class StorageService {
             Path file = load(filename);
             FileSystemUtils.deleteRecursively(file);
         }
-        catch (MalformedURLException e) {
-            throw new StorageFileNotFoundException("Could not read file: " + filename, e);
-        } catch (IOException e) {
-            e.printStackTrace();
+        catch (MalformedURLException d) {
+            throw new StorageFileNotFoundException("Could not read file: " + filename);
+        } catch (IOException f) {
+            f.printStackTrace();
         }
     }
 
@@ -126,8 +126,8 @@ public class StorageService {
         try {
             Files.createDirectories(rootLocation);
         }
-        catch (IOException e) {
-            throw new StorageException("Could not initialize storage", e);
+        catch (IOException x) {
+            throw new StorageException("Could not initialize storage");
         }
     }
 }

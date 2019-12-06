@@ -7,16 +7,30 @@
             </div>
         </div>
 <form [formGroup]="filterForm">
-        <div class=" d-flex justify-content-end col-md-8 ">
-            <div class="text-center px-2">
-                <select class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
-                        <option value="" selected disabled>Toàn quốc</option>
-                        <option value="1">Tất cả</option>
-                        <option value="2">Option 1</option>
-                        <option value="3">Option 2</option>
+        <div class=" d-flex justify-content-end col-md-8 float-right">
+            <div class="text-left px-1">
+            <select formControlName="province" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+                        <option value="" selected disabled>Tỉnh/Thành phố</option>
+                        <option value="0">Tất cả</option>
+                        <option *ngFor="let item of listProvinces" value="item.code">{{item.name}}</option>
+
             </select>
             </div>
-            <div class="text-center px-2">
+            <div class="text-left px-1">
+                    <select formControlName="district" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+                                <option value="" selected disabled>Quận/Huyện</option>
+                                <option value="0">Tất cả</option>
+                                <option *ngFor="let district of listDistrict" value="district.code">{{district.name}}</option>
+                    </select>
+                    </div>
+                    <div class="text-left px-1">
+                            <select formControlName="ward" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
+                                        <option value="" selected disabled>Phường/Xã</option>
+                                        <option value="0">Tất cả</option>
+                                <option *ngFor="let item of listWard" value="item.code">{{item.name}}</option>
+                            </select>
+                            </div>
+            <div class="text-center px-1">
                 <select formControlName="postType" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
                         <option value="" selected disabled>Loại BĐS</option>
                         <option value="1">Tất cả</option>
@@ -24,7 +38,7 @@
                         <option value="3">Cho thuê</option>
             </select>
             </div>
-            <div class="text-center px-2">
+            <div class="text-center px-1">
                 <select formControlName="price" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
                         <option value="" selected disabled>Khoảng giá</option>
                         <option value="1">Tất cả</option>
@@ -42,7 +56,7 @@
                         <option value="13">Trên 50 tỷ</option>
             </select>
             </div>
-            <div class="text-center px-2">
+            <div class="text-center px-1">
                 <select formControlName="area" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
                         <option value="" selected disabled>Diện tích</option>
                         <option value="1">Tất cả</option>
@@ -56,7 +70,7 @@
                         <option value="9">500 m2 trở lên</option>
             </select>
             </div>
-            <div class="text-center px-2">
+            <div class="text-center px-1">
                 <select class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
                         <option value="" selected disabled>Lọc nâng cao</option>
                         <option value="1">Tất cả</option>

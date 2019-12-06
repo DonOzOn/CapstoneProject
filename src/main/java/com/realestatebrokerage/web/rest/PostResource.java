@@ -15,10 +15,15 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
@@ -118,6 +123,35 @@ public class PostResource {
 
     }
 
+
+    /**
+     * {@code GET /users} : get all users.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
+     */
+    @GetMapping("/productpost/filter")
+    public ResponseEntity<List<PostResponeDTO>> filterByCharacter(String province, String district, String ward , Long postType,  Long priceFrom, Long priceTo,
+                                                                  Long areaFrom, Long areaTo, Long direction, Integer numBathroom, Integer numBedroom, Pageable pageable) {
+             Page<ProductPostResponseDTO> page = productPostService.filterProductPost(province, district, ward, postType, priceFrom, priceTo,
+                                            areaFrom, areaTo, direction, numBathroom, numBedroom, pageable).map(ProductPostResponseDTO::new);
+        List<PostResponeDTO> responeDTOList = new ArrayList<>();
+        if (page != null) {
+            for (ProductPostResponseDTO pr : page.getContent()) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                postResponeDTO.setProductPostResponseDTO(pr);
+                ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
+                postResponeDTO.setProductResponseDTO(productResponseDTO);
+                UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                postResponeDTO.setImageDTO(imageDTO);
+                responeDTOList.add(postResponeDTO);
+            }
+        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return new ResponseEntity<>(responeDTOList, headers, HttpStatus.OK);
+    }
     /**
      * {@code GET /Post} : get all Post by UserID.
      *
@@ -129,16 +163,16 @@ public class PostResource {
         List<ProductPostResponseDTO> postList = productPostService.findAllByUserID(id).stream()
             .map(ProductPostResponseDTO::new).collect(Collectors.toList());
         if (postList != null) {
-            for (ProductPostResponseDTO pr : postList) {
-                PostResponeDTO postResponeDTO = new PostResponeDTO();
-                postResponeDTO.setProductPostResponseDTO(pr);
-                ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
-                postResponeDTO.setProductResponseDTO(productResponseDTO);
-                UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
-                postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
-                ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
-                postResponeDTO.setImageDTO(imageDTO);
-                responeDTOList.add(postResponeDTO);
+                    for (ProductPostResponseDTO pr : postList) {
+                        PostResponeDTO postResponeDTO = new PostResponeDTO();
+                        postResponeDTO.setProductPostResponseDTO(pr);
+                        ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
+                        postResponeDTO.setProductResponseDTO(productResponseDTO);
+                        UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                        postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                        ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                        postResponeDTO.setImageDTO(imageDTO);
+                        responeDTOList.add(postResponeDTO);
             }
             return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
         }

@@ -7,8 +7,8 @@ import java.util.List;
 
 public class ProductResponseDTO {
     private Long id;
-    private String price;
-    private String area;
+    private Long price;
+    private Long area;
     private Direction direction;
     private LegalStatus legalStatus;
     private Integer numberFloor;
@@ -69,19 +69,19 @@ public class ProductResponseDTO {
         this.id = id;
     }
 
-    public String getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
-    public String getArea() {
+    public Long getArea() {
         return area;
     }
 
-    public void setArea(String area) {
+    public void setArea(Long area) {
         this.area = area;
     }
 
