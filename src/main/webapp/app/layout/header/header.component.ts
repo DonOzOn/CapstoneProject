@@ -7,6 +7,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginModalService } from 'app/core/login/login-modal.service';
 import { JhiEventManager } from 'ng-jhipster';
 import { Account } from 'app/core/user/account.model';
+import { SERVER_API_URL } from 'app/app.constants';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ import { Account } from 'app/core/user/account.model';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  imageUrl = SERVER_API_URL + '/api/upload/files/';
   account: Account;
   authSubscription: Subscription;
   modalRef: NgbModalRef;
