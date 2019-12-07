@@ -115,13 +115,14 @@
             </nav>
         </div>
         <div class="header-icon d-flex flex-row">
-            <div class="header-icon-user pr-2">
+            <div class="badge faa-tada animated" role="button" *ngSwitchCase="true"> <i class="fas fa-bell text-light fa-lg"></i><sup class="text-warning">99</sup></div>
+            <div class="header-icon-user pl-4">
                 <button type="button" class="btn btn-info btn-block text-uppercase" *ngSwitchCase="true" [routerLink]="[ '/postproduct']">Đăng tin</button>
                 <button type="button" class="btn btn-info btn-block text-uppercase" *ngSwitchCase="false" data-toggle="tooltip" data-placement="top" title="Đăng nhập để có thể tạo bài đăng" [routerLink]="[ '/login']">Đăng tin</button>
             </div>
-            <div class="header-icon-user pl-2">
+            <div class="header-icon-user pl-4">
                 <div class="dropdown" *ngSwitchCase="true">
-                    <a *ngIf="account.imageUrl === null" data-toggle="tooltip" data-placement="top" title="Chào mừng {{account.login}}"><i class="fas fa-user-cog fa-2x text-white"></i></a>
+                    <a *ngIf="account.imageUrl === null" data-toggle="tooltip" data-placement="top" title="Chào mừng {{account.login}}"><i class="fas fa-user-cog fa-2x text-white border-2 light-red"></i></a>
                     <a *ngIf="account.imageUrl !== null" data-toggle="tooltip" data-placement="top" title="Chào mừng {{account.login}}"><img class="icon-user" src="{{imageUrl}}{{account.imageUrl}}"></a>
                     <ul class="drop-down" [class.show-dropdown]="isShowDropdown">
                         <li class="mt-2" *jhiHasAnyAuthority="'ROLE_USER'" [routerLink]="[ '/usermanage']"><a>Quản lí tài khoản</a></li>

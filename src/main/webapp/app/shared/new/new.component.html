@@ -8,8 +8,8 @@
     </div>
     <ul class="card-deck px-2 col-md-12 m-0">
         <li class="card col-md-4 p-2 mx-2 rounded" *ngFor="let item of list4News">
-            <img *ngIf="item.imageUrl !== 0" class="card-img-top" src="{{imageUrl}}{{item.imageUrl}}" alt="Card image cap">
-            <img *ngIf="item.imageUrl === 0" class="card-img-top" src="../../../content/img/default-image.jpg" alt="Card image cap">
+            <img *ngIf="item.imageUrl !== 0" class="card-img-top " src="{{imageUrl}}{{item.imageUrl}}" alt="Card image cap">
+            <img *ngIf="item.imageUrl === 0" class="card-img-top " src="../../../content/img/default-image.jpg" alt="Card image cap">
             <a [routerLink]="[ '/news', item.id , 'detail' ]">
                 <h5 class="card-title py-2 px-1 mx-1 giveMeEllipsisTitle  border-top font-weight-bold">{{item.title}}
                 </h5>
