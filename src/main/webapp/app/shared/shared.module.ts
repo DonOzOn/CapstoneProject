@@ -7,6 +7,7 @@ import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
 import { PasswordStrengthBarComponent } from './password-strength/password-strength-bar.component';
 import { NewComponent } from './new/new.component';
 import { RouterModule } from '@angular/router';
+import { CareYouComponent } from './care-you/care-you.component';
 
 @NgModule({
   imports: [RealestatebrokerageSharedLibsModule, RouterModule],
@@ -16,7 +17,8 @@ import { RouterModule } from '@angular/router';
     JhiLoginModalComponent,
     HasAnyAuthorityDirective,
     PasswordStrengthBarComponent,
-    NewComponent
+    NewComponent,
+    CareYouComponent
   ],
   entryComponents: [JhiLoginModalComponent],
   exports: [
@@ -26,7 +28,8 @@ import { RouterModule } from '@angular/router';
     JhiLoginModalComponent,
     HasAnyAuthorityDirective,
     PasswordStrengthBarComponent,
-    NewComponent
+    NewComponent,
+    CareYouComponent
   ]
 })
 export class RealestatebrokerageSharedModule {}

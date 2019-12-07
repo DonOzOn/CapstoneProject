@@ -5,6 +5,7 @@ import { ManageAllProductpostComponent } from './manage-allproductpost/manage-al
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ManageNewsComponent } from './manage-new/manage-news';
 import { ManagereAllReviewpostComponent } from './manage-all-reviewpost/manage-all-reviewpost.component';
+import { AdminNotificationComponent } from './admin-notification/admin-notification';
 
 const routes: Routes = [
   {
@@ -79,6 +80,22 @@ const routes: Routes = [
             },
             {
               label: 'Quản lí tin tức',
+              url: ''
+            }
+          ]
+        }
+      },
+      {
+        path: 'managenoti',
+        component: AdminNotificationComponent,
+        data: {
+          breadcrumb: [
+            {
+              label: 'Quản lí chung',
+              url: '/admin'
+            },
+            {
+              label: 'Thông báo cho người dùng',
               url: ''
             }
           ]

@@ -107,10 +107,6 @@ export class ProductdetailComponent implements OnInit {
     const data: IGuestCareProduct = this.inforForm.getRawValue();
     data.user = this.productdetail.productPostResponseDTO.user.id;
     data.productPost = this.productdetail.productPostResponseDTO.id;
-    // eslint-disable-next-line
-    console.log(' current User : ', this.currentUser);
-    // eslint-disable-next-line
-    console.log(' current product Detail : ', this.productdetail);
     this.notification = new Notification();
     this.notification.type = 1;
     this.notification.userSend = this.currentUser.id;

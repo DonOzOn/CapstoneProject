@@ -10,6 +10,7 @@ import { Account } from 'app/core/user/account.model';
 import { IUser } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
 import { SERVER_API_URL } from 'app/app.constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notification',
@@ -29,7 +30,8 @@ export class NotificationComponent implements OnInit {
     private notificationService: NotificationService,
     private alertService: JhiAlertService,
     private accountService: AccountService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
   ngOnInit() {
     this.accountService.identity().subscribe((account: Account) => {
@@ -74,11 +76,16 @@ export class NotificationComponent implements OnInit {
     this.loading = false;
     this.alertService.error(error.error, error.message, null);
   }
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/home', { skipLocationChange: true }).then(() => this.router.navigate([uri]));
+  }
+
   seen(id: any) {
     this.notificationService.delete(id).subscribe(res => {
       // eslint-disable-next-line
       console.log('delete : ', res.body);
       this.fetch();
+      this.redirectTo('/notification');
     });
   }
 }

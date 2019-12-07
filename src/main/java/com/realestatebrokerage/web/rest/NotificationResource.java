@@ -1,7 +1,9 @@
 package com.realestatebrokerage.web.rest;
 
+import com.realestatebrokerage.domain.Authority;
 import com.realestatebrokerage.domain.Notification;
 import com.realestatebrokerage.domain.User;
+import com.realestatebrokerage.security.AuthoritiesConstants;
 import com.realestatebrokerage.service.NotificationService;
 import com.realestatebrokerage.service.UserService;
 import com.realestatebrokerage.service.dto.NotificationRequestDTO;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -49,10 +52,41 @@ public class NotificationResource {
         return new ResponseEntity<>(notification, HttpStatus.OK);
     }
 
+    @PostMapping("/sendTopicToUser")
+    public ResponseEntity<Void> sendTopicToUser(@RequestBody NotificationRequestDTO notificationRequestDTO) {
+        List<User> userList = userService.findAll();
+        for (User user:
+             userList) {
+            Set<Authority> currentUserAuthorities = user.getAuthorities();
+            for(Authority auth : currentUserAuthorities) {
+                // delete user if it is a student
+                if(auth.getName().equals(AuthoritiesConstants.USER)) {
+                    notificationRequestDTO.setUserReceive(user.getId());
+                    notificationService.createdNoti(notificationRequestDTO);
+                    Optional<User> userNoti = userService.findUserByID(notificationRequestDTO.getUserReceive());
+                    String token = userNoti.get().getToken();
+                    String title = notificationRequestDTO.getTitle();
+                    String content = notificationRequestDTO.getContent();
+                    Integer type = notificationRequestDTO.getType();
+                    notificationService.sendNoti("Admin", token,title,content, type);
+                }
+            }
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
     @GetMapping("/notification")
     public ResponseEntity<List<NotificationResponeDTO>> filter(Pageable pageable) {
         log.debug("REST request to get notification:");
         final Page<NotificationResponeDTO> page = notificationService.filter(pageable).map(NotificationResponeDTO::new);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/notification");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/notification/status")
+    public ResponseEntity<List<NotificationResponeDTO>> filterByStatus(Pageable pageable) {
+        log.debug("REST request to get notification:");
+        final Page<NotificationResponeDTO> page = notificationService.filterByStatus(pageable).map(NotificationResponeDTO::new);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/notification");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -64,7 +98,7 @@ public class NotificationResource {
      * @param id the notification to delete.
      */
     @DeleteMapping("/notification/{id}")
-    public ResponseEntity<Optional<NotificationResponeDTO>> deleteNews(@PathVariable Long id) {
+    public ResponseEntity<Optional<NotificationResponeDTO>> deleteNoti(@PathVariable Long id) {
         log.debug("REST request to delete Noti : {}", id);
         notificationService.deleteNoti(id);
         return new ResponseEntity<>(null, HttpStatus.OK);
