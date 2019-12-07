@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ManageAllReportPostComponent } from './manage-all-report-productpost';
+import { AdminNotificationComponent } from './admin-notification';
 
 describe('ManageproductpostComponent', () => {
-  let component: ManageAllReportPostComponent;
-  let fixture: ComponentFixture<ManageAllReportPostComponent>;
+  let component: AdminNotificationComponent;
+  let fixture: ComponentFixture<AdminNotificationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ManageAllReportPostComponent]
+      declarations: [AdminNotificationComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManageAllReportPostComponent);
+    fixture = TestBed.createComponent(AdminNotificationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

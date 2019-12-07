@@ -1,0 +1,51 @@
+<p-toast [style]="{marginTop: '80px'}">
+</p-toast>
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
+    <p-footer>
+        <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy" (click)="cd.reject()"></button>
+        <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Gửi" (click)="cd.accept()"></button>
+    </p-footer>
+</p-confirmDialog>
+
+<!-- Heading -->
+
+<!--Grid row-->
+<div class="row wow fadeIn">
+
+    <!--Grid column-->
+    <div class="col-md-12 mb-4">
+        <!--Card-->
+        <div class="card">
+
+            <!--Card content-->
+            <div class="card-body  p-0">
+                <div class="row">
+                    <div class="col-md-12 ml-4 py-3">
+                            <form (ngSubmit)="sendNotiToUser()" [formGroup]="send" >
+                                    <h3>Tạo thông báo</h3>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                                <textarea formControlName="content" rows="5" cols="30" pInputTextarea autoResize="autoResize"></textarea>
+                                                <div *ngIf="send.get('content').invalid && (send.get('content').dirty || send.get('content').touched)">
+                                                        <small class="form-text text-danger" *ngIf="send.get('content').errors.required">
+                                                                            Nội dung không được để trống.
+                                                                        </small>
+                                                    </div>
+                                            </div>
+
+                                    </div>
+                                    <p-button type="submit" class="ui-button-success" [disabled]="send.invalid"  icon="pi pi-bell" iconPos="right" label="Gửi"></p-button>
+                            </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!--/.Card-->
+
+
+    </div>
+
+
+</div>

@@ -54,4 +54,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Page<User> findAllUser(@Param("name") String name, Pageable pageable);
 
     Optional<User> findUserByTokenEquals(String token);
+
+    List<User>  findAllByActivatedIsTrue();
+
 }

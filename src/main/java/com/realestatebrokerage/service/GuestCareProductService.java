@@ -104,8 +104,8 @@ public class GuestCareProductService {
     /**
      * delete guest
      * */
-    public Optional<GuestCareProduct> deleteGuest(GuestCareProductRequestDTO guestCareProductRequestDTO) {
-        return Optional.of(guestCareProductRepository.findById(guestCareProductRequestDTO.getId())).filter(Optional::isPresent).map(Optional::get)
+    public Optional<GuestCareProduct> deleteGuest(Long id) {
+        return Optional.of(guestCareProductRepository.findById(id)).filter(Optional::isPresent).map(Optional::get)
             .map(guest -> {
                 guest.setStatus(false);
                 return guestCareProductRepository.save(guest);

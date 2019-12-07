@@ -120,6 +120,29 @@
                 <button type="button" class="btn btn-info btn-block text-uppercase" *ngSwitchCase="false" data-toggle="tooltip" data-placement="top" title="Đăng nhập để có thể tạo bài đăng" [routerLink]="[ '/login']">Đăng tin</button>
             </div>
             <div class="header-icon-user pl-3">
+                    <div class="dropdown mt-2" style="float: left; padding: 13px">
+                    <a href="#" role="button" data-toggle="dropdown" id="dropdownMenu1" data-target="#" style="float: left" aria-expanded="true">
+                        <i class="fa fa-bell-o" style="font-size: 20px; float: left; color: black">
+                        </i>
+                    </a>
+                    <span *ngIf="num != 0" class="badge badge-danger">{{num}}</span>
+                    <div class="dropdown mt-3" >
+                        <ul class="timeline timeline-icons timeline-sm">
+                         <li *ngFor="let item of notis">
+                            <p *ngIf="item.type == 1">
+                                   <a>{{item.userSend.login}}</a> {{item.content}}<a href="#"> với bạn</a>
+                                 <span class="timeline-icon"><i class="fa fa-heartbeat"></i></i></span>
+                                 <span class="timeline-date">{{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</span>
+                            </p>
+                            <p *ngIf="item.type == 2">
+                                 (Quản trị viên) {{item.content}}
+                                 <span class="timeline-icon"><i class="fa fa-heartbeat"></i></i></span>
+                                 <span class="timeline-date">{{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</span>
+                            </p>
+                         </li>
+                        </ul>
+                          </div>
+                </div>
                 <div class="dropdown" *ngSwitchCase="true">
                     <a *ngIf="account.imageUrl === null" data-toggle="tooltip" data-placement="top" title="Chào mừng {{account.login}}"><i class="fas fa-user-cog fa-2x text-white"></i></a>
                     <a *ngIf="account.imageUrl !== null" data-toggle="tooltip" data-placement="top" title="Chào mừng {{account.login}}"><img class="icon-user" src="{{imageUrl}}{{account.imageUrl}}"></a>
@@ -132,6 +155,7 @@
                     </ul>
                 </div>
                 <a class="icon-user" *ngSwitchCase="false" [routerLink]="[ '/login']" data-toggle="tooltip" data-placement="top" title="Đăng nhập"><i class="fas fa-sign-in-alt fa-2x text-white"></i></a>
+
             </div>
         </div>
         <a href="#" (click)="showMenu();" class="show-menu-responsive">

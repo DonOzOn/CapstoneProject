@@ -400,4 +400,7 @@ public class UserService {
         }
         return null;
     }
+    public List<User> findAll(){
+        return userRepository.findAllByActivatedIsTrue();
+    }
 }
