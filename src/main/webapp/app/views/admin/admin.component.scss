@@ -13,8 +13,14 @@
   position: absolute;
 }
 
-a:active {
-  background-color: rgb(100, 137, 197);
+.list-group-flush {
+  a:active {
+    background-color: rgb(100, 137, 197);
+  }
+  a:focus {
+    color: whitesmoke;
+    background-color: #428bca;
+  }
 }
 
 /* BELL */
