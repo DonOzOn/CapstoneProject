@@ -28,12 +28,12 @@
                             <div class="carousel-item active" *ngFor="let item of listNewsFirstElement">
                                 <div class="card border-0 rounded-0 text-light overflow zoom">
                                     <div class="position-relative">
-                                        
+
                                         <div class="ratio_left-cover-1 image-wrapper">
                                             <a [routerLink]="[ '/news', item.id , 'detail' ]">
                                                 <!-- <img class="img-fluid w-100" src="https://bootstrap.news/source/img1.jpg" alt="Image description"> -->
-                                                <img class="img-fluid w-100" *ngIf="item.imageUrl !== null" src="{{item.imageUrl}}" style="height: 370px;" alt="Image description">
-                                                <img class="img-fluid w-100" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg"alt="Image description" > 
+                                                <img class="img-fluid w-100" *ngIf="item.imageUrl !== null" src="{{imageUrl}}{{item.imageUrl}}" style="height: 370px;" alt="Image description">
+                                                <img class="img-fluid w-100" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg"alt="Image description" >
                                             </a>
                                         </div>
                                         <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
@@ -54,18 +54,18 @@
                             <!-- <div class="carousel-item">
                                 <div class="card border-0 rounded-0 text-light overflow zoom">
                                     <div class="position-relative">
-                                        
+
                                         <div class="ratio_left-cover-1 image-wrapper">
                                             <a href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">
                                                 <img class="img-fluid w-100" src="https://bootstrap.news/source/img2.jpg" alt="Image description">
                                             </a>
                                         </div>
                                         <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
-                                            
+
                                             <a href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">
                                                 <h2 class="h3 post-title text-white my-1">Walmart shares up 10% on online sales lift</h2>
                                             </a>
-                                            
+
                                             <div class="news-meta">
                                                 <span class="news-author">by <a class="text-white font-weight-bold" href="../category/author.html">Jennifer</a></span>
                                                 <span class="news-date">Oct 22, 2019</span>
@@ -79,18 +79,18 @@
                             <!-- <div class="carousel-item">
                                 <div class="card border-0 rounded-0 text-light overflow zoom">
                                     <div class="position-relative">
-                                        
+
                                         <div class="ratio_left-cover-1 image-wrapper">
                                             <a href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">
                                                 <img class="img-fluid w-100" src="https://bootstrap.news/source/img3.jpg" alt="Image description">
                                             </a>
                                         </div>
                                         <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
-                                          
+
                                             <a href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">
                                                 <h2 class="h3 post-title text-white my-1">Bank chief warns on Brexit staff moves to other company</h2>
                                             </a>
-                                            
+
                                             <div class="news-meta">
                                                 <span class="news-author">by <a class="text-white font-weight-bold" href="../category/author.html">Jennifer</a></span>
                                                 <span class="news-date">Oct 22, 2019</span>
@@ -104,18 +104,18 @@
                             <!-- <div class="carousel-item">
                                 <div class="card border-0 rounded-0 text-light overflow zoom">
                                     <div class="position-relative">
-                                       
+
                                         <div class="ratio_left-cover-1 image-wrapper">
                                             <a href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">
                                                 <img class="img-fluid w-100" src="https://bootstrap.news/source/img4.jpg" alt="Image description">
                                             </a>
                                         </div>
                                         <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
-                                            
+
                                             <a href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">
                                                 <h2 class="h3 post-title text-white my-1">The world's first floating farm making waves in Rotterdam</h2>
                                             </a>
-                                            
+
                                             <div class="news-meta">
                                                 <span class="news-author">by <a class="text-white font-weight-bold" href="../category/author.html">Jennifer</a></span>
                                                 <span class="news-date">Oct 22, 2019</span>
@@ -146,15 +146,15 @@
                     <div class="row">
 
                         <!--news box-->
-                        <div class="col-6 pb-1 pt-0 pr-1" *ngFor="let item of list4NewsLastElement"> 
+                        <div class="col-6 pb-1 pt-0 pr-1" *ngFor="let item of list4NewsLastElement">
                             <div class="card border-0 rounded-0 text-white overflow zoom">
                                 <div class="position-relative">
                                     <!--thumbnail img-->
                                     <div class="ratio_right-cover-2 image-wrapper">
                                         <a [routerLink]="[ '/news', item.id , 'detail' ]">
                                             <!-- <img class="img-fluid" src="https://bootstrap.news/source/img5.jpg" alt="Image description"> -->
-                                            <img class="img-fluid" *ngIf="item.imageUrl !== null" src="{{item.imageUrl}}" alt="Image description">
-                                            <img class="img-fluid" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg"alt="Image description" > 
+                                            <img class="img-fluid" *ngIf="item.imageUrl !== null" src="{{imageUrl}}{{item.imageUrl}}" alt="Image description">
+                                            <img class="img-fluid" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg"alt="Image description" >
                                         </a>
                                     </div>
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
@@ -175,16 +175,16 @@
                         <!-- <div class="col-6 pb-1 pl-1 pt-0">
                             <div class="card border-0 rounded-0 text-white overflow zoom">
                                 <div class="position-relative">
-                                  
+
                                     <div class="ratio_right-cover-2 image-wrapper">
                                         <a href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">
                                             <img class="img-fluid" src="https://bootstrap.news/source/img6.jpg" alt="Image description">
                                         </a>
                                     </div>
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
-                                      
+
                                         <a class="p-1 badge badge-primary rounded-0" href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">Motocross</a>
-                                        
+
                                         <a href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">
                                             <h2 class="h5 text-white my-1">ABC</h2>
                                         </a>
@@ -197,16 +197,16 @@
                         <!-- <div class="col-6 pb-1 pr-1 pt-1">
                             <div class="card border-0 rounded-0 text-white overflow zoom">
                                 <div class="position-relative">
-                                    
+
                                     <div class="ratio_right-cover-2 image-wrapper">
                                         <a href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">
                                             <img class="img-fluid" src="https://bootstrap.news/source/img7.jpg" alt="Image description">
                                         </a>
                                     </div>
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
-                                       
+
                                         <a class="p-1 badge badge-primary rounded-0" href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">Fitness</a>
-                                       
+
                                         <a href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">
                                             <h2 class="h5 text-white my-1">Finding Empowerment in Two Wheels and a Helmet</h2>
                                         </a>
@@ -219,16 +219,16 @@
                         <!-- <div class="col-6 pb-1 pl-1 pt-1">
                             <div class="card border-0 rounded-0 text-white overflow zoom">
                                 <div class="position-relative">
-                                    
+
                                     <div class="ratio_right-cover-2 image-wrapper">
                                         <a href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">
                                             <img class="img-fluid" src="https://bootstrap.news/source/img8.jpg" alt="Image description">
                                         </a>
                                     </div>
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
-                                       
+
                                         <a class="p-1 badge badge-primary rounded-0" href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">Adventure</a>
-                                        
+
                                         <a href="https://bootstrap.news/bootstrap-4-template-news-portal-magazine/">
                                             <h2 class="h5 text-white my-1">Ditch receipts and four other tips to be a shopper</h2>
                                         </a>

@@ -88,12 +88,12 @@ public class GuestCareProductResource {
     /**
      * {@code Delete /guest} : delete an existing GuestCare.
      *
-     * @param guestCareProductRequestDTO the GuestCare to delete.
+     * @param id the GuestCare to delete.
      */
-    @DeleteMapping("/guest")
-    public ResponseEntity<Optional<GuestCareProductResponeDTO>> deleteNews(@RequestBody GuestCareProductRequestDTO guestCareProductRequestDTO) {
-        log.debug("REST request to update News : {}", guestCareProductRequestDTO);
-        Optional<GuestCareProductResponeDTO> deleteGuest = guestCareProductService.deleteGuest(guestCareProductRequestDTO).map(GuestCareProductResponeDTO::new);
+    @DeleteMapping("/guest/{id}")
+    public ResponseEntity<Optional<GuestCareProductResponeDTO>> deleteNews(@PathVariable("id") Long id) {
+        log.debug("REST request to update News : {}", id);
+        Optional<GuestCareProductResponeDTO> deleteGuest = guestCareProductService.deleteGuest(id).map(GuestCareProductResponeDTO::new);
         return new ResponseEntity<>(deleteGuest, HttpStatus.OK);
     }
     /**

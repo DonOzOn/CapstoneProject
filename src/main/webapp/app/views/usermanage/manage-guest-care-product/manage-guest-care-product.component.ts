@@ -157,7 +157,7 @@ export class ManageGuestCareComponent implements OnInit {
     });
   }
   setActive(guest: any) {
-    this.guestCareService.delete(guest).subscribe(response => {
+    this.guestCareService.delete(guest.id).subscribe(response => {
       if (response.status === 200) {
         this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã xóa thàng công thành công người quan tâm!' });
         this.fetch();

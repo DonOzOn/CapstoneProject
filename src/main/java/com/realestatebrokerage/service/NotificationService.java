@@ -33,6 +33,20 @@ public class NotificationService {
             .setToken(token)
             .setNotification(new com.google.firebase.messaging.Notification(title,sender + content))
             .build();
+        String response = null;
+        try {
+            response = FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void sendNotiToUser(String title, String content , String token) {
+        Message message = Message.builder()
+            .setToken(token)
+            .setNotification(new com.google.firebase.messaging.Notification(title,content))
+            .build();
 
         String response = null;
         try {
@@ -67,6 +81,10 @@ public class NotificationService {
         return notificationRepository.findByUser(id, pageable);
     }
 
+    public Page<Notification> filterByStatus(Pageable pageable) {
+        Long id = userService.getUserWithAuthorities().get().getId();
+        return notificationRepository.findByUserStatusTrue(id, pageable);
+    }
     /**
      * delete notification
      * */
