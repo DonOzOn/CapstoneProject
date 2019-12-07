@@ -1,167 +1,15 @@
-<!--<header>-->
-<!--    <div class="col-md-12 p-0">-->
-<!--        <nav class="navbar navbar-expand-lg navbar-default bg-faded">-->
-<!--            <div class="col-md-2 col-2 ml-0 pt-md-2 pb-md-2">-->
-<!--                <span [routerLink]="['']" class="navbar-brand px-3" href="#">-->
-<!--                    <img width="35" height="35" src="/content/img/600px-Godot_icon.svg.png" class="d-inline-block align-top" alt="">REBS-->
-<!--                </span>-->
-<!--            </div>-->
-<!--            <div>-->
-<!--                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--                    <i class="fas fa-bars"></i>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="collapse navbar-collapse" [ngSwitch]="isAuthenticated()" id="navbarTogglerDemo01">-->
-<!--                &lt;!&ndash; <div class="col-md-7"> &ndash;&gt;-->
-<!--                <ul class="navbar-nav mr-auto mt-2 mt-lg-0 justify-content-center">-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link active" [routerLink]="['']">Trang chủ</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item dropdown">-->
-<!--                        <a class="nav-link" [routerLink]="['/listproduct','postTypeSearch', 1 , 'Mua bán']" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--                                Mua bán</a>-->
-<!--                        <div class="dropdown-menu multi-level">-->
-<!--                            <div class="dropdown-submenu">-->
-<!--                                <a [routerLink]="['/listproduct','typeSearch', 1 , 1 ,'Mua bán', 'Căn hộ']" class="dropdown-item" data-toggle="dropdown">Căn hộ</a>-->
-<!--                                &lt;!&ndash; Level 2 &ndash;&gt;-->
-<!--                                <div class="dropdown-menu">-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 1 , 1 ,'Mua bán', 'Căn hộ','Căn hộ trung cấp']">Căn hộ trung cấp</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 2 , 1 ,'Mua bán', 'Căn hộ','Căn hộ cao cấp']">Căn hộ cao cấp</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct', 'typeChildSearch', 3 , 1 ,'Mua bán', 'Căn hộ','Căn hộ Penthouse']">Căn hộ Penthouse</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 4 , 1 ,'Mua bán', 'Căn hộ','Căn hộ Duplex']">Căn hộ Duplex</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct', 'typeChildSearch', 5 , 1 ,'Mua bán', 'Căn hộ','Căn hộ Skyvillar']">Căn hộ Skyvillar</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 6 , 1 ,'Mua bán', 'Căn hộ','Căn hộ Loft-House']">Căn hộ Loft-House</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 7 , 1 ,'Mua bán', 'Căn hộ','Căn hộ Studio']">Căn hộ Studio</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct', 'typeChildSearch', 8 , 1 ,'Mua bán', 'Căn hộ','Căn hộ giá rẻ']">Căn hộ giá rẻ</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct', 'typeChildSearch',18 , 1 ,'Mua bán', 'Căn hộ','Căn hộ Mini']">Căn hộ Mini</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="dropdown-submenu">-->
-<!--                                <a [routerLink]="['/listproduct','typeSearch', 2 , 1 ,'Mua bán', 'Nhà']" class="dropdown-item" data-toggle="dropdown">Nhà</a>-->
-<!--                                &lt;!&ndash; Level 2 &ndash;&gt;-->
-<!--                                <div class="dropdown-menu">-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 9 , 1 ,'Mua bán', 'Nhà','Nhà riêng']">Nhà riêng</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 10 , 1 ,'Mua bán', 'Nhà','Nhà mặt phố']">Nhà mặt phố</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 11 , 1 ,'Mua bán', 'Nhà','Shophouse']">Shophouse</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="dropdown-submenu">-->
-<!--                                <a href="#" class="dropdown-item" [routerLink]="['/listproduct','typeSearch' , 3 , 1 ,'Mua bán', 'Biệt thự']" data-toggle="dropdown">Biệt thự</a>-->
-<!--                                &lt;!&ndash; Level 2 &ndash;&gt;-->
-<!--                                <div class="dropdown-menu">-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch',12 , 1 ,'Mua bán', 'Biệt thự','Biệt thự nghỉ dưỡng']">Biệt thự nghỉ dưỡng</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 13 , 1 ,'Mua bán', 'Biệt thự','Biệt thự đơn lập']">Biệt thự đơn lập</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 14 , 1 ,'Mua bán', 'Biệt thự','Biệt thự song lập']">Biệt thự song lập</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 15 , 1 ,'Mua bán', 'Biệt thự','Biệt thự tứ lập']">Biệt thự tứ lập</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                    </li>-->
-
-<!--                    <li class="nav-item dropdown">-->
-<!--                        <a class="nav-link" [routerLink]="['/listproduct','postTypeSearch', 2 , 'Cho thuê']" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--                                            Cho thuê</a>-->
-<!--                        <div class="dropdown-menu multi-level">-->
-<!--                            <div class="dropdown-submenu">-->
-<!--                                <a href="#" class="dropdown-item" data-toggle="dropdown">Căn hộ</a>-->
-<!--                                &lt;!&ndash; Level 2 &ndash;&gt;-->
-<!--                                <div class="dropdown-menu">-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 1 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ trung cấp']">Căn hộ trung cấp</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 2 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ cao cấp']">Căn hộ cao cấp</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 3 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Penthouse']">Căn hộ Penthouse</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 4 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Duplex']">Căn hộ Duplex</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 5 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Skyvillar']">Căn hộ Skyvillar</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 6 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Loft-House']">Căn hộ Loft-House</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 7 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Studio']">Căn hộ Studio</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 8 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Condotel']">Căn hộ giá rẻ</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 18 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Mini']">Căn hộ mini</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="dropdown-submenu">-->
-<!--                                <a [routerLink]="['/listproduct','typeSearch', 2 , 2 ,'Cho thuê', 'Căn hộ']" class="dropdown-item" data-toggle="dropdown">Nhà</a>-->
-<!--                                &lt;!&ndash; Level 2 &ndash;&gt;-->
-<!--                                <div class="dropdown-menu">-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 9 , 2 ,'Cho thuê', 'Nhà','Nhà riêng']">Nhà riêng</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 10 , 2 ,'Cho thuê', 'Nhà','Nhà mặt phố']">Nhà mặt phố</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 11 , 2 ,'Cho thuê', 'Nhà','Nhà Shophouse']">Shophouse</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="dropdown-submenu">-->
-<!--                                <a [routerLink]="['/listproduct','typeSearch', 3 , 2 ,'Cho thuê', 'Căn hộ' ]" class="dropdown-item" data-toggle="dropdown">Biệt thự</a>-->
-<!--                                &lt;!&ndash; Level 2 &ndash;&gt;-->
-<!--                                <div class="dropdown-menu">-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 12 , 2 ,'Cho thuê', 'Biệt thự','Biệt thự nghỉ dưỡng']">Biệt thự nghỉ dưỡng</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 13 , 2 ,'Cho thuê', 'Biệt thự','Biệt thự đơn lập']">Biệt thự đơn lập</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 14 , 2 ,'Cho thuê', 'Biệt thự','Biệt thự song lập']">Biệt thự song lập</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 15 , 2 ,'Cho thuê', 'Biệt thự','Biệt thự tứ lập']">Biệt thự tứ lập</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="dropdown-submenu">-->
-<!--                                <a [routerLink]="['/listproduct','typeSearch', 4 , 2 ,'Cho thuê', 'Căn hộ' ]" class="dropdown-item" data-toggle="dropdown">Văn phòng</a>-->
-<!--                                &lt;!&ndash; Level 2 &ndash;&gt;-->
-<!--                                <div class="dropdown-menu">-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 16 , 2 ,'Cho thuê', 'Văn phòng','Văn phòng Officetel']">Văn phòng Officetel</a>-->
-<!--                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 17 , 2 ,'Cho thuê', 'Văn phòng','Văn phòng Co-Working Space']">Co-Working Space</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="dropdown-submenu">-->
-<!--                                <a [routerLink]="['/listproduct','typeSearch', 5 , 2 ,'Cho thuê', 'Nhà trọ' ]" class="dropdown-item">Nhà trọ</a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item dropdown">-->
-<!--                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--                                Tiện ích-->
-<!--                            </a>-->
-<!--                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-<!--                            <a class="dropdown-item" href="#">Xem phong thuỷ</a>-->
-<!--                            <a class="dropdown-item" [routerLink]="[ '/law']">Thư viện pháp luật</a>-->
-<!--                            <a class="dropdown-item" href="#">Câu hỏi thường gặp</a>-->
-<!--                        </div>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" [routerLink]="[ '/news']">Tin tức</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" [routerLink]="[ '/review']">Diễn đàn</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--                <label *ngSwitchCase="false" [routerLink]="[ '/login']">-->
-<!--                                Đăng nhập-->
-<!--                        </label>-->
-<!--                <div class="dropdown" *ngSwitchCase="true">-->
-<!--                    &lt;!&ndash; <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--                                  Dropdown button-->
-<!--                                </button> &ndash;&gt;-->
-<!--                    <label class="dropdown-toggle" *ngIf="account" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--                            {{account.login}}-->
-<!--                                </label>-->
-<!--                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-<!--                        <a class="dropdown-item" *jhiHasAnyAuthority="'ROLE_USER'" [routerLink]="[ '/usermanage']">Quản lí tài khoản</a>-->
-<!--                        <a class="dropdown-item" *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLink]="[ '/admin']">Quản lí chung</a>-->
-<!--                        <a class="dropdown-item" [routerLink]="[ '/notification']">Thông báo</a>-->
-<!--                        <a class="dropdown-item" (click)="requestChangePassword()">Đổi mật khẩu</a>-->
-<!--                        <a class="dropdown-item" (click)="logout()">Đăng xuất</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <button type="button" class="btn btn-outline-primary createpost" *ngSwitchCase="true" [routerLink]="[ '/postproduct']">Đăng tin</button>-->
-<!--                <button type="button" class="btn btn-outline-primary createpost" *ngSwitchCase="false" pTooltip="Đăng nhập để có thể tạo bài đăng" tooltipPosition="bottom" [routerLink]="[ '/login']">Đăng tin</button>-->
-<!--            </div>-->
-<!--        </nav>-->
-<!--    </div>-->
-<!--</header>-->
-<header>
+<header [ngSwitch]="isAuthenticated()">
     <div class="wrap-header">
-        <a href="#" class="header-logo">
-            <img width="35" height="35" src="/content/img/600px-Godot_icon.svg.png" alt="logo"> RBSE
+        <a [routerLink]="['']" role="button" class="header-logo btn btn-info d-flex flex-auto">
+            <img width="30" height="30" src="/content/img/600px-Godot_icon.svg.png" alt="logo">
+            <span class="pt-1 pl-1">REBS</span>
         </a>
         <div class="wrap-menu">
             <nav class="menu">
                 <ul class="main-menu">
-                    <li><a class="nav-link" [routerLink]="['']">Trang chủ</a></li>
+                    <li><a class="nav-link  faa-pulse animated-hover text-uppercase" [routerLink]="['']">Trang chủ</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" [routerLink]="['/listproduct','postTypeSearch', 1 , 'Mua bán']" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link faa-pulse animated-hover text-uppercase" [routerLink]="['/listproduct','postTypeSearch', 1 , 'Mua bán']" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Mua bán</a>
                         <div class="dropdown-menu multi-level">
                             <div class="dropdown-submenu">
@@ -201,92 +49,100 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                    <a class="nav-link" [routerLink]="['/listproduct','postTypeSearch', 2 , 'Cho thuê']" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link faa-pulse animated-hover text-uppercase" [routerLink]="['/listproduct','postTypeSearch', 2 , 'Cho thuê']" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Cho thuê</a>
-                    <div class="dropdown-menu multi-level">
-                        <div class="dropdown-submenu">
-                            <a href="#" class="dropdown-item" data-toggle="dropdown">Căn hộ</a>
-                            <!-- Level 2 -->
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 1 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ trung cấp']">Căn hộ trung cấp</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 2 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ cao cấp']">Căn hộ cao cấp</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 3 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Penthouse']">Căn hộ Penthouse</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 4 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Duplex']">Căn hộ Duplex</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 5 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Skyvillar']">Căn hộ Skyvillar</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 6 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Loft-House']">Căn hộ Loft-House</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 7 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Studio']">Căn hộ Studio</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 8 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Condotel']">Căn hộ giá rẻ</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 18 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Mini']">Căn hộ mini</a>
+                        <div class="dropdown-menu multi-level">
+                            <div class="dropdown-submenu">
+                                <a href="#" class="dropdown-item" data-toggle="dropdown">Căn hộ</a>
+                                <!-- Level 2 -->
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 1 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ trung cấp']">Căn hộ trung cấp</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 2 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ cao cấp']">Căn hộ cao cấp</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 3 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Penthouse']">Căn hộ Penthouse</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 4 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Duplex']">Căn hộ Duplex</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 5 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Skyvillar']">Căn hộ Skyvillar</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 6 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Loft-House']">Căn hộ Loft-House</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 7 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Studio']">Căn hộ Studio</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 8 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Condotel']">Căn hộ giá rẻ</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 18 , 2 ,'Cho thuê', 'Căn hộ','Căn hộ Mini']">Căn hộ mini</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-submenu">
+                                <a [routerLink]="['/listproduct','typeSearch', 2 , 2 ,'Cho thuê', 'Căn hộ']" class="dropdown-item" data-toggle="dropdown">Nhà</a>
+                                <!-- Level 2 -->
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 9 , 2 ,'Cho thuê', 'Nhà','Nhà riêng']">Nhà riêng</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 10 , 2 ,'Cho thuê', 'Nhà','Nhà mặt phố']">Nhà mặt phố</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 11 , 2 ,'Cho thuê', 'Nhà','Nhà Shophouse']">Shophouse</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-submenu">
+                                <a [routerLink]="['/listproduct','typeSearch', 3 , 2 ,'Cho thuê', 'Căn hộ' ]" class="dropdown-item" data-toggle="dropdown">Biệt thự</a>
+                                <!-- Level 2 -->
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 12 , 2 ,'Cho thuê', 'Biệt thự','Biệt thự nghỉ dưỡng']">Biệt thự nghỉ dưỡng</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 13 , 2 ,'Cho thuê', 'Biệt thự','Biệt thự đơn lập']">Biệt thự đơn lập</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 14 , 2 ,'Cho thuê', 'Biệt thự','Biệt thự song lập']">Biệt thự song lập</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 15 , 2 ,'Cho thuê', 'Biệt thự','Biệt thự tứ lập']">Biệt thự tứ lập</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-submenu">
+                                <a [routerLink]="['/listproduct','typeSearch', 4 , 2 ,'Cho thuê', 'Căn hộ' ]" class="dropdown-item" data-toggle="dropdown">Văn phòng</a>
+                                <!-- Level 2 -->
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 16 , 2 ,'Cho thuê', 'Văn phòng','Văn phòng Officetel']">Văn phòng Officetel</a>
+                                    <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 17 , 2 ,'Cho thuê', 'Văn phòng','Văn phòng Co-Working Space']">Co-Working Space</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-submenu">
+                                <a [routerLink]="['/listproduct','typeSearch', 5 , 2 ,'Cho thuê', 'Nhà trọ' ]" class="dropdown-item">Nhà trọ</a>
                             </div>
                         </div>
-                        <div class="dropdown-submenu">
-                            <a [routerLink]="['/listproduct','typeSearch', 2 , 2 ,'Cho thuê', 'Căn hộ']" class="dropdown-item" data-toggle="dropdown">Nhà</a>
-                            <!-- Level 2 -->
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 9 , 2 ,'Cho thuê', 'Nhà','Nhà riêng']">Nhà riêng</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 10 , 2 ,'Cho thuê', 'Nhà','Nhà mặt phố']">Nhà mặt phố</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 11 , 2 ,'Cho thuê', 'Nhà','Nhà Shophouse']">Shophouse</a>
-                            </div>
-                        </div>
-                        <div class="dropdown-submenu">
-                            <a [routerLink]="['/listproduct','typeSearch', 3 , 2 ,'Cho thuê', 'Căn hộ' ]" class="dropdown-item" data-toggle="dropdown">Biệt thự</a>
-                            <!-- Level 2 -->
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 12 , 2 ,'Cho thuê', 'Biệt thự','Biệt thự nghỉ dưỡng']">Biệt thự nghỉ dưỡng</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 13 , 2 ,'Cho thuê', 'Biệt thự','Biệt thự đơn lập']">Biệt thự đơn lập</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 14 , 2 ,'Cho thuê', 'Biệt thự','Biệt thự song lập']">Biệt thự song lập</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 15 , 2 ,'Cho thuê', 'Biệt thự','Biệt thự tứ lập']">Biệt thự tứ lập</a>
-                            </div>
-                        </div>
-                        <div class="dropdown-submenu">
-                            <a [routerLink]="['/listproduct','typeSearch', 4 , 2 ,'Cho thuê', 'Căn hộ' ]" class="dropdown-item" data-toggle="dropdown">Văn phòng</a>
-                            <!-- Level 2 -->
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 16 , 2 ,'Cho thuê', 'Văn phòng','Văn phòng Officetel']">Văn phòng Officetel</a>
-                                <a class="dropdown-item" [routerLink]="['/listproduct','typeChildSearch', 17 , 2 ,'Cho thuê', 'Văn phòng','Văn phòng Co-Working Space']">Co-Working Space</a>
-                            </div>
-                        </div>
-                        <div class="dropdown-submenu">
-                            <a [routerLink]="['/listproduct','typeSearch', 5 , 2 ,'Cho thuê', 'Nhà trọ' ]" class="dropdown-item">Nhà trọ</a>
-                        </div>
-                    </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link faa-pulse animated-hover text-uppercase" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Tiện ích
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Xem phong thuỷ</a>
+                            <a class="dropdown-item" [routerLink]="[ '/fengshui']">Xem phong thuỷ</a>
                             <a class="dropdown-item" [routerLink]="[ '/law']">Thư viện pháp luật</a>
-                            <a class="dropdown-item" href="#">Câu hỏi thường gặp</a>
+                            <a class="dropdown-item" [routerLink]="[ '/law']">Câu hỏi thường gặp</a>
                         </div>
                     </li>
-                    <li><a class="nav-link" [routerLink]="[ '/news']">Tin tức</a></li>
-                    <li><a class="nav-link" [routerLink]="[ '/review']">Diễn đàn</a></li>
+                    <li><a class="nav-link faa-pulse animated-hover text-uppercase" [routerLink]="[ '/news']">Tin tức</a></li>
+                    <li><a class="nav-link faa-pulse animated-hover text-uppercase" [routerLink]="[ '/review']">Diễn đàn</a></li>
                 </ul>
             </nav>
         </div>
-        <div class="header-icon">
-            <div class="header-icon-user">
-                <div class="dropdown">
-                    <a href="#" class="icon-user"><img src="/content/img/icon-header-01.png" alt="user"></a>
+        <div class="header-icon d-flex flex-row">
+            <div class="header-icon-user pr-3">
+                <button type="button" class="btn btn-info btn-block text-uppercase" *ngSwitchCase="true" [routerLink]="[ '/postproduct']">Đăng tin</button>
+                <button type="button" class="btn btn-info btn-block text-uppercase" *ngSwitchCase="false" data-toggle="tooltip" data-placement="top" title="Đăng nhập để có thể tạo bài đăng" [routerLink]="[ '/login']">Đăng tin</button>
+            </div>
+            <div class="header-icon-user pl-3">
+                <div class="dropdown" *ngSwitchCase="true">
+                    <a *ngIf="account.imageUrl === null" data-toggle="tooltip" data-placement="top" title="Chào mừng {{account.login}}"><i class="fas fa-user-cog fa-2x text-white"></i></a>
+                    <a *ngIf="account.imageUrl !== null" data-toggle="tooltip" data-placement="top" title="Chào mừng {{account.login}}"><img class="icon-user" src="{{imageUrl}}{{account.imageUrl}}"></a>
                     <ul class="drop-down" [class.show-dropdown]="isShowDropdown">
-                        <li routerLink="/login"><a>Profile</a></li>
-                        <li><a href="#">Login</a></li>
-                        <li><a href="#">Logout</a></li>
+                        <li class="mt-2" *jhiHasAnyAuthority="'ROLE_USER'" [routerLink]="[ '/usermanage']"><a>Quản lí tài khoản</a></li>
+                        <li class="mt-2" *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLink]="[ '/admin']"><a>Quản lí chung</a></li>
+                        <li [routerLink]="['/notification']"><a>Thông báo</a></li>
+                        <li (click)="requestChangePassword()"><a>Đổi mật khẩu</a></li>
+                        <li class="mb-2" (click)="logout()"><a>Đăng xuất</a></li>
                     </ul>
                 </div>
+                <a class="icon-user" *ngSwitchCase="false" [routerLink]="[ '/login']" data-toggle="tooltip" data-placement="top" title="Đăng nhập"><i class="fas fa-sign-in-alt fa-2x text-white"></i></a>
             </div>
         </div>
         <a href="#" (click)="showMenu();" class="show-menu-responsive">
-            <i class="fas fa-bars" ></i>
+            <i class="fas fa-bars"></i>
         </a>
     </div>
     <div class="menu-bar-responsive" [class.show-menu]="isShowMenu">
-        <i class="fas fa-times btn-close" (click)="showMenu();" ></i>
+        <i class="fas fa-times btn-close" (click)="showMenu();"></i>
         <ul>
             <li><a class="nav-link" [routerLink]="['']">Trang chủ</a></li>
-            <li class="nav-item dropdown">
+            <li>
                 <a class="nav-link" [routerLink]="['/listproduct','postTypeSearch', 1 , 'Mua bán']" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Mua bán</a>
                 <div class="dropdown-menu multi-level">
@@ -326,7 +182,7 @@
                     </div>
                 </div>
             </li>
-            <li class="nav-item dropdown">
+            <li>
                 <a class="nav-link" [routerLink]="['/listproduct','postTypeSearch', 2 , 'Cho thuê']" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Cho thuê</a>
                 <div class="dropdown-menu multi-level">
@@ -377,14 +233,14 @@
                     </div>
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li>
+                <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Tiện ích
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Xem phong thuỷ</a>
+                    <a class="dropdown-item" [routerLink]="[ '/fengshui']">Xem phong thuỷ</a>
                     <a class="dropdown-item" [routerLink]="[ '/law']">Thư viện pháp luật</a>
-                    <a class="dropdown-item" href="#">Câu hỏi thường gặp</a>
+                    <a class="dropdown-item" [routerLink]="[ '/law']">Câu hỏi thường gặp</a>
                 </div>
             </li>
             <li><a class="nav-link" [routerLink]="[ '/news']">Tin tức</a></li>

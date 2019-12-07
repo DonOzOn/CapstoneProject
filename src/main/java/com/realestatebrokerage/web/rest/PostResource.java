@@ -130,13 +130,15 @@ public class PostResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
      */
-    @GetMapping("/productpost/filter")
+    @GetMapping("/product-post/filters")
     public ResponseEntity<List<PostResponeDTO>> filterByCharacter(String province, String district, String ward , Long postType,  Long priceFrom, Long priceTo,
                                                                   Long areaFrom, Long areaTo, Long direction, Integer numBathroom, Integer numBedroom, Pageable pageable) {
+        log.debug("input tio filter : {} {} {} {} {} {} {} {} {} {} {} {}", province, district, ward , postType,  priceFrom, priceTo,
+                                                                        areaFrom, areaTo, direction, numBathroom, numBedroom, pageable);
              Page<ProductPostResponseDTO> page = productPostService.filterProductPost(province, district, ward, postType, priceFrom, priceTo,
                                             areaFrom, areaTo, direction, numBathroom, numBedroom, pageable).map(ProductPostResponseDTO::new);
         List<PostResponeDTO> responeDTOList = new ArrayList<>();
-        if (page != null) {
+        if (page.getContent().size() > 0) {
             for (ProductPostResponseDTO pr : page.getContent()) {
                 PostResponeDTO postResponeDTO = new PostResponeDTO();
                 postResponeDTO.setProductPostResponseDTO(pr);

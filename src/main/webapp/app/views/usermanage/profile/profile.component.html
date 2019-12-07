@@ -1,19 +1,17 @@
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
-        <p-footer>
-            <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy"
-                (click)="cd.reject()"></button>
-            <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Cập nhật"
-                (click)="cd.accept()"></button>
-        </p-footer>
-    </p-confirmDialog>
+    <p-footer>
+        <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy" (click)="cd.reject()"></button>
+        <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Cập nhật" (click)="cd.accept()"></button>
+    </p-footer>
+</p-confirmDialog>
 <!-- Heading -->
 <!--Grid row-->
 <div class="row wow fadeIn">
 
     <!--Grid column-->
     <div class="col-md-12 mb-4">
-        <form [formGroup]="profileForm"  (ngSubmit)="updateProfile()">
+        <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
 
             <!--Card-->
             <div class="card">
@@ -23,159 +21,123 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card-body">
-                                <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
+                                <div class="col-md-12 m-0 p-0 d-flex justify-content-left">
                                     <div class="col-md-6 p-0">
-                                            <div class="row col-md-8 m-0 p-0 mb-3">
-                                           <img *ngIf="currentAccount.imageUrl !== null" [src]="imageUrl" alt="" class="img-thumbnail rounded float-left" alt = "Responsive image">
-                                           <img *ngIf="currentAccount.imageUrl === null" src="../../../../content/img/default-avar.png" alt="" class="img-thumbnail rounded float-left" alt = "Responsive image">
+                                        <div class="row col-md-8 m-0 p-0 mb-3">
+                                            <img *ngIf="currentAccount.imageUrl !== null" [src]="imageUrl" alt="" class=" h-75 w-75 img-thumbnail rounded float-left" alt="Responsive image">
+                                            <img *ngIf="currentAccount.imageUrl === null" src="../../../../content/img/default-avar.png" alt="" class="img-thumbnail rounded float-left" alt="Responsive image">
 
                                         </div>
                                         <!-- Họ -->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
                                             <h6 class="first">Họ</h6>
-                                            <input id="input" type="text"  class="form-control" formControlName="firstName">
-                                            <div
-                                            *ngIf="profileForm.get('firstName').invalid && (profileForm.get('firstName').dirty || profileForm.get('firstName').touched)">
-                                            <small class="form-text text-danger"
-                                                *ngIf="profileForm.get('firstName').errors.required">
-                                                Họ không được để trống.
-                                            </small>
-                                            <small class="form-text text-danger"
-                                                *ngIf="profileForm.get('firstName').errors.maxlength">
-                                                Họ dài nhất có 50 kí tự.
-                                            </small>
-                                        </div>
+                                            <input id="input" type="text" class="form-control" formControlName="firstName">
+                                            <div *ngIf="profileForm.get('firstName').invalid && (profileForm.get('firstName').dirty || profileForm.get('firstName').touched)">
+                                                <small class="form-text text-danger" *ngIf="profileForm.get('firstName').errors.required">
+                                                    Họ không được để trống.
+                                                </small>
+                                                <small class="form-text text-danger" *ngIf="profileForm.get('firstName').errors.maxlength">
+                                                    Họ dài nhất có 50 kí tự.
+                                                </small>
+                                            </div>
                                         </div>
                                         <!-- Tên-->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
                                             <h6 class="first">Tên</h6>
                                             <input id="input" type="text" class="form-control" formControlName="lastName">
-                                            <div
-                                            *ngIf="profileForm.get('lastName').invalid && (profileForm.get('lastName').dirty || profileForm.get('lastName').touched)">
-                                            <small class="form-text text-danger"
-                                                *ngIf="profileForm.get('lastName').errors.required">
-                                                Tên không được để trống.
-                                            </small>
-                                            <small class="form-text text-danger"
-                                                *ngIf="profileForm.get('lastName').errors.maxlength">
-                                                Tên dài nhất có 50 kí tự.
-                                            </small>
-                                        </div>
+                                            <div *ngIf="profileForm.get('lastName').invalid && (profileForm.get('lastName').dirty || profileForm.get('lastName').touched)">
+                                                <small class="form-text text-danger" *ngIf="profileForm.get('lastName').errors.required">
+                                                    Tên không được để trống.
+                                                </small>
+                                                <small class="form-text text-danger" *ngIf="profileForm.get('lastName').errors.maxlength">
+                                                    Tên dài nhất có 50 kí tự.
+                                                </small>
+                                            </div>
                                         </div>
                                         <!-- Phone-->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
                                             <h6 class="first">SĐT</h6>
                                             <input id="input" type="text" class="form-control" formControlName="phone">
-                                            <div
-                                            *ngIf="profileForm.get('phone').invalid && (profileForm.get('phone').dirty || profileForm.get('phone').touched)">
-                                            <small class="form-text text-danger"
-                                                *ngIf="profileForm.get('phone').errors.required">
-                                                Số điện thoại không được để trống.
-                                            </small>
-                                            <small class="form-text text-danger"
-                                                *ngIf="profileForm.get('phone').errors.maxlength">
-                                                Số điện thoại dài nhất có 50 kí tự.
-                                            </small>
-                                        </div>
+                                            <div *ngIf="profileForm.get('phone').invalid && (profileForm.get('phone').dirty || profileForm.get('phone').touched)">
+                                                <small class="form-text text-danger" *ngIf="profileForm.get('phone').errors.required">
+                                                    Số điện thoại không được để trống.
+                                                </small>
+                                                <small class="form-text text-danger" *ngIf="profileForm.get('phone').errors.maxlength">
+                                                    Số điện thoại dài nhất có 50 kí tự.
+                                                </small>
+                                            </div>
                                         </div>
                                         <!-- Giới tính -->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
                                             <h6 class="first">Giới tính</h6>
                                             <div class="row col-md-12">
-                                                    <p-selectButton [options]="types" formControlName="gender"
-                                                    [(ngModel)]="selectedType"></p-selectButton>
+                                                <p-selectButton [options]="types" formControlName="gender" [(ngModel)]="selectedType"></p-selectButton>
                                             </div>
 
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 p-0">
                                         <!-- Thành phố -->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
-                                            <h6 class="first">Thành phố</h6>
-                                            <ng-select style="width: 285px;"  [items]="listProvinces"
-                                                                    (change)="selectedProvince()" bindLabel="name"
-                                                                    bindValue="code"
-                                                                    placeholder="--- Chọn Tỉnh/Thành ---"
-                                                                    formControlName="provinceCode"
-                                                                    >
-                                                                    <ng-template ng-option-tmp let-item="item">
-                                                                        {{item.name}}
-                                                                    </ng-template>
-                                                                </ng-select>
-                                                                <div
-                                                                    *ngIf="profileForm.controls.provinceCode.invalid && (profileForm.controls.provinceCode.dirty || profileForm.controls.provinceCode.touched)">
-                                                                    <span class="form-text text-danger"
-                                                                        *ngIf="profileForm.controls.provinceCode.errors?.required">
-                                                             Tỉnh/Thành không được để trống
-                                             </span>
-                                        </div>
+                                            <h6 class="first col-md-12 px-0">Thành phố</h6>
+                                            <ng-select style="width: 285px;" [items]="listProvinces" (change)="selectedProvince()" bindLabel="name" bindValue="code" placeholder="--- Chọn Tỉnh/Thành ---" formControlName="provinceCode">
+                                                <ng-template ng-option-tmp let-item="item">
+                                                    {{item.name}}
+                                                </ng-template>
+                                            </ng-select>
+                                            <div *ngIf="profileForm.controls.provinceCode.invalid && (profileForm.controls.provinceCode.dirty || profileForm.controls.provinceCode.touched)">
+                                                <span class="form-text text-danger" *ngIf="profileForm.controls.provinceCode.errors?.required">
+                                                    Tỉnh/Thành không được để trống
+                                                </span>
+                                            </div>
                                         </div>
                                         <!-- Quận/Huyện -->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
-                                            <h6 class="first">Quận/Huyện</h6>
-                                            <ng-select style="width: 285px;"  [items]="listDistrict" bindLabel="name"
-                                                                    bindValue="code" (change)="selectedDistrict()"
-                                                                    placeholder="--- Chọn Quận/Huyện ---"
-                                                                    formControlName="districtCode">
-                                                                    <ng-template ng-option-tmp let-item="item">
-                                                                        {{item.name}}
-                                                                    </ng-template>
-                                             </ng-select>
-                                             <div
-                                                *ngIf="profileForm.controls.districtCode.invalid && (profileForm.controls.districtCode.dirty || profileForm.controls.districtCode.touched)">
-                                                     <span class="form-text text-danger"
-                                                        *ngIf="profileForm.controls.districtCode.errors?.required">
-                                                         Quận/Huyện không được để trống
-                                                    </span>
-                                                </div>
+                                            <h6 class="first col-md-12 px-0">Quận/Huyện</h6>
+                                            <ng-select style="width: 285px;" [items]="listDistrict" bindLabel="name" bindValue="code" (change)="selectedDistrict()" placeholder="--- Chọn Quận/Huyện ---" formControlName="districtCode">
+                                                <ng-template ng-option-tmp let-item="item">
+                                                    {{item.name}}
+                                                </ng-template>
+                                            </ng-select>
+                                            <div *ngIf="profileForm.controls.districtCode.invalid && (profileForm.controls.districtCode.dirty || profileForm.controls.districtCode.touched)">
+                                                <span class="form-text text-danger" *ngIf="profileForm.controls.districtCode.errors?.required">
+                                                    Quận/Huyện không được để trống
+                                                </span>
+                                            </div>
                                         </div>
                                         <!-- Phường/Xã -->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
-                                            <h6 class="first">Phường/Xã</h6>
-                                            <ng-select style="width: 285px;"  [items]="listWard" bindLabel="name"
-                                            bindValue="code"
-                                            placeholder="--- Chọn Xã/Phường ---"
-                                            formControlName="wardCode">
-                                            <ng-template ng-option-tmp let-item="item">
-                                                {{item.name}}
-                                            </ng-template>
-                                        </ng-select>
-                                        <div
-                                            *ngIf="profileForm.controls.wardCode.invalid && (profileForm.controls.wardCode.dirty || profileForm.controls.wardCode.touched)">
-                                            <span class="form-text text-danger"
-                                                *ngIf="profileForm.controls.wardCode.errors?.required">
-                                                Xã/Phường không được để trống</span>
-                                        </div>
+                                            <h6 class="first col-md-12 px-0">Phường/Xã</h6>
+                                            <ng-select style="width: 285px;" [items]="listWard" bindLabel="name" bindValue="code" placeholder="--- Chọn Xã/Phường ---" formControlName="wardCode">
+                                                <ng-template ng-option-tmp let-item="item">
+                                                    {{item.name}}
+                                                </ng-template>
+                                            </ng-select>
+                                            <div *ngIf="profileForm.controls.wardCode.invalid && (profileForm.controls.wardCode.dirty || profileForm.controls.wardCode.touched)">
+                                                <span class="form-text text-danger" *ngIf="profileForm.controls.wardCode.errors?.required">
+                                                    Xã/Phường không được để trống</span>
+                                            </div>
                                         </div>
                                         <!-- Ngày sinh-->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
-                                            <h6 class="first">Ngày sinh</h6>
-                                            <p-calendar [showIcon]="true" [required]="true" dateFormat="dd/mm/yy"
-                                            [style]="{'width': '285px'}"
-                                             [(ngModel)]="date6" formControlName="dob"
-                                             [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+                                            <h6 class="first col-md-12 px-0">Ngày sinh</h6>
+                                            <p-calendar [showIcon]="true" [required]="true" dateFormat="dd/mm/yy" [style]="{'width': '285px'}" [(ngModel)]="date6" formControlName="dob" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
                                             </p-calendar>
                                         </div>
                                         <!-- Chọn avatar -->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
-                                            <h6 class="first">Hình đại diện</h6>
-                                            <div class="input-group mb-3">
-                                                <p-fileUpload  #fileUpload name="demo[]" multiple="multiple" accept="image/*"
-                                                [showUploadButton]="true"
-                                               (uploadHandler)="onUpload($event,fileUpload)"
-                                               customUpload="true"
-                                               cancelLabel="Bỏ"
-                                               chooseLabel="Chọn hình"
-                                               uploadLabel="Tải lên"
-                                               (onRemove)= "onRemove($event)" fileLimit="1"
-                                               maxFileSize="1000000">
-                                               <ng-template pTemplate="content">
-                                                   <ul *ngIf="uploadedFiles">
-                                                       <label *ngIf="uploadedFiles.length > 0">Tải lên thành công: </label>
-                                                       <li *ngFor="let file of uploadedFiles">{{file}}</li>
-                                                   </ul>
-                                               </ng-template>
-                                           </p-fileUpload>
+                                            <h6 class="first col-md-12 px-0">Hình đại diện</h6>
+                                            <div class="input-group mb-3 col-md-6">
+                                                <p-fileUpload #fileUpload name="demo[]" multiple="multiple" accept="image/*" [showUploadButton]="true" (uploadHandler)="onUpload($event,fileUpload)" customUpload="true" cancelLabel="Bỏ" chooseLabel="Chọn hình" uploadLabel="Tải lên" (onRemove)="onRemove($event)"
+                                                    fileLimit="1" maxFileSize="1000000">
+                                                    <ng-template pTemplate="content">
+                                                        <ul *ngIf="uploadedFiles">
+                                                            <label *ngIf="uploadedFiles.length > 0">Tải lên thành công:
+                                                            </label>
+                                                            <li *ngFor="let file of uploadedFiles">{{file}}</li>
+                                                        </ul>
+                                                    </ng-template>
+                                                </p-fileUpload>
                                             </div>
                                         </div>
                                     </div>

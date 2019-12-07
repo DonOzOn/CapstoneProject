@@ -6,6 +6,10 @@
 
 .content {
   flex: 1;
+  background-image: url(../content/img/wood-bg.jpg);
+  background-repeat: repeat;
+  background-position: center center;
+  background-size: cover;
 }
 
 main {
@@ -18,9 +22,9 @@ main {
 }
 
 .lds-ripple {
-  min-width: 80px;
-  min-height: 80px;
-  top: 10%;
+  min-width: 120px;
+  min-height: 120px;
+  top: 30%;
   left: 50%;
   z-index: 999;
   color: darkorange;
