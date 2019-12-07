@@ -14,6 +14,7 @@ import { INotification } from 'app/core/notification/notification.model';
 import { IUser } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+// eslint-disable-next-line
 let self: any;
 @Component({
   selector: 'app-header',
