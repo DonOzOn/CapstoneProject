@@ -90,6 +90,7 @@ export class HomeComponent implements OnInit {
       }
     ];
   }
+
   /*  get total page in pagination*/
   getTotalPage() {
     this.postService.query().subscribe(res => {
@@ -106,7 +107,6 @@ export class HomeComponent implements OnInit {
     this.getListPostProduct();
     this.accountService.identity().subscribe((account: Account) => {
       this.currentAccount = account;
-
       // eslint-disable-next-line
       console.log('account: ', account);
     });
@@ -121,7 +121,12 @@ export class HomeComponent implements OnInit {
     if (this.accountService.isAuthenticated() === true) {
       this.window.window.requestPermission();
     }
+
     // this.window.addEventListener('subcribeTopicScript', this.test);
+  }
+
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/usermanage', { skipLocationChange: true }).then(() => this.router.navigate([uri]));
   }
 
   messageRecieved(e) {

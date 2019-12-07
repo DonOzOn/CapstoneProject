@@ -52,6 +52,11 @@ export class LoginComponent implements OnInit {
     });
     this.getDismissReason('cancel');
   }
+  reloadComponent() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/home']);
+  }
   login() {
     this.loginService
       .login({
@@ -68,9 +73,13 @@ export class LoginComponent implements OnInit {
             this.router.url.startsWith('/account/activate') ||
             this.router.url.startsWith('/account/reset/')
           ) {
-            this.router.navigate(['']);
+            this.router.navigate(['']).then(() => {
+              window.location.reload();
+            });
           }
-          this.router.navigate(['']);
+          this.router.navigate(['']).then(() => {
+            window.location.reload();
+          });
           this.getDismissReason('done');
           this.eventManager.broadcast({
             name: 'authenticationSuccess',
