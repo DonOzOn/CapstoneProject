@@ -11,10 +11,11 @@ import { LawpageComponent } from './lawpage/lawpage.component';
 import { LawrentComponent } from './lawrent/lawrent.component';
 import { ContracformComponent } from './contracform/contracform.component';
 import { AddresscontractComponent } from './addresscontract/addresscontract.component';
+import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   declarations: [LawComponent, LawsellComponent, LawpageComponent, LawrentComponent, ContracformComponent, AddresscontractComponent],
-  imports: [CommonModule, LawRoutingModule, FlickityModule, MDBBootstrapModule.forRoot(), OwlModule],
+  imports: [CommonModule, LawRoutingModule, FlickityModule, MDBBootstrapModule.forRoot(), OwlModule, RealestatebrokerageSharedModule],
   providers: [],
   exports: [LawComponent]
 })

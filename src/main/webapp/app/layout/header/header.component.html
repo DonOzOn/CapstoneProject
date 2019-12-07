@@ -115,11 +115,11 @@
             </nav>
         </div>
         <div class="header-icon d-flex flex-row">
-            <div class="header-icon-user pr-3">
+            <div class="header-icon-user pr-2">
                 <button type="button" class="btn btn-info btn-block text-uppercase" *ngSwitchCase="true" [routerLink]="[ '/postproduct']">Đăng tin</button>
                 <button type="button" class="btn btn-info btn-block text-uppercase" *ngSwitchCase="false" data-toggle="tooltip" data-placement="top" title="Đăng nhập để có thể tạo bài đăng" [routerLink]="[ '/login']">Đăng tin</button>
             </div>
-            <div class="header-icon-user pl-3">
+            <div class="header-icon-user pl-2">
                 <div class="dropdown" *ngSwitchCase="true">
                     <a *ngIf="account.imageUrl === null" data-toggle="tooltip" data-placement="top" title="Chào mừng {{account.login}}"><i class="fas fa-user-cog fa-2x text-white"></i></a>
                     <a *ngIf="account.imageUrl !== null" data-toggle="tooltip" data-placement="top" title="Chào mừng {{account.login}}"><img class="icon-user" src="{{imageUrl}}{{account.imageUrl}}"></a>

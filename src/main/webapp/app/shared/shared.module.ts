@@ -5,10 +5,19 @@ import { JhiAlertErrorComponent } from './alert/alert-error.component';
 import { JhiLoginModalComponent } from './login/login.component';
 import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
 import { PasswordStrengthBarComponent } from './password-strength/password-strength-bar.component';
+import { NewComponent } from './new/new.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  imports: [RealestatebrokerageSharedLibsModule],
-  declarations: [JhiAlertComponent, JhiAlertErrorComponent, JhiLoginModalComponent, HasAnyAuthorityDirective, PasswordStrengthBarComponent],
+  imports: [RealestatebrokerageSharedLibsModule, RouterModule],
+  declarations: [
+    JhiAlertComponent,
+    JhiAlertErrorComponent,
+    JhiLoginModalComponent,
+    HasAnyAuthorityDirective,
+    PasswordStrengthBarComponent,
+    NewComponent
+  ],
   entryComponents: [JhiLoginModalComponent],
   exports: [
     RealestatebrokerageSharedLibsModule,
@@ -16,7 +25,8 @@ import { PasswordStrengthBarComponent } from './password-strength/password-stren
     JhiAlertErrorComponent,
     JhiLoginModalComponent,
     HasAnyAuthorityDirective,
-    PasswordStrengthBarComponent
+    PasswordStrengthBarComponent,
+    NewComponent
   ]
 })
 export class RealestatebrokerageSharedModule {}

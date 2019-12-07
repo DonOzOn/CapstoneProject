@@ -23,6 +23,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { TopBannerComponent } from 'app/TopBannerComponent';
+import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   declarations: [PostproductComponent, TopBannerComponent],
@@ -48,6 +49,7 @@ import { TopBannerComponent } from 'app/TopBannerComponent';
     ConfirmDialogModule,
     MessagesModule,
     MessageModule,
+    RealestatebrokerageSharedModule,
     ToastModule
   ],
   providers: [],

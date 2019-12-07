@@ -12,6 +12,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   declarations: [ProductdetailComponent],
@@ -26,7 +27,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MessagesModule,
     MessageModule,
     MatTooltipModule,
-    ToastModule
+    ToastModule,
+    RealestatebrokerageSharedModule
   ],
   providers: [],
   exports: [ProductdetailComponent]

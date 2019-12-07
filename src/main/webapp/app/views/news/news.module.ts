@@ -9,10 +9,19 @@ import { NewsRoutingModule } from './news-routing.module';
 import { NewsdetailComponent } from './newsdetail/newsdetail.component';
 import { NewspageComponent } from './newspage/newspage.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   declarations: [NewsComponent, NewsdetailComponent, NewspageComponent],
-  imports: [CommonModule, NewsRoutingModule, NgxPaginationModule, FlickityModule, MDBBootstrapModule.forRoot(), OwlModule],
+  imports: [
+    CommonModule,
+    NewsRoutingModule,
+    NgxPaginationModule,
+    FlickityModule,
+    MDBBootstrapModule.forRoot(),
+    OwlModule,
+    RealestatebrokerageSharedModule
+  ],
   providers: [],
   exports: [NewsComponent]
 })

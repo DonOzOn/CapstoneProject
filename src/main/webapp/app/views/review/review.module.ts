@@ -24,6 +24,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ReviewdetailComponent } from './reviewdetail/reviewdetail.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   declarations: [ReviewComponent, ListreviewComponent, ReviewpageComponent, ReviewdetailComponent],
@@ -48,7 +49,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     PanelModule,
     TabViewModule,
     MatTooltipModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    RealestatebrokerageSharedModule
   ],
   providers: [],
   exports: [ReviewComponent]

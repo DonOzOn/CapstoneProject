@@ -1,40 +1,40 @@
 <div class="container-fluid mt-2 m-0 p-0">
-    <div class="grey lighten-3">
 
-        <!--Main Navigation-->
-        <div class="row col-md-12">
 
-            <!-- Sidebar -->
-            <div class="sidebar-fixed  col-md-3 mb-2">
+    <!--Main Navigation-->
+    <div class="row col-md-12">
 
-                <div class="list-group list-group-flush">
-                    <h5 class="list-group-item active waves-effect text-white font-weight-bold text-uppercase">
-                        <i class="fas fa-tasks mr-3"></i>Quản lí tài khoản
-                    </h5>
-                    <a [routerLink]="['/usermanage']" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover ">
-                        <i class="fas fa-user mr-3 faa-ring"></i>Thông tin cá nhân</a>
-                    <a [routerLink]="['/manage-product']" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover ">
-                        <i class="fas fa-table mr-3 faa-ring "></i>Quản lí bài đăng mua bán</a>
-                    <a [routerLink]="['/manage-review']" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
-                        <i class="fas fa-question-circle mr-3 faa-ring "></i>Quản lí bài đăng diễn đàn</a>
-                    <a [routerLink]="['/manage-guest-care']" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
-                        <i class="fas fa-list-alt mr-3 faa-ring "></i>Danh sách quan tâm sản phẩm</a>
-                    <a [routerLink]="['/notification']" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
-                        <i class="fas fa-comment-alt mr-3 faa-ring "></i>Thông báo</a>
-                    <a (click)="logout()" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
-                        <i class="fas fa-sign-out-alt mr-3 faa-ring "></i>Đăng xuất</a>
-                </div>
+        <!-- Sidebar -->
+        <div class="sidebar-fixed  col-md-3 mb-2">
 
-            </div>
-            <!-- Sidebar -->
-            <!--Main layout-->
-            <div class="col-md-9 float-right">
-                <app-ng7-dynamic-breadcrumb [bgColor]="breadcrumbConfig['bgColor']" [fontSize]="breadcrumbConfig['fontSize']" [fontColor]="breadcrumbConfig['fontColor']" [lastLinkColor]="breadcrumbConfig['lastLinkColor']" [symbol]="breadcrumbConfig['symbol']">Quản lí chung</app-ng7-dynamic-breadcrumb>
-                <router-outlet></router-outlet>
+            <div class="list-group list-group-flush">
+                <h5 class="list-group-item active waves-effect text-white font-weight-bold text-uppercase">
+                    <i class="fas fa-tasks mr-3"></i>Quản lí tài khoản
+                </h5>
+                <a [routerLink]="['/usermanage']" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover ">
+                    <i class="fas fa-user mr-3 faa-ring"></i>Thông tin cá nhân</a>
+                <a [routerLink]="['/manage-product']" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover ">
+                    <i class="fas fa-table mr-3 faa-ring "></i>Quản lí bài đăng mua bán</a>
+                <a [routerLink]="['/manage-review']" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
+                    <i class="fas fa-question-circle mr-3 faa-ring "></i>Quản lí bài đăng diễn đàn</a>
+                <a [routerLink]="['/manage-guest-care']" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
+                    <i class="fas fa-list-alt mr-3 faa-ring "></i>Danh sách quan tâm sản phẩm</a>
+                <a [routerLink]="['/notification']" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
+                    <i class="fas fa-comment-alt mr-3 faa-ring "></i>Thông báo</a>
+                <a (click)="logout()" class="list-group-item list-group-item-action waves-effect faa-parent animated-hover">
+                    <i class="fas fa-sign-out-alt mr-3 faa-ring "></i>Đăng xuất</a>
             </div>
 
-            <!--Main layout-->
         </div>
-        <!--Main Navigation-->
+        <!-- Sidebar -->
+        <!--Main layout-->
+        <div class="col-md-9 float-right">
+            <app-ng7-dynamic-breadcrumb [bgColor]="breadcrumbConfig['bgColor']" [fontSize]="breadcrumbConfig['fontSize']" [fontColor]="breadcrumbConfig['fontColor']" [lastLinkColor]="breadcrumbConfig['lastLinkColor']" [symbol]="breadcrumbConfig['symbol']">Quản lí chung</app-ng7-dynamic-breadcrumb>
+            <router-outlet></router-outlet>
+        </div>
+
+        <!--Main layout-->
     </div>
+    <!--Main Navigation-->
 </div>
+<app-new></app-new>

@@ -30,6 +30,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { LoginModule } from './views/login/login.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent],
@@ -67,6 +68,7 @@ import { LoginModule } from './views/login/login.module';
     MessagesModule,
     MessageModule,
     ToastModule,
+    RouterModule,
     LoginModule
   ],
   providers: [],

@@ -17,6 +17,7 @@ import { TabViewModule } from 'primeng/components/tabview/tabview';
 import { CodeHighlighterModule } from 'primeng/components/codehighlighter/codehighlighter';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -36,7 +37,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ToastModule,
     TabViewModule,
     CodeHighlighterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RealestatebrokerageSharedModule
   ],
   providers: [],
   exports: [HomeComponent]

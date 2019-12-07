@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng7DynamicBreadcrumbModule } from 'ng7-dynamic-breadcrumb';
 import { MatSelectModule } from '@angular/material/select';
+import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   declarations: [ListproductComponent],
@@ -24,7 +25,8 @@ import { MatSelectModule } from '@angular/material/select';
     CollapseModule.forRoot(),
     WavesModule.forRoot(),
     Ng7DynamicBreadcrumbModule,
-    MatSelectModule
+    MatSelectModule,
+    RealestatebrokerageSharedModule
   ],
   providers: [],
   exports: [ListproductComponent]

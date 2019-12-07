@@ -226,7 +226,7 @@
 
         </div>
         <div class="col-sm-3 bl-right">
-            <div class=" form-horizontal bl-info-customer" id="search-advand">
+            <div class=" form-horizontal bl-info-customer rounded" id="search-advand">
                 <div class=" d-flex bl-title justify-content-center">Thông tin người đăng</div>
                 <div class="bl-border form-info bv-form" novalidate="novalidate">
                     <div class="col-sm-12 d-flex">
@@ -301,16 +301,16 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <div class="form-group">
+                                <div class="form-group div-fullname">
                                     <textarea class="form-control" formControlName="mess" id="exampleFormControlTextarea1" rows="3" placeholder="Lời nhắn"></textarea>
                                 </div>
                                 <div *ngIf="inforForm.get('mess').invalid && (inforForm.get('mess').dirty || inforForm.get('mess').touched)">
                                     <small class="form-text text-danger" *ngIf="inforForm.get('mess').errors.maxlength">
                   Nội dung dài nhất có 12 kí tự.
-                </small>
+                                    </small>
                                 </div>
                             </div>
-                            <div class="button-contact">
+                            <div class="button-contact pb-3">
                                 <button type="submit" [disabled]="inforForm.invalid" class="btn btn-outline-primary btn-lg btn-block">Liên hệ</button>
                             </div>
                         </div>
@@ -320,3 +320,4 @@
         </div>
     </div>
 </div>
+<app-new></app-new>
