@@ -166,8 +166,8 @@
                             <div class="col-md-12 d-flex justify-content-end mb-3 clearfix">
                                 <button class="btn btn-outline-primary "><i class="fas fa-share-alt"></i> Chia sẻ</button>
                                 <button class="btn btn-outline-danger mx-2"><i class="fas fa-bullhorn"></i> Báo xấu</button>
-                                <button *ngIf="!liked" class="btn btn-outline-primary" (click) = "checkLike(productdetail.productPostResponseDTO.id)"><i class="fas fa-thumbs-up"></i> Thích</button>
-                                <button *ngIf="liked" class="btn btn-outline-primary" (click) = "checkLike(productdetail.productPostResponseDTO.id)"><i class="fas fa-thumbs-up"></i> Bỏ thích</button>
+                                <button *ngIf="!liked" class="btn btn-outline-primary" matTooltip="Thích" (click)="checkLike(productdetail.productPostResponseDTO.id)"><i class="fas fa-thumbs-up"></i> Thích</button>
+                                <button *ngIf="liked" class="btn btn-primary" matTooltip="Không thích" (click)="checkLike(productdetail.productPostResponseDTO.id)"><i class="fas fa-thumbs-up"></i> Thích</button>
                             </div>
                             <p class="d-flex justify-content-end align-items-end col-md-12 m-0 px-0 font-italic pr-1">
                                 {{ productdetail.productPostResponseDTO.address }}, {{ productdetail.productPostResponseDTO.ward.name }}, {{ productdetail.productPostResponseDTO.district.name }}, {{ productdetail.productPostResponseDTO.province.name }}
@@ -267,13 +267,13 @@
                                         </div>
                                     </div>
                                     <div *ngIf="inforForm.get('phone').invalid && (inforForm.get('phone').dirty || inforForm.get('phone').touched)">
-                                    <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.required">
+                                        <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.required">
                                         SĐT không được để trống.
                                     </small>
-                                                            <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.minlength">
+                                        <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.minlength">
                                         SĐT it nhất có 9 kí tự.
                                     </small>
-                                                            <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.maxlength">
+                                        <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.maxlength">
                                         SĐT dài nhất có 12 kí tự.
                                     </small>
                                     </div>

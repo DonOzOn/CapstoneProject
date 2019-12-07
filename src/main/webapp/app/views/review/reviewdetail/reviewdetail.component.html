@@ -43,8 +43,8 @@
                                     <hr>
                                     <div class="news-footer d-flex justify-content-start">
                                         <div class="news-likes">
-                                            <button  *ngIf="!liked" type="button" class="btn btn-outline-secondary" (click) = "checkLike(detailReview.id)"><i class="fa fa-thumbs-o-up text-primary"></i> <span class="badge">Thích</span></button>
-                                            <button  *ngIf="liked" type="button" class="btn btn-outline-secondary" (click) = "checkLike(detailReview.id)"><i class="fa fa-thumbs-o-up text-primary"></i> <span class="badge">Bỏ thích</span></button>
+                                            <button *ngIf="!liked" type="button" class="btn btn-outline-secondary" matTooltip="Thích" (click)="checkLike(detailReview.id)"><i class="fa fa-thumbs-o-up text-primary"></i> <span class="badge">Thích</span></button>
+                                            <button *ngIf="liked" type="button" class="btn btn-secondary " matTooltip="Bỏ thích" (click)="checkLike(detailReview.id)"><i class="fa fa-thumbs-o-up text-primary" ></i> <span class="badge">Thích</span></button>
                                             <button type="button" class="btn btn-outline-secondary"><i class="fas fa-share-alt"></i><span class="badge">Chia sẻ</span></button>
                                         </div>
                                     </div>

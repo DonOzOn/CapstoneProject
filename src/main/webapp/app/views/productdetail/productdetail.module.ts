@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [ProductdetailComponent],
@@ -24,6 +25,7 @@ import { ToastModule } from 'primeng/toast';
     ReactiveFormsModule,
     MessagesModule,
     MessageModule,
+    MatTooltipModule,
     ToastModule
   ],
   providers: [],

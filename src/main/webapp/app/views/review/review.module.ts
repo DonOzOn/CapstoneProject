@@ -23,6 +23,7 @@ import { TabViewModule } from 'primeng/components/tabview/tabview';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ReviewdetailComponent } from './reviewdetail/reviewdetail.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [ReviewComponent, ListreviewComponent, ReviewpageComponent, ReviewdetailComponent],
@@ -46,6 +47,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     SplitButtonModule,
     PanelModule,
     TabViewModule,
+    MatTooltipModule,
     ConfirmDialogModule
   ],
   providers: [],
