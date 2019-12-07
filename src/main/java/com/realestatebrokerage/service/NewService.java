@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +19,11 @@ public class NewService {
 
     @Autowired
     private NewRepository newRepository;
-
+    @PersistenceContext
+    private EntityManager entityManager;
+    /**
+     * Latest new
+     * **/
 
     /**
      * List all product

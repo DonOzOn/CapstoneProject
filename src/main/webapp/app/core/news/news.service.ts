@@ -37,11 +37,9 @@ export class NewsService {
       })
     );
   }
-
   find(id: any): Observable<INews> {
     return this.http.get<INews>(`${this.newsResourceUrl}/${id}`);
   }
-
   searchbyDate(fromDate: any, toDate: any): Observable<HttpResponse<INews[]>> {
     const param = {
       from: fromDate,
