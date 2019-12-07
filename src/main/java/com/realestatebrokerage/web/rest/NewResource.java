@@ -27,6 +27,12 @@ public class NewResource {
     @Autowired
     private NewService newService;
 
+//    @GetMapping("/news")
+//    public ResponseEntity<List<NewsDTO>> getNewsNew() {
+//        log.debug("get list news : {}");
+//        return new ResponseEntity<>(newService.findNewNews(8).stream().map(NewsDTO::new).collect(Collectors.toList()), HttpStatus.OK);
+//    }
+
     @GetMapping("/news")
     public ResponseEntity<List<NewsDTO>> getNews() {
         log.debug("get list news : {}");
@@ -38,6 +44,7 @@ public class NewResource {
         log.debug("get list news by id : {}", id);
         return new ResponseEntity<>(newService.findById(id).map(NewsDTO::new).orElse(null), HttpStatus.OK);
     }
+ 
     /**
      * {@code GET /Post} : get all Post.
      *

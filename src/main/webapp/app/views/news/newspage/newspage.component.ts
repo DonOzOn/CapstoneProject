@@ -14,7 +14,10 @@ export class NewspageComponent implements OnInit {
   listNews: INews[];
 
   countNew: any;
-  list4News: any[] = [];
+  list8News: INews[];
+  listNewsFirstElement: INews[];
+  list4NewsLastElement: INews[];
+  latestNew: INews;
   /* pagination */
   public directionLinks = true;
   public autoHide = false;
@@ -23,8 +26,8 @@ export class NewspageComponent implements OnInit {
   listPagination: any[] = [];
   config: any;
   public labels: any = {
-    previousLabel: 'Previous',
-    nextLabel: 'Next'
+    previousLabel: 'Trang trước',
+    nextLabel: 'Trang kế'
   };
 
   listContent: any = [];
@@ -38,7 +41,7 @@ export class NewspageComponent implements OnInit {
       });
     }
     this.config = {
-      itemsPerPage: 10,
+      itemsPerPage: 3,
       currentPage: 1,
       totalItems: this.countNew
     };
@@ -86,13 +89,20 @@ export class NewspageComponent implements OnInit {
   /*  get  list 4 new*/
   getlist4News() {
     this.newService.getListNews().subscribe(res => {
-      this.list4News = res.body;
-      // eslint-disable-next-line
-      console.log('Listnew  : ', this.list4News);
-      this.list4News.sort(function(obj1, obj2) {
+      this.list8News = res.body;
+      this.list8News.sort(function(obj1, obj2) {
         return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
       });
-      this.list4News = res.body.slice(0, 4);
+      this.listNews = res.body.slice(5, res.body.length);
+      this.list8News = res.body.slice(0, 5);
+      // eslint-disable-next-line
+      console.log('Listnew  : ', this.list8News);
+      this.listNewsFirstElement = this.list8News.slice(0, 1);
+      // eslint-disable-next-line
+      console.log('List4newFirst  : ', this.listNewsFirstElement);
+      this.list4NewsLastElement = this.list8News.slice(1, 5);
+      // eslint-disable-next-line
+      console.log('List4newLast  : ', this.list4NewsLastElement);
     });
   }
 }
