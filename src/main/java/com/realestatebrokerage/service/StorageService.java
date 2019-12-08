@@ -29,7 +29,6 @@ public class StorageService {
         this.rootLocation = Paths.get(properties.getBaseLocation());
     }
 
-
     public String store(MultipartFile file) {
         long currentTS = Long.valueOf(String.valueOf(System.currentTimeMillis()/1000));
         String filename = "" + currentTS + "."+file.getOriginalFilename();
