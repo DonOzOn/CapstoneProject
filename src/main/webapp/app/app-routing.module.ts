@@ -25,10 +25,6 @@ const routes: Routes = [
     }
   },
   {
-    path: 'search',
-    loadChildren: () => import('./views/search/search.module').then(m => m.SearchModule)
-  },
-  {
     path: 'listproduct',
     loadChildren: () => import('./views/listproduct/listproduct.module').then(m => m.ListproductModule)
   },

@@ -119,24 +119,24 @@
                 <a class="badge faa-tada animated" role="button" data-toggle="dropdown" id="dropdownMenu1" data-target="#" aria-expanded="true">
                     <i class="fas fa-bell text-light fa-lg pb-2"></i><sup class="badge badge-danger" *ngIf="num != 0">{{num}}</sup>
                 </a>
-                <div class="dropdown mt-3">
+                <div class="dropdown mt-3 pl-3" id="timeline">
                     <ul class="timeline timeline-icons timeline-sm">
                         <li *ngFor="let item of notis">
                             <p *ngIf="item.type == 1">
-                                <a>{{item.userSend.login}}</a> {{item.content}}<a href="#"> với bạn</a>
-                                <span class="timeline-icon"><i class="fa fa-heartbeat"></i></span>
+                                <a>{{item.userSend.login}}</a> {{item.content}}<a> với bạn</a>
+                                <span class="timeline-icon"><i class="fas fa-user-clock"></i></span>
                                 <span class="timeline-date">{{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</span>
                             </p>
                             <p *ngIf="item.type == 2">
-                                (Quản trị viên) {{item.content}}
-                                <span class="timeline-icon"><i class="fa fa-heartbeat"></i></span>
+                                <span class="text-truncate">[Thông báo]: {{item.content}}</span>
+                                <span class="timeline-icon"><i class="fas fa-user-clock"></i></span>
                                 <span class="timeline-date">{{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</span>
                             </p>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="header-icon-user pl-4">
+            <div class="header-icon-user pl-2">
                 <button type="button" class="btn btn-info btn-block text-uppercase" *ngSwitchCase="true" [routerLink]="[ '/postproduct']">Đăng tin</button>
                 <button type="button" class="btn btn-info btn-block text-uppercase" *ngSwitchCase="false" data-toggle="tooltip" data-placement="top" title="Đăng nhập để có thể tạo bài đăng" [routerLink]="[ '/login']">Đăng tin</button>
             </div>

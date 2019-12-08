@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SearchModule } from './views/search/search.module';
 import { ListproductModule } from './views/listproduct/listproduct.module';
 import { ProductModule } from './views/productdetail/productdetail.module';
 import { ReviewModule } from './views/review/review.module';
@@ -37,7 +36,6 @@ import { RouterModule } from '@angular/router';
   imports: [
     HomeModule,
     BrowserModule,
-    SearchModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
