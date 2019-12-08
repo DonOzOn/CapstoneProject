@@ -13,7 +13,6 @@ import { HttpResponse } from '@angular/common/http';
 import { INotification } from 'app/core/notification/notification.model';
 import { IUser } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 // eslint-disable-next-line
 let self: any;
 @Component({
@@ -50,10 +49,6 @@ export class HeaderComponent implements OnInit {
       this.account = account;
       this.userService.find(this.account.login).subscribe((userAuthen: IUser) => {
         this.currentUser = userAuthen;
-        debounceTime(200);
-        distinctUntilChanged();
-        // eslint-disable-next-line
-        console.log('sdasdasd=đâsdassdasd');
         this.fetch();
       });
     });
