@@ -40,8 +40,12 @@
 
                                         </ul>
                                     </div>
-                                    <br>
                                     <p>{{detailNew.decription}}</p>
+                                    
+                                    <div class="img-news">
+                                        <img class="img-fluid" *ngIf="detailNew.imageUrl === null" src="../../../../content/img/default-image.jpg">
+                                        <img class="img-fluid" *ngIf="detailNew.imageUrl !== null" src="{{imageUrl}}{{detailNew.imageUrl}}">
+                                    </div>
                                     <hr>
 
                                     <div [innerHTML]="detailNew.content" class="news-content">
@@ -49,14 +53,27 @@
 
                                     </div>
                                     <hr>
-                                    <div class="news-footer">
+                                    <div class="more-feng-shui">
+                                            <div class="more-content">
+                                                <p style="margin-bottom: unset;">Xem thêm</p>
+                                                <div class="see-feng-shui">
+                                                    <span class="txt-cricle"></span>
+                                                    <a href="#">Mua nhà giá rẻ</a>
+                                                </div>
+                                                <div class="see-feng-shui">
+                                                    <span class="txt-cricle"></span>
+                                                    <a href="#">Căn hộ cho thuê với giá cực sốc</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- <div class="news-footer">
                                         <div class="news-likes">
                                             <button type="button" class="btn btn-outline-secondary"><i class="fa fa-thumbs-o-up text-success"></i> <span class="badge ">Likes 4</span></button>
                                             <button type="button" class="btn btn-outline-secondary"><i class="fa fa-thumbs-o-down text-danger"></i><span class="badge">Disklikes 4</span></button>
                                         </div>
-                                    </div>
-                                    <hr>
-                                    <div class="news-tags">
+                                    </div> -->
+                                    <!-- <hr> -->
+                                    <!-- <div class="news-tags">
                                         <h5>Tags</h5>
                                         <button type="button" class="btn btn-sm btn-secondary">
                                           Education <span class="badge badge-light">4</span>
@@ -76,9 +93,9 @@
                                         <button type="button" class="btn btn-sm btn-secondary">
                                           Health <span class="badge badge-light">4</span>
                                         </button>
-                                    </div>
-                                    <hr>
-                                    <div class="news-author">
+                                    </div> -->
+                                    <!-- <hr> -->
+                                    <!-- <div class="news-author">
                                         <div class="row">
                                             <div class="col-md-auto">
                                                 <a href="#" title="Biswajit Saha"><img src="//www.gravatar.com/avatar/021e64775176cc4c7018e5e867f17de2?s=250&d=mm&r=x" alt="Author image" class="rounded-circle" style="width:100px"></a>
@@ -98,7 +115,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
