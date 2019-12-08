@@ -32,7 +32,7 @@
                                         <div class="ratio_left-cover-1 image-wrapper">
                                             <a [routerLink]="[ '/news', item.id , 'detail' ]">
                                                 <!-- <img class="img-fluid w-100" src="https://bootstrap.news/source/img1.jpg" alt="Image description"> -->
-                                                <img class="img-fluid w-100" *ngIf="item.imageUrl !== null" src="{{item.imageUrl}}" style="height: 370px;" alt="Image description">
+                                                <img class="img-fluid w-100" *ngIf="item.imageUrl !== null" src="{{imageUrl}}{{item.imageUrl}}" style="height: 370px;" alt="Image description">
                                                 <img class="img-fluid w-100" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg"alt="Image description" > 
                                             </a>
                                         </div>
@@ -153,7 +153,7 @@
                                     <div class="ratio_right-cover-2 image-wrapper">
                                         <a [routerLink]="[ '/news', item.id , 'detail' ]">
                                             <!-- <img class="img-fluid" src="https://bootstrap.news/source/img5.jpg" alt="Image description"> -->
-                                            <img class="img-fluid" *ngIf="item.imageUrl !== null" src="{{item.imageUrl}}" alt="Image description">
+                                            <img class="img-fluid" *ngIf="item.imageUrl !== null" src="{{imageUrl}}{{item.imageUrl}}" alt="Image description">
                                             <img class="img-fluid" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg"alt="Image description" > 
                                         </a>
                                     </div>
