@@ -9,3 +9,35 @@ i {
 i:hover {
   color: #503acf;
 }
+
+.more-feng-shui {
+  margin: 20px 0;
+  clear: left;
+}
+.more-feng-shui .more-content {
+  background: #e5f4fb;
+  padding: 15px 17px;
+  border-radius: 5px;
+}
+.more-feng-shui .more-content p:first-child {
+  font-size: 17px;
+  color: #27406d;
+  font-weight: 700;
+}
+.more-feng-shui .more-content .see-feng-shui:nth-child(2) {
+  padding: 10px 0;
+}
+.more-feng-shui .more-content .see-feng-shui .txt-cricle {
+  background: #174474;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  display: block;
+  float: left;
+  margin-top: 7px;
+}
+.more-feng-shui .more-content .see-feng-shui a {
+  font-size: 16px;
+  font-style: italic;
+}
