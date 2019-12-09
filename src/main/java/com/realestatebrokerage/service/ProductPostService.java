@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -234,6 +235,20 @@ public class ProductPostService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * get by direction house
+     * */
+    public List<ProductPost>  getByDirectionHouse(Long num) {
+        log.debug("run in get by direction house: {}");
+        List<ProductPost> postList = new ArrayList<>();
+        if(num == 1 || num == 4 || num == 2 || num == 3){
+            postList =  productPostRepository.findAllByDirectionHouseOneToFour();
+        }else{
+            postList =  productPostRepository.findAllByDirectionHouseFiveToEight();
+        }
+        return  postList;
     }
 
 

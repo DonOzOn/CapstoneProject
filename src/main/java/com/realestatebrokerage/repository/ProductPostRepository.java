@@ -61,4 +61,23 @@ public interface ProductPostRepository extends JpaRepository<ProductPost, Long> 
                                                     @Param("numBedroom") Integer numBedroom,
                                                    Pageable pageable );
 
+    /**
+     * - 8 7 5 2
+     * - 4,3,1,6
+     * */
+    @Query(value = "SELECT pp FROM ProductPost pp where " +
+        "pp.product.direction.id = 8 "
+        +"OR pp.product.direction.id = 7"
+        +"OR pp.product.direction.id = 5"
+        +"OR pp.product.direction.id = 2" )
+    public List<ProductPost> findAllByDirectionHouseOneToFour();
+
+    @Query(value = "SELECT pp FROM ProductPost pp where " +
+        "pp.product.direction.id = 4 "
+        +"OR pp.product.direction.id = 3"
+        +"OR pp.product.direction.id = 1"
+        +"OR pp.product.direction.id = 6" )
+    public List<ProductPost> findAllByDirectionHouseFiveToEight();
+
+
 }

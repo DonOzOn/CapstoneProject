@@ -8,15 +8,11 @@ import com.realestatebrokerage.domain.UsingImage;
 import com.realestatebrokerage.service.*;
 import com.realestatebrokerage.service.dto.*;
 import com.realestatebrokerage.web.rest.errors.LoginAlreadyUsedException;
-import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.hibernate.search.jpa.FullTextEntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,9 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.persistence.EntityManager;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -398,6 +392,36 @@ public class PostResource {
         productPostService.deleteByID(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
+    /**
+     * {@code GET /Post} : get all Post by province.
+     *
+     */
+    @GetMapping("/product-post/directionhouse/{id}")
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProducbyProvince(@PathVariable Long id ) {
+        log.debug("get by directionhouse :");
+        List<PostResponeDTO> responeDTOList = new ArrayList<>();
+        List<ProductPostResponseDTO> postList = productPostService.getByDirectionHouse(id).stream()
+            .map(ProductPostResponseDTO::new).collect(Collectors.toList());
+        if (postList != null) {
+            for (ProductPostResponseDTO pr : postList) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                postResponeDTO.setProductPostResponseDTO(pr);
+                ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
+                postResponeDTO.setProductResponseDTO(productResponseDTO);
+                UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                postResponeDTO.setImageDTO(imageDTO);
+                responeDTOList.add(postResponeDTO);
+            }
+            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+
 
 
     /**

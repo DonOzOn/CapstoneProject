@@ -192,4 +192,13 @@ export class PostService {
   filterByCharacter(req?: any): Observable<HttpResponse<IPostRespone[]>> {
     return this.http.get<IPostRespone[]>(`${this.resourceUrl}/filters`, { params: req, observe: 'response' });
   }
+
+  /**
+   * Gets by direction house
+   * @param id
+   * @returns by direction house
+   */
+  getByDirectionHouse(id: any): Observable<HttpResponse<IPostRespone[]>> {
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/directionhouse/${id}`, { observe: 'response' });
+  }
 }

@@ -165,6 +165,10 @@
                         <div class="col-md-8">
                             <div class="col-md-12 d-flex justify-content-end mb-3 clearfix">
                                 <button class="btn btn-outline-primary "><i class="fas fa-share-alt"></i> Chia sẻ</button>
+                                <div class="fb-share-button"
+                                data-href="https://www.your-domain.com/your-page.html"
+                                data-layout="button_count">
+                              </div>
                                 <button class="btn btn-outline-danger mx-2"><i class="fas fa-bullhorn"></i> Báo xấu</button>
                                 <button *ngIf="!liked" class="btn btn-outline-primary" matTooltip="Thích" (click)="checkLike(productdetail.productPostResponseDTO.id)"><i class="fas fa-thumbs-up"></i> Thích</button>
                                 <button *ngIf="liked" class="btn btn-primary" matTooltip="Không thích" (click)="checkLike(productdetail.productPostResponseDTO.id)"><i class="fas fa-thumbs-up"></i> Thích</button>
@@ -318,6 +322,11 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <!-- <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="" data-numposts="5"></div> -->
     </div>
 </div>
 <div class=" row col-md-12 d-inline-flex">
