@@ -3,6 +3,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { IPar } from 'app/core/par/par.model';
 import { ParService } from 'app/core/par/parService';
 import { IDirecHouse } from 'app/core/par/model/direcHouse.model';
+import { IPostRespone } from 'app/core/post/model/postRespone.model';
+import { PostService } from 'app/core/post/post.service';
 
 @Component({
   selector: 'app-fengshui',
@@ -19,7 +21,8 @@ export class FengshuiComponent implements OnInit {
   genderitem;
   searchPar: boolean;
   isMan: boolean;
-  constructor(private parService: ParService) {}
+  listPostByDirection: IPostRespone[];
+  constructor(private parService: ParService, private postService: PostService) {}
 
   ngOnInit() {
     for (let i = 1945; i <= 2019; i++) {
@@ -41,17 +44,25 @@ export class FengshuiComponent implements OnInit {
         // eslint-disable-next-line
         console.log('res body : ', res);
         this.direction = res;
+        this.postService.getByDirectionHouse(this.direction.id).subscribe(resPost => {
+          this.listPostByDirection = resPost.body;
+          // eslint-disable-next-line
+          console.log('List Product post by direction : ', this.listPostByDirection);
+        });
         this.isMan = true;
       });
     } else {
       this.parService.findwoman(data.yearitem).subscribe(res => {
-        // eslint-disable-next-line
-        console.log('res body : ', res);
         this.direction = res;
+        // eslint-disable-next-line
+        console.log('this.direction: ', res);
+        this.postService.getByDirectionHouse(this.direction.id).subscribe(resPost => {
+          this.listPostByDirection = resPost.body;
+          // eslint-disable-next-line
+          console.log('List Product post by direction : ', this.listPostByDirection);
+        });
         this.isMan = false;
       });
     }
-    // eslint-disable-next-line
-    console.log('res paman: ', this.direction);
   }
 }
