@@ -30,6 +30,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { LoginModule } from './views/login/login.module';
 import { RouterModule } from '@angular/router';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent],
@@ -67,6 +68,7 @@ import { RouterModule } from '@angular/router';
     MessageModule,
     ToastModule,
     RouterModule,
+    AngularFontAwesomeModule,
     LoginModule
   ],
   providers: [],

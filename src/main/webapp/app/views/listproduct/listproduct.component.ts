@@ -5,11 +5,11 @@ import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { SERVER_API_URL } from 'app/app.constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ng7DynamicBreadcrumbService } from 'ng7-dynamic-breadcrumb';
-import { NewsService } from 'app/core/news/news.service';
 import { AddressService } from 'app/core/address/address.service';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { Sort } from '@angular/material';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { DirectionService } from 'app/core/direction/direction.service';
 
 @Component({
   selector: 'app-listproduct',
@@ -40,6 +40,7 @@ export class ListproductComponent implements OnInit {
   listProvinces: [];
   listDistrict: [];
   listWard: [];
+  listDirection: [];
   config: any;
   count: any;
   listPost: any[] = [];
@@ -61,8 +62,8 @@ export class ListproductComponent implements OnInit {
     nextLabel: 'Next'
   };
   constructor(
+    private directionService: DirectionService,
     private addressService: AddressService,
-    private newService: NewsService,
     private postService: PostService,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
@@ -102,6 +103,18 @@ export class ListproductComponent implements OnInit {
       .subscribe();
     // this.filterFunction();
     this.getProvince();
+    this.getDirection();
+  }
+
+  /**
+   * Get list direction
+   */
+  getDirection() {
+    this.directionService.getDirection().subscribe((res: any) => {
+      this.listDirection = res.body;
+      // eslint-disable-next-line
+      console.log('Direction: ', this.listDirection);
+    });
   }
 
   /**
@@ -110,6 +123,8 @@ export class ListproductComponent implements OnInit {
   getProvince() {
     this.addressService.filterProvince().subscribe((res: any) => {
       this.listProvinces = res.body;
+      // eslint-disable-next-line
+      console.log('Direction: ', this.listProvinces);
       this.selectedProvince();
     });
   }

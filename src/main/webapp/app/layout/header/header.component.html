@@ -122,16 +122,16 @@
                 <div class="dropdown mt-3 pl-3" id="timeline">
                     <ul class="timeline timeline-icons timeline-sm">
                         <li *ngFor="let item of notis">
-                            <p *ngIf="item.type == 1">
+                            <div *ngIf="item.type == 1">
                                 <a>{{item.userSend.login}}</a> {{item.content}}<a> với bạn</a>
                                 <span class="timeline-icon"><i class="fas fa-user-clock"></i></span>
                                 <span class="timeline-date">{{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</span>
-                            </p>
-                            <p *ngIf="item.type == 2">
-                                <span class="text-truncate">[Thông báo]: {{item.content}}</span>
+                            </div>
+                            <div *ngIf="item.type == 2">
+                                <span class="">[Thông báo]: {{item.content}}</span>
                                 <span class="timeline-icon"><i class="fas fa-user-clock"></i></span>
                                 <span class="timeline-date">{{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</span>
-                            </p>
+                            </div>
                         </li>
                     </ul>
                 </div>
