@@ -6,19 +6,19 @@
         <span class="text-dark small font-italic">CẬP NHẬT CÁC THÔNG TIN MỚI NHẤT VỀ THỊ TRƯỜNG BẤT ĐỘNG SẢN
         </span>
     </div>
-    <ul class="card-deck px-2 col-md-12 m-0">
-        <li class="card col-md-4 p-2 mx-2 rounded" *ngFor="let item of list4News">
-            <img *ngIf="item.imageUrl !== 0" class="card-img-top " src="{{imageUrl}}{{item.imageUrl}}" alt="Card image cap">
-            <img *ngIf="item.imageUrl === 0" class="card-img-top " src="../../../content/img/default-image.jpg" alt="Card image cap">
+    <ul class="card-deck px-2 col-md-12 m-0 ">
+        <li class="card p-2 mx-2 rounded " *ngFor="let item of list4News">
+            <img *ngIf="item.imageUrl !== 0" class="card-img-top h-50" src="{{imageUrl}}{{item.imageUrl}}" alt="Card image cap">
+            <img *ngIf="item.imageUrl === 0" class="card-img-top h-50" src="../../../content/img/default-image.jpg" alt="Card image cap">
             <a [routerLink]="[ '/news', item.id , 'detail' ]">
                 <h5 class="card-title py-2 px-1 mx-1 giveMeEllipsisTitle  border-top font-weight-bold">{{item.title}}
                 </h5>
             </a>
             <div class="card-body p-1">
                 <p class="card-text  py-1 giveMeEllipsis border-top">{{item.decription}}</p>
-                <div class="d-inline-flex col-md-12 px-0 pt-3 justify-content-end border-top">
-                    <button (click)="goToNews(item.id)" class="btn blue-gradient col-md-6 text-light">Xem thêm</button>
-                </div>
+            </div>
+            <div class=" card-body col-md-12 px-0 pt-3 pb-0 border-top d-flex justify-content-end align-content-end" style="white-space: normal;">
+                <button (click)="goToNews(item.id)" class="btn blue-gradient text-light">Xem thêm</button>
             </div>
         </li>
     </ul>
