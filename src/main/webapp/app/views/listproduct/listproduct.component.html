@@ -91,9 +91,9 @@
     <div class="waves-light col-md-12 p-0 search rounded">
         <div class="col-md-12 px-4 pt-4 pb-1 d-inline-flex justify-content-center rounded">
             <div class="input-group input-group-lg sm-form form-sm hoverable bg-light text-dark rounded col-md-11 p-0">
-                <input class="form-control my-0 py-1 " type="text " placeholder="Search " aria-label="Search " />
+                <input class="form-control my-0 py-1 " [formControl]="searchText" type="text " placeholder="Search " aria-label="Search " />
                 <div class="input-group-append">
-                    <a class="input-group-text  lightgray lighten-2 "><i class="fas fa-search text-grey"
+                    <a class="input-group-text  lightgray lighten-2 "><i (click)="search()" class="fas fa-search text-grey"
                             aria-hidden="true "></i></a>
                 </div>
             </div>
@@ -334,7 +334,7 @@
             </div>
 
             <div class="col-md-4 px-0">
-                <app-care-you></app-care-you>
+                <app-care-you [listSuggest] = "listSuggest" ></app-care-you>
             </div>
         </div>
     </div>
