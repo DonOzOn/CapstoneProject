@@ -1,17 +1,15 @@
-<div>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h1>Kích hoạt</h1>
+<div class="col-md-12 d-flex justify-content-center">
+    <div class="col-md-8">
+        <h1>Kích hoạt</h1>
 
-            <div class="alert alert-success" *ngIf="success">
-                <span><strong>Tài khoản của bạn đã được kích hoạt.</strong> Vui lòng </span>
-                <a class="alert-link text-primary" style="text-decoration: underline" (click)="login()">đăng nhập</a>.
-            </div>
-
-            <div class="alert alert-danger" *ngIf="error">
-                <strong>Tài khoản của bạn không thể  kích hoạt.</strong> Vui lòng đăng kí lại.
-            </div>
-
+        <div class="alert alert-success" *ngIf="success">
+            <span><strong>Tài khoản của bạn đã được kích hoạt.</strong> Vui lòng </span>
+            <a class="alert-link text-primary" style="text-decoration: underline" (click)="login()">đăng nhập</a>.
         </div>
+
+        <div class="alert alert-danger" *ngIf="error">
+            <strong>Tài khoản của bạn không thể  kích hoạt.</strong> Vui lòng đăng kí lại.
+        </div>
+
     </div>
 </div>
