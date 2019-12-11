@@ -13,7 +13,6 @@
     "cacheProvider": "ehcache",
     "enableHibernateCache": true,
     "websocket": true,
-    "searchEngine": "elasticsearch",
     "databaseType": "sql",
     "devDatabaseType": "mysql",
     "prodDatabaseType": "mysql",
