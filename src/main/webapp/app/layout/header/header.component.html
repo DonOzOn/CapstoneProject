@@ -115,12 +115,14 @@
             </nav>
         </div>
         <div class="header-icon d-flex flex-row">
-            <div class="dropdown mt-2" *ngSwitchCase="true">
+            <div class="dropdown mt-2 pl-3" *ngSwitchCase="true">
                 <a class="badge faa-tada animated" role="button" data-toggle="dropdown" id="dropdownMenu1" data-target="#" aria-expanded="true">
-                    <i class="fas fa-bell text-light fa-lg pb-2"></i><sup class="badge badge-danger" *ngIf="num != 0">{{num}}</sup>
+                    <i class="fas fa-bell text-light fa-lg pb-2" *ngIf="num != 0" data-toggle="tooltip" title="Có thông báo"></i><sup class="badge badge-danger" *ngIf="num != 0">{{num}}</sup>
+                    <i class="fas fa-bell text-light fa-lg pb-2" *ngIf="num == 0" data-toggle="tooltip" title="Không có thông báo"></i>
                 </a>
-                <div class="dropdown mt-3 pl-3" id="timeline">
+                <div *ngIf="num" class="dropdown mt-3 pl-3" id="timeline">
                     <ul class="timeline timeline-icons timeline-sm">
+                        <a class="d-flex flex-row pb-3 pl-2"><i class="fas fa-broom fa-lg faa-horizontal animated-hover text-white"></i></a>
                         <li *ngFor="let item of notis">
                             <div *ngIf="item.type == 1">
                                 <a>{{item.userSend.login}}</a> {{item.content}}<a> với bạn</a>
@@ -136,7 +138,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="header-icon-user pl-2">
+            <div class="header-icon-user pl-3">
                 <button type="button" class="btn btn-info btn-block text-uppercase" *ngSwitchCase="true" [routerLink]="[ '/postproduct']">Đăng tin</button>
                 <button type="button" class="btn btn-info btn-block text-uppercase" *ngSwitchCase="false" data-toggle="tooltip" data-placement="top" title="Đăng nhập để có thể tạo bài đăng" [routerLink]="[ '/login']">Đăng tin</button>
             </div>
