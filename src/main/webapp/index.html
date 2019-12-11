@@ -6,37 +6,30 @@
     <title>RealEstateBrokerage</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * data: 'unsafe-inline'; connect-src * 'unsafe-inline'; frame-src *;">
-    <meta http-equiv="Content-Security-Policy" content="default-src * gap://ready file:; style-src 'self'https://fonts.googleapis.com/icon?family=Material+Icons 'unsafe-inline' *; script-src 'self' https://kit.fontawesome.com/ab727b7b1b.js 'unsafe-inline' 'unsafe-eval' *">
     <link rel="icon" type="image/x-icon" href="content/img/600px-Godot_icon.svg.png" />
-    <!-- <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script> -->
-    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet" /> -->
-    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> -->
-    <script src="/js/jquery/jquery.js" crossorigin="anonymous"></script>
-    <!-- <script src="https://kit.fontawesome.com/ab727b7b1b.js" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/ab727b7b1b.js" crossorigin="anonymous"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
-    <script type="text/javascript" src="js/jquery-ui.js"></script> -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=2253036158134194&autoLogAppEvents=1"></script>
     <!-- <script src="js/bootstrap.min.js"></script> -->
 </head>
 
 <body>
-        <!-- <script>
-                window.fbAsyncInit = function() {
-                  FB.init({
-                    appId      : ' 2253036158134194',
-                    cookie     : true,
-                    xfbml      : true,
-                    version    : 'v5.0'
-                  });
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+            appId      : ' 2253036158134194',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v5.0'
+        });
 
-                  FB.AppEvents.logPageView();
+        FB.AppEvents.logPageView();
 
-                };
-                </script>
-                      <div id="fb-root"></div>
-                      <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=2253036158134194&autoLogAppEvents=1"></script> -->
+        };
+    </script>
+    <div id="fb-root"></div>
     <app-root></app-root>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-messaging.js"></script>
