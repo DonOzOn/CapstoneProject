@@ -57,7 +57,7 @@
                         <div class="card-body border-top d-flex col-md-12">
                             <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-start">{{post.productPostResponseDTO.productPostType.productPostTypeName}}: </h5>
                             <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price >= 100000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000000}}tỷ</h5>
-                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 100000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000}}triệu</h5>
+                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 100000000 && post.productPostResponseDTO.product.price >= 1000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000}}triệu</h5>
                             <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 1000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000}}ngàn</h5>
                         </div>
                         <div class="card-footer text-muted d-flex flex-row p-3">
