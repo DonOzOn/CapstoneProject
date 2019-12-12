@@ -99,7 +99,7 @@
                             <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-start">{{post.productPostResponseDTO.productPostType.productPostTypeName}}: </h5>
                             <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price >= 100000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000000}}tỷ</h5>
                             <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 100000000 && post.productPostResponseDTO.product.price >= 1000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000}}triệu</h5>
-                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 1000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000}}ngàn</h5>
+                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 1000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000}}nghìn</h5>
                         </div>
                         <div class="card-footer text-muted d-flex flex-row p-3">
                             <img *ngIf="post.productPostResponseDTO.user.imageUrl !== null" src="{{imageUrl}}{{post.productPostResponseDTO.user.imageUrl}}" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{post.productPostResponseDTO.createdBy}}">
@@ -114,24 +114,33 @@
             </p-carousel>
         </div>
     </div>
-    <div class="row mt-3  ">
-        <div class="col-md-12 d-inline-flex " style="background-color: #acbfd1;">
-            <div class="card rounded col-md-8 p-3 my-3 bg-white" style="min-height: 370px;">
-                <div style="min-height: 290px;">
-                    <div class="mb-2" *ngFor="let item of post | paginate: config ; let i = index">
-                        <a [routerLink]="[ '/product', item.productPostResponseDTO.id,'productdetail']">
-                            <h5 class="card-header">{{item.productPostResponseDTO.productPostTitle}}</h5>
-                        </a>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <p-carousel class="px-1 border-0" [value]="post" styleClass="custom-carousel" [numVisible]="4" [numScroll]="3" [circular]="true" [autoplayInterval]="7000" [responsiveOptions]="responsiveOptions">
+                <p-header>
+                    <a class="h3 font-weight-bold text-uppercase" href="#">NGƯỜI DÙNG NỔI BẬT <sup><i class="fas fa-star fa-2a faa-burst animated text-danger"></i></sup></a>
+                </p-header>
+                <ng-template let-post pTemplate="item">
+                    <div class="card mx-2">
+                        <div class="card-body d-flex col-md-12" style="font-family: 'Quicksand', sans-serif;">
+                            <div class="flex-column pt-1">
+                                <img *ngIf="post.productPostResponseDTO.user.imageUrl !== null" src="{{imageUrl}}{{post.productPostResponseDTO.user.imageUrl}}" style="max-width:100px; max-height:100px" class="d-flex justify-content-start rounded-circle" alt="{{post.productPostResponseDTO.createdBy}}">
+                                <img *ngIf="post.productPostResponseDTO.user.imageUrl === null" src="../../../content/img/default-avar.png" style="max-width:100px; max-height:100px " class="d-flex justify-content-start rounded-circle" alt="{{post.productPostResponseDTO.createdBy}}">
+                            </div>
+                            <div class="px-4 d-flex flex-column">
+                                <a class="card title text-center justify-content-center text-capitalize text-truncate font-weight-bold" data-placement="top " title="{{post.productPostResponseDTO.user.firstName}} {{post.productPostResponseDTO.user.lastName}}"><span class="px-1">{{post.productPostResponseDTO.user.firstName}} {{post.productPostResponseDTO.user.lastName}}</span></a>
+                                <div class="d-flex flex-row justify-content-center py-2"><i class="fas fa-star faa-burst animated"></i><i class="fas fa-star faa-burst animated"></i><i class="fas fa-star faa-burst animated"></i></div>
+                                <div class="card body border-0 d-flex flex-row pb-2">Số bài đăng: 123 </div>
+                                <div class="card body border-0 d-flex flex-row pb-2">Liên hệ: 0975687383 </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <nav aria-label="" *ngIf="post.length !== 0" class="mt-2">
-                    <ul class="pagination pg-blue justify-content-end rounded">
-                        <pagination-controls [previousLabel]="labels.previousLabel" [maxSize]="maxSize" [nextLabel]="labels.nextLabel" [directionLinks]="directionLinks" [autoHide]="autoHide" [responsive]="responsive" (pageChange)="pageChanged($event)"></pagination-controls>
-                    </ul>
-                </nav>
-            </div>
+                </ng-template>
+            </p-carousel>
         </div>
     </div>
+
 </div>
 <div class=" row col-md-12 d-inline-flex">
     <app-new></app-new>

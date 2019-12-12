@@ -763,6 +763,13 @@ a:focus {
   z-index: 12;
 }
 
+.timeline.timeline-icons li .timeline-icon-reverse {
+  position: absolute;
+  right: -3px;
+  top: -6px;
+  z-index: 12;
+}
+
 .timeline.timeline-icons li .timeline-icon [class*='glyphicon'] {
   top: -1px !important;
 }
