@@ -84,6 +84,8 @@ export class HeaderComponent implements OnInit {
   private onSuccess(data, headers) {
     this.totalRecords = headers.get('X-Total-Count');
     this.notis = data;
+    // eslint-disable-next-line
+    console.log('notis: ', this.notis);
     this.num = this.notis.length;
     // eslint-disable-next-line
     console.log('num: ', this.num);
@@ -125,6 +127,8 @@ export class HeaderComponent implements OnInit {
     this.isShowCart = !this.isShowCart;
   }
   seen(id: any) {
+    // eslint-disable-next-line
+    console.log('abc123 : ', id);
     this.notiService.delete(id).subscribe(res => {
       // eslint-disable-next-line
       console.log('delete : ', res.body);
