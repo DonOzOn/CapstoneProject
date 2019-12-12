@@ -86,7 +86,7 @@ a[aria-expanded='false'] .fa-chevron-circle-up {
 
 #myCarousel .carousel-item {
   max-height: 480px;
-  max-width: 1200px;
+  max-width: 960px;
 }
 
 #myCarousel .list-inline {
@@ -95,12 +95,17 @@ a[aria-expanded='false'] .fa-chevron-circle-up {
 }
 
 .imgSmall {
-  max-height: 40px;
-  max-width: 80px;
+  // max-height: 45px;
+  // max-width: 75px;
+  height: 45px;
+  width: 75px;
   object-fit: cover;
 }
 
-//.imgLarge {}
+// .imgLarge {
+//     background-attachment: cover;
+//     background-position: center center;
+// }
 #myCarousel .carousel-indicators {
   position: static;
   left: initial;
