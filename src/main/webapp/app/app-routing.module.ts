@@ -74,34 +74,25 @@ const routes: Routes = [
     data: {
       title: 'Page 404'
     }
+  },
+  {
+    path: '403',
+    component: ErrorComponent,
+    data: {
+      title: 'Page 403'
+    }
+  },
+  {
+    path: '500',
+    component: ErrorComponent,
+    data: {
+      title: 'Page 500'
+    }
+  },
+  {
+    path: '**',
+    redirectTo: '/404'
   }
-  //   },
-  //   {
-  //     path: '403',
-  //     component: P403Component,
-  //     data: {
-  //       title: 'Page 403'
-  //     }
-  //   },
-  //   {
-  //     path: '404',
-  //     component: P404Component,
-  //     data: {
-  //       title: 'Page 404'
-  //     }
-  //   },
-  //   {
-  //     path: '500',
-  //     component: P500Component,
-  //     data: {
-  //       title: 'Page 500'
-  //     }
-  //   },
-  //   {
-  //     path: '**',
-  //     redirectTo: '/404'
-  //   }
-  // ],
 ];
 
 @NgModule({
