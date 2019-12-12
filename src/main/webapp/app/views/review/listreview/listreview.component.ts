@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewService } from 'app/core/review/review.service';
 import { IReview } from 'app/core/review/review.model';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-listreview',
   templateUrl: './listreview.component.html',
@@ -17,10 +18,10 @@ export class ListreviewComponent implements OnInit {
   public responsive = true;
   public maxSize = 5;
   public labels: any = {
-    previousLabel: 'Previous',
-    nextLabel: 'Next'
+    previousLabel: 'Trước',
+    nextLabel: 'Sau'
   };
-  constructor(private reviewService: ReviewService) {
+  constructor(private reviewService: ReviewService, private activatedRoute: ActivatedRoute, private router: Router) {
     for (let i = 0; i < this.countReview; i++) {
       this.listPagination.push({
         id: i + 1,
@@ -38,8 +39,8 @@ export class ListreviewComponent implements OnInit {
   getTotalPage() {
     this.reviewService.getListReview().subscribe(res => {
       this.countReview = res.body.length;
-      // eslint-disable-next-line
-      console.log('count: ', this.countReview);
+      // // eslint-disable-next-line
+      // console.log('count: ', this.countReview);
       return this.countReview;
     });
   }
@@ -48,7 +49,12 @@ export class ListreviewComponent implements OnInit {
   }
   ngOnInit() {
     this.getTotalPage();
-    this.getListReview();
+    // this.getListReview();
+    this.activatedRoute.data.subscribe(res => {
+      this.reviews = res.typeSearch.body;
+      // eslint-disable-next-line
+      console.log('reviews: ', this.reviews);
+    });
   }
 
   /**

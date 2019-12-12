@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
     choose: ['']
   });
   listProvinces = [];
+  listUsers: IUser[] = [];
   post: PostRespone[] = [];
   /* pagination */
   public directionLinks = true;
@@ -131,7 +132,7 @@ export class HomeComponent implements OnInit {
 
   messageRecieved(e) {
     // eslint-disable-next-line
-    console.log('saaaaaaaa: ', e.detail);
+    console.log('get mess: ', e.detail);
   }
   saveUserToken(e) {
     self.userService.find(self.currentAccount.login).subscribe((userAuthen: IUser) => {
@@ -154,16 +155,33 @@ export class HomeComponent implements OnInit {
   getListPostProduct() {
     this.postService.query().subscribe(res => {
       this.post = res.body;
-      // eslint-disable-next-line
-      console.log('List  : ', this.post);
+      this.listUsers = this.deduplicate(this.post);
     });
+  }
+
+  deduplicate(arr) {
+    // eslint-disable-next-line
+    let isExist = (arr, x) => {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].productPostResponseDTO.user.id === x.productPostResponseDTO.user.id) {
+          return true;
+        }
+      }
+      return false;
+    };
+    // eslint-disable-next-line
+    let ans = [];
+    arr.forEach(element => {
+      if (!isExist(ans, element)) {
+        ans.push(element);
+      }
+    });
+    return ans;
   }
   /*  get all provinces */
   getProvince() {
     this.addressService.filterProvince().subscribe((res: any) => {
       this.listProvinces = res.body;
-      // eslint-disable-next-line
-      console.log('List all post : ', this.listProvinces);
     });
   }
 

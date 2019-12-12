@@ -13,9 +13,11 @@
                                 <h6 class="small text-warning">Nơi mọi người đưa ra các ý kiến, câu hỏi, thảo luận về các vấn đề BĐS, các bài review về nơi bạn đang sống </h6>
                             </div>
                         </div>
-
-                        <div class="forum-item" *ngFor="let item of reviews | paginate: config">
-                            <div class="row px-0">
+                        <div *ngIf="reviews.length === 0" >
+                            <h4 class="strong">Không có bài review nào</h4>
+                        </div>
+                        <div class="forum-item" *ngIf="reviews !== null" >
+                            <div class="row px-0" *ngFor="let item of reviews | paginate: config">
                                 <div class="col-md-9">
                                     <div class="forum-icon">
                                         <i class="fa fa-commenting-o"></i>

@@ -88,11 +88,12 @@ const routes: Routes = [
     data: {
       title: 'Page 500'
     }
-  },
-  {
-    path: '**',
-    redirectTo: '/404'
   }
+  // },
+  // {
+  //   path: '**',
+  //   redirectTo: '/404'
+  // }
 ];
 
 @NgModule({

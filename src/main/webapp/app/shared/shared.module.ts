@@ -8,7 +8,6 @@ import { PasswordStrengthBarComponent } from './password-strength/password-stren
 import { NewComponent } from './new/new.component';
 import { RouterModule } from '@angular/router';
 import { CareYouComponent } from './care-you/care-you.component';
-import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   imports: [RealestatebrokerageSharedLibsModule, RouterModule],
@@ -19,8 +18,7 @@ import { ErrorComponent } from './error/error.component';
     HasAnyAuthorityDirective,
     PasswordStrengthBarComponent,
     NewComponent,
-    CareYouComponent,
-    ErrorComponent
+    CareYouComponent
   ],
   entryComponents: [JhiLoginModalComponent],
   exports: [
@@ -31,8 +29,7 @@ import { ErrorComponent } from './error/error.component';
     HasAnyAuthorityDirective,
     PasswordStrengthBarComponent,
     NewComponent,
-    CareYouComponent,
-    ErrorComponent
+    CareYouComponent
   ]
 })
 export class RealestatebrokerageSharedModule {}

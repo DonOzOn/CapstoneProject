@@ -1,12 +1,20 @@
 package com.realestatebrokerage.domain;
 
 
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
+import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Parameter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
+@Indexed
 @Table(name = "review")
 public class Review extends AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -19,6 +27,7 @@ public class Review extends AbstractAuditingEntity implements Serializable {
     @JoinColumn(referencedColumnName = "id", name = "user_id")
     private User user;
 
+    @Field(index= Index.YES,  store= Store.NO)
     @Column(length = 100, name = "title")
     private String  title;
 
@@ -57,6 +66,7 @@ public class Review extends AbstractAuditingEntity implements Serializable {
     @Column(name = "image_url", length = 256)
     private String imageUrl;
 
+    @Field(index= Index.YES,  store= Store.NO)
     @NotNull
     @Column(nullable = false)
     private boolean status = false;
