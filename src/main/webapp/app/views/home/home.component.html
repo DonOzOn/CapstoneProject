@@ -44,7 +44,7 @@
                         <img class="img-thumbnail rounded mx-auto d-block card-img-top" src="{{imageUrl}}{{post.imageDTO.img1}}" />
                         <div class="d-flex flex-row icon-slide">
                             <div class="col-md-6 d-flex justify-content-start">
-                                <p class="text-warning font-weight-bold"><i class="fas fa-street-view fa-lg text-warning"></i>2km</p>
+                                <!-- <p class="text-warning font-weight-bold"><i class="fas fa-street-view fa-lg text-warning"></i>2km</p> -->
                             </div>
                             <div class="col-md-6 d-flex justify-content-end float-right">
                                 <p class="text-warning font-weight-bold"><i class="fas fa-chart-area fa-lg text-warning"></i>{{post.productPostResponseDTO.product.area}}m<sup>2</sup></p>
@@ -57,7 +57,8 @@
                         <div class="card-body border-top d-flex col-md-12">
                             <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-start">{{post.productPostResponseDTO.productPostType.productPostTypeName}}: </h5>
                             <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price >= 100000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000000}}tỷ</h5>
-                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 100000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000}} triệu</h5>
+                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 100000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000}}triệu</h5>
+                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 1000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000}}ngàn</h5>
                         </div>
                         <div class="card-footer text-muted d-flex flex-row p-3">
                             <img *ngIf="post.productPostResponseDTO.user.imageUrl !== null" src="{{imageUrl}}{{post.productPostResponseDTO.user.imageUrl}}" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{post.productPostResponseDTO.createdBy}}">
@@ -84,7 +85,7 @@
                         <img class="img-thumbnail rounded mx-auto d-block card-img-top" src="{{imageUrl}}{{post.imageDTO.img1}}" />
                         <div class="d-flex flex-row icon-slide">
                             <div class="col-md-6 d-flex justify-content-start">
-                                <p class="text-warning font-weight-bold"><i class="fas fa-street-view fa-lg text-warning"></i>2km</p>
+                                <!-- <p class="text-warning font-weight-bold"><i class="fas fa-street-view fa-lg text-warning"></i>2km</p> -->
                             </div>
                             <div class="col-md-6 d-flex justify-content-end float-right">
                                 <p class="text-warning font-weight-bold"><i class="fas fa-chart-area fa-lg text-warning"></i>{{post.productPostResponseDTO.product.area}}m<sup>2</sup></p>
@@ -97,7 +98,8 @@
                         <div class="card-body border-top d-flex col-md-12">
                             <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-start">{{post.productPostResponseDTO.productPostType.productPostTypeName}}: </h5>
                             <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price >= 100000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000000}}tỷ</h5>
-                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 100000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000}} triệu</h5>
+                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 100000000 && post.productPostResponseDTO.product.price >= 1000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000000}}triệu</h5>
+                            <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 1000000"><i class="fas fa-dollar-sign fa-lg"></i>{{post.productPostResponseDTO.product.price/1000}}ngàn</h5>
                         </div>
                         <div class="card-footer text-muted d-flex flex-row p-3">
                             <img *ngIf="post.productPostResponseDTO.user.imageUrl !== null" src="{{imageUrl}}{{post.productPostResponseDTO.user.imageUrl}}" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{post.productPostResponseDTO.createdBy}}">
