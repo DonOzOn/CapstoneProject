@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
 import { SERVER_API_URL } from 'app/app.constants';
 import { IUser } from 'app/core/user/user.model';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormControl } from '@angular/forms';
 import { IReview } from 'app/core/review/review.model';
 import { AddressService } from 'app/core/address/address.service';
 import { ProductPostTypeService } from 'app/core/product-type/product-type.service';
@@ -26,6 +26,7 @@ export class ReviewComponent implements OnInit {
   toDate = new Date();
   from: any;
   to: any;
+  searchText = new FormControl('');
   /*  Item select button  */
   text1 = '<div>Hello!</div><div>Chào mừng tới BDS</div><div><br></div>';
   /*  List provinces, district, ward, direction */
@@ -245,5 +246,12 @@ export class ReviewComponent implements OnInit {
         }
       });
     }
+  }
+
+  /**
+   * Searchs
+   */
+  search() {
+    this.router.navigate(['/searchReview', this.searchText.value]);
   }
 }

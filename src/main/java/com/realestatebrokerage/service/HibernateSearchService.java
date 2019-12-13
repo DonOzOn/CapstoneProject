@@ -1,5 +1,6 @@
 package com.realestatebrokerage.service;
 import com.realestatebrokerage.domain.ProductPost;
+import com.realestatebrokerage.domain.Review;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
@@ -49,8 +50,7 @@ public class HibernateSearchService {
             .withPrefixLength(0)
             .onFields("productPostTitle","projectName",
                 "province.name","ward.name","district.name","product.price",
-                "product.area","product.direction_directionName","product.type_productTypeName",
-                "product.typeChild_productTypeChildName")
+                "product.area","product.direction_directionName")
             .matching(searchTerm).createQuery())
               .must(qb.keyword().onField("status").matching(true).createQuery())
               .createQuery()
@@ -58,6 +58,35 @@ public class HibernateSearchService {
 
         javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, ProductPost.class);
         List<ProductPost> BaseballCardList = null;
+        try {
+            BaseballCardList = jpaQuery.getResultList();
+        } catch (NoResultException nre) {
+            ;// do nothing
+
+        }
+
+        return BaseballCardList;
+
+
+    }
+
+    @Transactional
+    public List<Review> fuzzySearchReview(String searchTerm) {
+        initializeHibernateSearch();
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+        QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Review.class).get();
+
+        Query luceneQuery =
+            qb.bool().must(qb.keyword().fuzzy()
+                .withEditDistanceUpTo(2)
+                .withPrefixLength(0)
+                .onFields("title")
+                .matching(searchTerm).createQuery())
+                .must(qb.keyword().onField("status").matching(true).createQuery())
+                .createQuery()
+            ;
+        javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Review.class);
+        List<Review> BaseballCardList = null;
         try {
             BaseballCardList = jpaQuery.getResultList();
         } catch (NoResultException nre) {

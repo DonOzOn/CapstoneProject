@@ -22,6 +22,28 @@ export class DetailReviewResolve implements Resolve<any> {
     return new this.detaireview();
   }
 }
+
+@Injectable({ providedIn: 'root' })
+export class FullTextSearchResolve implements Resolve<any> {
+  detainew: any;
+  constructor(private service: ReviewService) {}
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const textSearch = route.params.textSearch ? route.params.textSearch : null;
+    if (textSearch) {
+      return this.service.fullTextSearch(textSearch);
+    }
+    return new this.detainew();
+  }
+}
+@Injectable({ providedIn: 'root' })
+export class AllReviewResolve implements Resolve<any> {
+  detainew: any;
+  constructor(private service: ReviewService) {}
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    return this.service.getListReview();
+  }
+}
+
 const routes: Routes = [
   {
     path: '',
@@ -36,13 +58,24 @@ const routes: Routes = [
       },
       {
         path: 'listreview',
-        component: ListreviewComponent
+        component: ListreviewComponent,
+        resolve: {
+          typeSearch: AllReviewResolve
+        }
       },
       {
         path: ':id/detail',
         component: ReviewdetailComponent,
         resolve: {
           detailNew: DetailReviewResolve
+        }
+      },
+
+      {
+        path: 'searchReview/:textSearch',
+        component: ListreviewComponent,
+        resolve: {
+          typeSearch: FullTextSearchResolve
         }
       }
     ]

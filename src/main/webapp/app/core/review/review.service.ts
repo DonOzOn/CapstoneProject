@@ -61,4 +61,16 @@ export class ReviewService {
   delete(id: any): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.newsResourceUrl}/${id}`, { observe: 'response' });
   }
+
+  /**
+   * Fulls text search
+   * @param searchKey
+   * @returns text search
+   */
+  fullTextSearch(searchKeys: any): Observable<HttpResponse<IReview[]>> {
+    const param = {
+      searchKey: searchKeys
+    };
+    return this.http.get<IReview[]>(`${this.newsResourceUrl}/search`, { params: param, observe: 'response' });
+  }
 }

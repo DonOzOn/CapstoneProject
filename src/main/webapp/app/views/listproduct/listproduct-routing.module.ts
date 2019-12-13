@@ -59,6 +59,19 @@ export class ProvinceResolve implements Resolve<any> {
 }
 
 @Injectable({ providedIn: 'root' })
+export class UserResolve implements Resolve<any> {
+  detainew: any;
+  constructor(private service: PostService) {}
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const userId = route.params.userId ? route.params.userId : null;
+    if (userId) {
+      return this.service.listAllByUserID(userId);
+    }
+    return new this.detainew();
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class FullTextSearchResolve implements Resolve<any> {
   detainew: any;
   constructor(private service: PostService) {}
@@ -172,6 +185,25 @@ const routes: Routes = [
         component: ListproductComponent,
         resolve: {
           typeSearch: FullTextSearchResolve
+        }
+      },
+      {
+        path: 'user/:userId/:Loginname',
+        component: ListproductComponent,
+        resolve: {
+          typeSearch: UserResolve
+        },
+        data: {
+          breadcrumb: [
+            {
+              label: 'Trang chủ',
+              url: '/home'
+            },
+            {
+              label: '{{Loginname}}',
+              url: ''
+            }
+          ]
         }
       }
     ]

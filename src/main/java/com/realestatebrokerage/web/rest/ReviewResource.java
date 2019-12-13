@@ -2,6 +2,7 @@ package com.realestatebrokerage.web.rest;
 
 
 import com.realestatebrokerage.domain.Review;
+import com.realestatebrokerage.service.HibernateSearchService;
 import com.realestatebrokerage.service.ReviewService;
 import com.realestatebrokerage.service.dto.ReviewRequestDTO;
 import com.realestatebrokerage.service.dto.ReviewResponeDTO;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +30,8 @@ public class ReviewResource {
 
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private HibernateSearchService hibernateSearchService;
 
     @GetMapping("/review")
     public ResponseEntity<List<ReviewResponeDTO>> getReviewNews() {
@@ -107,4 +111,14 @@ public class ReviewResource {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    /**
+     * {@code GET /Post} : full text.
+     *
+     */
+    @GetMapping("/review/search")
+    public ResponseEntity<List<ReviewResponeDTO>> fullTextSearchReview(@RequestParam(value = "searchKey") String searchKey) throws InterruptedException {
+        List<ReviewResponeDTO> reviewResponeDTOS = new ArrayList<>();
+        reviewResponeDTOS = hibernateSearchService.fuzzySearchReview(searchKey).stream().map(ReviewResponeDTO::new).collect(Collectors.toList());
+        return new ResponseEntity<>(reviewResponeDTOS, HttpStatus.OK);
+    }
 }

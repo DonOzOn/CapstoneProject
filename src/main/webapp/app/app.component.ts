@@ -65,22 +65,22 @@ export class AppComponent implements OnInit {
     self = this;
     this.window = window;
     this.window.addEventListener('saveToken', this.saveUserToken);
-    const messageRecieved = e => {
+    const messageRecieve = e => {
       // eslint-disable-next-line
       console.log('don123: ', e.detail);
       this.messageService.add({ severity: 'info', summary: e.detail.notification.title, detail: e.detail.notification.body });
     };
-    this.window.addEventListener('messageRecieve', messageRecieved);
+    this.window.addEventListener('messageRecieve', messageRecieve);
     if (this.accountService.isAuthenticated() === true) {
       this.window.window.requestPermission();
     }
   }
 
-  // messageRecieved(e) {
-  //   // eslint-disable-next-line
-  //   console.log('don123: ', e.detail);
-  //   this.name = e.detail;
-  // }
+  messageRecieved(e) {
+    // eslint-disable-next-line
+    console.log('don123: ', e.detail);
+    this.name = e.detail;
+  }
   saveUserToken(e) {
     self.userService.find(self.currentAccount.login).subscribe((userAuthen: IUser) => {
       self.currentUser = userAuthen;

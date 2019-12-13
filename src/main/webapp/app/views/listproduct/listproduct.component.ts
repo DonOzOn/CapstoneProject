@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { PostService } from '../../core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { SERVER_API_URL } from 'app/app.constants';
@@ -25,6 +25,7 @@ export class ListproductComponent implements OnInit {
     lastLinkColor: 'black',
     symbol: ' ▶ '
   };
+  searchText = new FormControl('');
   text: '';
   filterForm = this.fb.group({
     postType: [null],
@@ -43,6 +44,7 @@ export class ListproductComponent implements OnInit {
   listDirection: [];
   config: any;
   count: any;
+  listSuggest: PostRespone[];
   listPost: any[] = [];
   listPost2: any;
   post: PostRespone[] = [];
@@ -92,6 +94,11 @@ export class ListproductComponent implements OnInit {
     // this.getListPostProduct();
     this.activatedRoute.firstChild.data.subscribe(res => {
       this.post = res.typeSearch.body;
+      this.postService.listAllByProvince(this.post[0].productPostResponseDTO.province.code).subscribe(resSuggest => {
+        this.listSuggest = resSuggest.body;
+        // eslint-disable-next-line
+        console.log('this.listSuggest: ', this.listSuggest);
+      });
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     });
     this.filterForm.valueChanges
@@ -112,8 +119,6 @@ export class ListproductComponent implements OnInit {
   getDirection() {
     this.directionService.getDirection().subscribe((res: any) => {
       this.listDirection = res.body;
-      // eslint-disable-next-line
-      console.log('Direction: ', this.listDirection);
     });
   }
 
@@ -123,8 +128,6 @@ export class ListproductComponent implements OnInit {
   getProvince() {
     this.addressService.filterProvince().subscribe((res: any) => {
       this.listProvinces = res.body;
-      // eslint-disable-next-line
-      console.log('Direction: ', this.listProvinces);
       this.selectedProvince();
     });
   }
@@ -467,5 +470,8 @@ export class ListproductComponent implements OnInit {
         break;
       }
     }
+  }
+  search() {
+    this.router.navigate(['/listproduct', 'fullTextSearch', this.searchText.value]);
   }
 }
