@@ -17,6 +17,7 @@ import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
     ButtonsModule,
     MDBBootstrapModule.forRoot(),
     FormsModule,
+    CarouselModule,
     ReactiveFormsModule,
     CarouselModule,
     RealestatebrokerageSharedModule
