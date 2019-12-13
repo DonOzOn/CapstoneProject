@@ -453,13 +453,13 @@ export class ListproductComponent implements OnInit {
       }
       case 3: {
         this.post.sort(function(obj1: any, obj2: any) {
-          return obj1.productPostResponseDTO.product.price - obj2.productPostResponseDTO.product.price;
+          return obj2.productPostResponseDTO.product.price - obj1.productPostResponseDTO.product.price;
         });
         break;
       }
       case 4: {
         this.post.sort(function(obj1: any, obj2: any) {
-          return obj2.productPostResponseDTO.product.price - obj1.productPostResponseDTO.product.price;
+          return obj1.productPostResponseDTO.product.price - obj2.productPostResponseDTO.product.price;
         });
         break;
       }

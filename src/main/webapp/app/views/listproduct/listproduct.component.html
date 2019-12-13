@@ -27,7 +27,7 @@
                     </div>
                     <div class="text-center">
                         <select formControlName="province" (change)="selectedProvince()" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
-                            <option value="0">Tất cả</option>
+                            <option value="0" selected>Tất cả</option>
                             <option *ngFor="let item of listProvinces" value="{{item.code}}">{{item.name}}</option>
                         </select>
                     </div>
@@ -180,22 +180,21 @@
                             <div class="card-img-overlay col-md-12 p-2 d-flex align-items-start">
                                 <!-- <h4 class="card-text text-warning strong col-md-6 p-0 m-0 d-flexbox">
                                     70<span>&#37;</span></h4> -->
-                                <h1 class="card-text text-warning strong col-md-6 text-right p-0 m-0">
+                                <h1 class="card-text text-warning strong col-md-12 text-right p-0 m-0">
                                     <i class="fab fa-hotjar text-danger"></i>
                                 </h1>
                             </div>
                             <div class="card-img-overlay col-md-12 p-2 d-flex align-items-end">
                                 <!-- <p class="card-text text-warning strong col-md-6 p-0 m-0"><i class="fas fa-street-view"></i> km</p> -->
-                                <p class="card-text text-warning strong col-md-6 text-right p-0 m-0">
-                                    <i class="fas fa-chart-area"></i> {{ item.productPostResponseDTO.product.area }} m
-                                    <sup>2</sup>
+                                <p class="card-text text-warning font-weight-bold col-md-12 text-left p-0 m-0">
+                                    <i class="fas fa-chart-area"></i> {{ item.productPostResponseDTO.product.area }}m<sup>2</sup>
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body pb-1">
                                 <a [routerLink]="['/product', item.productPostResponseDTO.id, 'productdetail']">
-                                    <h5 class="card-title">{{ item.productPostResponseDTO.productPostTitle }}</h5>
+                                    <h5 class="card-title text-truncate">{{ item.productPostResponseDTO.productPostTitle }}</h5>
                                 </a>
                                 <div innerHTML="{{ item.productPostResponseDTO.content }}" class="card-text giveMeEllipsisList"></div>
                                 <div class=" d-inline-flex col-md-12 px-0 pt-2 small">
