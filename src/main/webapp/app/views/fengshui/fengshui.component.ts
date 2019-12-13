@@ -5,6 +5,7 @@ import { ParService } from 'app/core/par/parService';
 import { IDirecHouse } from 'app/core/par/model/direcHouse.model';
 import { IPostRespone } from 'app/core/post/model/postRespone.model';
 import { PostService } from 'app/core/post/post.service';
+import { SERVER_API_URL } from 'app/app.constants';
 
 @Component({
   selector: 'app-fengshui',
@@ -12,17 +13,47 @@ import { PostService } from 'app/core/post/post.service';
   styleUrls: ['./fengshui.component.scss']
 })
 export class FengshuiComponent implements OnInit {
+  imageUrl = SERVER_API_URL + '/api/upload/files/';
   listYear: number[] = [];
   gender: string[] = ['Nam', 'Nữ'];
   par: IPar;
   direction: IDirecHouse;
   yearitem;
   formdata;
+  responsiveOptions;
   genderitem;
   searchPar: boolean;
   isMan: boolean;
   listPostByDirection: IPostRespone[];
-  constructor(private parService: ParService, private postService: PostService) {}
+  constructor(private parService: ParService, private postService: PostService) {
+    this.responsiveOptions = [
+      {
+        breakpoint: '1920px',
+        numVisible: 5,
+        numScroll: 5
+      },
+      {
+        breakpoint: '1600px',
+        numVisible: 4,
+        numScroll: 4
+      },
+      {
+        breakpoint: '1024px',
+        numVisible: 3,
+        numScroll: 3
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 2,
+        numScroll: 2
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ];
+  }
 
   ngOnInit() {
     for (let i = 1945; i <= 2019; i++) {

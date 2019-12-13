@@ -1,3 +1,15 @@
+.form-control-borderless {
+  border: none;
+}
+
+.form-control-borderless:hover,
+.form-control-borderless:active,
+.form-control-borderless:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
 .container-fluid {
   // padding: 0;
   margin: 0;
@@ -29,7 +41,7 @@ img {
 }
 
 .txtSearch {
-  padding-top: 190px;
+  padding-top: 200px;
 }
 
 .icon-slide {
@@ -117,40 +129,6 @@ ul li .card .new-card {
   border: solid;
 }
 
-// //Slide Hot
-// .carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-details > .p-grid {
-//   border: 1px solid #474747;
-//   border-radius: 3px;
-//   margin: 0.3em;
-//   text-align: center;
-//   padding: 2em 0 2.25em 0;
-// }
-// .carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data .car-title {
-//   font-weight: 700;
-//   font-size: 25px;
-//   margin-top: 24px;
-// }
-// .carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data .car-subtitle {
-//   margin: 0.25em 0 2em 0;
-// }
-// .carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data button {
-//   margin-left: 0.5em;
-// }
-// .carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data button:first-child {
-//   margin-left: 0;
-// }
-// .carousel-demo .ui-carousel.custom-carousel .ui-carousel-dot-icon {
-//   width: 25px !important;
-//   height: 25px !important;
-//   border-radius: 50%;
-// }
-// .carousel-demo .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-start .car-details > .p-grid {
-//   margin-left: 0.6em;
-// }
-// .carousel-demo .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-end .car-details > .p-grid {
-//   margin-right: 0.6em;
-// }
-
 /*Content, Title short*/
 
 .giveMeEllipsisSlide {
@@ -199,6 +177,78 @@ ul li .card .new-card {
 }
 
 /* keyframes */
+
+/* WRENCHING */
+
+@keyframes wrench {
+  0% {
+    transform: rotate(-12deg);
+  }
+  8% {
+    transform: rotate(12deg);
+  }
+  10% {
+    transform: rotate(24deg);
+  }
+  18% {
+    transform: rotate(-24deg);
+  }
+  20% {
+    transform: rotate(-24deg);
+  }
+  28% {
+    transform: rotate(24deg);
+  }
+  30% {
+    transform: rotate(24deg);
+  }
+  38% {
+    transform: rotate(-24deg);
+  }
+  40% {
+    transform: rotate(-24deg);
+  }
+  48% {
+    transform: rotate(24deg);
+  }
+  50% {
+    transform: rotate(24deg);
+  }
+  58% {
+    transform: rotate(-24deg);
+  }
+  60% {
+    transform: rotate(-24deg);
+  }
+  68% {
+    transform: rotate(24deg);
+  }
+  75%,
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.faa-wrench.animated,
+.faa-wrench.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-wrench {
+  animation: wrench 2.5s ease infinite;
+  transform-origin-x: 90%;
+  transform-origin-y: 35%;
+  transform-origin-z: initial;
+}
+
+.faa-wrench.animated.faa-fast,
+.faa-wrench.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-wrench.faa-fast {
+  animation: wrench 1.2s ease infinite;
+}
+
+.faa-wrench.animated.faa-slow,
+.faa-wrench.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-wrench.faa-slow {
+  animation: wrench 3.7s ease infinite;
+}
 
 /* VERTICAL */
 

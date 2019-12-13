@@ -1,22 +1,21 @@
-<div class="d-flexbox mb-4 right-side col-md-11 px-0 offset-md-1 rounded">
+<div class="d-flexbox mb-4 right-side col-md-11 px-0 offset-md-1 rounded bg-white">
     <div class="col-md-12 px-2">
-        <p class="text-dark strong mb-2">Có thể bạn quan tâm</p>
+        <p class="text-dark font-weight-bold mb-0 h5 pt-2">Có thể bạn quan tâm</p>
     </div>
     <div class="card border-0 px-2">
-            <hr class="grey-text my-3" />
-        <div *ngFor="let item of listSuggest" class="row no-gutters col-md-12 p-0 mt-2">
+        <hr class="grey-text my-3" />
+        <div *ngFor="let item of listSuggest" class="row no-gutters col-md-12 p-0 my-3 pb-3 border-bottom">
             <div class="col-md-4 mr-2">
-                <img src="{{ imageUrl }}{{ item.imageDTO.img1 }}" class="card-img img-thumbnail rounded mx-auto d-block" style="width: 200px;height: 100px;"alt="..." />
+                <img src="{{ imageUrl }}{{ item.imageDTO.img1 }}" class="card-img img-thumbnail rounded mx-auto d-block" style="width: 200px;height: 100px;" alt="..." />
             </div>
             <div class="col-md-7">
                 <div class="card-body p-0 col-md-12 ">
-                    <a href="#" class="card-title m-0 strong">
-                       {{ item.productPostResponseDTO.productPostTitle }}
+                    <a [routerLink]="['/product', item.productPostResponseDTO.id, 'productdetail']" class="card-title m-0 strong">
+                        <p class="giveMeEllipsisTitle mb-1">{{ item.productPostResponseDTO.productPostTitle }}</p>
                     </a>
-                    <p class="card-text small col-md-12 p-0">Địa chỉ:{{ item.productPostResponseDTO.address }}, {{ item.productPostResponseDTO.ward.name }}, {{ item.productPostResponseDTO.district.name }}, {{ item.productPostResponseDTO.province.name}}</p>
+                    <p class="card-text small col-md-12 p-0">Địa chỉ: <span class="font-italic">{{ item.productPostResponseDTO.address }}, {{ item.productPostResponseDTO.ward.name }}, {{ item.productPostResponseDTO.district.name }}, {{ item.productPostResponseDTO.province.name}}</span></p>
                 </div>
             </div>
         </div>
-        <hr class="grey-text my-3" />
     </div>
 </div>
