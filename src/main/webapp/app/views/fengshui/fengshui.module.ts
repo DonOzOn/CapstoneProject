@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-
+import { CarouselModule } from 'primeng/carousel';
 import { FengShuiRoutingModule } from './fengshui-routing.module';
 import { IconsModule, ButtonsModule } from 'angular-bootstrap-md';
 import { FengshuiComponent } from './fengshui.component';
@@ -17,6 +17,7 @@ import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
     ButtonsModule,
     MDBBootstrapModule.forRoot(),
     FormsModule,
+    CarouselModule,
     ReactiveFormsModule,
     RealestatebrokerageSharedModule
   ]

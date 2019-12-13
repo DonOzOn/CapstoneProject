@@ -33,7 +33,7 @@
                                             <a [routerLink]="[ '/news', item.id , 'detail' ]">
                                                 <!-- <img class="img-fluid w-100" src="https://bootstrap.news/source/img1.jpg" alt="Image description"> -->
                                                 <img class="img-fluid w-100" *ngIf="item.imageUrl !== null" src="{{imageUrl}}{{item.imageUrl}}" style="height: 370px;" alt="Image description">
-                                                <img class="img-fluid w-100" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg"alt="Image description" > 
+                                                <img class="img-fluid w-100" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg" alt="Image description">
                                             </a>
                                         </div>
                                         <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
@@ -144,7 +144,6 @@
                 <!--Start box news-->
                 <div class="col-12 col-md-6 pt-2 pl-md-1 mb-3 mb-lg-4">
                     <div class="row">
-
                         <!--news box-->
                         <div class="col-6 pb-1 pt-0 pr-1" *ngFor="let item of list4NewsLastElement">
                             <div class="card border-0 rounded-0 text-white overflow zoom">
@@ -154,7 +153,7 @@
                                         <a [routerLink]="[ '/news', item.id , 'detail' ]">
                                             <!-- <img class="img-fluid" src="https://bootstrap.news/source/img5.jpg" alt="Image description"> -->
                                             <img class="img-fluid" *ngIf="item.imageUrl !== null" src="{{imageUrl}}{{item.imageUrl}}" alt="Image description">
-                                            <img class="img-fluid" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg"alt="Image description" > 
+                                            <img class="img-fluid" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg" alt="Image description">
                                         </a>
                                     </div>
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
@@ -245,11 +244,9 @@
         </div>
     </div>
     <!--end code-->
-    <div class="row">
 
-    </div>
     <div class="row" style=" margin-top: -26px;">
-        <div class="col-md-9">
+        <div class="col-md-12 pr-0">
             <div class="row mb-2" *ngFor="let item of listNews | paginate: config">
                 <div class="col-md-12">
                     <div class="card">
@@ -274,9 +271,9 @@
                                                     <li class="list-inline-item text-secondary">
                                                         <i class="fa fa-user"></i> {{item.createdBy}}
                                                     </li>
-                                                    <li class="list-inline-item text-secondary">
+                                                    <!-- <li class="list-inline-item text-secondary">
                                                         <i class="fa fa-eye"></i> 110 Views
-                                                    </li>
+                                                    </li> -->
                                                     <li class="list-inline-item text-secondary">
                                                         <i class="fa fa-calendar"></i> {{item.createdDate | date:'HH:mm dd/MM/yyyy'}}
                                                     </li>
@@ -290,80 +287,11 @@
                     </div>
                 </div>
             </div>
-            <nav aria-label="" *ngIf="listNews" class="mt-2">
+            <nav aria-label="" *ngIf="listNews.length !== 0" class="mt-2">
                 <ul class="pagination pg-blue justify-content-end">
                     <pagination-controls [previousLabel]="labels.previousLabel" [nextLabel]="labels.nextLabel" (pageChange)="pageChanged($event)"></pagination-controls>
                 </ul>
             </nav>
-        </div>
-        <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12" style="background-color: gray;height: 500px;">
-                    <div class="card">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-5" style="background-color: white">
-                <div class="col-md-12 px-0">
-                    <div class="d-flexbox justify-content-center col-md-12 rounded">
-                        <div class="col-md-12 p-0 text-center">
-                            <h5 class="strong mb-3">Có thể bạn quan tâm</h5>
-                        </div>
-                        <div class="card border-0 ">
-                            <div class="row no-gutters col-md-12 p-0">
-                                <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
-                                    <img src="/content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="...">
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="card-body p-0 col-md-12 ">
-                                        <a href="#" class="card-title m-0 strong">
-                                                Alice Liddel Alice AA Liddel Liddel
-                                            </a>
-                                        <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="grey-text my-3">
-                        </div>
-                        <div class="card border-0">
-                            <div class="row no-gutters col-md-12 p-0">
-                                <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
-                                    <img src="/content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="...">
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="card-body p-0 col-md-12 ">
-                                        <a href="#" class="card-title m-0 strong">
-                                                    Alice Liddel Alice AA Liddel Liddel
-                                                </a>
-                                        <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="grey-text my-3">
-                        </div>
-                        <div class="card border-0">
-                            <div class="row no-gutters col-md-12 p-0">
-                                <div class="col-md-4 waves-light mr-2" style="background: #868e96;">
-                                    <img src="/content/img/sg-1.jpg" class="card-img h-100 img-responsive" alt="...">
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="card-body p-0 col-md-12 ">
-                                        <a href="#" class="card-title m-0 strong">
-                                                        Alice Liddel Alice AA Liddel Liddel
-                                                    </a>
-                                        <p class="card-text small col-md-12 p-0">Địa chỉ: abc xyz abc xyz abc xyz abc xyz</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="grey-text my-3">
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
