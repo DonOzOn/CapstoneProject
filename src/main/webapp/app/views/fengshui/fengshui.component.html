@@ -339,87 +339,68 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="news">
-                <div class="container">
-                    <div class="box-title">
-                        <div class="row">
-                            <div class="col-sm-8 title-left">
-                                <h2>
-                                    <a href="#">Tin tức</a>
-                                    <span class=""></span>
-                                </h2>
-                                <span class="grey-text small">
-                                    Cập nhật các thông tin mới nhất về thị trường bất động sản
-                                </span>
-                            </div>
+        </div>
 
+    </div>
+</div>
+
+<div class="col-md-12 d-inline-flex mt-4" *ngIf="listPostByDirection">
+
+    <div class="col-md-12" style="background-color: #afc0cf;">
+        <p-carousel class="px-1" [value]="listPostByDirection" styleClass="custom-carousel" [numVisible]="4" [numScroll]="3" [circular]="true" [autoplayInterval]="7000" [responsiveOptions]="responsiveOptions">
+            <p-header>
+                <a class="h3 font-weight-bold text-uppercase" href="#">Phù hợp nhất
+                                <sup><i class="fas fa-cog faa-spin animated"></i></sup></a>
+            </p-header>
+            <ng-template let-post pTemplate="item">
+                <div class="card mx-2">
+                    <img class="img-thumbnail rounded mx-auto d-block card-img-top img-slide" src="{{ imageUrl }}{{ post.imageDTO.img1 }}" />
+                    <div class="d-flex flex-row icon-slide">
+                        <div class="col-md-6 d-flex justify-content-start">
+                            <!-- <p class="text-warning font-weight-bold"><i class="fas fa-street-view fa-lg text-warning"></i>2km</p> -->
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end float-right">
+                            <p class="text-warning font-weight-bold">
+                                <i class="fas fa-chart-area fa-lg text-warning"></i>{{ post.productPostResponseDTO.product.area }}m<sup>2</sup>
+                            </p>
                         </div>
                     </div>
-                    <div class="row mt-1 mb-5">
-                        <div class="col-md-12 p-0">
-                            <div class="card-deck p-0 m-0 d-flex justify-content-center">
-                                <div class="card col-md-3 p-2 mr-3 rounded">
-                                    <img class="card-img-top" src="../../../content/img/sg-1.jpg" alt="Card image cap">
-                                    <a href="#">
-                                        <h5 class="card-title pt-2 px-1 m-0">Alice Liddel</h5>
-                                    </a>
-                                    <div class="card-body p-1">
-                                        <p class="card-text border-bottom py-1">Some quick example text to build on the
-                                            card title and make up the bulk of the card's content.</p>
-                                        <div class="d-inline-flex col-md-12 px-0 justify-content-end">
-                                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem
-                                                thêm</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card col-md-3 p-2 mr-3 rounded">
-                                    <img class="card-img-top" src="../../../content/img/sg-1.jpg" alt="Card image cap">
-                                    <a href="#">
-                                        <h5 class="card-title pt-2 px-1 m-0">Alice Liddel</h5>
-                                    </a>
-                                    <div class="card-body p-1">
-                                        <p class="card-text border-bottom py-1">Some quick example text to build on the
-                                            card title and make up the bulk of the card's content.</p>
-                                        <div class="d-inline-flex col-md-12 px-0 justify-content-end">
-                                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem
-                                                thêm</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card col-md-3 p-2 mr-3 rounded">
-                                    <img class="card-img-top" src="../../../content/img/sg-1.jpg" alt="Card image cap">
-                                    <a href="#">
-                                        <h5 class="card-title pt-2 px-1 m-0">Alice Liddel</h5>
-                                    </a>
-                                    <div class="card-body p-1">
-                                        <p class="card-text border-bottom py-1">Some quick example text to build on the
-                                            card title and make up the bulk of the card's content.</p>
-                                        <div class="d-inline-flex col-md-12 px-0 justify-content-end">
-                                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem
-                                                thêm</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card col-md-3 p-2 ml-3 rounded">
-                                    <img class="card-img-top" src="../../../content/img/sg-1.jpg" alt="Card image cap">
-                                    <a href="#">
-                                        <h5 class="card-title pt-2 px-1 m-0">Alice Liddel</h5>
-                                    </a>
-                                    <div class="card-body p-1">
-                                        <p class="card-text border-bottom py-1">Some quick example text to build on the
-                                            card title and make up the bulk of the card's content.</p>
-                                        <div class="d-inline-flex col-md-12 px-0 justify-content-end">
-                                            <button class="btn blue-gradient col-md-6 text-light" mdbWavesEffect>Xem
-                                                thêm</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="card-body text-center" style="font-family:'Quicksand', sans-serif">
+                        <h5 class="card-title giveMeEllipsisSlide font-weight-bold" data-toggle="tooltip " data-placement="top " title="Liên hệ">
+                            <a [routerLink]="['/product', post.productPostResponseDTO.id, 'productdetail']">{{post.productPostResponseDTO.productPostTitle}}</a>
+                        </h5>
+                        <p class="font-weight-light font-italic giveMeEllipsisSlide">
+                            <i class="fas fa-map-marked-alt"></i>{{ post.productPostResponseDTO.ward.name }}, {{ post.productPostResponseDTO.district.name }}, {{ post.productPostResponseDTO.province.name }}
+                        </p>
+                    </div>
+                    <div class="card-body border-top d-flex col-md-12">
+                        <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-start">
+                            {{ post.productPostResponseDTO.productPostType.productPostTypeName }}:
+                        </h5>
+                        <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price >= 100000000">
+                            <i class="fas fa-dollar-sign fa-lg"></i>{{ post.productPostResponseDTO.product.price / 1000000000 }}tỷ
+                        </h5>
+                        <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 100000000 && post.productPostResponseDTO.product.price >= 1000000">
+                            <i class="fas fa-dollar-sign fa-lg"></i>{{ post.productPostResponseDTO.product.price / 1000000 }}triệu
+                        </h5>
+                        <h5 class=" m-0 p-0 col-md-6 font-weight-bold d-flex justify-content-center faa-pulse animated" *ngIf="post.productPostResponseDTO.product.price < 1000000">
+                            <i class="fas fa-dollar-sign fa-lg"></i>{{ post.productPostResponseDTO.product.price / 1000 }}ngàn
+                        </h5>
+                    </div>
+                    <div class="card-footer text-muted d-flex flex-row p-3">
+                        <img *ngIf="post.productPostResponseDTO.user.imageUrl !== null" src="{{ imageUrl }}{{ post.productPostResponseDTO.user.imageUrl }}" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{ post.productPostResponseDTO.createdBy }}"
+                        />
+                        <img *ngIf="post.productPostResponseDTO.user.imageUrl === null" src="../../../content/img/default-avar.png" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{ post.productPostResponseDTO.createdBy }}" />
+                        <a class="card-text my-0  pl-2 pt-2 pr-0 text-left text-capitalize text-truncate" data-placement="top " title="{{ post.productPostResponseDTO.user.firstName }} {{ post.productPostResponseDTO.user.lastName }}" style="width:150px;">{{ post.productPostResponseDTO.user.firstName }}
+                                        {{ post.productPostResponseDTO.user.lastName }}</a>
+                        <div class="d-flex px-0 justify-content-end card-body py-0">
+                            <a class="btn blue-gradient rounded text-light" [routerLink]="['/product', post.productPostResponseDTO.id, 'productdetail']" role="button">Chi
+                                            tiết</a>
                         </div>
                     </div>
                 </div>
-            </div> -->
-        </div>
+            </ng-template>
+        </p-carousel>
     </div>
 </div>
 <div class=" row col-md-12 d-inline-flex">
