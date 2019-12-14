@@ -5,6 +5,7 @@ import { ListreviewComponent } from './listreview/listreview.component';
 import { ReviewpageComponent } from './reviewpage/reviewpage.component';
 import { ReviewdetailComponent } from './reviewdetail/reviewdetail.component';
 import { ReviewService } from 'app/core/review/review.service';
+import { GalleryComponent } from './gallery/gallery.component';
 @Injectable({ providedIn: 'root' })
 export class DetailReviewResolve implements Resolve<any> {
   detaireview: any;
@@ -56,6 +57,7 @@ const routes: Routes = [
         path: '',
         component: ReviewpageComponent
       },
+
       {
         path: 'listreview',
         component: ListreviewComponent,
@@ -77,6 +79,10 @@ const routes: Routes = [
         resolve: {
           typeSearch: FullTextSearchResolve
         }
+      },
+      {
+        path: 'gallery',
+        component: GalleryComponent
       }
     ]
   }
