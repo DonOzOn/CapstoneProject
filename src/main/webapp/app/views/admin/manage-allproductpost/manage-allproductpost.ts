@@ -210,7 +210,26 @@ export class ManageAllProductpostComponent implements OnInit {
       this.cars = res.data.rows;
     });
   }
+  /**
+   * return post
+   * @param event
+   * @param post
+   */
+  returnSelectPostproduct(id: any) {
+    // eslint-disable-next-line
+    console.log('id: ', id);
 
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc chắn muốn hiển thị bài đăng này?',
+      accept: () => {
+        this.alertService.clear();
+        this.postService.delete(id).subscribe(() => {
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã hiển thị bài đăng thành công!!' });
+          this.getListPostProduct();
+        });
+      }
+    });
+  }
   /**
    * delete post
    * @param event

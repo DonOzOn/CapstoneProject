@@ -80,7 +80,7 @@
                                             <div class="ui-g-12 ui-md-1 search-icon py-3">
                                                 <button class="btn btn-primary btn-sm d-flex justify-content-center mb-5" style="width:50px;" (click)="selectNews($event, new)">Xem</button>
                                                 <button class="btn btn-warning btn-sm d-flex justify-content-center" style="width:50px;" *ngIf="new.status" (click)="deleteNews(new.id)">Tắt</button>
-                                                <button class="btn btn-success btn-sm d-flex justify-content-center" style="width:50px;" *ngIf="!new.status" (click)="deleteNews(new.id)">Bật</button>
+                                                <button class="btn btn-success btn-sm d-flex justify-content-center" style="width:50px;" *ngIf="!new.status" (click)="returnNews(new.id)">Bật</button>
 
                                             </div>
                                         </div>

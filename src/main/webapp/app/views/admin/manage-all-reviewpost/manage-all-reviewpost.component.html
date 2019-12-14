@@ -67,7 +67,7 @@
                                             <div class="ui-g-12 ui-md-1 search-icon py-3">
                                                 <button class="btn btn-primary btn-sm d-flex justify-content-center mb-5" style="width:50px;" (click)="selectReview($event, review)">Xem</button>
                                                 <button class="btn btn-warning btn-sm d-flex justify-content-center" style="width:50px;" *ngIf="review.status" (click)="deleteSelectReview(review.id)">Tắt</button>
-                                                <button class="btn btn-success btn-sm d-flex justify-content-center" style="width:50px;" *ngIf="!review.status" (click)="deleteSelectReview(review.id)">Bật</button>
+                                                <button class="btn btn-success btn-sm d-flex justify-content-center" style="width:50px;" *ngIf="!review.status" (click)="returnSelectReview(review.id)">Bật</button>
                                             </div>
                                         </div>
                                     </ng-template>

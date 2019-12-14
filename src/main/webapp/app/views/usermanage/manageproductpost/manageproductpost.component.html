@@ -302,7 +302,7 @@
                                                                                                             Giá tiền không hợp lệ.
                                                                                                         </small>
                                                                                                         <small class="form-text text-danger" *ngIf="productPostForm.get('price').errors.maxlength">
-                                                                                                            Giá tiền dài nhất có 50 kí tự.
+                                                                                                            Giá tiền lơn nhất có 15 chữ số.
                                                                                                         </small>
                                                                                                     </div>
                                                                                                 </div>
@@ -323,7 +323,7 @@
                                                                                                             Diện tích không hợp lệ.
                                                                                                         </small>
                                                                                                         <small class="form-text text-danger" *ngIf="productPostForm.get('area').errors.maxlength">
-                                                                                                            Diện tích dài nhất có 50 kí tự.
+                                                                                                            Diện tích lớn nhất có 5 chữ số.
                                                                                                         </small>
                                                                                                     </div>
                                                                                                 </div>
@@ -506,8 +506,11 @@
                                                                                                             <small class="form-text text-danger" *ngIf="productPostForm.get('numFloor').errors.pattern">
                                                                                                                 Số tầng không hợp lệ.
                                                                                                             </small>
-                                                                                                            <small class="form-text text-danger" *ngIf="productPostForm.get('numFloor').errors.maxlength">
+                                                                                                            <!-- <small class="form-text text-danger" *ngIf="productPostForm.get('numFloor').errors.maxlength">
                                                                                                                 Số tầng dài nhất có 11 số.
+                                                                                                            </small> -->
+                                                                                                            <small class="form-text text-danger" *ngIf="productPostForm.get('numFloor').errors.max">
+                                                                                                                Số tầng không lơn hơn 200.
                                                                                                             </small>
                                                                                                         </div>
                                                                                                     </div>
@@ -528,8 +531,11 @@
                                                                                                             <small class="form-text text-danger" *ngIf="productPostForm.get('numBathroom').errors.pattern">
                                                                                                                 Số phòng tắm không hợp lệ.
                                                                                                             </small>
-                                                                                                            <small class="form-text text-danger" *ngIf="productPostForm.get('numBathroom').errors.maxlength">
+                                                                                                            <!-- <small class="form-text text-danger" *ngIf="productPostForm.get('numBathroom').errors.maxlength">
                                                                                                                 Số phòng tắm dài nhất có 11 số.
+                                                                                                            </small> -->
+                                                                                                            <small class="form-text text-danger" *ngIf="productPostForm.get('numBathroom').errors.max">
+                                                                                                                Số phòng tắm nhỏ hơn 200.
                                                                                                             </small>
                                                                                                         </div>
                                                                                                     </div>
@@ -550,8 +556,8 @@
                                                                                                             <small class="form-text text-danger" *ngIf="productPostForm.get('numBedroom').errors.pattern">
                                                                                                                 Số phòng ngủ không hợp lệ.
                                                                                                             </small>
-                                                                                                            <small class="form-text text-danger" *ngIf="productPostForm.get('numBedroom').errors.maxlength">
-                                                                                                                Số phòng ngủ dài nhất có 11 số.
+                                                                                                            <small class="form-text text-danger" *ngIf="productPostForm.get('numBedroom').errors.max">
+                                                                                                                Số phòng ngủ nhỏ hơn 20.
                                                                                                             </small>
                                                                                                         </div>
                                                                                                     </div>

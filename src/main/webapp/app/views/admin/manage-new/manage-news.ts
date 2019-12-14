@@ -143,7 +143,24 @@ export class ManageNewsComponent implements OnInit {
       }
     }
   }
-
+  /**
+   * Return select postproduct
+   * @param id
+   */
+  returnNews(id: any) {
+    // eslint-disable-next-line
+    console.log('id: ', id);
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc chắn muốn hiển thị bài đăng này?',
+      accept: () => {
+        this.alertService.clear();
+        this.newsService.delete(id).subscribe(() => {
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã hiển thị bài đăng thành công!!' });
+          this.getListNew();
+        });
+      }
+    });
+  }
   /**
    * Deletes select postproduct
    * @param id
