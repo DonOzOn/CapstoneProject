@@ -181,13 +181,13 @@ export class ManageNewsComponent implements OnInit {
           this.uploadedFiles.pop();
           this.uploadedFiles.push(res.body);
           this.isUploadedFile = true;
-          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh đại diện thành công!!' });
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã tải ảnh thành công!!' });
         },
         (err: HttpErrorResponse) => {
           // eslint-disable-next-line
           console.log('error: ', err);
           this.isUploadedFile = false;
-          this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh đại diện thất bại!!' });
+          this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh thất bại!!' });
         }
       );
     });

@@ -14,7 +14,7 @@ public class UsingImage extends AbstractAuditingEntity implements Serializable {
     private Long id;
 
     @OneToOne
-    @JoinColumn(referencedColumnName = "id", name = "image_id")
+    @JoinColumn(referencedColumnName =  "id", name = "image_id")
     private Image image;
 
     @ManyToOne
