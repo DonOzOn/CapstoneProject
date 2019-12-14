@@ -26,6 +26,12 @@ public class Ward {
     private District district;
 
 
+    public Ward(String code, String name, String type, District district) {
+        this.code = code;
+        this.name = name;
+        this.type = type;
+        this.district = district;
+    }
 
     public String getCode() {
         return code;
@@ -57,5 +63,15 @@ public class Ward {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Ward{" +
+            "code='" + code + '\'' +
+            ", name='" + name + '\'' +
+            ", type='" + type + '\'' +
+            ", district=" + district +
+            '}';
     }
 }

@@ -168,6 +168,8 @@ export class ManageproductpostComponent implements OnInit {
       accept: () => {
         this.alertService.clear();
         this.postService.delete(id).subscribe(() => {
+          // eslint-disable-next-line
+          console.log('postId : ', id);
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã xóa bài đăng thành công!!' });
           this.getListPostProduct();
         });
@@ -244,8 +246,6 @@ export class ManageproductpostComponent implements OnInit {
         console.log('sort : ');
         return new Date(b.productPostResponseDTO.createdDate).valueOf() - new Date(a.productPostResponseDTO.createdDate).valueOf();
       });
-      // eslint-disable-next-line
-      console.log('sorted : ', this.posts);
     });
   }
   onSortChange(event: { value: any }) {

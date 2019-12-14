@@ -22,6 +22,12 @@ public class Province {
     @Column(name = "type")
     private String type;
 
+    public Province(String code, String name, String type) {
+        this.code = code;
+        this.name = name;
+        this.type = type;
+    }
+
     public String getCode() {
         return code;
     }
@@ -44,5 +50,14 @@ public class Province {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Province{" +
+            "code='" + code + '\'' +
+            ", name='" + name + '\'' +
+            ", type='" + type + '\'' +
+            '}';
     }
 }

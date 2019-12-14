@@ -75,7 +75,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  messageRecieved(e) {
+  messageRecieve(e) {
     // eslint-disable-next-line
     console.log('don123: ', e.detail);
     this.name = e.detail;
