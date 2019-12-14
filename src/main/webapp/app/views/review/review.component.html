@@ -154,11 +154,12 @@
                                                                         <span class="ui-float-label pl-2 ml-2">
                                                                                 <p-editor formControlName="content"
                                                                                     [(ngModel)]="text1"
+                                                                                    (onTextChange)="countContentNumber()"
                                                                                     [style]="{'height':'600px'}">
                                                                                 </p-editor>
                                                                                 <button pButton type="button"
-                                                                                    label="Clear" icon="pi pi-times"
-                                                                                    (click)="text1=null"></button>
+                                                                                    label="Xóa" icon="pi pi-times"
+                                                                                     (click)="text1=null" [disabled]="!countContentNumber()" ></button>
                                                                             </span>
                                                                         <div class="pl-3" *ngIf="reviewPostForm.controls.decription.invalid && (reviewPostForm.controls.content.dirty || reviewPostForm.controls.content.touched)">
                                                                             <small class="form-text text-danger" *ngIf="reviewPostForm.controls.content.errors?.required">

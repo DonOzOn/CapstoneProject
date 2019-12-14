@@ -57,7 +57,7 @@
                                         <!-- Phone-->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
                                             <h6 class="first">SĐT</h6>
-                                            <input id="input" type="text" class="form-control" formControlName="phone">
+                                            <input id="input" type="text" placeholder="Nhập số điện thoại" class="form-control" formControlName="phone">
                                             <div *ngIf="profileForm.get('phone').invalid && (profileForm.get('phone').dirty || profileForm.get('phone').touched)">
                                                 <small class="form-text text-danger" *ngIf="profileForm.get('phone').errors.required">
                                                     Số điện thoại không được để trống.
@@ -82,7 +82,7 @@
                                             <h6 class="first col-md-12 px-0">Thành phố</h6>
                                             <ng-select style="width: 285px;" [items]="listProvinces" (change)="selectedProvince()" bindLabel="name" bindValue="code" placeholder="--- Chọn Tỉnh/Thành ---" formControlName="provinceCode">
                                                 <ng-template ng-option-tmp let-item="item">
-                                                    {{item.name}}
+                                                    Không tìm thấy
                                                 </ng-template>
                                             </ng-select>
                                             <div *ngIf="profileForm.controls.provinceCode.invalid && (profileForm.controls.provinceCode.dirty || profileForm.controls.provinceCode.touched)">
