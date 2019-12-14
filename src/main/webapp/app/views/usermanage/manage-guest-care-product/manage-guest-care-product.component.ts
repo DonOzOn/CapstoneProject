@@ -171,6 +171,8 @@ export class ManageGuestCareComponent implements OnInit {
     this.loading = false;
     this.totalRecords = headers.get('X-Total-Count');
     this.guests = data;
+    // eslint-disable-next-line
+    console.log('guest', this.guests);
   }
   private onError(error) {
     this.loading = false;

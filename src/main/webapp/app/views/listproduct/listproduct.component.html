@@ -253,7 +253,7 @@
                 </nav>
             </div>
 
-            <div class="col-md-4 px-0">
+            <div class="col-md-4 px-0" *ngIf="post.length !== 0">
                 <app-care-you [listSuggest]="listSuggest"></app-care-you>
             </div>
         </div>
