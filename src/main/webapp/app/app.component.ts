@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { trigger, state, transition, style, animate } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
 import { NavigationStart, NavigationEnd, Router, NavigationCancel, NavigationError } from '@angular/router';
-import { FacebookService, InitParams } from 'ngx-facebook';
+import { FacebookService } from 'ngx-facebook';
 import { MessageService } from 'primeng/api';
 import { AccountService } from './core/auth/account.service';
 import { Account } from './core/user/account.model';
@@ -52,7 +52,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initFacebookService();
     this.router.events.subscribe(evt => {
       if (!(evt instanceof NavigationEnd)) {
         return;
@@ -97,8 +96,8 @@ export class AppComponent implements OnInit {
     console.log('e.detail: ', e.detail);
   }
 
-  initFacebookService(): void {
-    const initParams: InitParams = { xfbml: true, version: 'v3.2' };
-    this.facebookService.init(initParams);
-  }
+  // initFacebookService(): void {
+  //   const initParams: InitParams = { xfbml: true, version: 'v3.2' };
+  //   this.facebookService.init(initParams);
+  // }
 }

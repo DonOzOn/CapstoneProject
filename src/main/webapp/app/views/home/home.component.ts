@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
     choose: ['']
   });
   listProvinces = [];
+  listNumPost = [];
   listUsers: IUser[] = [];
   post: PostRespone[] = [];
   /* pagination */
@@ -138,16 +139,8 @@ export class HomeComponent implements OnInit {
     self.userService.find(self.currentAccount.login).subscribe((userAuthen: IUser) => {
       self.currentUser = userAuthen;
       self.currentUser.token = e.detail;
-      self.userService.update(self.currentUser).subscribe(res => {
-        // eslint-disable-next-line
-        console.log('update..fdfdf: ', res.body);
-      });
-      // eslint-disable-next-line
-      console.log('save token: ', e.detail);
+      self.userService.update(self.currentUser).subscribe(res => {});
     });
-
-    // eslint-disable-next-line
-    console.log('e.detail: ', e.detail);
   }
   /**
    * Gets list post product
@@ -173,6 +166,9 @@ export class HomeComponent implements OnInit {
     let ans = [];
     arr.forEach(element => {
       if (!isExist(ans, element)) {
+        this.postService.listAllByUserID(element.productPostResponseDTO.user.id).subscribe(res => {
+          element.productPostResponseDTO.totalReport = res.body.length;
+        });
         ans.push(element);
       }
     });
