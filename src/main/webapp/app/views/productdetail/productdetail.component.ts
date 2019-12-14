@@ -36,9 +36,9 @@ export class ProductdetailComponent implements OnInit {
   liked = false;
   likedPost: LikedPost;
   inforForm = this.fb.group({
-    name: ['', Validators.maxLength(50)],
+    name: ['', Validators.maxLength(32)],
     phone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
-    email: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(256)]],
+    email: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(32)]],
     mess: ['', [Validators.maxLength(200)]]
   });
   constructor(
