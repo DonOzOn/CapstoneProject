@@ -26,13 +26,49 @@ export class NotificationComponent implements OnInit {
   currentAccount: Account;
   currentUser: IUser;
   checked: false;
+  /* pagination */
+  public directionLinks = true;
+  public autoHide = false;
+  public responsive = true;
+  public maxSize = 5;
+  listPagination: any[] = [];
+  config: any;
+  count: any;
+  public labels: any = {
+    previousLabel: 'Previous',
+    nextLabel: 'Next'
+  };
   constructor(
     private notificationService: NotificationService,
     private alertService: JhiAlertService,
     private accountService: AccountService,
     private userService: UserService,
     private router: Router
-  ) {}
+  ) {
+    for (let i = 0; i < this.count; i++) {
+      this.listPagination.push({
+        id: i + 1,
+        value: 'items number' + (i + 1)
+      });
+    }
+    this.config = {
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: this.count
+    };
+  }
+
+  /*  get total page in pagination*/
+  getTotalPage() {
+    this.notificationService.getListNoti().subscribe(res => {
+      this.count = res.body.length;
+      return this.count;
+    });
+  }
+  pageChanged(event) {
+    this.config.currentPage = event;
+  }
+
   ngOnInit() {
     this.accountService.identity().subscribe((account: Account) => {
       this.currentAccount = account;

@@ -72,15 +72,17 @@
                                                     <div class="ui-g-3 ui-sm-6">Người đăng:</div>
                                                     <div class="ui-g-9 ui-sm-6"><b>{{new.createdBy}}</b></div>
                                                     <div class="ui-g-3 ui-sm-6">Trạng thái: </div>
-                                                    <div class="ui-g-9 ui-sm-6" *ngIf="new.status"><span class="badge badge-success">Tồn tại</span></div>
-                                                    <div class="ui-g-9 ui-sm-6" *ngIf="!new.status"><span class="badge badge-danger">Không tồn tạ<i></i></span></div>
+                                                    <div class="ui-g-9 ui-sm-6" *ngIf="new.status"><span class="badge badge-success">Tồn
+                              tại</span></div>
+                                                    <div class="ui-g-9 ui-sm-6" *ngIf="!new.status"><span class="badge badge-danger">Không tồn
+                              tạ<i></i></span></div>
 
                                                 </div>
                                             </div>
                                             <div class="ui-g-12 ui-md-1 search-icon py-3">
-                                                <button class="d-flex justify-content-start" pButton type="button" icon="" (click)="selectNews($event, new)" label="Xem"></button>
-                                                <button class="btn btn-warning d-flex justify-content-center" *ngIf="new.status" (click)="deleteNews(new.id)">Tắt</button>
-                                                <button class="btn btn-success d-flex justify-content-end" *ngIf="!new.status" (click)="deleteNews(new.id)">Bật</button>
+                                                <button class="btn btn-primary btn-sm d-flex justify-content-center mb-5" style="width:50px;" (click)="selectNews($event, new)">Xem</button>
+                                                <button class="btn btn-warning btn-sm d-flex justify-content-center" style="width:50px;" *ngIf="new.status" (click)="deleteNews(new.id)">Tắt</button>
+                                                <button class="btn btn-success btn-sm d-flex justify-content-center" style="width:50px;" *ngIf="!new.status" (click)="deleteNews(new.id)">Bật</button>
 
                                             </div>
                                         </div>
@@ -116,24 +118,19 @@
                                                                                     <!-- Tiêu đề -->
                                                                                     <div class="row col-md-12 m-0 p-0 d-flex justify-content-left">
                                                                                         <div class="col-md-2 px-3">
-                                                                                            <label class="m-0 py-1">Tiêu đề<label style="color: Red;">*</label></label>
+                                                                                            <label class="m-0 py-1">Tiêu đề<label
+                                                  style="color: Red;">*</label></label>
                                                                                         </div>
                                                                                         <div class="col-md-10 pl-4">
                                                                                             <span class="ui-float-label pl-2 ml-2">
-                                                <input
-                                                  id="float-input"
-                                                  type="text"
-                                                  formControlName="title"
-                                                  style="width: 100%;"
-                                                  pInputText
-                                                />
+                                                <input id="float-input" type="text" formControlName="title"
+                                                  style="width: 100%;" pInputText />
                                                 <label class="pl-2" for="float-input">Tiêu đề</label>
                                               </span>
                                                                                             <div class="pl-3" *ngIf="newsPostForm.controls.title.invalid && (newsPostForm.controls.title.dirty || newsPostForm.controls.title.touched)">
                                                                                                 <small class="form-text text-danger" *ngIf="newsPostForm.controls.title.errors?.required">
-                                                  Tiêu đề không được để trống</small
-                                                >
-                                                <small class="form-text text-danger" *ngIf="newsPostForm.get('title').errors.maxlength">
+                                                  Tiêu đề không được để trống</small>
+                                                                                                <small class="form-text text-danger" *ngIf="newsPostForm.get('title').errors.maxlength">
                                                   Tiêu đề dài nhất có 100 một kí tự.
                                                 </small>
                                                                                             </div>
@@ -142,28 +139,20 @@
                                                                                     <!-- Tiêu đề -->
                                                                                     <div class="row col-md-12 m-0 p-0 d-flex justify-content-left my-3">
                                                                                         <div class="col-md-2 px-3">
-                                                                                            <label class="m-0 py-1">Miêu tả ngắn<label style="color: Red;">*</label></label>
+                                                                                            <label class="m-0 py-1">Miêu tả ngắn<label
+                                                  style="color: Red;">*</label></label>
                                                                                         </div>
                                                                                         <div class="col-md-10 pl-4">
                                                                                             <span class="ui-float-label pl-2 ml-2">
-                                                <textarea
-                                                  id="float-input"
-                                                  rows="5"
-                                                  cols="30"
-                                                  formControlName="decription"
-                                                  pInputTextarea
-                                                  autoResize="autoResize"
-                                                ></textarea>
+                                                <textarea id="float-input" rows="5" cols="30"
+                                                  formControlName="decription" pInputTextarea
+                                                  autoResize="autoResize"></textarea>
                                                 <label class="pl-2" for="float-input">Miêu tả ngắn</label>
                                               </span>
                                                                                             <div class="pl-3" *ngIf="newsPostForm.controls.decription.invalid && (newsPostForm.controls.decription.dirty || newsPostForm.controls.decription.touched)">
                                                                                                 <small class="form-text text-danger" *ngIf="newsPostForm.controls.decription.errors?.required">
-                                                  Miêu tả ngắn không được để trống</small
-                                                >
-                                                <small
-                                                  class="form-text text-danger"
-                                                  *ngIf="newsPostForm.get('decription').errors.maxlength"
-                                                >
+                                                  Miêu tả ngắn không được để trống</small>
+                                                                                                <small class="form-text text-danger" *ngIf="newsPostForm.get('decription').errors.maxlength">
                                                   Miêu tả ngắn dài nhất có 200 một kí tự.
                                                 </small>
                                                                                             </div>
@@ -191,69 +180,44 @@
                                                                                         </div>
                                                                                         <div class="col-md-10 pl-4">
                                                                                             <span class="ui-float-label pl-2 ml-2">
-                                                <p-editor
-                                                  formControlName="content"
-                                                  [(ngModel)]="text1"
-                                                  [style]="{'height':'1000px'}"
-                                                ></p-editor>
-                                                <button
-                                                  pButton
-                                                  type="button"
-                                                  label="Clear"
-                                                  icon="pi pi-times"
-                                                  (click)="text1=null"
-                                                ></button>
+                                                <p-editor formControlName="content" [(ngModel)]="text1"
+                                                  [style]="{'height':'1000px'}"></p-editor>
+                                                <button pButton type="button" label="Clear" icon="pi pi-times"
+                                                  (click)="text1=null"></button>
                                               </span>
                                                                                             <div class="pl-3" *ngIf="newsPostForm.controls.decription.invalid && (newsPostForm.controls.content.dirty || newsPostForm.controls.content.touched)">
                                                                                                 <small class="form-text text-danger" *ngIf="newsPostForm.controls.content.errors?.required">
-                                                  Mô tả không được để trống</small
-                                                >
-                                              </div>
+                                                  Mô tả không được để trống</small>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-2">
+                                                            <div class="col-md-12 d-flex justify-content-center">
+                                                                <button pButton type="button" type="submit" *ngIf="new?.id === null" [disabled]="newsPostForm.invalid" label="Đăng tin" style="width: 200px;height: 50px;"></button>
+                                                            </div>
+                                                            <div class="col-md-12 d-flex justify-content-center">
+                                                                <button pButton type="button" type="submit" *ngIf="new?.id !== null" [disabled]="newsPostForm.invalid" label="Cập nhật" style="width: 200px;height: 50px;"></button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
-                                          </div>
                                         </div>
-                                      </div>
                                     </div>
-                                  </div>
-                                </div>
-                              </div>
+                                </p-dialog>
                             </div>
-                            <div class="row mb-2">
-                              <div class="col-md-12 d-flex justify-content-center">
-                                <button
-                                  pButton
-                                  type="button"
-                                  type="submit"
-                                  *ngIf="new?.id === null"
-                                  [disabled]="newsPostForm.invalid"
-                                  label="Đăng tin"
-                                  style="width: 200px;height: 50px;"
-                                ></button>
-                              </div>
-                              <div class="col-md-12 d-flex justify-content-center">
-                                <button
-                                  pButton
-                                  type="button"
-                                  type="submit"
-                                  *ngIf="new?.id !== null"
-                                  [disabled]="newsPostForm.invalid"
-                                  label="Cập nhật"
-                                  style="width: 200px;height: 50px;"
-                                ></button>
-                              </div>
-                            </div>
-                          </form>
                         </div>
-                      </div>
                     </div>
-                  </div>
-                </p-dialog>
-              </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+        <!--/.Card-->
     </div>
-    <!--/.Card-->
-  </div>
 </div>
