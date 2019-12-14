@@ -221,11 +221,11 @@ export class ManageAllProductpostComponent implements OnInit {
     console.log('id: ', id);
 
     this.confirmationService.confirm({
-      message: 'Bạn có chắc chắn muốn xóa bài đăng này?',
+      message: 'Bạn có chắc chắn muốn ẩn bài đăng này?',
       accept: () => {
         this.alertService.clear();
         this.postService.delete(id).subscribe(() => {
-          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã xóa bài đăng thành công!!' });
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã ẩn bài đăng thành công!!' });
           this.getListPostProduct();
         });
       }

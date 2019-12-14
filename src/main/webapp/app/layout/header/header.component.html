@@ -145,13 +145,17 @@
             </div>
             <div class="header-icon-user pl-4">
                 <div class="dropdown" *ngSwitchCase="true">
-                    <a *ngIf="account.imageUrl === null" data-toggle="tooltip" data-placement="top" title="Chào mừng {{account.login}}"><i class="fas fa-user-cog fa-2x text-white border-2 light-red"></i></a>
+                    <a *ngIf="account.imageUrl === null" data-toggle="tooltip" data-placement="top" title="Chào mừng {{account.login}}">
+                        <i class="fas fa-user-cog fa-2x text-white border-2 light-red" *jhiHasAnyAuthority="'ROLE_ADMIN'"></i>
+                        <i class="fas fa-user fa-2x text-white border-2 light-red" *jhiHasAnyAuthority="'ROLE_USER'"></i>
+                    </a>
                     <a *ngIf="account.imageUrl !== null" data-toggle="tooltip" data-placement="top" title="Chào mừng {{account.login}}"><img class="icon-user" src="{{imageUrl}}{{account.imageUrl}}"></a>
                     <ul class="drop-down" [class.show-dropdown]="isShowDropdown">
                         <li class="mt-2" *jhiHasAnyAuthority="'ROLE_USER'" [routerLink]="[ '/usermanage']"><a>Quản lí tài khoản</a></li>
                         <li class="mt-2" *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLink]="[ '/admin']"><a>Quản lí chung</a></li>
-                        <li [routerLink]="['/notification']"><a>Thông báo</a></li>
-                        <li (click)="requestChangePassword()"><a>Đổi mật khẩu</a></li>
+                        <li *jhiHasAnyAuthority="'ROLE_USER'" [routerLink]="['/notification']"><a>Thông báo</a></li>
+                        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLink]="['/notification']"><a>Quản lí tài khoản</a></li>
+                        <li *jhiHasAnyAuthority="'ROLE_USER'" (click)="requestChangePassword()"><a>Đổi mật khẩu</a></li>
                         <li class="mb-2" (click)="logout()"><a>Đăng xuất</a></li>
                     </ul>
                 </div>
@@ -272,5 +276,4 @@
             <li><a class="nav-link" [routerLink]="[ '/review']">Diễn đàn</a></li>
         </ul>
     </div>
-
 </header>
