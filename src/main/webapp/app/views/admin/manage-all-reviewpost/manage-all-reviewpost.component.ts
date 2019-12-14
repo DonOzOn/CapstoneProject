@@ -86,7 +86,21 @@ export class ManagereAllReviewpostComponent implements OnInit {
   ngOnInit() {
     // this.selectedType = 'Mua bán';
   }
+  returnSelectReview(id: any) {
+    // eslint-disable-next-line
+    console.log('id: ', id);
 
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc chắn muốn hiển thị bài đăng này?',
+      accept: () => {
+        this.alertService.clear();
+        this.reviewService.delete(id).subscribe(() => {
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã hiển thị bài đăng thành công!!' });
+          this.getListReview();
+        });
+      }
+    });
+  }
   /**
    * delete post
    * @param event

@@ -73,9 +73,9 @@ export class PostproductComponent implements OnInit {
     // eslint-disable-next-line
     numFloor: [null, [Validators.required, Validators.max(200), Validators.pattern('^[0-9]*$')]],
     // eslint-disable-next-line
-    numBathroom: [null, [Validators.required, Validators.max(20), Validators.pattern('^[0-9]*$')]],
+    numBathroom: [null, [Validators.required, Validators.max(200), Validators.pattern('^[0-9]*$')]],
     // eslint-disable-next-line
-    numBedroom: [null, [Validators.required, Validators.max(20), Validators.pattern('^[0-9]*$')]],
+    numBedroom: [null, [Validators.required, Validators.max(20), Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
     content: [this.text1, Validators.maxLength(255)],
     utilities: [null]
   });
@@ -206,8 +206,8 @@ export class PostproductComponent implements OnInit {
    * Count content length
    */
   countContentNumber() {
-    if (this.productPostForm.value.content.length != null) {
-      this.countContent = this.productPostForm.value.content.length;
+    if (this.text1 != null) {
+      this.countContent = this.text1;
       return true;
     } else {
       this.countContent = 0;

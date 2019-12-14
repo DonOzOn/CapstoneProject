@@ -47,7 +47,7 @@ export class ReviewComponent implements OnInit {
   /*  Form product post */
   reviewPostForm = this.fb.group({
     title: [null, [Validators.maxLength(100), Validators.required]],
-    content: [null, [Validators.required]],
+    content: [this.text1, Validators.maxLength(255)],
     decription: [null, [Validators.maxLength(200)]],
     type: [null]
   });
@@ -114,13 +114,13 @@ export class ReviewComponent implements OnInit {
           this.uploadedFiles.pop();
           this.uploadedFiles.push(res.body);
           this.isUploadedFile = true;
-          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh đại diện thành công!!' });
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh thành công!!' });
         },
         (err: HttpErrorResponse) => {
           // eslint-disable-next-line
           console.log('error: ', err);
           this.isUploadedFile = false;
-          this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh đại diện thất bại!!' });
+          this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh thất bại!!' });
         }
       );
     });
@@ -245,6 +245,18 @@ export class ReviewComponent implements OnInit {
             );
         }
       });
+    }
+  }
+  /**
+   * Count content length
+   */
+  countContentNumber() {
+    if (this.text1 != null) {
+      this.countContent = this.text1;
+      return true;
+    } else {
+      this.countContent = 0;
+      return false;
     }
   }
 

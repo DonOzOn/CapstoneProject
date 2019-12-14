@@ -55,8 +55,7 @@ public class ParController {
      *
      */
     @GetMapping("/fengshui/man/{yearitem}")
-    public ResponseEntity<DirectionHouseDTO
-        > getAllPostProductByMan(@PathVariable("yearitem") Long yearitem) {
+    public ResponseEntity<DirectionHouseDTO> getDirectionHouseParMan(@PathVariable("yearitem") Long yearitem) {
         long parId = 0;
          long sum = 0;
         long sotachra;
@@ -99,7 +98,7 @@ public class ParController {
      *
      */
     @GetMapping("/fengshui/woman/{yearitem}")
-    public ResponseEntity<DirectionHouseDTO> getAllPostProductBy(@PathVariable("yearitem") Long yearitem) {
+    public ResponseEntity<DirectionHouseDTO> getDirectionHouseParWoman(@PathVariable("yearitem") Long yearitem) {
         System.out.println(yearitem);
         long parId = 0;
         long sum = 0;

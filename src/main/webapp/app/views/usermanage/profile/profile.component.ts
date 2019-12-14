@@ -31,11 +31,15 @@ export class ProfileComponent implements OnInit {
   selectedType: boolean;
   types: SelectItem[];
   date6: Date;
+  currentYear: Number;
+  currentDate: Number;
+  currentMonth: Number;
   currentAccount: Account;
   currentUser: IUser;
   currentProvince: Province;
   currentDistrict: District;
   currentWard: Ward;
+
   /* List provinces, district, ward*/
   listProvinces = [];
   listDistrict = [];
@@ -156,7 +160,14 @@ export class ProfileComponent implements OnInit {
     });
     fileUpload.clear();
   }
+  // checkCurrentdate() {
+  //   this.currentYear = this.date6.getFullYear();
+  //   this.currentDate = this.date6.getDate();
+  //   this.currentMonth = this.date6.getMonth();
+  //   if (this.currentYear >= 2019){
 
+  //   }
+  // }
   onRemove(event) {
     const filtered = this.uploadedFiles.filter(function(value, index, arr) {
       return value.name !== event.file.name;
@@ -200,7 +211,7 @@ export class ProfileComponent implements OnInit {
         this.userService.update(data).subscribe(
           // eslint-disable-next-line
           () => (
-            this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã cập nhật thành công thông tin!!' }),
+            this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã cập nhật thành công thông tin!!' }),
             this.uploadedFiles.pop(),
             this.redirectTo('/usermanage')
           ),

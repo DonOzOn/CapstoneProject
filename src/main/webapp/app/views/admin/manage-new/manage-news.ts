@@ -143,7 +143,24 @@ export class ManageNewsComponent implements OnInit {
       }
     }
   }
-
+  /**
+   * Return select postproduct
+   * @param id
+   */
+  returnNews(id: any) {
+    // eslint-disable-next-line
+    console.log('id: ', id);
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc chắn muốn hiển thị bài đăng này?',
+      accept: () => {
+        this.alertService.clear();
+        this.newsService.delete(id).subscribe(() => {
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã hiển thị bài đăng thành công!!' });
+          this.getListNew();
+        });
+      }
+    });
+  }
   /**
    * Deletes select postproduct
    * @param id
@@ -181,13 +198,13 @@ export class ManageNewsComponent implements OnInit {
           this.uploadedFiles.pop();
           this.uploadedFiles.push(res.body);
           this.isUploadedFile = true;
-          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh đại diện thành công!!' });
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã tải ảnh thành công!!' });
         },
         (err: HttpErrorResponse) => {
           // eslint-disable-next-line
           console.log('error: ', err);
           this.isUploadedFile = false;
-          this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh đại diện thất bại!!' });
+          this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh thất bại!!' });
         }
       );
     });

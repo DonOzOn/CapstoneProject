@@ -79,7 +79,7 @@
                                             <div class="ui-g-12 ui-md-1 search-icon py-3">
                                                 <button class="btn btn-primary btn-sm d-flex justify-content-center mb-5 " style="width:50px;" (click)="selectPostproduct($event, post)">Xem</button>
                                                 <button class="btn btn-warning btn-sm d-flex justify-content-center " style="width:50px;" *ngIf="post.productPostResponseDTO?.status" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)">Tắt</button>
-                                                <button class="btn btn-success btn-sm d-flex justify-content-center " style="width:50px;" *ngIf="!post.productPostResponseDTO?.status" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)">Bật</button>
+                                                <button class="btn btn-success btn-sm d-flex justify-content-center " style="width:50px;" *ngIf="!post.productPostResponseDTO?.status" (click)="returnSelectPostproduct(post.productPostResponseDTO?.id)">Bật</button>
                                                 <!-- <button class="d-flex justify-content-end mt-5 ui-button-danger" pButton type="button" icon="" (click)="deleteSelectPostproduct(post.productPostResponseDTO?.id)" label="Xoá"></button> -->
                                             </div>
                                         </div>

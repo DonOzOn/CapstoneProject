@@ -35,6 +35,7 @@ export class ProductdetailComponent implements OnInit {
   currentUser: IUser;
   liked = false;
   likedPost: LikedPost;
+  currentUrl: string;
   inforForm = this.fb.group({
     name: ['', Validators.maxLength(32)],
     phone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
@@ -55,6 +56,9 @@ export class ProductdetailComponent implements OnInit {
     private likedService: LikedService
   ) {}
   ngOnInit() {
+    this.currentUrl = window.location.origin + this.router.url;
+    // eslint-disable-next-line
+    console.log(window.location.origin + this.currentUrl);
     this.activatedRoute.data.subscribe(res => {
       this.productdetail = res.detailProduct;
       // eslint-disable-next-line
