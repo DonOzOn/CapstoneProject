@@ -70,7 +70,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: bdscompanyvietnam@gmail.com
-    password: ngovandon
+    password: ngovandon123
     protocol: smtp
     tls: true
     properties.mail.smtp:
