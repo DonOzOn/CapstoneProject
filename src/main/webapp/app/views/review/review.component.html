@@ -31,7 +31,7 @@
             <div class="bc-icons-2 justify-content-start col-md-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb lighten-4 rounded-0 px-0 my-0 col-md-12">
-                        <li class="breadcrumb-item"><a class="text-muted" href="#"><i class="fa fa-home fa-2x"
+                        <!-- <li class="breadcrumb-item"><a class="text-muted" href="#"><i class="fa fa-home fa-2x"
                                         aria-hidden="true"></i></a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
                         <li class="breadcrumb-item pt-2">
                             <a class="" href="#">
@@ -39,8 +39,8 @@
                             </a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
                         <li class="breadcrumb-item pt-2"><a class="text-muted" href="#">Căn hộ</a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
                         <li class="breadcrumb-item pt-2 active">TP HỒ CHÍ MINH</li>
-                        <li class="col-md-3"></li>
-                        <li class="breadcrumb-item ml-5 pl-5" [ngSwitch]="isAuthenticated()">
+                        <li class="col-md-3"></li> -->
+                        <li class="breadcrumb-item pb-0" [ngSwitch]="isAuthenticated()">
                             <button *ngSwitchCase="true" (click)="don()" pButton icon="pi pi-plus" type="button" label="Tạo bài review/câu hỏi" class="ui-button-rounded"></button>
                             <button *ngSwitchCase="false" pButton icon="pi pi-plus" type="button" label="Tạo bài review/câu hỏi" class="ui-button-rounded" pTooltip="Đăng nhập để có thể tạo bài đăng" tooltipPosition="bottom" [routerLink]="[ '/login']"></button>
                         </li>

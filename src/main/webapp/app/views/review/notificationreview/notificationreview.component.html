@@ -1,0 +1,51 @@
+<div class="container-fluid px-0 d-inline-flex">
+    <div class="container mb-4 col-md-9 justify-content-center">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wrapper wrapper-content animated fadeInRight">
+                    <div class="ibox-content forum-container">
+                        <div class="forum-title background-blue rounded">
+                            <!-- <div class="pull-right forum-desc text-dark px-2">
+                              <small>Total posts: 20,800</small>
+                          </div> -->
+                            <div class="px-2 py-1">
+                                <h4 class="strong text-light">Thông báo</h4>
+                                <h6 class="small text-warning">Những thông báo quan trọng từ ban quản lý trang, danh sách các tài khoản bị cấm chat, block. </h6>
+                            </div>
+                        </div>
+                        <div *ngIf="reviews.length === 0">
+                            <h4 class="strong">Không có bài review nào</h4>
+                        </div>
+                        <div class="forum-item" *ngIf="reviews !== null">
+                            <div class="row px-0" *ngFor="let item of reviews | paginate: config">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-commenting-o"></i>
+                                    </div>
+                                    <a class="forum-item-title" [routerLink]="[ '/review', item.id,'detail']">{{item.title}} </a>
+                                    <div class="forum-sub-title">{{item.decription}}</div>
+                                </div>
+                                <div class="d-flex col-md-3 p-0">
+                                    <div class="col-md-8 forum-info d-flex flex-column px-0">
+                                        <span>{{item.createdBy}}</span>
+                                        <span class="font-italic small"> {{item.createdDate | date: 'dd/MM/yyyy'}}</span>
+                                    </div>
+                                    <div class="col-md-4 forum-info px-0">
+                                        <span *ngIf="item.totalLike === null">0</span> {{item.totalLike}} <i class="fas fa-thumbs-up text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <nav *ngIf="countReview !== 0" aria-label="" class="mt-2">
+                            <ul class="pagination pg-blue justify-content-end">
+                                <pagination-controls [previousLabel]="labels.previousLabel" [nextLabel]="labels.nextLabel" (pageChange)="pageChanged($event)"></pagination-controls>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
