@@ -64,10 +64,7 @@ public class HibernateSearchService {
             ;// do nothing
 
         }
-
         return BaseballCardList;
-
-
     }
 
     @Transactional
@@ -91,7 +88,6 @@ public class HibernateSearchService {
             BaseballCardList = jpaQuery.getResultList();
         } catch (NoResultException nre) {
             ;// do nothing
-
         }
 
         return BaseballCardList;
