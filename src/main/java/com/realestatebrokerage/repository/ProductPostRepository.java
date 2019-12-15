@@ -26,7 +26,7 @@ public interface ProductPostRepository extends JpaRepository<ProductPost, Long> 
     public List<ProductPost> findAllByStatusIsTrueAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(Instant from, Instant to);
 
 
-    public List<ProductPost> findAllByUserId(Long id);
+    public List<ProductPost> findAllByUserIdAndStatusIsTrue(Long id);
 
     @Query(value = "SELECT pp FROM ProductPost pp where pp.status = true AND pp.productPostType.id = :postType")
     public List<ProductPost> findAllByProductPostType(@Param("postType")Long postType);
