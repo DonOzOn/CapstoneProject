@@ -72,7 +72,7 @@ public class ProductPostService {
      * List all product post by date from to
      * **/
     public List<ProductPost> findAllByUserID(Long id){
-        return productPostRepository.findAllByUserIdAndStatusIsTrue(id);
+        return productPostRepository.findAllByUserId(id);
     }
 
     /**

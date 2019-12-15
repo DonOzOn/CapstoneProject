@@ -29,13 +29,7 @@ public class NotificationService {
 
 
     public void sendNoti(String sender,String token,String title, String content , Integer type ) {
-//        Message message = Message.builder()
-//            .setToken(token)
-//            .setNotification(new com.google.firebase.messaging.Notification(title,sender + content))
-//            .build();
         Message message = Message.builder()
-            .putData("score", "850")
-            .putData("time", "2:45")
             .setToken(token)
             .setNotification(new com.google.firebase.messaging.Notification(title,sender + content))
             .build();

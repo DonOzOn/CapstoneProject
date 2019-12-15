@@ -25,12 +25,6 @@ public class District {
     @Column(name = "type")
     private String type;
 
-    public District(String code, String name, Province province, String type) {
-        this.code = code;
-        this.name = name;
-        this.province = province;
-        this.type = type;
-    }
 
     public String getCode() {
         return code;
@@ -62,15 +56,5 @@ public class District {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return "District{" +
-            "code='" + code + '\'' +
-            ", name='" + name + '\'' +
-            ", province=" + province +
-            ", type='" + type + '\'' +
-            '}';
     }
 }

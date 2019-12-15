@@ -66,7 +66,7 @@ public class GuestCareProductService {
         guestCareProduct.setMess(guestCareProductRequestDTO.getMess());
         guestCareProduct.setEmail(guestCareProductRequestDTO.getEmail());
         guestCareProduct.setPhone(guestCareProductRequestDTO.getPhone());
-        guestCareProduct.setName(guestCareProductRequestDTO.getName());
+        guestCareProduct.setName(guestCareProductRequestDTO.getPhone());
         guestCareProduct.setStatus(true);
         if(guestCareProductRequestDTO.getUser() != null){
             User user = userRepository.findById(guestCareProductRequestDTO.getUser()).orElse(null);

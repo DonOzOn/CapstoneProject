@@ -48,8 +48,7 @@ public class GuestCareProduct extends AbstractAuditingEntity implements Serializ
     public GuestCareProduct() {
     }
 
-
-    public GuestCareProduct(@Size(max = 12) String phone, @Size(max = 256) String email, @Size(max = 50) String name, @Size(max = 200) String mess, ProductPost productPost, User user, @NotNull boolean status) {
+    public GuestCareProduct(@Size(max = 12) String phone, @Email @Size(max = 256) String email, @Size(max = 50) String name, @Size(max = 200) String mess, ProductPost productPost, User user, @NotNull boolean status) {
         this.phone = phone;
         this.email = email;
         this.name = name;
@@ -58,7 +57,6 @@ public class GuestCareProduct extends AbstractAuditingEntity implements Serializ
         this.user = user;
         this.status = status;
     }
-
 
     public Long getId() {
         return id;
@@ -122,19 +120,5 @@ public class GuestCareProduct extends AbstractAuditingEntity implements Serializ
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "GuestCareProduct{" +
-            "id=" + id +
-            ", phone='" + phone + '\'' +
-            ", email='" + email + '\'' +
-            ", name='" + name + '\'' +
-            ", mess='" + mess + '\'' +
-            ", productPost=" + productPost +
-            ", user=" + user +
-            ", status=" + status +
-            '}';
     }
 }

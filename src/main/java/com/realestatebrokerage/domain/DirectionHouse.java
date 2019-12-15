@@ -43,18 +43,6 @@ public class DirectionHouse {
     public DirectionHouse() {
     }
 
-    public DirectionHouse(@Size(max = 50) String name_par, @Size(max = 50) String sinhkhi, @Size(max = 50) String thieny, @Size(max = 50) String diennien, @Size(max = 50) String phucvi, @Size(max = 50) String tuyetmenh, @Size(max = 50) String nguquy, @Size(max = 50) String lucsat, @Size(max = 50) String hoahai) {
-        this.name_par = name_par;
-        this.sinhkhi = sinhkhi;
-        this.thieny = thieny;
-        this.diennien = diennien;
-        this.phucvi = phucvi;
-        this.tuyetmenh = tuyetmenh;
-        this.nguquy = nguquy;
-        this.lucsat = lucsat;
-        this.hoahai = hoahai;
-    }
-
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -137,21 +125,5 @@ public class DirectionHouse {
 
     public void setHoahai(String hoahai) {
         this.hoahai = hoahai;
-    }
-
-    @Override
-    public String toString() {
-        return "DirectionHouse{" +
-            "id=" + id +
-            ", name_par='" + name_par + '\'' +
-            ", sinhkhi='" + sinhkhi + '\'' +
-            ", thieny='" + thieny + '\'' +
-            ", diennien='" + diennien + '\'' +
-            ", phucvi='" + phucvi + '\'' +
-            ", tuyetmenh='" + tuyetmenh + '\'' +
-            ", nguquy='" + nguquy + '\'' +
-            ", lucsat='" + lucsat + '\'' +
-            ", hoahai='" + hoahai + '\'' +
-            '}';
     }
 }
