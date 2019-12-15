@@ -50,7 +50,7 @@ export class NewspageComponent implements OnInit {
   ngOnInit() {
     this.getlistNews();
     this.getTotalPage();
-    // this.getlist4New();
+    this.getlist4New();
     this.getlist8News();
     // eslint-disable-next-line
     console.log('dsfdfdf: ', this.listNews);
@@ -76,16 +76,16 @@ export class NewspageComponent implements OnInit {
     });
   }
 
-  // /*  get  list 4 new*/
-  // getlist4New() {
-  //   this.newService.getListNews().subscribe(res => {
-  //     this.listNews = res.body;
-  //     // this.listNews.sort(function(obj1, obj2) {
-  //     //   // return obj2.createdDate - obj1.createdDate;
-  //     // });
-  //     this.listNews = res.body.slice(0, 4);
-  //   });
-  // }
+  /*  get  list 4 new*/
+  getlist4New() {
+    this.newService.getListNews().subscribe(res => {
+      this.listNews = res.body;
+      // this.listNews.sort(function(obj1, obj2) {
+      //   // return obj2.createdDate - obj1.createdDate;
+      // });
+      this.listNews = res.body.slice(0, 4);
+    });
+  }
 
   /*  get  list 8 new*/
   getlist8News() {
