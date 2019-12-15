@@ -133,4 +133,22 @@ public class GuestCareProductRequestDTO {
     public void setProductPost(Long productPost) {
         this.productPost = productPost;
     }
+
+    @Override
+    public String toString() {
+        return "GuestCareProductRequestDTO{" +
+            "id=" + id +
+            ", mess='" + mess + '\'' +
+            ", phone='" + phone + '\'' +
+            ", email='" + email + '\'' +
+            ", name='" + name + '\'' +
+            ", user=" + user +
+            ", productPost=" + productPost +
+            ", status=" + status +
+            ", createdBy='" + createdBy + '\'' +
+            ", createdDate=" + createdDate +
+            ", lastModifiedBy='" + lastModifiedBy + '\'' +
+            ", lastModifiedDate=" + lastModifiedDate +
+            '}';
+    }
 }
