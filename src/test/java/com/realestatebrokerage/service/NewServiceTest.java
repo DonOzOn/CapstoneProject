@@ -4,13 +4,17 @@ import com.google.gson.Gson;
 import com.realestatebrokerage.domain.News;
 import com.realestatebrokerage.repository.NewRepository;
 import com.realestatebrokerage.service.dto.NewsDTO;
-import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(SpringExtension.class)
 class NewServiceTest {
 
     @Mock
@@ -44,7 +48,7 @@ class NewServiceTest {
         news.setId(2L);
         news.setStatus(true);
 
-        when(newRepository.save(news)).thenReturn(news);
+        when(newRepository.save(Mockito.any(News.class))).thenReturn(news);
 
         News expect = new News();
         expect = news;
@@ -55,7 +59,7 @@ class NewServiceTest {
         String gsExect = gson.toJson(expect);
         String gsActual = gson.toJson(actual);
 
-//        Assert.assertTrue(EqualsBuilder.reflectionEquals(gsExect, gsActual));
+        assertEquals(gsExect, gsActual);
 
     }
 

@@ -62,45 +62,54 @@ public class GuestCareProductService {
      * create guest care product
      * */
     public GuestCareProduct createGuestCareProduct(GuestCareProductRequestDTO guestCareProductRequestDTO) {
-        GuestCareProduct guestCareProduct = new GuestCareProduct();
-        guestCareProduct.setMess(guestCareProductRequestDTO.getMess());
-        guestCareProduct.setEmail(guestCareProductRequestDTO.getEmail());
-        guestCareProduct.setPhone(guestCareProductRequestDTO.getPhone());
-        guestCareProduct.setName(guestCareProductRequestDTO.getName());
-        guestCareProduct.setStatus(true);
-        if(guestCareProductRequestDTO.getUser() != null){
-            User user = userRepository.findById(guestCareProductRequestDTO.getUser()).orElse(null);
-            guestCareProduct.setUser(user);
+        if(guestCareProductRequestDTO != null) {
+            GuestCareProduct guestCareProduct = new GuestCareProduct();
+            guestCareProduct.setId(guestCareProductRequestDTO.getId());
+            guestCareProduct.setMess(guestCareProductRequestDTO.getMess());
+            guestCareProduct.setEmail(guestCareProductRequestDTO.getEmail());
+            guestCareProduct.setPhone(guestCareProductRequestDTO.getPhone());
+            guestCareProduct.setName(guestCareProductRequestDTO.getName());
+            guestCareProduct.setStatus(true);
+            if (guestCareProductRequestDTO.getUser() != null) {
+                User user = userRepository.findById(guestCareProductRequestDTO.getUser()).orElse(null);
+                guestCareProduct.setUser(user);
+            }
+            if (guestCareProductRequestDTO.getProductPost() != null) {
+                ProductPost productPost = postRepository.findById(guestCareProductRequestDTO.getProductPost()).orElse(null);
+                guestCareProduct.setProductPost(productPost);
+            }
+            guestCareProductRepository.save(guestCareProduct);
+            return guestCareProduct;
         }
-        if(guestCareProductRequestDTO.getProductPost() != null){
-            ProductPost productPost = postRepository.findById(guestCareProductRequestDTO.getProductPost()).orElse(null);
-            guestCareProduct.setProductPost(productPost);
-        }
-        return guestCareProductRepository.save(guestCareProduct);
+        return null;
     }
 
     /**
      * upate guest
      * */
     public Optional<GuestCareProduct> updateGuestCare(GuestCareProductRequestDTO guestCareProductRequestDTO) {
-        return Optional.of(guestCareProductRepository.findById(guestCareProductRequestDTO.getId())).filter(Optional::isPresent).map(Optional::get)
-            .map(guestCareProduct -> {
-                guestCareProduct.setMess(guestCareProductRequestDTO.getMess());
-                guestCareProduct.setEmail(guestCareProductRequestDTO.getEmail());
-                guestCareProduct.setPhone(guestCareProductRequestDTO.getPhone());
-                guestCareProduct.setName(guestCareProductRequestDTO.getName());
-                guestCareProduct.setStatus(true);
-                if(guestCareProductRequestDTO.getUser() != null){
-                    User user = userRepository.findById(guestCareProductRequestDTO.getUser()).orElse(null);
-                    guestCareProduct.setUser(user);
-                }
-                if(guestCareProductRequestDTO.getProductPost() != null){
-                    ProductPost productPost = postRepository.findById(guestCareProductRequestDTO.getProductPost()).orElse(null);
-                    guestCareProduct.setProductPost(productPost);
-                }
-                return guestCareProductRepository.save(guestCareProduct);
-            });
-    }
+        if(guestCareProductRequestDTO != null){
+            return Optional.of(guestCareProductRepository.findById(guestCareProductRequestDTO.getId())).filter(Optional::isPresent).map(Optional::get)
+                .map(guestCareProduct -> {
+                    guestCareProduct.setMess(guestCareProductRequestDTO.getMess());
+                    guestCareProduct.setEmail(guestCareProductRequestDTO.getEmail());
+                    guestCareProduct.setPhone(guestCareProductRequestDTO.getPhone());
+                    guestCareProduct.setName(guestCareProductRequestDTO.getName());
+                    guestCareProduct.setStatus(true);
+                    if(guestCareProductRequestDTO.getUser() != null){
+                        User user = userRepository.findById(guestCareProductRequestDTO.getUser()).orElse(null);
+                        guestCareProduct.setUser(user);
+                    }
+                    if(guestCareProductRequestDTO.getProductPost() != null){
+                        ProductPost productPost = postRepository.findById(guestCareProductRequestDTO.getProductPost()).orElse(null);
+                        guestCareProduct.setProductPost(productPost);
+                    }
+                    return guestCareProductRepository.save(guestCareProduct);
+                });
+        }
+          return null;
+        }
+
     /**
      * delete guest
      * */

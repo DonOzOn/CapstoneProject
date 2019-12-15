@@ -38,21 +38,22 @@ public class ImageService {
      * create using image
      * */
     public Image createProduct(ImageDTO imageDTO) {
-        Image image = new Image();
+        if(imageDTO != null){
+            Image image = new Image();
+            image.setImg1(imageDTO.getImg1());
+            image.setImg2(imageDTO.getImg2());
+            image.setImg3(imageDTO.getImg3());
+            image.setImg4(imageDTO.getImg4());
+            image.setImg5(imageDTO.getImg5());
+            image.setImg6(imageDTO.getImg6());
+            image.setImg7(imageDTO.getImg7());
+            image.setImg8(imageDTO.getImg8());
+            image.setImg9(imageDTO.getImg9());
+            image.setImg10(imageDTO.getImg10());
+            return imageRepository.save(image);
 
-        image.setImg1(imageDTO.getImg1());
-        image.setImg2(imageDTO.getImg2());
-        image.setImg3(imageDTO.getImg3());
-        image.setImg4(imageDTO.getImg4());
-        image.setImg5(imageDTO.getImg5());
-        image.setImg6(imageDTO.getImg6());
-        image.setImg7(imageDTO.getImg7());
-        image.setImg8(imageDTO.getImg8());
-        image.setImg9(imageDTO.getImg9());
-        image.setImg10(imageDTO.getImg10());
-       return imageRepository.save(image);
-
-
+        }
+        return null;
     }
 
     /**
@@ -60,19 +61,22 @@ public class ImageService {
      * */
     public Optional<Image>  updateImage(ImageDTO imageDTO) {
         log.debug("run in update post product: {}", imageDTO);
-        return Optional.of(imageRepository.findById(imageDTO.getId())).filter(Optional::isPresent).map(Optional::get)
-            .map(image -> {
-                image.setImg1(imageDTO.getImg1());
-                image.setImg2(imageDTO.getImg2());
-                image.setImg3(imageDTO.getImg3());
-                image.setImg4(imageDTO.getImg4());
-                image.setImg5(imageDTO.getImg5());
-                image.setImg6(imageDTO.getImg6());
-                image.setImg7(imageDTO.getImg7());
-                image.setImg8(imageDTO.getImg8());
-                image.setImg9(imageDTO.getImg9());
-                image.setImg10(imageDTO.getImg10());
-                return imageRepository.save(image);
-            });
+        if(imageDTO != null){
+            return Optional.of(imageRepository.findById(imageDTO.getId())).filter(Optional::isPresent).map(Optional::get)
+                .map(image -> {
+                    image.setImg1(imageDTO.getImg1());
+                    image.setImg2(imageDTO.getImg2());
+                    image.setImg3(imageDTO.getImg3());
+                    image.setImg4(imageDTO.getImg4());
+                    image.setImg5(imageDTO.getImg5());
+                    image.setImg6(imageDTO.getImg6());
+                    image.setImg7(imageDTO.getImg7());
+                    image.setImg8(imageDTO.getImg8());
+                    image.setImg9(imageDTO.getImg9());
+                    image.setImg10(imageDTO.getImg10());
+                    return imageRepository.save(image);
+                });
+        }
+         return null;
     }
 }
