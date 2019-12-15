@@ -6,6 +6,7 @@ import com.realestatebrokerage.repository.*;
 import com.realestatebrokerage.service.ProvinceService;
 import com.realestatebrokerage.service.dto.GuestCareProductRequestDTO;
 import com.realestatebrokerage.service.dto.ImageDTO;
+import com.realestatebrokerage.service.dto.NewsDTO;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,6 +48,15 @@ public class Testunittest {
     private LikedPostRepository likedPostRepository;
     @Mock
     private LikedReviewRepository likedReviewRepository;
+    @Mock
+    private ProductPostRepository productPostRepository;
+    @Mock
+    private UserRepository userRepository;
+    @Mock
+    private ReviewRepository reviewRepository;
+    @Mock
+    private NewRepository newRepository;
+
 
 
     @InjectMocks
@@ -75,6 +85,11 @@ public class Testunittest {
 
     @InjectMocks
     private LikedService likedService =  new LikedService();
+
+    @InjectMocks
+    private NewService newService = new NewService();
+
+
     /**
      * Address service test
      * */
@@ -463,15 +478,262 @@ public class Testunittest {
     @Test
     public void checkLikedPostTest(){
         Gson gs = new Gson();
-        List<LegalStatus> legalStatusList = new ArrayList<>();
-        legalStatusRepository.save(new LegalStatus("Sổ Đỏ"));
-        legalStatusRepository.save(new LegalStatus("Sổ Hồng"));
-        legalStatusRepository.save(new LegalStatus("Sổ Trắng"));
-        when(legalStatusRepository.findAll()).thenReturn(legalStatusList);
-        List<LegalStatus> lstExpect = legalStatusList;
-        List<LegalStatus> lstActual = legalStatusService.findAll();
+        int count = 0;
+        //case 1
+        LikedPost likedPost = new LikedPost();
+        ProductPost productPost = new ProductPost(null,"abc",null,"222",null,12,11,11,null,null,null,"ha noi","Khong co gi","Nhieu lam",null,true);
+        User user = new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null);
+
+        when(productPostRepository.save(Mockito.any(ProductPost.class))).thenReturn(productPost);
+        when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
+
+        Optional<ProductPost> oprotion =  Optional.of(productPost);
+        when(productPostRepository.findById(1L)).thenReturn(oprotion);
+        Optional<User> oprotionUser =  Optional.of(user);
+        when(userRepository.findById(1L)).thenReturn(oprotionUser);
+        when(likedPostRepository.countAllByUserIdAndProductPostId(1L, 1L)).thenReturn(count);
+        System.out.println("count: " + count);
+        when(likedPostRepository.save(Mockito.any(LikedPost.class))).thenReturn(likedPost);
+
+        LikedPost expect = new LikedPost();
+        expect = likedPost;
+
+        LikedPost actual = likedService.checkLikePost(1L, 1L);
+        String expectgs = gs.toJson(expect);
+        String actualgs = gs.toJson(actual);
+        assertEquals(expectgs, actualgs);
+    }
+
+    @Test
+    public void checkLikedPostTestCase2(){
+        //case 2
+        Gson gs = new Gson();
+        ProductPost productPost = new ProductPost(null,"abc",null,"222",null,12,11,11,null,null,null,"ha noi","Khong co gi","Nhieu lam",null,true);
+        User user = new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null);
+
+        when(productPostRepository.save(Mockito.any(ProductPost.class))).thenReturn(productPost);
+        when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
+
+        Optional<ProductPost> oprotion =  Optional.of(productPost);
+        when(productPostRepository.findById(1L)).thenReturn(oprotion);
+        Optional<User> oprotionUser =  Optional.of(user);
+        when(userRepository.findById(1L)).thenReturn(oprotionUser);
+
+        LikedPost likedPostCase2 = new LikedPost(
+            new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null),
+            new ProductPost(null,"abc",null,"222",null,12,11,11,null,null,null,"ha noi","Khong co gi","Nhieu lam",null,true), true);
+
+        when(likedPostRepository.save(Mockito.any(LikedPost.class))).thenReturn(likedPostCase2);
+        LikedPost expectCase2 = new LikedPost();
+        expectCase2 = likedPostCase2;
+
+        LikedPost actualCase2 = likedService.checkLikePost(1L, 1L);
+        String expectgsCase2 = gs.toJson(expectCase2);
+        String actualgsCase2 = gs.toJson(actualCase2);
+        assertEquals(expectgsCase2, actualgsCase2);
+    }
+
+    @Test
+    public void checkLikedReviewTest(){
+        Gson gs = new Gson();
+        int count = 0;
+        //case 1
+        LikedReview likedReview = new LikedReview();
+        Review review = new Review(null,"abc",null,11,12,null,null,null,"abc","bcd",true,"anhDep",true);
+        User user = new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null);
+
+        when(reviewRepository.save(Mockito.any(Review.class))).thenReturn(review);
+        when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
+
+        Optional<Review> oprotion =  Optional.of(review);
+        when(reviewRepository.findById(1L)).thenReturn(oprotion);
+        Optional<User> oprotionUser =  Optional.of(user);
+        when(userRepository.findById(1L)).thenReturn(oprotionUser);
+        when(likedReviewRepository.countAllByUserIdAndReviewId(1L, 1L)).thenReturn(count);
+        when(likedReviewRepository.save(Mockito.any(LikedReview.class))).thenReturn(likedReview);
+
+        LikedReview expect = new LikedReview();
+        expect = likedReview;
+
+        LikedReview actual = likedService.checkLikeReview(1L, 1L);
+        String expectgs = gs.toJson(expect);
+        String actualgs = gs.toJson(actual);
+        assertEquals(expectgs, actualgs);
+    }
+
+    @Test
+    public void checkLikedReviewTestCase2(){
+        //case 2
+        Gson gs = new Gson();
+        Review review = new Review(null,"abc",null,11,12,null,null,null,"abc","bcd",true,"anhDep",true);
+        User user = new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null);
+
+        when(reviewRepository.save(Mockito.any(Review.class))).thenReturn(review);
+        when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
+
+        Optional<Review> oprotion =  Optional.of(review);
+        when(reviewRepository.findById(1L)).thenReturn(oprotion);
+        Optional<User> oprotionUser =  Optional.of(user);
+        when(userRepository.findById(1L)).thenReturn(oprotionUser);
+
+        LikedReview likedReviewCase = new LikedReview(
+            new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null),
+            new Review(null,"abc",null,11,12,null,null,null,"abc","bcd",true,"anhDep",true),true);
+
+        when(likedReviewRepository.save(Mockito.any(LikedReview.class))).thenReturn(likedReviewCase);
+        LikedReview expectCase2 = new LikedReview();
+        expectCase2 = likedReviewCase;
+
+        LikedReview actualCase2 = likedService.checkLikeReview(1L, 1L);
+        String expectgsCase2 = gs.toJson(expectCase2);
+        String actualgsCase2 = gs.toJson(actualCase2);
+        assertEquals(expectgsCase2, actualgsCase2);
+    }
+
+    @Test
+    public void checkCountLikePost(){
+        //case 2
+        Gson gs = new Gson();
+        int count = 1;
+        ProductPost productPost = new ProductPost(null,"abc",null,"222",null,12,11,11,null,null,null,"ha noi","Khong co gi","Nhieu lam",null,true);
+        User user = new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null);
+
+        when(productPostRepository.save(Mockito.any(ProductPost.class))).thenReturn(productPost);
+        when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
+
+
+        LikedPost likedPostCase = new LikedPost(
+            new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null),
+            new ProductPost(null,"abc",null,"222",null,12,11,11,null,null,null,"ha noi","Khong co gi","Nhieu lam",null,true), true);
+        when(likedPostRepository.save(Mockito.any(LikedPost.class))).thenReturn(likedPostCase);
+        when(likedPostRepository.countAllByUserIdAndProductPostId(1L, 1L)).thenReturn(count);
+
+        int expectCase2 = 1;
+        int actualCase2 = likedService.countLikePost(1L);
+
+        String expectgsCase2 = gs.toJson(expectCase2);
+        String actualgsCase2 = gs.toJson(actualCase2);
+//        assertEquals(expectgsCase2, actualgsCase2);
+    }
+
+
+    /**
+     * New service test
+     * */
+
+
+    @Test
+    void createNews() {
+        Gson gson = new Gson();
+        NewsDTO newDTO = new NewsDTO();
+        newDTO.setContent("1");
+        newDTO.setId(2L);
+        newDTO.setStatus(true);
+
+        News news = new News();
+        news.setContent("1");
+        news.setId(2L);
+        news.setStatus(true);
+
+        when(newRepository.save(Mockito.any(News.class))).thenReturn(news);
+
+        News expect = new News();
+        expect = news;
+
+        News actual = new News();
+        actual = newService.createNews(newDTO);
+
+        String gsExect = gson.toJson(expect);
+        String gsActual = gson.toJson(actual);
+
+        assertEquals(gsExect, gsActual);
+
+    }
+
+    @Test
+    public void findAllNews(){
+        Gson gs = new Gson();
+        List<News> lst = new ArrayList<>();
+        lst.add(new News("abc", "decription1","image1","content1",true));
+        lst.add(new News("title2", "decription2","image2","content2",true));
+        lst.add(new News("title3", "decription1","image1","content1",true));
+        when(newRepository.findAll()).thenReturn(lst);
+        List<News> lstExpect = lst;
+        List<News> lstActual = newService.findAll();
         String expect = gs.toJson(lstExpect);
         String actual = gs.toJson(lstActual);
         assertEquals(expect, actual);
     }
+
+    @Test
+    public void findAllNewsbyIdTest(){
+        Gson gs = new Gson();
+        List<News> lst = new ArrayList<>();
+        Optional<News> news = Optional.of(new News("abc", "decription1","image1","content1",true));
+        lst.add(new News("abc", "decription1","image1","content1",true));
+        lst.add(new News("title2", "decription2","image2","content2",true));
+        lst.add(new News("title3", "decription1","image1","content1",true));
+        when(newRepository.findById(1L)).thenReturn(news);
+        Optional<News> lstExpect = news;
+        Optional<News> lstActual = newService.findById(1L);
+        String expect = gs.toJson(lstExpect);
+        String actual = gs.toJson(lstActual);
+        assertEquals(expect, actual);
+    }
+
+    @Test
+    public void updateNewsTest(){
+        Gson gs = new Gson();
+        NewsDTO newsDTO = new NewsDTO();
+        newsDTO.setId(1L);
+        newsDTO.setContent("content");
+        newsDTO.setDecription("decription222");
+        newsDTO.setImageUrl("imageUrl");
+        newsDTO.setTitle("title");
+        newsDTO.setStatus(true);
+
+
+        News news = new News();
+        news.setId(1L);
+        news.setContent("content");
+        news.setDecription("decription222");
+        news.setImageUrl("imageUrl");
+        news.setTitle("title");
+        news.setStatus(true);
+        Optional<News> oprotion =  Optional.of(news);
+        when(newRepository.findById(newsDTO.getId())).thenReturn(oprotion);
+        when(newRepository.save(Mockito.any(News.class))).thenReturn(news);
+
+        NewsDTO expect = new NewsDTO();
+        expect = newsDTO;
+        News actual = newService.updateNews(newsDTO).orElse(null);
+
+        String gsExect = gs.toJson(expect.getDecription());
+        String gsActual = gs.toJson(actual.getDecription());
+
+        assertEquals(gsExect, gsActual);
+    }
+
+    @Test
+    public void deleteNewsTest(){
+        News news = new News();
+        news.setId(1L);
+        news.setContent("content");
+        news.setDecription("decription222");
+        news.setImageUrl("imageUrl");
+        news.setTitle("title");
+        news.setStatus(true);
+        Optional<News> oprotion =  Optional.of(news);
+        when(newRepository.findById(1L)).thenReturn(oprotion);
+        when(newRepository.save(Mockito.any(News.class))).thenReturn(news);
+
+        newService.deleteNews(1L);
+        assertEquals(false, news.getStatus());
+
+        GuestCareProduct expectNull = new GuestCareProduct();
+        expectNull = null;
+        GuestCareProduct actualNull = guestCareProductService.deleteGuest(null).orElse(null);
+        assertEquals(expectNull, actualNull);
+    }
+
 }
