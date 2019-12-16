@@ -29,7 +29,12 @@ export class HomeComponent implements OnInit {
   listProvinces = [];
   listNumPost = [];
   listUsers: IUser[] = [];
+  listUserTop = [];
   post: PostRespone[] = [];
+  listHotPost = [];
+  list15HotPostProduct = [];
+  listNewPost = [];
+  list15NewPostProduct = [];
   /* pagination */
   public directionLinks = true;
   public autoHide = false;
@@ -105,6 +110,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getList15HotPostProduct();
+    this.getList15NewPostProduct();
     this.getProvince();
     this.getListPostProduct();
     this.accountService.identity().subscribe((account: Account) => {
@@ -149,6 +156,53 @@ export class HomeComponent implements OnInit {
     this.postService.query().subscribe(res => {
       this.post = res.body;
       this.listUsers = this.deduplicate(this.post);
+      this.listUserTop = this.listUsers;
+      this.listUserTop.sort(function(obj1, obj2) {
+        return (
+          obj2.productPostResponseDTO.totalReport - obj1.productPostResponseDTO.totalReport ||
+          new Date(obj2.productPostResponseDTO.createdDate).valueOf() - new Date(obj1.productPostResponseDTO.createdDate).valueOf()
+        );
+      });
+      // eslint-disable-next-line
+      console.log('listUserTop: ', this.listUserTop);
+      this.listUsers = this.listUserTop.slice(0, 6);
+      // eslint-disable-next-line
+      console.log('listUsers: ', this.listUsers);
+    });
+  }
+
+  /**
+   * Gets list 15 new post product
+   */
+  getList15NewPostProduct() {
+    this.postService.query().subscribe(res => {
+      this.listNewPost = res.body;
+      // eslint-disable-next-line
+      console.log('Listnewpost: ', this.listNewPost);
+      this.listNewPost.sort(function(obj1, obj2) {
+        return new Date(obj2.productResponseDTO.createdDate).valueOf() - new Date(obj1.productResponseDTO.createdDate).valueOf();
+      });
+      this.list15NewPostProduct = this.listNewPost.slice(0, 15);
+    });
+  }
+
+  /**
+   * Gets list 15 hot post product
+   */
+  getList15HotPostProduct() {
+    this.postService.query().subscribe(res => {
+      this.listHotPost = res.body;
+      // eslint-disable-next-line
+      console.log('ListHotpost: ', this.listHotPost);
+      this.listHotPost.sort(function(obj1, obj2) {
+        return (
+          obj2.productPostResponseDTO.totalLike - obj1.productPostResponseDTO.totalLike ||
+          new Date(obj2.productPostResponseDTO.createdDate).valueOf() - new Date(obj1.productPostResponseDTO.createdDate).valueOf()
+        );
+      });
+      this.list15HotPostProduct = this.listHotPost.slice(0, 15);
+      // eslint-disable-next-line
+      console.log('List15Hotpost: ', this.list15HotPostProduct);
     });
   }
 

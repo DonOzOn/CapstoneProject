@@ -32,8 +32,8 @@
                                         <div class="ratio_left-cover-1 image-wrapper">
                                             <a [routerLink]="[ '/news', item.id , 'detail' ]">
                                                 <!-- <img class="img-fluid w-100" src="https://bootstrap.news/source/img1.jpg" alt="Image description"> -->
-                                                <img class="img-fluid w-100" *ngIf="item.imageUrl !== null" src="{{imageUrl}}{{item.imageUrl}}" style="height: 370px;" alt="Image description">
-                                                <img class="img-fluid w-100" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg" alt="Image description">
+                                                <img class="img-fluid w-100 img-slide1" *ngIf="item.imageUrl !== null" src="{{imageUrl}}{{item.imageUrl}}" style="height: 370px;" alt="Image description">
+                                                <img class="img-fluid w-100 img-slide1" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg" alt="Image description">
                                             </a>
                                         </div>
                                         <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
@@ -152,8 +152,8 @@
                                     <div class="ratio_right-cover-2 image-wrapper">
                                         <a [routerLink]="[ '/news', item.id , 'detail' ]">
                                             <!-- <img class="img-fluid" src="https://bootstrap.news/source/img5.jpg" alt="Image description"> -->
-                                            <img class="img-fluid" *ngIf="item.imageUrl !== null" src="{{imageUrl}}{{item.imageUrl}}" alt="Image description">
-                                            <img class="img-fluid" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg" alt="Image description">
+                                            <img class="img-fluid img-slide" *ngIf="item.imageUrl !== null" src="{{imageUrl}}{{item.imageUrl}}" alt="Image description">
+                                            <img class="img-fluid img-slide" *ngIf="item.imageUrl === null" src="../../../../content/img/default-image.jpg" alt="Image description">
                                         </a>
                                     </div>
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
@@ -163,8 +163,8 @@
                                         <!--title-->
                                         <a [routerLink]="[ '/news', item.id , 'detail' ]">
                                             <h2 class="h5 text-white my-1">{{item.title}}</h2>
-                                            <p>Ngày đăng: {{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</p>
                                         </a>
+                                        <p class="text-muted">Ngày đăng: {{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</p>
                                     </div>
                                 </div>
                             </div>

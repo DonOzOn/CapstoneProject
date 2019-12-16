@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "district")
 public class District {
-
+    public District(){}
     @Id
     private String code;
 

@@ -36,9 +36,10 @@
                                     <div class="col-md-12">
                                         <img *ngIf="detailReview.imageUrl !== null" src="{{imageUrl}}{{detailReview.imageUrl}}" class="img-fluid rounded  mx-auto d-block py-4" alt="{{detailReview.title}}">
                                         <img *ngIf="detailReview.imageUrl === null" src="../../../../content/img/default-image.jpg" class="img-fluid rounded  mx-auto d-block py-4" alt="{{detailReview.title}}">
-                                        <div [innerHTML]="detailReview.content" class="news-content text-justify">
+                                        <div class="d-flex flex-wrap px-0 text-justify">
+                                            <div [innerHTML]="detailReview.content" class="news-content text-justify innerHtml">
+                                            </div>
                                         </div>
-
                                     </div>
                                     <hr>
                                     <div class="news-footer d-flex justify-content-start">

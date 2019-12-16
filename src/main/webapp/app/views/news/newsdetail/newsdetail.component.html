@@ -47,10 +47,9 @@
                                         <img class="img-fluid" *ngIf="detailNew.imageUrl !== null" src="{{imageUrl}}{{detailNew.imageUrl}}">
                                     </div>
                                     <hr>
-
-                                    <div [innerHTML]="detailNew.content" class="news-content">
-
-
+                                    <div class="d-flex flex-wrap px-0 text-justify">
+                                        <div [innerHTML]="detailNew.content" class="news-content innerHtml">
+                                        </div>
                                     </div>
                                     <hr>
                                     <div class="more-feng-shui">
