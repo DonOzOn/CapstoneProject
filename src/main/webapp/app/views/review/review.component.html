@@ -157,8 +157,8 @@
                                                                                     (onTextChange)="countContentNumber()"
                                                                                     [style]="{'height':'600px'}">
                                                                                 </p-editor>
-                                                                                <button pButton type="button"
-                                                                                    label="Xóa" icon="pi pi-times"
+                                                                                <button pButton class="mt-2" type="button"
+                                                                                    label="Xóa nội dung" icon="pi pi-times"
                                                                                      (click)="text1=null" [disabled]="!countContentNumber()" ></button>
                                                                             </span>
                                                                         <div class="pl-3" *ngIf="reviewPostForm.controls.decription.invalid && (reviewPostForm.controls.content.dirty || reviewPostForm.controls.content.touched)">
