@@ -179,8 +179,7 @@
                                                                                     </div>
                                                                                     <!-- Chọn avatar -->
                                                                                     <div class="row col-md-12 m-0 p-0 ml-4 d-flex flex-row my-3">
-                                                                                        <div class="col-md-2 px-0"><label class="m-0 py-1 px-0">Ảnh bìa<label
-                                                                                                style="color: Red;">*</label></label>
+                                                                                        <div class="col-md-2 px-0"><label class="m-0 py-1 px-0">Ảnh bìa</label>
                                                                                         </div>
                                                                                         <div class="input-group col-md-8">
                                                                                             <p-fileUpload #fileUpload name="demo[]" multiple="multiple" accept="image/*" [showUploadButton]="true" (uploadHandler)="onUpload($event,fileUpload)" customUpload="true" cancelLabel="Bỏ" chooseLabel="Chọn hình" uploadLabel="Tải lên" (onRemove)="onRemove($event)"
@@ -213,7 +212,7 @@
                                                                                                     [(ngModel)]="text1"
                                                                                                     [style]="{'height':'600px'}">
                                                                                                 </p-editor>
-                                                                                                <button pButton class="mt-3"
+                                                                                                <button pButton class="mt-2"
                                                                                                     type="button"
                                                                                                     label="Xóa nội dung"
                                                                                                     icon="pi pi-times"
