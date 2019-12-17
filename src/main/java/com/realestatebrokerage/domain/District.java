@@ -31,6 +31,9 @@ public class District {
         this.type = type;
     }
 
+    public District() {
+    }
+
     public String getCode() {
         return code;
     }

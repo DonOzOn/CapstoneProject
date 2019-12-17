@@ -7,49 +7,9 @@
     <div class="tz-gallery">
 
         <div class="row">
-            <div class="col-sm-6 col-md-4">
+            <div *ngFor="let item of listImage" class="col-sm-6 col-md-4">
                 <a class="lightbox">
-                    <img src="" alt="Park">
-                </a>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <a class="lightbox">
-                    <img src="../../../../content/img/pho-thuong-mai-hong-phat.jpg" alt="Bridge">
-                </a>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <a class="lightbox">
-                    <img src="" alt="Tunnel">
-                </a>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <a class="lightbox">
-                    <img src="" alt="Coast">
-                </a>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <a class="lightbox">
-                    <img src="" alt="Rails">
-                </a>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <a class="lightbox">
-                    <img src="" alt="Traffic">
-                </a>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <a class="lightbox">
-                    <img src="" alt="Rocks">
-                </a>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <a class="lightbox">
-                    <img src="" alt="Benches">
-                </a>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <a class="lightbox">
-                    <img src="" alt="Sky">
+                    <img src="{{imageUrl}}{{item}}" alt="Park">
                 </a>
             </div>
         </div>

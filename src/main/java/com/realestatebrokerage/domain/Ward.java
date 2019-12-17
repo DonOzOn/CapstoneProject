@@ -32,6 +32,9 @@ public class Ward {
         this.district = district;
     }
 
+    public Ward() {
+    }
+
     public String getCode() {
         return code;
     }

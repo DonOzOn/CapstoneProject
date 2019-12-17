@@ -28,6 +28,9 @@ public class Province {
         this.type = type;
     }
 
+    public Province() {
+    }
+
     public String getCode() {
         return code;
     }
