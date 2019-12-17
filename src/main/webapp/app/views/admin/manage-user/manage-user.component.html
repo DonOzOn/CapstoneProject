@@ -1,37 +1,30 @@
-<!-- Heading -->
-<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cdCf key="cf">
-    <p-footer>
-        <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy"
-            (click)="cdCf.reject()"></button>
-        <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Sửa"
-            (click)="cdCf.accept()"></button>
-    </p-footer>
-</p-confirmDialog>
-<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cdOn key="on">
-    <p-footer>
-        <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy"
-            (click)="cdOn.reject()"></button>
-        <button type="button" class="ui-button-success" pButton icon="pi pi-check" label="Bật"
-            (click)="cdOn.accept()"></button>
-    </p-footer>
-</p-confirmDialog>
-<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cdOff key="off">
-    <p-footer>
-        <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy"
-            (click)="cdOff.reject()"></button>
-        <button type="button" class="ui-button-warning" pButton icon="pi pi-check" label="Tắt"
-            (click)="cdOff.accept()"></button>
-    </p-footer>
-</p-confirmDialog>
-            <p-toast [style]="{marginTop: '80px'}"></p-toast>
-            <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
-                <p-footer>
-                    <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy"
-                        (click)="cd.reject()"></button>
-                    <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Lưu lại"
-                        (click)="cd.accept()"></button>
-                </p-footer>
-            </p-confirmDialog>
+<div>
+    <!-- Heading -->
+    <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cdCf key="cf">
+        <p-footer>
+            <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy" (click)="cdCf.reject()"></button>
+            <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Sửa" (click)="cdCf.accept()"></button>
+        </p-footer>
+    </p-confirmDialog>
+    <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cdOn key="on">
+        <p-footer>
+            <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy" (click)="cdOn.reject()"></button>
+            <button type="button" class="ui-button-success" pButton icon="pi pi-check" label="Bật" (click)="cdOn.accept()"></button>
+        </p-footer>
+    </p-confirmDialog>
+    <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cdOff key="off">
+        <p-footer>
+            <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy" (click)="cdOff.reject()"></button>
+            <button type="button" class="ui-button-warning" pButton icon="pi pi-check" label="Tắt" (click)="cdOff.accept()"></button>
+        </p-footer>
+    </p-confirmDialog>
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" #cd>
+        <p-footer>
+            <button type="button" class="ui-button-secondary" pButton icon="pi pi-times" label="Hủy" (click)="cd.reject()"></button>
+            <button type="button" class="ui-button-primary" pButton icon="pi pi-check" label="Lưu lại" (click)="cd.accept()"></button>
+        </p-footer>
+    </p-confirmDialog>
 
 </div>
 <!-- Heading -->
@@ -51,42 +44,38 @@
                     <div class="col-md-12">
                         <div class="card-body">
                             <div class="row col-md-12 m-0 p-0 d-flex justify-content-center">
-                                    <p-table  #usersTable  [value]="users" [lazy]="true" [(selection)]="selectedUser"
-                                    (onLazyLoad)="loadUserLazy($event)" [paginator]="true"
-                                    [rows]="10" [totalRecords]="totalRecords" [loading]="loading"
-                                    [globalFilterFields]="['login','email']">
+                                <p-table #usersTable [value]="users" [lazy]="true" [(selection)]="selectedUser" (onLazyLoad)="loadUserLazy($event)" [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading" [globalFilterFields]="['login','email']">
                                     <ng-template pTemplate="caption">
-                                            <div style="text-align: right">
-                                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                                                <input type="text" pInputText size="50"
-                                                 [formControl]="name" placeholder="Tìm kiếm" style="width:20%">
-                                            </div>
+                                        <div style="text-align: right">
+                                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                            <input type="text" pInputText size="50" [formControl]="name" placeholder="Tìm kiếm" style="width:20%">
+                                        </div>
                                     </ng-template>
                                     <ng-template pTemplate="header" let-columns>
-                                            <tr>
-                                                    <th style="width: 5%;">STT</th>
-                                                    <th pSortableColumn="login">
-                                                        Tài khoản
-                                                        <p-sortIcon field="login"></p-sortIcon>
-                                                    </th>
-                                                    <th pSortableColumn="email">
-                                                        Email
-                                                        <p-sortIcon field="email"></p-sortIcon>
-                                                    </th>
-                                                    <th pSortableColumn="gender">
-                                                        Giới tính
-                                                        <p-sortIcon field="gender"></p-sortIcon>
-                                                    </th>
-                                                    <th pSortableColumn="phone">
-                                                        Số điện thoại
-                                                        <p-sortIcon field="phone"></p-sortIcon>
-                                                    </th>
-                                                    <th pSortableColumn="activated">
-                                                            Trạng thái
-                                                        <p-sortIcon field="activated"></p-sortIcon>
-                                                    </th>
-                                                    <th></th>
-                                            </tr>
+                                        <tr>
+                                            <th style="width: 5%;">STT</th>
+                                            <th pSortableColumn="login">
+                                                Tài khoản
+                                                <p-sortIcon field="login"></p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="email">
+                                                Email
+                                                <p-sortIcon field="email"></p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="gender">
+                                                Giới tính
+                                                <p-sortIcon field="gender"></p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="phone">
+                                                Số điện thoại
+                                                <p-sortIcon field="phone"></p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="activated">
+                                                Trạng thái
+                                                <p-sortIcon field="activated"></p-sortIcon>
+                                            </th>
+                                            <th></th>
+                                        </tr>
                                     </ng-template>
                                     <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
                                         <tr [pSelectableRow]="user">
@@ -101,67 +90,64 @@
                                             <td>{{user.phone}}</td>
                                             <td *ngIf="user.activated"><span class="badge badge-success">Hoạt động</span></td>
                                             <td *ngIf="!user.activated"><span class="badge badge-danger">Ngưng hoạt động</span></td>
-                                            <td class="text-center" >
-                                                    <button class="btn btn-info"
-                                                        [disabled]="currentAccount.login === user.login" (click)="selectUserWithButton(user)" >Sửa</button>
-                                                    <button class="btn btn-warning" *ngIf="user.activated" (click)="confirmOnOFF(user)"
-                                                        [disabled]="currentAccount.login === user.login">Tắt</button>
-                                                    <button class="btn btn-success" *ngIf="!user.activated" (click)="confirmOnOFF(user)"
-                                                        [disabled]="currentAccount.login === user.login">Bật</button>
+                                            <td class="text-center">
+                                                <button class="btn btn-info" [disabled]="currentAccount.login === user.login" (click)="selectUserWithButton(user)">Sửa</button>
+                                                <button class="btn btn-warning" *ngIf="user.activated" (click)="confirmOnOFF(user)" [disabled]="currentAccount.login === user.login">Tắt</button>
+                                                <button class="btn btn-success" *ngIf="!user.activated" (click)="confirmOnOFF(user)" [disabled]="currentAccount.login === user.login">Bật</button>
                                             </td>
                                         </tr>
 
                                     </ng-template>
-                                    </p-table>
-                                    <p-dialog header="Chi tiết người dùng" *ngIf="selectedUser" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '30%'}">
-                                        <div class="ui-g ui-fluid" >
-                                            <div class="ui-g-12">
-                                                <div class="ui-g-4">
-                                                    <label for="firstName">Họ</label>
-                                                </div>
-                                                <div class="ui-g-8">
-                                                    <input pInputText disabled id="firstName" [(ngModel)]="selectedUser.firstName" />
-                                                </div>
+                                </p-table>
+                                <p-dialog header="Chi tiết người dùng" *ngIf="selectedUser" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '30%'}">
+                                    <div class="ui-g ui-fluid">
+                                        <div class="ui-g-12">
+                                            <div class="ui-g-4">
+                                                <label for="firstName">Họ</label>
                                             </div>
-                                            <div class="ui-g-12">
-                                                <div class="ui-g-4">
-                                                    <label for="lastName">Tên</label>
-                                                </div>
-                                                <div class="ui-g-8">
-                                                    <input pInputText  disabled id="lastName" [(ngModel)]="selectedUser.lastName" />
-                                                </div>
-                                            </div>
-                                            <div class="ui-g-12">
-                                                <div class="ui-g-4">
-                                                    <label for="login">Tên tài khoản</label>
-                                                </div>
-                                                <div class="ui-g-8">
-                                                    <input pInputText id="login"  disabled [(ngModel)]="selectedUser.login" />
-                                                </div>
-                                            </div>
-                                            <div class="ui-g-12">
-                                                <div class="ui-g-4">
-                                                    <label for="email">Email</label>
-                                                </div>
-                                                <div class="ui-g-8">
-                                                    <input disabled pInputText id="email"  [(ngModel)]="selectedUser.email" />
-                                                </div>
-                                            </div>
-                                            <div class="ui-g-12">
-                                                <div class="ui-g-4 pt-2">
-                                                    <label for="role">Quyền</label>
-                                                </div>
-                                                <div class="ui-g-8">
-                                                    <p-selectButton id="role" [options]="types" (onChange) = "changeRole($event)" [(ngModel)]="selectedType"></p-selectButton>
-                                                </div>
+                                            <div class="ui-g-8">
+                                                <input pInputText disabled id="firstName" [(ngModel)]="selectedUser.firstName" />
                                             </div>
                                         </div>
-                                        <p-footer>
-                                            <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                                                <button type="button"  [disabled]="currentAccount.login === user.login" pButton icon="fa fa-check" (click)="save(selectedUser)" label="Lưu"></button>
+                                        <div class="ui-g-12">
+                                            <div class="ui-g-4">
+                                                <label for="lastName">Tên</label>
                                             </div>
-                                        </p-footer>
-                                    </p-dialog>
+                                            <div class="ui-g-8">
+                                                <input pInputText disabled id="lastName" [(ngModel)]="selectedUser.lastName" />
+                                            </div>
+                                        </div>
+                                        <div class="ui-g-12">
+                                            <div class="ui-g-4">
+                                                <label for="login">Tên tài khoản</label>
+                                            </div>
+                                            <div class="ui-g-8">
+                                                <input pInputText id="login" disabled [(ngModel)]="selectedUser.login" />
+                                            </div>
+                                        </div>
+                                        <div class="ui-g-12">
+                                            <div class="ui-g-4">
+                                                <label for="email">Email</label>
+                                            </div>
+                                            <div class="ui-g-8">
+                                                <input disabled pInputText id="email" [(ngModel)]="selectedUser.email" />
+                                            </div>
+                                        </div>
+                                        <div class="ui-g-12">
+                                            <div class="ui-g-4 pt-2">
+                                                <label for="role">Quyền</label>
+                                            </div>
+                                            <div class="ui-g-8">
+                                                <p-selectButton id="role" [options]="types" (onChange)="changeRole($event)" [(ngModel)]="selectedType"></p-selectButton>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p-footer>
+                                        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                            <button type="button" [disabled]="currentAccount.login === user.login" pButton icon="fa fa-check" (click)="save(selectedUser)" label="Lưu"></button>
+                                        </div>
+                                    </p-footer>
+                                </p-dialog>
                             </div>
 
                         </div>

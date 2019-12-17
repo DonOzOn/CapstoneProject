@@ -26,9 +26,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
 import { GalleryComponent } from './gallery/gallery.component';
+import { ContactComponent } from './contact/contact.component';
+import { NotificationreviewComponent } from './notificationreview/notificationreview.component';
 
 @NgModule({
-  declarations: [ReviewComponent, ListreviewComponent, ReviewpageComponent, ReviewdetailComponent, GalleryComponent],
+  declarations: [ReviewComponent, ListreviewComponent, ReviewpageComponent, ReviewdetailComponent, GalleryComponent, ContactComponent, NotificationreviewComponent],
   imports: [
     CommonModule,
     ReviewRoutingModule,

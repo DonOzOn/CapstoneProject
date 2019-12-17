@@ -22,9 +22,6 @@ public class Province {
     @Column(name = "type")
     private String type;
 
-    public Province() {
-    }
-
     public Province(String code, String name, String type) {
         this.code = code;
         this.name = name;

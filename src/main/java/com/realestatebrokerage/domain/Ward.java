@@ -25,9 +25,6 @@ public class Ward {
     @JoinColumn(name = "district_code", referencedColumnName = "code")
     private District district;
 
-    public Ward() {
-    }
-
     public Ward(String code, String name, String type, District district) {
         this.code = code;
         this.name = name;

@@ -6,6 +6,8 @@ import { ReviewpageComponent } from './reviewpage/reviewpage.component';
 import { ReviewdetailComponent } from './reviewdetail/reviewdetail.component';
 import { ReviewService } from 'app/core/review/review.service';
 import { GalleryComponent } from './gallery/gallery.component';
+import { ContactComponent } from './contact/contact.component';
+import { NotificationreviewComponent } from './notificationreview/notificationreview.component';
 @Injectable({ providedIn: 'root' })
 export class DetailReviewResolve implements Resolve<any> {
   detaireview: any;
@@ -83,6 +85,14 @@ const routes: Routes = [
       {
         path: 'gallery',
         component: GalleryComponent
+      },
+      {
+        path: 'contact',
+        component: ContactComponent
+      },
+      {
+        path: 'notificationreview',
+        component: NotificationreviewComponent
       }
     ]
   }
