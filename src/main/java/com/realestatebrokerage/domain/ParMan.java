@@ -19,6 +19,10 @@ public class ParMan {
     public ParMan() {
     }
 
+    public ParMan(@Size(max = 50) String namePar) {
+        this.namePar = namePar;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
