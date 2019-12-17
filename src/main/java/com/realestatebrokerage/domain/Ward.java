@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ward")
 public class Ward {
-    public Ward(){}
     @Id
     private String code;
 

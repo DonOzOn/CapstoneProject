@@ -12,7 +12,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "province")
 public class Province {
-    public Province(){}
     @Id
     private String code;
 
