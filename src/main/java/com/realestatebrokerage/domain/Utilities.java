@@ -37,7 +37,10 @@ public class Utilities{
     public Utilities() {
     }
 
-
+    public Utilities(@Size(max = 50) String utilitiesName, List<Product> product) {
+        this.utilitiesName = utilitiesName;
+        this.product = product;
+    }
 
     public Long getId() {
         return id;

@@ -64,7 +64,6 @@ public class NotificationService {
 
     public Notification createdNoti(NotificationRequestDTO notificationRequestDTO) {
         Notification notification = new Notification();
-
         if(notificationRequestDTO.getUserSend() != null) {
 
             User user = userService.findUserByID(notificationRequestDTO.getUserSend()).orElse(null);

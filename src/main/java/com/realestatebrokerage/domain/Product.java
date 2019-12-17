@@ -98,6 +98,20 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     public Product() {
     }
 
+    public Product(Long price, Long area, Direction direction, LegalStatus legalStatus, Integer numberFloor, Integer numberBathroom, Integer numberBedroom, ProductTypeChild productTypeChild, ProductType productType, List<Utilities> utilities, @NotNull boolean status) {
+        this.price = price;
+        this.area = area;
+        this.direction = direction;
+        this.legalStatus = legalStatus;
+        this.numberFloor = numberFloor;
+        this.numberBathroom = numberBathroom;
+        this.numberBedroom = numberBedroom;
+        this.productTypeChild = productTypeChild;
+        this.productType = productType;
+        this.utilities = utilities;
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }

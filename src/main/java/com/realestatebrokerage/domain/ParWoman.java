@@ -19,6 +19,10 @@ public class ParWoman {
     public ParWoman() {
     }
 
+    public ParWoman(@Size(max = 50) String namePar) {
+        this.namePar = namePar;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }

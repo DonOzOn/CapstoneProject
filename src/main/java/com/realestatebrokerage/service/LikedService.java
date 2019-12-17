@@ -72,10 +72,14 @@ public class LikedService {
     * */
     public LikedPost createLiked(Long userId, Long postId) {
         LikedPost likedPost  = new LikedPost();
-        ProductPost productPost = productPostRepository.findById(postId).orElse(null);
-        likedPost.setProductPost(productPost);
-        User user = userRepository.findById(userId).orElse(null);
-        likedPost.setUser(user);
+        if(postId != null){
+            ProductPost productPost = productPostRepository.findById(postId).orElse(null);
+            likedPost.setProductPost(productPost);
+        }
+        if(userId != null){
+            User user = userRepository.findById(userId).orElse(null);
+            likedPost.setUser(user);
+        }
         likedPost.setStatus(true);
         return likedPostRepository.save(likedPost);
     }
