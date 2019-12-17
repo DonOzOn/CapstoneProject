@@ -8,9 +8,8 @@
                         <a class="" href="#"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a
             ><i class="fas fa-caret-right mx-2 align-items-center" aria-hidden="true"></i>
           </li>
-          <li class="breadcrumb-item "><a class="" href="#">Review</a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
-                    <li class="breadcrumb-item "><a class="" href="#">Căn hộ</a><i class="fas fa-caret-right mx-2" aria-hidden="true"></i></li>
-                    <li class="breadcrumb-item active">TP HỒ CHÍ MINH</li>
+          <li class="breadcrumb-item "><a class="" [routerLink]="['/home']">Chi tiết bài đăng</a></li>
+
                 </ol>
             </nav>
         </div>
@@ -194,7 +193,7 @@
                         <div class="col-md-8">
                             <div class="col-md-12 d-flex justify-content-end mb-3 clearfix">
                                 <!-- <button class="btn btn-outline-primary "><i class="fas fa-share-alt"></i> Chia sẻ</button> -->
-                                <div class="fb-share-button px-2 pt-1" data-size="large" data-href="https://www.your-domain.com/your-page.html" data-layout="button_count"></div>
+                                <div id="buttonshare" class="fb-share-button px-2 pt-1" data-size="large" [attr.data-href]="currentUrl"  data-layout="button_count"></div>
                                 <!-- <button class="btn btn-outline-danger mx-2"><i class="fas fa-bullhorn"></i> Báo xấu</button> -->
                                 <button *ngIf="!liked" class="btn btn-outline-primary btn-sm" matTooltip="Thích" (click)="checkLike(productdetail.productPostResponseDTO.id)"><i class="fas fa-thumbs-up"></i> Thích</button>
                                 <button *ngIf="liked" class="btn btn-primary btn-sm" matTooltip="Bỏ thích" (click)="checkLike(productdetail.productPostResponseDTO.id)"><i class="fas fa-thumbs-up"></i> Thích</button>
@@ -209,7 +208,7 @@
                     <div class="h4 font-weight-bold">Thông tin bất động sản:</div>
                     <div class="d-inline-flex flex-wrap col-md-12 px-0">
                         <div class="d-flex col-md-4 align-items-center font-italic py-3">
-                            <i class="fas fa-landmark fa-2x text-info pr-2 faa-tada animated-hover"></i>Loại hình: {{ productdetail.productPostResponseDTO.product.productType.productTypeName }}
+                            <i class="fas fa-landmark fa-2x text-info pr-2 faa-tada chia se"></i>Loại hình: {{ productdetail.productPostResponseDTO.product.productType.productTypeName }}
                         </div>
                         <div class="d-flex col-md-4 align-items-center font-italic py-3">
                             <i class="fas fa-directions fa-2x text-info pr-2 faa-tada animated-hover"></i>Hướng: {{ productdetail.productPostResponseDTO.product.direction.directionName }}
