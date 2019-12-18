@@ -1,4 +1,4 @@
-<div class="container-fluid col-md-12" style="margin-top: 7%; margin-bottom: 10%;">
+<div class="container-fluid col-md-12" style="margin-top: 9%; margin-bottom: 10%;">
     <div class="d-flex justify-content-center">
         <div class="col-sm-5 col-md-5 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
@@ -41,6 +41,9 @@
                                         <small class="form-text text-danger" *ngIf="registerForm.get('firstName').errors.required">
                                                     Họ không được để trống.
                                                 </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('firstName').errors.pattern">
+                                                    Họ chỉ chứa chữ
+                                                </small>
                                         <small class="form-text text-danger" *ngIf="registerForm.get('firstName').errors.minlength">
                                                     Họ it nhất có 1 một kí tự.
                                                 </small>
@@ -60,6 +63,9 @@
                                     <div *ngIf="registerForm.get('lastName').invalid && (registerForm.get('lastName').dirty || registerForm.get('lastName').touched)">
                                         <small class="form-text text-danger" *ngIf="registerForm.get('lastName').errors.required">
                                                     Tên không được để trống.
+                                                </small>
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('lastName').errors.pattern">
+                                                    Tên chỉ chứa chữ
                                                 </small>
                                         <small class="form-text text-danger" *ngIf="registerForm.get('lastName').errors.minlength">
                                                     Tên it nhất có 1 một kí tự.
@@ -104,14 +110,14 @@
                                         <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.required">
                                                             Email không được để trống.
                                                         </small>
-                                        <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.invalid">
-                                                            Email không hợp lệ.
+                                        <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.pattern">
+                                                            Email không đúng định dạng: name@email.com
                                                         </small>
                                         <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.minlength">
-                                                              Email it nhất có 5 một kí tự.
+                                                              Email it nhất có 6 một kí tự.
                                                         </small>
                                         <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.maxlength">
-                                                              Email dài nhất có 100 kí tự.
+                                                              Email dài nhất có 50 kí tự.
                                                         </small>
                                     </div>
                                 </div>
@@ -129,7 +135,7 @@
                                                             Mật khẩu không được để trống.
                                                         </small>
                                         <small class="form-text text-danger" *ngIf="registerForm.get('password').errors.minlength">
-                                                            Mật khẩu it nhất có 4 kí tự.
+                                                            Mật khẩu it nhất có 6 kí tự.
                                                         </small>
                                         <small class="form-text text-danger" *ngIf="registerForm.get('password').errors.maxlength">
                                                         Mật khẩu dài nhất có 50 kí tự.
@@ -150,7 +156,7 @@
                                                             Xác nhận mật khẩu không được để trống.
                                                         </small>
                                         <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword').errors.minlength">
-                                                            Xác nhận mật khẩu it nhất có 4 kí tự.
+                                                            Xác nhận mật khẩu it nhất có 6 kí tự.
                                                         </small>
                                         <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword').errors.maxlength">
                                                             Xác nhận mật khẩu dài nhất có 50 kí tự.

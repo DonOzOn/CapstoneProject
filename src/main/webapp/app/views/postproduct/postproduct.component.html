@@ -228,7 +228,7 @@
                                                                 <small class="form-text text-danger" *ngIf="productPostForm.get('price').errors.required">
                                                                     Giá tiền không được để trống</small>
                                                                 <small class="form-text text-danger" *ngIf="productPostForm.get('price').errors.pattern">
-                                                                    Giá tiền không hợp lệ.
+                                                                    Giá tiền chỉ chứa số.
                                                                 </small>
                                                                 <small class="form-text text-danger" *ngIf="productPostForm.get('price').errors.maxlength">
                                                                     Giá tiền lớn nhất có 15 chữ số.
@@ -253,7 +253,7 @@
                                                                 <small class="form-text text-danger" *ngIf="productPostForm.get('area').errors.required">
                                                                     Diện tích không được để trống</small>
                                                                 <small class="form-text text-danger" *ngIf="productPostForm.get('area').errors.pattern">
-                                                                    Diện tích không hợp lệ.
+                                                                    Diện tích chỉ chứa số.
                                                                 </small>
                                                                 <small class="form-text text-danger" *ngIf="productPostForm.get('area').errors.maxlength">
                                                                     Diện tích lớn nhất có 5 chữ số.
@@ -475,7 +475,7 @@
                                                                         Số phòng tắm không được để trống
                                                                     </small>
                                                                     <small class="form-text text-danger" *ngIf="productPostForm.get('numBathroom').errors.pattern">
-                                                                        Số phòng tắm không hợp lệ.
+                                                                        Số phòng tắm chỉ chứa số.
                                                                     </small>
                                                                     <small class="form-text text-danger" *ngIf="productPostForm.get('numBathroom').errors.max">
                                                                         Số phòng tắm nhỏ hơn 200.
@@ -501,7 +501,7 @@
                                                                         Số phòng ngủ không được để trống
                                                                     </small>
                                                                     <small class="form-text text-danger" *ngIf="productPostForm.get('numBedroom').errors.pattern">
-                                                                        Số phòng ngủ không hợp lệ.
+                                                                        Số phòng ngủ chỉ chứa số.
                                                                     </small>
                                                                     <small class="form-text text-danger" *ngIf="productPostForm.get('numBedroom').errors.max">
                                                                         Số phòng ngủ nhỏ hơn 20.
