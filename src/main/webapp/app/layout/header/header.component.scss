@@ -208,6 +208,7 @@ header {
                         border: 1px solid #428bca;
                         border-radius: 5px;
                         li {
+                            border: none;
                             min-width: 180px;
                             padding: 5px 10px;
                             margin: 0;
@@ -687,7 +688,7 @@ a:focus {
         border: 1px solid #0a3b76;
         border-radius: 5px;
         li {
-            border: solid navajowhite 1px;
+            border: solid wheat 1px;
             display: block;
             border-radius: 10px;
             justify-content: center;
