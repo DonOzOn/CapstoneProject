@@ -16,7 +16,11 @@ import { IUser } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
 import { LikedService } from 'app/core/liked/liked.service';
 import { LikedPost } from 'app/core/liked/model/liked-post.model';
-
+declare global {
+  interface Window {
+    FB: any;
+  }
+}
 @Component({
   selector: 'app-productdetail',
   templateUrl: './productdetail.component.html',
@@ -24,6 +28,7 @@ import { LikedPost } from 'app/core/liked/model/liked-post.model';
   providers: [MessageService]
 })
 export class ProductdetailComponent implements OnInit {
+  FB = window.FB;
   imageUrl = SERVER_API_URL + '/api/upload/files/';
   images: any[];
   listImage: any = [];
@@ -56,6 +61,7 @@ export class ProductdetailComponent implements OnInit {
     private likedService: LikedService
   ) {}
   ngOnInit() {
+    window.FB.XFBML.parse();
     this.currentUrl = window.location.origin + this.router.url;
     // eslint-disable-next-line
     console.log(window.location.origin + this.currentUrl);

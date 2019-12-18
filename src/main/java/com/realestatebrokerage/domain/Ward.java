@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ward")
 public class Ward {
-    public Ward(){}
     @Id
     private String code;
 
@@ -31,6 +30,9 @@ public class Ward {
         this.name = name;
         this.type = type;
         this.district = district;
+    }
+
+    public Ward() {
     }
 
     public String getCode() {

@@ -15,41 +15,27 @@
 </head>
 
 <body>
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
     <script>
         window.fbAsyncInit = function() {
             FB.init({
-                appId: '2484684445152961',
-                cookie: true,
                 xfbml: true,
                 version: 'v5.0'
             });
-
-            FB.AppEvents.logPageView();
-
         };
 
         (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
+            var js,
+                fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
             js = d.createElement(s);
             js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
             fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-        FB.Event.subscribe('customerchat.show', callback());
+        })(document, 'script', 'facebook-jssdk');
     </script>
-    <div id="fb-root"></div>
-    <!-- <script>
-            window.fbAsyncInit = function() {
-              FB.init({
-                xfbml            : true,
-                version          : 'v5.0'
-              });
-            };
 
-        </script> -->
     <app-root></app-root>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-messaging.js"></script>
@@ -77,9 +63,11 @@
 
         messaging.onMessage(payload => {
             console.log('Message received. ', payload);
-            window.dispatchEvent(new CustomEvent('messageRecieve', {
-                detail: payload
-            }));
+            window.dispatchEvent(
+                new CustomEvent('messageRecieve', {
+                    detail: payload
+                })
+            );
             // ...
         });
 
@@ -97,9 +85,11 @@
                                 } else {
                                     setTokenSentToServer();
                                     console.log('currentToken: ', currentToken);
-                                    window.dispatchEvent(new CustomEvent('saveToken', {
-                                        detail: currentToken
-                                    }));
+                                    window.dispatchEvent(
+                                        new CustomEvent('saveToken', {
+                                            detail: currentToken
+                                        })
+                                    );
                                 }
                             } else {
                                 console.log('No Instance ID token available. Request permission to generate one.');

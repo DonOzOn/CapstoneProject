@@ -9,6 +9,11 @@ import { Account } from './core/user/account.model';
 import { IUser } from './core/user/user.model';
 import { FormControl } from '@angular/forms';
 let self: any;
+declare global {
+  interface Window {
+    FB: any;
+  }
+}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,6 +24,7 @@ let self: any;
   providers: [MessageService]
 })
 export class AppComponent implements OnInit {
+  FB = window.FB;
   title = 'RealEstateBrokerageCient';
   showLoadingIndicator = true;
   window: any;
@@ -52,6 +58,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.FB.XFBML.parse();
     this.router.events.subscribe(evt => {
       if (!(evt instanceof NavigationEnd)) {
         return;
