@@ -36,8 +36,14 @@
                                                 <small class="form-text text-danger" *ngIf="profileForm.get('firstName').errors.required">
                                                     Họ không được để trống.
                                                 </small>
+                                                <small class="form-text text-danger" *ngIf="profileForm.get('firstName').errors.pattern">
+                                                    Họ chỉ chứa chữ
+                                                </small>
+                                                <small class="form-text text-danger" *ngIf="profileForm.get('firstName').errors.minlength">
+                                                    Họ it nhất có 1 một kí tự.
+                                                </small>
                                                 <small class="form-text text-danger" *ngIf="profileForm.get('firstName').errors.maxlength">
-                                                    Họ dài nhất có 50 kí tự.
+                                                    Họ dài  nhất có 50 kí tự.
                                                 </small>
                                             </div>
                                         </div>
@@ -48,6 +54,12 @@
                                             <div *ngIf="profileForm.get('lastName').invalid && (profileForm.get('lastName').dirty || profileForm.get('lastName').touched)">
                                                 <small class="form-text text-danger" *ngIf="profileForm.get('lastName').errors.required">
                                                     Tên không được để trống.
+                                                </small>
+                                                <small class="form-text text-danger" *ngIf="profileForm.get('lastName').errors.pattern">
+                                                    Tên chỉ chứa chữ
+                                                </small>
+                                                <small class="form-text text-danger" *ngIf="profileForm.get('lastName').errors.minlength">
+                                                    Tên it nhất có 1 một kí tự.
                                                 </small>
                                                 <small class="form-text text-danger" *ngIf="profileForm.get('lastName').errors.maxlength">
                                                     Tên dài nhất có 50 kí tự.
@@ -60,10 +72,16 @@
                                             <input id="input" type="text" placeholder="Nhập số điện thoại" class="form-control" formControlName="phone">
                                             <div *ngIf="profileForm.get('phone').invalid && (profileForm.get('phone').dirty || profileForm.get('phone').touched)">
                                                 <small class="form-text text-danger" *ngIf="profileForm.get('phone').errors.required">
-                                                    Số điện thoại không được để trống.
+                                                    SĐT không được để trống.
+                                                </small>
+                                                <small class="form-text text-danger" *ngIf="profileForm.get('phone').errors.pattern">
+                                                    SĐT chỉ chứa số.
+                                                </small>
+                                                <small class="form-text text-danger" *ngIf="profileForm.get('phone').errors.minlength">
+                                                    SĐT it nhất có 10 kí tự.
                                                 </small>
                                                 <small class="form-text text-danger" *ngIf="profileForm.get('phone').errors.maxlength">
-                                                    Số điện thoại dài nhất có 50 kí tự.
+                                                    SĐT dài nhất có 12 kí tự.
                                                 </small>
                                             </div>
                                         </div>
@@ -121,15 +139,15 @@
                                         <!-- Ngày sinh-->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
                                             <h6 class="first col-md-12 px-0">Ngày sinh</h6>
-                                            <p-calendar [showIcon]="true" [required]="true" dateFormat="dd/mm/yy" [style]="{'width': '285px'}" [(ngModel)]="date6" formControlName="dob" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+                                            <p-calendar [showIcon]="true" [required]="true" dateFormat="dd/mm/yy" class="ui-md-12 px-0" [(ngModel)]="date6" formControlName="dob" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2019">
                                             </p-calendar>
                                         </div>
                                         <!-- Chọn avatar -->
-                                        <div class="row col-md-8 m-0 p-0 mb-3">
+                                        <div class="row col-md-12 m-0 p-0 mb-3">
                                             <h6 class="first col-md-12 px-0">Hình đại diện</h6>
-                                            <div class="input-group mb-3 col-md-6">
+                                            <div class="input-group ui-lg-12 px-0">
                                                 <p-fileUpload #fileUpload name="demo[]" multiple="multiple" accept="image/*" [showUploadButton]="true" (uploadHandler)="onUpload($event,fileUpload)" customUpload="true" cancelLabel="Bỏ" chooseLabel="Chọn hình" uploadLabel="Tải lên" (onRemove)="onRemove($event)"
-                                                    fileLimit="1" maxFileSize="1000000">
+                                                    fileLimit="1" maxFileSize="1000000" class="ui-lg-12 px-0">
                                                     <ng-template pTemplate="content">
                                                         <ul *ngIf="uploadedFiles">
                                                             <label *ngIf="uploadedFiles.length > 0">Tải lên thành công:
