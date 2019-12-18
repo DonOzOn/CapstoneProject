@@ -28,9 +28,9 @@ import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
 import { GalleryComponent } from './gallery/gallery.component';
 import { ContactComponent } from './contact/contact.component';
 import { NotificationreviewComponent } from './notificationreview/notificationreview.component';
-
+import { NewreviewComponent } from './newreview/newreview.component';
 @NgModule({
-  declarations: [ReviewComponent, ListreviewComponent, ReviewpageComponent, ReviewdetailComponent, GalleryComponent, ContactComponent, NotificationreviewComponent],
+  declarations: [ReviewComponent, ListreviewComponent, ReviewpageComponent, ReviewdetailComponent, GalleryComponent, ContactComponent, NotificationreviewComponent, NewreviewComponent],
   imports: [
     CommonModule,
     ReviewRoutingModule,
@@ -58,4 +58,4 @@ import { NotificationreviewComponent } from './notificationreview/notificationre
   providers: [],
   exports: [ReviewComponent]
 })
-export class ReviewModule {}
+export class ReviewModule { }
