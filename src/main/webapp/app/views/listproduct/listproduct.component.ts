@@ -79,7 +79,7 @@ export class ListproductComponent implements OnInit {
       });
     }
     this.config = {
-      itemsPerPage: 4,
+      itemsPerPage: 10,
       currentPage: 1,
       totalItems: this.count
     };
@@ -94,6 +94,8 @@ export class ListproductComponent implements OnInit {
     // this.getListPostProduct();
     this.activatedRoute.firstChild.data.subscribe(res => {
       this.post = res.typeSearch.body;
+              // eslint-disable-next-line
+              console.log('this.post: ', this.post);
       this.postService.listAllByProvince(this.post[0].productPostResponseDTO.province.code).subscribe(resSuggest => {
         this.listSuggest = resSuggest.body;
         // eslint-disable-next-line
