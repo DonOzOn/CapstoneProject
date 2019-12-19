@@ -16,8 +16,10 @@ import { Account } from 'app/core/user/account.model';
   styleUrls: ['./reviewdetail.component.scss']
 })
 export class ReviewdetailComponent implements OnInit {
+  FB = window.FB;
   imageUrl = SERVER_API_URL + '/api/upload/files/';
   id: any;
+  currentUrl: string;
   detailReview: IReview;
   currentAccount: Account;
   currentUser: IUser;
@@ -32,6 +34,8 @@ export class ReviewdetailComponent implements OnInit {
     private likedService: LikedService
   ) {}
   ngOnInit() {
+    window.FB.XFBML.parse();
+    this.currentUrl = window.location.origin + this.router.url;
     this.activatedRoute.data.subscribe(res => {
       this.detailReview = res.detailNew;
       // eslint-disable-next-line

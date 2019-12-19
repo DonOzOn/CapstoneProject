@@ -20,13 +20,16 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   modalRef: NgbModalRef;
   checked: false;
   registerForm = this.fb.group({
-    firstName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    lastName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+    firstName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[a-zA-Z]*$')]],
+    lastName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[a-zA-Z]*$')]],
     login: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[_.@A-Za-z0-9-]*$')]],
-    email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100), Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-    confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-    confirm: [false, Validators.requiredTrue]
+    confirm: [false, Validators.requiredTrue],
+    email: [
+      '',
+      [Validators.required, Validators.minLength(6), Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9._]+@[a-z0-9.-]+.[a-z]{2,}$')]
+    ],
+    password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
+    confirmPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]]
   });
 
   constructor(

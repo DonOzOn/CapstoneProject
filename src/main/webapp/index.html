@@ -1,146 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <title>RealEstateBrokerage</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="content/img/600px-Godot_icon.svg.png" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"
-      integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/ab727b7b1b.js" crossorigin="anonymous"></script>
-    <script
-      async
-      defer
-      crossorigin="anonymous"
-      src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=2253036158134194&autoLogAppEvents=1"
-    ></script>
-  </head>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=2253036158134194&autoLogAppEvents=1"></script>
+</head>
 
-  <body>
+<body>
     <!-- Load Facebook SDK for JavaScript -->
     <div id="fb-root"></div>
     <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          xfbml: true,
-          version: 'v5.0'
-        });
-      };
+        window.fbAsyncInit = function() {
+            FB.init({
+                xfbml: true,
+                version: 'v5.0'
+            });
+        };
 
-      (function(d, s, id) {
-        var js,
-          fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js, fjs);
-      })(document, 'script', 'facebook-jssdk');
+        (function(d, s, id) {
+            var js,
+                fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, 'script', 'facebook-jssdk');
     </script>
 
     <app-root></app-root>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-messaging.js"></script>
     <script>
-      // Your web app's Firebase configuration
-      console.log('run in firebase config');
-      const firebaseConfig = {
-        apiKey: 'AIzaSyB4IMt0VErU5jRjrQzKChysXBP8OEvwFAM',
-        authDomain: 'bdsdonnv.firebaseapp.com',
-        databaseURL: 'https://bdsdonnv.firebaseio.com',
-        projectId: 'bdsdonnv',
-        storageBucket: 'bdsdonnv.appspot.com',
-        messagingSenderId: '725457305723',
-        appId: '1:725457305723:web:80cc61b974c7036887a2de',
-        measurementId: 'G-7PT32QK8NR'
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      console.log('run in firebase config2');
+        // Your web app's Firebase configuration
+        console.log('run in firebase config');
+        const firebaseConfig = {
+            apiKey: 'AIzaSyB4IMt0VErU5jRjrQzKChysXBP8OEvwFAM',
+            authDomain: 'bdsdonnv.firebaseapp.com',
+            databaseURL: 'https://bdsdonnv.firebaseio.com',
+            projectId: 'bdsdonnv',
+            storageBucket: 'bdsdonnv.appspot.com',
+            messagingSenderId: '725457305723',
+            appId: '1:725457305723:web:80cc61b974c7036887a2de',
+            measurementId: 'G-7PT32QK8NR'
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        console.log('run in firebase config2');
     </script>
 
     <script>
-      const messaging = firebase.messaging();
-      messaging.usePublicVapidKey('BC8IhFvXRIW1tsG03r5tJjBUt6yiMprpTjIkUDZPbFjLOTZohg90gmYcOzwZj95RljthVK3KcAr5qMuHsIA1fzs');
+        const messaging = firebase.messaging();
+        messaging.usePublicVapidKey('BC8IhFvXRIW1tsG03r5tJjBUt6yiMprpTjIkUDZPbFjLOTZohg90gmYcOzwZj95RljthVK3KcAr5qMuHsIA1fzs');
 
-      messaging.onMessage(payload => {
-        console.log('Message received. ', payload);
-        window.dispatchEvent(
-          new CustomEvent('messageRecieve', {
-            detail: payload
-          })
-        );
-        // ...
-      });
+        messaging.onMessage(payload => {
+            console.log('Message received. ', payload);
+            window.dispatchEvent(
+                new CustomEvent('messageRecieve', {
+                    detail: payload
+                })
+            );
+            // ...
+        });
 
-      window.requestPermission = function() {
-        console.log('Requesting permission...');
-        // [START request_permission]
-        Notification.requestPermission().then(permission => {
-          if (permission === 'granted') {
-            messaging
-              .getToken()
-              .then(currentToken => {
-                if (currentToken) {
-                  if (getTokenSentToServer() === currentToken) {
-                    console.log('token has not change');
-                  } else {
-                    setTokenSentToServer();
-                    console.log('currentToken: ', currentToken);
-                    window.dispatchEvent(
-                      new CustomEvent('saveToken', {
-                        detail: currentToken
-                      })
-                    );
-                  }
+        window.requestPermission = function() {
+            console.log('Requesting permission...');
+            // [START request_permission]
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    messaging
+                        .getToken()
+                        .then(currentToken => {
+                            if (currentToken) {
+                                if (getTokenSentToServer() === currentToken) {
+                                    console.log('token has not change');
+                                } else {
+                                    setTokenSentToServer();
+                                    console.log('currentToken: ', currentToken);
+                                    window.dispatchEvent(
+                                        new CustomEvent('saveToken', {
+                                            detail: currentToken
+                                        })
+                                    );
+                                }
+                            } else {
+                                console.log('No Instance ID token available. Request permission to generate one.');
+                            }
+                        })
+                        .catch(err => {
+                            console.log('An error occurred while retrieving token. ', err);
+                        });
+                    console.log('Notification permission granted.');
+                    // resetUI();
                 } else {
-                  console.log('No Instance ID token available. Request permission to generate one.');
+                    console.log('Unable to get permission to notify.');
                 }
-              })
-              .catch(err => {
-                console.log('An error occurred while retrieving token. ', err);
-              });
-            console.log('Notification permission granted.');
-            // resetUI();
-          } else {
-            console.log('Unable to get permission to notify.');
-          }
-        });
-        // [END request_permission]
-      };
+            });
+            // [END request_permission]
+        };
 
-      function getTokenSentToServer() {
-        return window.localStorage.getItem('sentToServer');
-      }
+        function getTokenSentToServer() {
+            return window.localStorage.getItem('sentToServer');
+        }
 
-      function setTokenSentToServer(token) {
-        window.localStorage.setItem('sentToServer', token);
-      }
+        function setTokenSentToServer(token) {
+            window.localStorage.setItem('sentToServer', token);
+        }
     </script>
 
     <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/firebase-messaging-sw.js').then(
-            function() {
-              console.log('Service Worker Registered');
-            },
-            err => {
-              console.log('ERROR:  ', err);
-            }
-          );
-        });
-      }
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/firebase-messaging-sw.js').then(
+                    function() {
+                        console.log('Service Worker Registered');
+                    },
+                    err => {
+                        console.log('ERROR:  ', err);
+                    }
+                );
+            });
+        }
     </script>
-  </body>
+</body>
+
 </html>

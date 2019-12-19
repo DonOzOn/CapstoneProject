@@ -7,7 +7,7 @@
     <div class="tz-gallery">
 
         <div class="row">
-            <div *ngFor="let item of listImage" class="col-sm-6 col-md-4">
+            <div *ngFor="let item of listImage | paginate: config" class="col-sm-6 col-md-4">
                 <a class="lightbox">
                     <img src="{{imageUrl}}{{item}}" alt="Park">
                 </a>
@@ -15,7 +15,11 @@
         </div>
 
     </div>
-
+    <nav *ngIf="countImg !== 0" aria-label="" class="mt-2">
+        <ul class="pagination pg-blue justify-content-end">
+            <pagination-controls [previousLabel]="labels.previousLabel" [nextLabel]="labels.nextLabel" (pageChange)="pageChanged($event)"></pagination-controls>
+        </ul>
+    </nav>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>

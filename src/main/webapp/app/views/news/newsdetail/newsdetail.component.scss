@@ -82,3 +82,12 @@ i:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: #0a3b76;
 }
+
+.img-small {
+  padding: 0;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  height: 19.25vh;
+  background-attachment: fixed;
+}
