@@ -324,29 +324,4 @@ public class User extends AbstractAuditingEntity implements Serializable {
     public int hashCode() {
         return 31;
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-            "id=" + id +
-            ", login='" + login + '\'' +
-            ", password='" + password + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", province=" + province +
-            ", district=" + district +
-            ", ward=" + ward +
-            ", dob=" + dob +
-            ", phone='" + phone + '\'' +
-            ", gender=" + gender +
-            ", email='" + email + '\'' +
-            ", activated=" + activated +
-            ", langKey='" + langKey + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activationKey='" + activationKey + '\'' +
-            ", resetKey='" + resetKey + '\'' +
-            ", resetDate=" + resetDate +
-            ", authorities=" + authorities +
-            '}';
-    }
 }
