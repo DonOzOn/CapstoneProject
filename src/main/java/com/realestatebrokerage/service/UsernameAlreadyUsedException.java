@@ -3,7 +3,7 @@ package com.realestatebrokerage.service;
 public class UsernameAlreadyUsedException extends RuntimeException {
 
     public UsernameAlreadyUsedException() {
-        super("Login name already used!");
+        super("Tên tài khoản đã tồn tại!");
     }
 
 }
