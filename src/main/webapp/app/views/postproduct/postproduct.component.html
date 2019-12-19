@@ -40,7 +40,7 @@
                                                         <div class="col-md-7 p-0">
                                                             <span class="ui-float-label">
                                                                 <input id="float-input" type="text"
-                                                                    formControlName="projectName" size="30" pInputText>
+                                                                    formControlName="projectName" size="30" pInputText required>
                                                                 <label for="float-input">Cá nhân hoặc tên dự án</label>
                                                             </span>
                                                             <div *ngIf="productPostForm.get('projectName').invalid && (productPostForm.get('projectName').dirty || productPostForm.get('projectName').touched)">
@@ -180,7 +180,7 @@
                                                                 <span class="ui-float-label">
                                                                     <input id="float-input" class="form-control"
                                                                         type="text" formControlName="address" size="30"
-                                                                        pInputText>
+                                                                        pInputText required>
                                                                     <label for="float-input">Địa chỉ </label>
                                                                 </span>
                                                                 <div *ngIf="formAddress.controls.address.invalid && (formAddress.controls.address.dirty || formAddress.controls.address.touched)">
@@ -221,7 +221,7 @@
                                                         <div class="col-md-7 p-0">
                                                             <span class="ui-float-label">
                                                                 <input id="float-input" type="text"
-                                                                    formControlName="price" size="30" pInputText>
+                                                                    formControlName="price" size="30" pInputText required>
                                                                 <label for="float-input">Giá tiền </label>
                                                             </span>
                                                             <div *ngIf="productPostForm.get('price').invalid && (productPostForm.get('price').dirty || productPostForm.get('price').touched)">
@@ -246,7 +246,7 @@
                                                         <div class="col-md-7 p-0">
                                                             <span class="ui-float-label">
                                                                 <input id="float-input" type="text"
-                                                                    formControlName="area" size="30" pInputText>
+                                                                    formControlName="area" size="30" pInputText required>
                                                                 <label for="float-input">Diện tích </label>
                                                             </span>
                                                             <div *ngIf="productPostForm.get('area').invalid && (productPostForm.get('area').dirty || productPostForm.get('area').touched)">
@@ -316,7 +316,7 @@
                                                     <span class="ui-float-label pl-2 ml-2">
                                                         <input id="float-input" type="text"
                                                             formControlName="projectPostTitle" style="width: 100%;"
-                                                            pInputText>
+                                                            pInputText required>
                                                         <label class="pl-2" for="float-input">Tiêu đề</label>
                                                     </span>
                                                     <div class="pl-3" *ngIf="productPostForm.controls.projectPostTitle.invalid && (productPostForm.controls.projectPostTitle.dirty || productPostForm.controls.projectPostTitle.touched)">
@@ -441,7 +441,7 @@
                                                             <div class="col-md-7 p-0">
                                                                 <span class="ui-float-label">
                                                                     <input id="float-input" type="text"
-                                                                        formControlName="numFloor" size="30" pInputText>
+                                                                        formControlName="numFloor" size="30" pInputText required>
                                                                     <label for="float-input">Số tầng</label>
                                                                 </span>
                                                                 <div *ngIf="productPostForm.get('numFloor').invalid && (productPostForm.get('numFloor').dirty || productPostForm.get('numFloor').touched)">
@@ -467,7 +467,7 @@
                                                                 <span class="ui-float-label">
                                                                     <input id="float-input" type="text"
                                                                         formControlName="numBathroom" size="30"
-                                                                        pInputText>
+                                                                        pInputText required>
                                                                     <label for="float-input">Số phòng tắm </label>
                                                                 </span>
                                                                 <div *ngIf="productPostForm.get('numBathroom').invalid && (productPostForm.get('numBathroom').dirty || productPostForm.get('numBathroom').touched)">
@@ -493,7 +493,7 @@
                                                                 <span class="ui-float-label">
                                                                     <input id="float-input" type="text"
                                                                         formControlName="numBedroom" size="30"
-                                                                        pInputText>
+                                                                        pInputText required>
                                                                     <label for="float-input">Số phòng ngủ </label>
                                                                 </span>
                                                                 <div *ngIf="productPostForm.get('numBedroom').invalid && (productPostForm.get('numBedroom').dirty || productPostForm.get('numBedroom').touched)">

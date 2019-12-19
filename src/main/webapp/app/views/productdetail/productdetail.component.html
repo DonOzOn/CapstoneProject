@@ -275,7 +275,7 @@
                                 {{ productdetail.productPostResponseDTO.user.firstName }} {{ productdetail.productPostResponseDTO.user.lastName }}
                             </div>
                             <div class="text">{{ productdetail.productPostResponseDTO.user.phone }}</div>
-                            <div class="text">{{ productdetail.productPostResponseDTO.user.email }}</div>
+                            <div class="text text-truncate">{{ productdetail.productPostResponseDTO.user.email }}</div>
                         </div>
                     </div>
                     <div class="bl-title">Yêu cầu thông tin</div>
@@ -285,14 +285,14 @@
                                 <div class="bl-input-new div-fullname">
                                     <div class="col-sm-12 d-flex px-0">
                                         <div class="col-sm-2 px-0"><i class="fas fa-user fa-lg pt-3"></i></div>
-                                        <div class="col-sm-10 px-0"><input formControlName="name" type="text" class="form-control-new" placeholder="Tên(*)" /></div>
+                                        <div class="col-sm-10 px-0"><input formControlName="name" type="text" class="form-control-new" placeholder="Tên(*)" required /></div>
                                     </div>
                                     <div *ngIf="inforForm.get('name').invalid && (inforForm.get('name').dirty || inforForm.get('name').touched)">
                                         <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.pattern">
                                             Tên chỉ chứa chữ.
                                         </small>
                                         <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.required">
-                                            Tên được để trống.
+                                            Tên không được để trống.
                                         </small>
                                         <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.maxlength">
                                          Tên dài nhất có 32 kí tự.
@@ -305,7 +305,7 @@
                                     <div class="col-sm-12 d-flex px-0">
                                         <div class="col-sm-2 px-0"><i class="fas fa-mobile-alt fa-lg pt-3"></i></div>
                                         <div class="col-sm-10 px-0">
-                                            <input formControlName="phone" type="text" class="form-control-new" placeholder="Số điện thoại(*)" />
+                                            <input formControlName="phone" type="text" class="form-control-new" placeholder="Số điện thoại(*)" required/>
                                         </div>
                                     </div>
                                     <div *ngIf="inforForm.get('phone').invalid && (inforForm.get('phone').dirty || inforForm.get('phone').touched)">
@@ -329,7 +329,7 @@
                                     <div class="col-sm-12 d-flex px-0">
                                         <div class="col-sm-2 px-0"><i class="fas fa-envelope fa-lg pt-3"></i></div>
                                         <div class="col-sm-10 px-0">
-                                            <input formControlName="email" type="email" class="form-control-new" placeholder="Email(*)" />
+                                            <input formControlName="email" type="email" class="form-control-new" placeholder="Email(*)" required/>
                                         </div>
                                     </div>
                                     <div *ngIf="inforForm.get('email').invalid && (inforForm.get('email').dirty || inforForm.get('email').touched)">
@@ -358,9 +358,9 @@
                                     </small>
                                 </div>
                             </div>
-                            <div class="button-contact pb-3">
-                                <button type="submit" [disabled]="inforForm.invalid" class="btn btn-outline-primary btn-lg btn-block">Liên hệ</button>
-                            </div>
+                            <a class="button-contact pb-3" role="button">
+                                <button type="submit" [disabled]="inforForm.invalid" class="btn btn-outline-primary btn-lg btn-block"> Liên hệ</button>
+                            </a>
                         </div>
                     </form>
                 </div>

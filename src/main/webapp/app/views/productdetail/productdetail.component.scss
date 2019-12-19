@@ -682,6 +682,14 @@ a {
     width: 93%;
     height: 50%;
     padding-left: 6%;
+    button:hover {
+        background-color: #215a8b;
+        color: white;
+    }
+    button:active {
+        background-color: #0a3b76;
+        color: white;
+    }
 }
 
 .bl-right .bl-border {
