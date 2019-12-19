@@ -103,8 +103,6 @@ export class ProductdetailComponent implements OnInit {
   getlist4News() {
     this.newService.getListNews().subscribe(res => {
       this.list4News = res.body;
-      // eslint-disable-next-line
-      console.log('Listnew  : ', this.list4News);
       this.list4News.sort(function(obj1, obj2) {
         return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
       });
@@ -142,9 +140,15 @@ export class ProductdetailComponent implements OnInit {
   }
 
   checkLike(postId) {
+    // eslint-disable-next-line
+    console.log('user  : ', this.currentUser);
     this.likedService.checkLikedPost(this.currentUser.id, postId).subscribe(res => {
       this.likedPost = res.body;
       this.liked = this.likedPost.status;
     });
+  }
+
+  isAuthenticated() {
+    return this.accountService.isAuthenticated();
   }
 }

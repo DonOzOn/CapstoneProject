@@ -44,8 +44,8 @@
                                     <hr>
                                     <div class="news-footer d-flex justify-content-start">
                                         <div class="news-likes">
-                                            <button *ngIf="!liked" type="button" class="btn btn-outline-primary btn-sm" matTooltip="Thích" (click)="checkLike(detailReview.id)"><i class="fa fa-thumbs-o-up text-primary"></i> <span class="badge">Thích</span></button>
-                                            <button *ngIf="liked" type="button" class="btn btn-primary btn-sm" matTooltip="Bỏ thích" (click)="checkLike(detailReview.id)"><i class="fa fa-thumbs-o-up text-white" ></i> <span class="badge">Thích</span></button>
+                                            <button *ngIf="!liked && isAuthenticated()" type="button" class="btn btn-outline-primary btn-sm" matTooltip="Thích" (click)="checkLike(detailReview.id)"><i class="fa fa-thumbs-o-up text-primary"></i> <span class="badge">Thích</span></button>
+                                            <button *ngIf="liked && isAuthenticated()" type="button" class="btn btn-primary btn-sm" matTooltip="Bỏ thích" (click)="checkLike(detailReview.id)"><i class="fa fa-thumbs-o-up text-white" ></i> <span class="badge">Thích</span></button>
                                             <!-- <button type="button" class="btn btn-outline-secondary"><i class="fas fa-share-alt"></i><span class="badge">Chia sẻ</span></button> -->
                                             <div id="buttonshare" class="fb-share-button px-2 btn btn-sm" data-size="large" [attr.data-href]="currentUrl" data-layout="button_count"></div>
                                         </div>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="bg-white ">
-                        <div class="fb-comments border-top pt-4" data-href="https://rebs.website/" data-width="100%" data-numposts="5"></div>
+                        <div class="fb-comments border-top pt-4" [attr.data-href]="currentUrl" data-width="100%" data-numposts="5"></div>
                     </div>
                 </div>
             </div>
