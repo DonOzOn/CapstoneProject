@@ -38,8 +38,6 @@ export class ReviewdetailComponent implements OnInit {
     this.currentUrl = window.location.origin + this.router.url;
     this.activatedRoute.data.subscribe(res => {
       this.detailReview = res.detailNew;
-      // eslint-disable-next-line
-      console.log('sdsdasdasd: ', this.detailReview);
       this.accountService.identity().subscribe((account: Account) => {
         this.currentAccount = account;
         this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
@@ -52,10 +50,13 @@ export class ReviewdetailComponent implements OnInit {
       });
     });
   }
-  checkLike(reviewID) {
+  checkLike(reviewID: any) {
     this.likedService.checkLikedReview(this.currentUser.id, reviewID).subscribe(res => {
       this.likedReview = res.body;
       this.liked = this.likedReview.status;
     });
+  }
+  isAuthenticated() {
+    return this.accountService.isAuthenticated();
   }
 }
