@@ -36,7 +36,7 @@
                                 <div class="col">
                                     <!-- First name -->
                                     <label class="form-control-label" for="firstName">Họ</label>
-                                    <input formControlName="firstName" type="text" id="firstName" name="firstName" class="form-control" placeholder="Họ">
+                                    <input formControlName="firstName" type="text" id="firstName" name="firstName" class="form-control" placeholder="Họ" required>
                                     <div *ngIf="registerForm.get('firstName').invalid && (registerForm.get('firstName').dirty || registerForm.get('firstName').touched)">
                                         <small class="form-text text-danger" *ngIf="registerForm.get('firstName').errors.required">
                                                     Họ không được để trống.
@@ -59,7 +59,7 @@
                             <div class="form-row mb-4">
                                 <div class="col">
                                     <label class="form-control-label" for="lastName">Tên</label>
-                                    <input type="text" formControlName="lastName" id="lastName" name="lastName" class="form-control" placeholder="Tên">
+                                    <input type="text" formControlName="lastName" id="lastName" name="lastName" class="form-control" placeholder="Tên" required>
                                     <div *ngIf="registerForm.get('lastName').invalid && (registerForm.get('lastName').dirty || registerForm.get('lastName').touched)">
                                         <small class="form-text text-danger" *ngIf="registerForm.get('lastName').errors.required">
                                                     Tên không được để trống.
@@ -82,7 +82,7 @@
                             <div class="form-row mb-4">
                                 <div class="col">
                                     <label class="form-control-label" for="login">Tên tài khoản</label>
-                                    <input type="text" formControlName="login" id="login" name="login" class="form-control" placeholder="Tên tài khoản">
+                                    <input type="text" formControlName="login" id="login" name="login" class="form-control" placeholder="Tên tài khoản" required>
                                     <div *ngIf="registerForm.get('login').invalid && (registerForm.get('login').dirty || registerForm.get('login').touched)">
                                         <small class="form-text text-danger" *ngIf="registerForm.get('login').errors.required">
                                                         Tên tài khoản không được để trống.
@@ -105,7 +105,7 @@
                             <div class="form-row mb-4">
                                 <div class="col">
                                     <label class="form-control-label" for="email">Email</label>
-                                    <input type="email" formControlName="email" id="email" name="email" class="form-control" placeholder="Email">
+                                    <input type="email" formControlName="email" id="email" name="email" class="form-control" placeholder="Email" required>
                                     <div *ngIf="registerForm.get('email').invalid && (registerForm.get('email').dirty || registerForm.get('email').touched)">
                                         <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.required">
                                                             Email không được để trống.
@@ -129,7 +129,7 @@
                             <div class="form-row mb-4">
                                 <div class="col">
                                     <label class="form-control-label" for="password">Mật khẩu</label>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" formControlName="password">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" formControlName="password" required>
                                     <div *ngIf="registerForm.get('password').invalid && (registerForm.get('password').dirty || registerForm.get('password').touched)">
                                         <small class="form-text text-danger" *ngIf="registerForm.get('password').errors.required">
                                                             Mật khẩu không được để trống.
@@ -150,7 +150,7 @@
                             <div class="form-row mb-4">
                                 <div class="col">
                                     <label class="form-control-label" for="confirmPassword">Xác nhận mật khẩu</label>
-                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Xác nhận mật khẩu" formControlName="confirmPassword">
+                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Xác nhận mật khẩu" formControlName="confirmPassword" required>
                                     <div *ngIf="registerForm.get('confirmPassword').invalid && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched)">
                                         <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword').errors.required">
                                                             Xác nhận mật khẩu không được để trống.
@@ -170,7 +170,7 @@
                                 <div class="col">
                                     <div class="form-check">
                                         <label class="form-check-label" for="confirm">
-                                                        <input class="form-check-input" type="checkbox" name="confirm" id="confirm" formControlName="confirm">
+                                                        <input class="form-check-input" type="checkbox" name="confirm" id="confirm" formControlName="confirm" required>
                                                         <span>Tôi đồng ý với các <a  class="text-italic text-primary" data-toggle="modal" data-target="#exampleModal">điều khoản</a>.</span>
                                                         <div *ngIf="registerForm.get('confirm').invalid && (registerForm.get('confirm').dirty || registerForm.get('confirm').touched)">
                                                             <small class="form-text text-danger" *ngIf="registerForm.get('confirm').errors.required">

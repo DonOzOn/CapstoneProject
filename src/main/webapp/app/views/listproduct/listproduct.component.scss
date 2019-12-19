@@ -1,194 +1,197 @@
 /*Search*/
 
 .search {
-  background-color: #428bca;
+    background-color: #428bca;
 }
 
 a {
-  text-decoration: none;
-  &.visited {
-    color: gray;
-  }
-  &.hover {
-    color: rgb(100, 192, 192);
-  }
+    text-decoration: none;
+    &.visited {
+        color: gray;
+    }
+    &.hover {
+        color: rgb(100, 192, 192);
+    }
 }
 
 .right-side {
-  background-color: #fff;
-  min-height: 150px;
+    background-color: #fff;
+    min-height: 150px;
 }
 
 .content {
-  min-height: 700px;
+    min-height: 700px;
 }
 
 .img {
-  height: 25px;
-  width: 25px;
-  max-width: 32px;
-  min-width: 16px;
-  max-height: 32px;
-  min-height: 16px;
+    height: 25px;
+    width: 25px;
+    max-width: 32px;
+    min-width: 16px;
+    max-height: 32px;
+    min-height: 16px;
 }
 
 .btn:focus,
 .btn:active {
-  outline: none !important;
-  box-shadow: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .input-group-append {
-  a:hover {
-    background-color: cadetblue;
-  }
-  a:active {
-    background-color: #0a3b76;
-    color: whitesmoke;
-  }
+    a:hover {
+        background-color: cadetblue;
+    }
+    a:active {
+        background-color: #0a3b76;
+        color: whitesmoke;
+    }
 }
 
 .select {
-  min-width: 200px;
-  float: left;
+    min-width: 200px;
+    float: left;
 }
 
 .select1 {
-  min-width: 120px;
+    min-width: 120px;
 }
 
 .select2 {
-  min-width: 120px;
+    min-width: 120px;
 }
 
 option {
-  border-radius: 5px;
-  height: 20px;
+    border-radius: 5px;
+    height: 20px;
 }
+
 
 /*Sort description*/
 
 .giveMeEllipsisList {
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  line-height: 1.4em;
-  /* fallback */
-  max-height: 3em;
-  min-height: 2.6em;
-  /* fallback */
-  -webkit-line-clamp: 2;
-  /* number of lines to show */
-  -webkit-box-orient: vertical;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 1.4em;
+    /* fallback */
+    max-height: 3em;
+    min-height: 2.6em;
+    /* fallback */
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    -webkit-box-orient: vertical;
 }
 
 .giveMeEllipsis {
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  line-height: 1.5em;
-  /* fallback */
-  max-height: 3.8em;
-  min-height: 3.6em;
-  /* fallback */
-  -webkit-line-clamp: 3;
-  /* number of lines to show */
-  -webkit-box-orient: vertical;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 1.5em;
+    /* fallback */
+    max-height: 3.8em;
+    min-height: 3.6em;
+    /* fallback */
+    -webkit-line-clamp: 3;
+    /* number of lines to show */
+    -webkit-box-orient: vertical;
 }
 
 .giveMeEllipsisTitle {
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  line-height: 1.5em;
-  /* fallback */
-  max-height: 3.3em;
-  min-height: 2.4em;
-  /* fallback */
-  -webkit-line-clamp: 2;
-  /* number of lines to show */
-  -webkit-box-orient: vertical;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 1.5em;
+    /* fallback */
+    max-height: 3.3em;
+    min-height: 2.4em;
+    /* fallback */
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    -webkit-box-orient: vertical;
 }
+
 
 /*Breadcrumb*/
 
-.bc-icons-2 .breadcrumb-item + .breadcrumb-item::before {
-  content: none;
+.bc-icons-2 .breadcrumb-item+.breadcrumb-item::before {
+    content: none;
 }
 
 .bc-icons-2 .breadcrumb-item.active {
-  color: #428bca;
+    color: #428bca;
 }
 
 .breadcrumb {
-  background-color: inherit;
+    background-color: inherit;
 }
 
 a {
-  text-decoration: none;
-  &.visited {
-    color: gray;
-  }
-  &.hover {
-    color: rgb(100, 192, 192);
-  }
+    text-decoration: none;
+    &.visited {
+        color: gray;
+    }
+    &.hover {
+        color: rgb(100, 192, 192);
+    }
 }
 
 .right-side {
-  background-color: #fff;
-  min-height: 150px;
+    background-color: #fff;
+    min-height: 150px;
 }
 
 .content {
-  min-height: 700px;
+    min-height: 700px;
 }
 
 .img {
-  height: 25px;
-  width: 25px;
-  max-width: 32px;
-  min-width: 16px;
-  max-height: 32px;
-  min-height: 16px;
+    height: 25px;
+    width: 25px;
+    max-width: 32px;
+    min-width: 16px;
+    max-height: 32px;
+    min-height: 16px;
 }
 
 .btn:focus,
 .btn:active {
-  outline: none !important;
-  box-shadow: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
+
 
 /* FLOAT */
 
 @keyframes float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-  100% {
-    transform: translateY(0);
-  }
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 
 .faa-float.animated,
 .faa-float.animated-hover:hover,
-.faa-parent.animated-hover:hover > .faa-float {
-  animation: float 2s linear infinite;
+.faa-parent.animated-hover:hover>.faa-float {
+    animation: float 2s linear infinite;
 }
 
 .faa-float.animated.faa-fast,
 .faa-float.animated-hover.faa-fast:hover,
-.faa-parent.animated-hover:hover > .faa-float.faa-fast {
-  animation: float 1s linear infinite;
+.faa-parent.animated-hover:hover>.faa-float.faa-fast {
+    animation: float 1s linear infinite;
 }
 
 .faa-float.animated.faa-slow,
 .faa-float.animated-hover.faa-slow:hover,
-.faa-parent.animated-hover:hover > .faa-float.faa-slow {
-  animation: float 3s linear infinite;
+.faa-parent.animated-hover:hover>.faa-float.faa-slow {
+    animation: float 3s linear infinite;
 }

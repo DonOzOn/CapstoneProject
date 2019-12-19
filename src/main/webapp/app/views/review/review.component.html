@@ -41,7 +41,7 @@
                         <li class="breadcrumb-item pt-2 active">TP HỒ CHÍ MINH</li>
                         <li class="col-md-3"></li> -->
                         <li class="breadcrumb-item " [ngSwitch]="isAuthenticated()">
-                            <button *ngSwitchCase="true" (click)="don()" pButton icon="pi pi-plus" type="button" label="Tạo bài review/câu hỏi" class="ui-button-rounded"></button>
+                            <button *ngSwitchCase="true" (click)="don()" pButton icon="pi pi-plus" type="button" label="Tạo bài đánh giá/câu hỏi" class="ui-button-rounded"></button>
                             <button *ngSwitchCase="false" pButton icon="pi pi-plus" type="button" label="Tạo bài review/câu hỏi" class="ui-button-rounded" pTooltip="Đăng nhập để có thể tạo bài đăng" tooltipPosition="bottom" [routerLink]="[ '/login']"></button>
                         </li>
                     </ol>
@@ -70,7 +70,7 @@
                                                                         <span class="ui-float-label pl-2 ml-2">
                                                                                 <input id="float-input" type="text"
                                                                                     formControlName="title"
-                                                                                    style="width: 100%;" pInputText />
+                                                                                    style="width: 100%;" pInputText required/>
                                                                                 <label class="pl-2"
                                                                                     for="float-input">Tiêu
                                                                                     đề</label>
