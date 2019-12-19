@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100), Validators.email]],
     password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-    confirm: ['', Validators.required]
+    confirm: [false, Validators.requiredTrue]
   });
 
   constructor(
@@ -71,6 +71,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
   }
   private processError(response: HttpErrorResponse) {
+    // eslint-disable-next-line no-console
+    console.log('Respone register: ', response);
     this.success = null;
     if (response.status === 400 && response.error.type === LOGIN_ALREADY_USED_TYPE) {
       this.errorUserExists = 'ERROR';

@@ -239,6 +239,21 @@ export class ManageproductpostComponent implements OnInit {
   getListPostProduct() {
     this.postService.listAllByUserID(this.currentUser.id).subscribe(res => {
       this.posts = res.body;
+      // eslint-disable-next-line @typescript-eslint/tslint/config
+      // eslint-disable-next-line no-empty
+      for (let i = 0; i <= this.posts.length; i++) {
+        // eslint-disable-next-line @typescript-eslint/tslint/config
+        this.uploadedFiles.push(this.posts[i].imageDTO.img1);
+        this.uploadedFiles.push(this.posts[i].imageDTO.img2);
+        this.uploadedFiles.push(this.posts[i].imageDTO.img3);
+        this.uploadedFiles.push(this.posts[i].imageDTO.img4);
+        this.uploadedFiles.push(this.posts[i].imageDTO.img5);
+        this.uploadedFiles.push(this.posts[i].imageDTO.img6);
+        this.uploadedFiles.push(this.posts[i].imageDTO.img7);
+        this.uploadedFiles.push(this.posts[i].imageDTO.img8);
+        this.uploadedFiles.push(this.posts[i].imageDTO.img9);
+        this.uploadedFiles.push(this.posts[i].imageDTO.img10);
+      }
       // eslint-disable-next-line
       console.log('not sort : ', this.posts);
       this.posts = this.posts.sort((a: any, b: any) => {
@@ -282,6 +297,7 @@ export class ManageproductpostComponent implements OnInit {
   }
   /*  add picture to list */
   onUpload(event, fileUpload) {
+    this.uploadedFiles = [];
     // eslint-disable-next-line
     console.log('da qua day');
     const listFile = [];
