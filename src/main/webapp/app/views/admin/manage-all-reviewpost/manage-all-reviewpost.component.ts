@@ -237,7 +237,7 @@ export class ManagereAllReviewpostComponent implements OnInit {
           this.uploadedFiles.pop();
           this.uploadedFiles.push(res.body);
           this.isUploadedFile = true;
-          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Dã tải ảnh thành công!!' });
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã tải ảnh thành công!!' });
         },
         (err: HttpErrorResponse) => {
           this.isUploadedFile = false;
