@@ -1,3 +1,4 @@
+<p-toast [style]="{ marginTop: '80px' }"></p-toast>
 <div class="container mt-3 d-inline-flexbox">
     <div class="waves-light col-md-12 p-0 search rounded">
         <div class="col-md-12 px-4 pt-4 pb-1 d-inline-flex justify-content-center rounded">
@@ -183,7 +184,7 @@
                 <div class="card rounded mb-4" *ngFor="let item of post | paginate: config">
                     <div class="row no-gutters">
                         <div class="col-md-4 waves-light">
-                            <img src="{{ imageUrl }}{{ item.imageDTO.img1 }}" class="card-img h-100 img-responsive rounded mx-auto d-block" style="max-height: 220px;" alt="..." />
+                            <img src="{{ imageUrl }}{{ item.imageDTO.img1 }}" class="card-img h-100 img-responsive rounded mx-auto d-block" style="max-height: 210px;" alt="..." />
                             <div class="card-img-overlay col-md-12 p-2 d-flex align-items-start">
                                 <!-- <h4 class="card-text text-warning strong col-md-6 p-0 m-0 d-flexbox">
                                     70<span>&#37;</span></h4> -->
@@ -227,7 +228,7 @@
                                         {{ item.productPostResponseDTO.product.area }}m<sup>2</sup>
                                     </p>
                                     <div class="my-1 p-0 col-md-8 d-inline-flex">
-                                        <a class="col-md-8 px-0 d-inline-flex" type="button" data-toggle="modal" data-target="#profileModal">
+                                        <a class="col-md-8 px-0 d-inline-flex" (click)="open(item)" type="button" data-toggle="modal" data-target="#profileModal">
                                             <div class="col-md-4 px-2 pt-1 img">
                                                 <img src="{{ imageUrl }}{{ item.productPostResponseDTO.user.imageUrl }}" *ngIf="item.productPostResponseDTO.user.imageUrl !== null" class="card-img rounded-circle img-responsive img" alt="..." />
                                                 <img src="../../../content/img/default-avar.png" *ngIf="item.productPostResponseDTO.user.imageUrl === null" class="card-img rounded-circle img-responsive img" alt="..." />
@@ -253,36 +254,36 @@
                                                                 <div class="col-md-12 mt-2">
                                                                     <div class="card profile-card-5">
                                                                         <div class="card-img-block">
-                                                                            <img src="{{ imageUrl }}{{ item.productPostResponseDTO.user.imageUrl }}" *ngIf="item.productPostResponseDTO.user.imageUrl !== null" class="card-img-top rounded" alt="..." />
-                                                                            <img src="../../../content/img/default-avar.png" *ngIf="item.productPostResponseDTO.user.imageUrl === null" class="card-img-top rounded" alt="..." />
+                                                                            <img src="{{ imageUrl }}{{ currentProductPost.productPostResponseDTO.user.imageUrl }}" *ngIf="currentProductPost.productPostResponseDTO.user.imageUrl !== null" class="card-img-top rounded" alt="..." />
+                                                                            <img src="../../../content/img/default-avar.png" *ngIf="currentProductPost.productPostResponseDTO.user.imageUrl === null" class="card-img-top rounded" alt="..." />
                                                                         </div>
                                                                         <div class="card-body pt-0">
-                                                                            <h5 class="card-title">{{ item.productPostResponseDTO.user.firstName}} {{ item.productPostResponseDTO.user.lastName}}</h5>
+                                                                            <h5 class="card-title">{{ currentProductPost.productPostResponseDTO.user.firstName}} {{ currentProductPost.productPostResponseDTO.user.lastName}}</h5>
                                                                             <div class="d-flex flex-column">
                                                                                 <div class="input-group col-md-12 px-0 my-2">
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></span>
                                                                                     </div>
-                                                                                    <input type="email" class="form-control bg-white" placeholder="{{item.productPostResponseDTO.user.email}}" aria-label="Email" aria-describedby="basic-addon1" disabled>
+                                                                                    <input type="email" class="form-control bg-white" placeholder="{{currentProductPost.productPostResponseDTO.user.email}}" aria-label="Email" aria-describedby="basic-addon1" disabled>
                                                                                 </div>
                                                                                 <div class="input-group col-md-12 px-0 my-2">
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text" id="basic-addon2"><i class="fas fa-phone"></i></span>
                                                                                     </div>
-                                                                                    <input type="text" class="form-control bg-white" placeholder="{{item.productPostResponseDTO.user.phone}}" aria-label="Phone" aria-describedby="basic-addon2" disabled>
+                                                                                    <input type="text" class="form-control bg-white" placeholder="{{currentProductPost.productPostResponseDTO.user.phone}}" aria-label="Phone" aria-describedby="basic-addon2" disabled>
                                                                                 </div>
                                                                                 <div class="input-group col-md-12 px-0 my-2">
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text" id="basic-addon3"><i class="fas fa-birthday-cake"></i></span>
                                                                                     </div>
-                                                                                    <input type="text" class="form-control bg-white" placeholder="{{item.productPostResponseDTO.user.dob | date: 'dd/MM/yyyy'}}" aria-label="Birthday" aria-describedby="basic-addon3" disabled>
+                                                                                    <input type="text" class="form-control bg-white" placeholder="{{currentProductPost.productPostResponseDTO.user.dob | date: 'dd/MM/yyyy'}}" aria-label="Birthday" aria-describedby="basic-addon3" disabled>
                                                                                 </div>
                                                                                 <div class="input-group col-md-12 px-0 my-2">
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text" id="basic-addon4"><i class="fas fa-street-view"></i></span>
                                                                                     </div>
-                                                                                    <textarea class="form-control bg-white" placeholder="{{item.productPostResponseDTO.user.ward.name}}, {{item.productPostResponseDTO.user.district.name}}, {{item.productPostResponseDTO.user.province.name}}" aria-label="Location" aria-describedby="basic-addon4"
-                                                                                        disabled></textarea>
+                                                                                    <textarea class="form-control bg-white" placeholder="{{currentProductPost.productPostResponseDTO.user.ward.name}}, {{currentProductPost.productPostResponseDTO.user.district.name}}, {{currentProductPost.productPostResponseDTO.user.province.name}}" aria-label="Location"
+                                                                                        aria-describedby="basic-addon4" disabled></textarea>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -294,7 +295,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" type="button" data-toggle="modal" data-target="#contact">
+                                        <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" (click)="open(item)" type="button" data-toggle="modal" data-target="#contact">
                                             <div class="col-md-3 px-1 ">
                                                 <img src="../../../content/img/chat-blue.svg" class="card-img img-responsive " alt="..." />
                                             </div>
@@ -308,11 +309,11 @@
                                                     <div class="modal-header">
                                                         <h5 class="modal-title font-weight-bold strong text-uppercase">Liên hệ:</h5>
                                                         <h5 class="modal-title pl-4 font-weight-bold strong text-left text-capitalize">
-                                                            {{ item.productPostResponseDTO.user.firstName}} {{ item.productPostResponseDTO.user.lastName}}
+                                                            {{ currentProductPost.productPostResponseDTO.user.firstName}} {{ currentProductPost.productPostResponseDTO.user.lastName}}
                                                         </h5>
                                                         <div class="col-md-2 px-2 img">
-                                                            <img src="{{ imageUrl }}{{ item.productPostResponseDTO.user.imageUrl }}" *ngIf="item.productPostResponseDTO.user.imageUrl !== null" class="card-img rounded-circle img-responsive img" alt="..." />
-                                                            <img src="../../../content/img/default-avar.png" *ngIf="item.productPostResponseDTO.user.imageUrl === null" class="card-img rounded-circle img-responsive img" alt="..." />
+                                                            <img src="{{ imageUrl }}{{ currentProductPost.productPostResponseDTO.user.imageUrl }}" *ngIf="currentProductPost.productPostResponseDTO.user.imageUrl !== null" class="card-img rounded-circle img-responsive img" alt="..." />
+                                                            <img src="../../../content/img/default-avar.png" *ngIf="currentProductPost.productPostResponseDTO.user.imageUrl === null" class="card-img rounded-circle img-responsive img" alt="..." />
                                                         </div>
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     </div>
@@ -320,33 +321,85 @@
                                                     <!-- Modal body -->
                                                     <div class="modal-body">
                                                         <div class="container col-md-12 d-flex justify-content-center">
-                                                            <form class="col-md-12">
-                                                                <div class="form-group input-group col-md-12 px-0">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                                                            <form class="col-md-12" [formGroup]="inforForm" role="form" (ngSubmit)="send(item)">
+                                                                <div class="form-group col-md-12 px-0 d-flex flex-column">
+                                                                    <div class="d-flex flex-row input-group col-md-12 px-0">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                                                                        </div>
+                                                                        <input type="text" class="form-control" placeholder="Nhập tên của bạn" formControlName="name" aria-label="Tên" aria-describedby="basic-addon1" required>
                                                                     </div>
-                                                                    <input type="text" class="form-control" placeholder="Nhập tên của bạn" aria-label="Tên" aria-describedby="basic-addon1" required>
+                                                                    <div *ngIf="inforForm.get('name').invalid && (inforForm.get('name').dirty || inforForm.get('name').touched)">
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.pattern">
+                                                                            Tên chỉ chứa chữ.
+                                                                        </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.required">
+                                                                            Tên không được để trống.
+                                                                        </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.maxlength">
+                                                                         Tên dài nhất có 32 kí tự.
+                                                                         </small>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="form-group input-group col-md-12 px-0">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text" id="basic-addon2"><i class="fas fa-at"></i></span>
+                                                                <div class="form-group input-group col-md-12 px-0 d-flex flex-column">
+                                                                    <div class="d-flex flex-row input-group col-md-12 px-0">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text" id="basic-addon2"><i class="fas fa-at"></i></span>
+                                                                        </div>
+                                                                        <input formControlName="email" type="email" class="form-control" placeholder="Nhập email của bạn" aria-label="Email" aria-describedby="basic-addon2" required>
                                                                     </div>
-                                                                    <input type="email" class="form-control" placeholder="Nhập email của bạn" aria-label="Email" aria-describedby="basic-addon2" required>
+                                                                    <div *ngIf="inforForm.get('email').invalid && (inforForm.get('email').dirty || inforForm.get('email').touched)">
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('email').errors.pattern">
+                                                                            Email không đúng định dạng name@email.com
+                                                                        </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('email').errors.required">
+                                                                            Email không được để trống.
+                                                                        </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('email').errors.minlength">
+                                                                        Email it nhất có 10 kí tự.
+                                                                        </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('email').errors.maxlength">
+                                                                        Email dài nhất có 32 kí tự.
+                                                                        </small>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="form-group input-group col-md-12 px-0">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text" id="basic-addon3"><i class="fas fa-phone"></i></span>
+                                                                <div class="form-group input-group col-md-12 px-0 d-flex flex-column">
+                                                                    <div class="d-flex flex-row input-group col-md-12 px-0">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text" id="basic-addon3"><i class="fas fa-phone"></i></span>
+                                                                        </div>
+                                                                        <input type="text" formControlName="phone" class="form-control" placeholder="Nhập số điện thoại của bạn" aria-label="Số điện thoại" aria-describedby="basic-addon3" required>
                                                                     </div>
-                                                                    <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" aria-label="Số điện thoại" aria-describedby="basic-addon3" required>
+                                                                    <div *ngIf="inforForm.get('phone').invalid && (inforForm.get('phone').dirty || inforForm.get('phone').touched)">
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.required">
+                                                                        SĐT không được để trống.
+                                                                    </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.pattern">
+                                                                        SĐT chỉ chứa số.
+                                                                    </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.minlength">
+                                                                        SĐT it nhất có 10 kí tự.
+                                                                    </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.maxlength">
+                                                                        SĐT dài nhất có 12 kí tự.
+                                                                    </small>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="form-group input-group col-md-12 px-0">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text">Tin nhắn</span>
+                                                                <div class="form-group input-group col-md-12 px-0 d-flex flex-column">
+                                                                    <div class="d-flex flex-row input-group col-md-12 px-0">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text">Tin nhắn</span>
+                                                                        </div>
+                                                                        <textarea class="form-control" formControlName="mess" aria-label="Tin nhắn" placeholder="Nhập tin nhắn của bạn"></textarea>
                                                                     </div>
-                                                                    <textarea class="form-control" aria-label="Tin nhắn" placeholder="Nhập tin nhắn của bạn"></textarea>
+                                                                    <div *ngIf="inforForm.get('mess').invalid && (inforForm.get('mess').dirty || inforForm.get('mess').touched)">
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('mess').errors.maxlength">
+                                                                            Nội dung dài nhất có 200 kí tự.
+                                                                        </small>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="form-group col-md-12 px-0">
-                                                                    <button type="submit" class="btn btn-primary btn-lg btn-block">Gửi</button>
+                                                                    <button type="submit" [disabled]="inforForm.invalid" class="btn btn-primary btn-lg btn-block">Gửi</button>
                                                                 </div>
                                                             </form>
                                                         </div>

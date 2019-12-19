@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         () => {
           this.success = true;
         },
-        response => this.processError(response)
+        (response: HttpErrorResponse) => this.processError(response)
       );
     }
   }

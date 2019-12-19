@@ -103,4 +103,17 @@ public class Notification extends AbstractAuditingEntity implements Serializable
     public void setUserReceive(User userReceive) {
         this.userReceive = userReceive;
     }
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+            "id=" + id +
+            ", userSend=" + userSend +
+            ", type=" + type +
+            ", content='" + content + '\'' +
+            ", status=" + status +
+            ", title='" + title + '\'' +
+            ", userReceive=" + userReceive +
+            '}';
+    }
 }

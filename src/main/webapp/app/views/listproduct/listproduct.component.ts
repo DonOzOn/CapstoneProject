@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { PostService } from '../../core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { SERVER_API_URL } from 'app/app.constants';
@@ -10,11 +10,23 @@ import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { Sort } from '@angular/material';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { DirectionService } from 'app/core/direction/direction.service';
+import { INotification, Notification } from 'app/core/notification/notification.model';
+import { IGuestCareProduct } from 'app/core/guest-care-product/guest-care-product.model';
+import { GuestCareProductService } from 'app/core/guest-care-product/guest-care-product.service';
+import { JhiAlertService } from 'ng-jhipster';
+import { MessageService } from 'primeng/api';
+import { NotificationService } from 'app/core/notification/notification.service';
+import { AccountService } from 'app/core/auth/account.service';
+import { IUser } from 'app/core/user/user.model';
+import { Account } from 'app/core/user/account.model';
+import { UserService } from 'app/core/user/user.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-listproduct',
   templateUrl: './listproduct.component.html',
-  styleUrls: ['./listproduct.component.scss']
+  styleUrls: ['./listproduct.component.scss'],
+  providers: [MessageService]
 })
 export class ListproductComponent implements OnInit {
   imageUrl = SERVER_API_URL + '/api/upload/files/';
@@ -44,12 +56,14 @@ export class ListproductComponent implements OnInit {
   listDirection: [];
   config: any;
   count: any;
+  currentProductPost: PostRespone = null;
   listSuggest: PostRespone[];
   listPost: any[] = [];
   listPost2: any;
   post: PostRespone[] = [];
   sortedData: any[] = [];
   pageSize = ITEMS_PER_PAGE;
+  notification: INotification;
   choose = [
     { value: 1, name: 'Mới nhất' },
     { value: 2, name: 'Cũ nhất' },
@@ -63,14 +77,32 @@ export class ListproductComponent implements OnInit {
     previousLabel: 'Previous',
     nextLabel: 'Next'
   };
+  inforForm = this.fb.group({
+    name: ['', [Validators.required, Validators.maxLength(32), Validators.pattern('^[a-zA-Z]*$')]],
+    phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(12), Validators.pattern('^[0-9]*$')]],
+    email: [
+      '',
+      [Validators.required, Validators.minLength(6), Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9._]+@[a-z0-9.-]+.[a-z]{2,}$')]
+    ],
+    mess: ['', [Validators.maxLength(200)]]
+  });
+  currentAccount: Account;
+  currentUser: IUser;
   constructor(
+    private alertService: JhiAlertService,
+    private messageService: MessageService,
+    private guestCareProductService: GuestCareProductService,
     private directionService: DirectionService,
     private addressService: AddressService,
     private postService: PostService,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private ng7DynamicBreadcrumbService: Ng7DynamicBreadcrumbService
+    private ng7DynamicBreadcrumbService: Ng7DynamicBreadcrumbService,
+    private notificationService: NotificationService,
+    private accountService: AccountService,
+    private userService: UserService,
+    public activeModal: NgbModal
   ) {
     for (let i = 0; i < this.count; i++) {
       this.listPost.push({
@@ -91,15 +123,11 @@ export class ListproductComponent implements OnInit {
   ngOnInit() {
     const breadcrumb = { customText: 'This is Custom Text', dynamicText: 'Level 2 ' };
     this.ng7DynamicBreadcrumbService.updateBreadcrumbLabels(breadcrumb);
-    // this.getListPostProduct();
     this.activatedRoute.firstChild.data.subscribe(res => {
       this.post = res.typeSearch.body;
-              // eslint-disable-next-line
-              console.log('this.post: ', this.post);
+      this.currentProductPost = this.post[0];
       this.postService.listAllByProvince(this.post[0].productPostResponseDTO.province.code).subscribe(resSuggest => {
         this.listSuggest = resSuggest.body;
-        // eslint-disable-next-line
-        console.log('this.listSuggest: ', this.listSuggest);
       });
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     });
@@ -374,8 +402,6 @@ export class ListproductComponent implements OnInit {
     if (this.filterForm.value.numBedroom) {
       param['numBedroom'] = this.filterForm.value.numBedroom;
     }
-    // eslint-disable-next-line
-    console.log('All Param: ', param);
     this.postService.filterByCharacter(param).subscribe(res => {
       this.pageSize = param.size;
       this.post = res.body ? res.body : [];
@@ -475,5 +501,54 @@ export class ListproductComponent implements OnInit {
   }
   search() {
     this.router.navigate(['/listproduct', 'fullTextSearch', this.searchText.value]);
+  }
+  send(iteam: any) {
+    const data: IGuestCareProduct = this.inforForm.getRawValue();
+    data.user = iteam.productPostResponseDTO.user.id;
+    data.productPost = iteam.productPostResponseDTO.id;
+    this.notification = new Notification();
+    this.notification.type = 1;
+    this.accountService.identity().subscribe((account: Account) => {
+      this.currentAccount = account;
+      this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
+        this.currentUser = userAuthen;
+        if (this.currentUser.id !== null && this.currentUser.id !== undefined) {
+          this.notification.userSend = this.currentUser.id;
+        }
+      });
+    });
+    this.notification.content = 'muốn liên hệ với bạn';
+    this.notification.userReceive = iteam.productPostResponseDTO.user.id;
+    this.notification.title = 'Liên hệ';
+    this.guestCareProductService
+      .create(data)
+      .subscribe(
+        () => (
+          this.activeModal.dismissAll('login success'),
+          this.getDismissReason('done'),
+          this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã gửi liên hệ thành công!' }),
+          this.notificationService.sendMessageAndAddNoti(this.notification).subscribe()
+        )
+      ),
+      // eslint-disable-next-line
+      (err: any) => (
+        this.alertService.error(err.error.title),
+        this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Gửi liên hệ  thất bại!' })
+      );
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  open(item) {
+    // eslint-disable-next-line
+    console.log('data clcik: ', item);
+    this.currentProductPost = item;
   }
 }
