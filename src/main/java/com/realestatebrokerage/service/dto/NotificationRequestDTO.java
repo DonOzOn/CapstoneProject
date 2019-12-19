@@ -123,4 +123,21 @@ public class NotificationRequestDTO {
     public void setLastModifiedDate(Instant lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
+
+    @Override
+    public String toString() {
+        return "NotificationRequestDTO{" +
+            "id=" + id +
+            ", userSend=" + userSend +
+            ", userReceive=" + userReceive +
+            ", type=" + type +
+            ", content='" + content + '\'' +
+            ", title='" + title + '\'' +
+            ", status=" + status +
+            ", createdBy='" + createdBy + '\'' +
+            ", createdDate=" + createdDate +
+            ", lastModifiedBy='" + lastModifiedBy + '\'' +
+            ", lastModifiedDate=" + lastModifiedDate +
+            '}';
+    }
 }

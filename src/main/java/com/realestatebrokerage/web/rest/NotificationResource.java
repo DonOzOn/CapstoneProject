@@ -44,6 +44,11 @@ public class NotificationResource {
     public ResponseEntity<Notification> sendTopic(@RequestBody NotificationRequestDTO notificationRequestDTO) {
         Notification notification = notificationService.createdNoti(notificationRequestDTO);
         Optional<User> user = userService.findUserByID(notificationRequestDTO.getUserReceive());
+        log.debug("send message noti: {}", notificationRequestDTO.toString());
+        log.debug("message noti: {}", notification.toString());
+        if(notification.getUserSend() == null){
+            notification.setUserSend(new User("Người lạ ",null,null,null,null,null,null,null,null,null,true,null,true,null,null,null,null,null,null));
+        }
         String token = user.get().getToken();
         String title = notificationRequestDTO.getTitle();
         String content = notificationRequestDTO.getContent();

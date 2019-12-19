@@ -1,3 +1,4 @@
+<p-toast [style]="{ marginTop: '80px' }"></p-toast>
 <div class="container mt-3 d-inline-flexbox">
     <div class="waves-light col-md-12 p-0 search rounded">
         <div class="col-md-12 px-4 pt-4 pb-1 d-inline-flex justify-content-center rounded">
@@ -234,7 +235,7 @@
                                         <p class="text-dark my-1 pt-1 pl-2 col-md-6 small text-left text-capitalize">
                                             {{ item.productPostResponseDTO.user.login }}
                                         </p>
-                                        <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" type="button" data-toggle="modal" data-target="#contact">
+                                        <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" (click) = "open(item)" type="button" data-toggle="modal" data-target="#contact">
                                             <div class="col-md-3 px-1 ">
                                                 <img src="../../../content/img/chat-blue.svg" class="card-img img-responsive " alt="..." />
                                             </div>
@@ -248,11 +249,11 @@
                                                     <div class="modal-header">
                                                         <h5 class="modal-title font-weight-bold strong text-uppercase">Liên hệ:</h5>
                                                         <h5 class="modal-title pl-4 font-weight-bold strong text-left text-capitalize">
-                                                            {{ item.productPostResponseDTO.user.firstName}} {{ item.productPostResponseDTO.user.lastName}}
+                                                            {{ currentProductPost.productPostResponseDTO.user.login}}
                                                         </h5>
                                                         <div class="col-md-2 px-2 img">
-                                                            <img src="{{ imageUrl }}{{ item.productPostResponseDTO.user.imageUrl }}" *ngIf="item.productPostResponseDTO.user.imageUrl !== null" class="card-img rounded-circle img-responsive img" alt="..." />
-                                                            <img src="../../../content/img/default-avar.png" *ngIf="item.productPostResponseDTO.user.imageUrl === null" class="card-img rounded-circle img-responsive img" alt="..." />
+                                                            <img src="{{ imageUrl }}{{ currentProductPost.productPostResponseDTO.user.imageUrl }}" *ngIf="currentProductPost.productPostResponseDTO.user.imageUrl !== null" class="card-img rounded-circle img-responsive img" alt="..." />
+                                                            <img src="../../../content/img/default-avar.png" *ngIf="currentProductPost.productPostResponseDTO.user.imageUrl === null" class="card-img rounded-circle img-responsive img" alt="..." />
                                                         </div>
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     </div>
@@ -260,33 +261,77 @@
                                                     <!-- Modal body -->
                                                     <div class="modal-body">
                                                         <div class="container col-md-12 d-flex justify-content-center">
-                                                            <form class="col-md-12">
+                                                            <form class="col-md-12" [formGroup]="inforForm" role="form" (ngSubmit)="send(item)">
                                                                 <div class="form-group input-group col-md-12 px-0">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control" placeholder="Nhập tên của bạn" aria-label="Tên" aria-describedby="basic-addon1" required>
+                                                                    <input type="text" class="form-control" placeholder="Nhập tên của bạn" formControlName="name" aria-label="Tên" aria-describedby="basic-addon1" required>
+                                                                    <div *ngIf="inforForm.get('name').invalid && (inforForm.get('name').dirty || inforForm.get('name').touched)">
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.pattern">
+                                                                            Tên chỉ chứa chữ.
+                                                                        </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.required">
+                                                                            Tên không được để trống.
+                                                                        </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.maxlength">
+                                                                         Tên dài nhất có 32 kí tự.
+                                                                         </small>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="form-group input-group col-md-12 px-0">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text" id="basic-addon2"><i class="fas fa-at"></i></span>
                                                                     </div>
-                                                                    <input type="email" class="form-control" placeholder="Nhập email của bạn" aria-label="Email" aria-describedby="basic-addon2" required>
+                                                                    <input formControlName="email" type="email" class="form-control" placeholder="Nhập email của bạn" aria-label="Email" aria-describedby="basic-addon2" required>
+                                                                    <div *ngIf="inforForm.get('email').invalid && (inforForm.get('email').dirty || inforForm.get('email').touched)">
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('email').errors.pattern">
+                                                                            Email không đúng định dạng name@email.com
+                                                                        </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('email').errors.required">
+                                                                            Email không được để trống.
+                                                                        </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('email').errors.minlength">
+                                                                        Email it nhất có 10 kí tự.
+                                                                        </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('email').errors.maxlength">
+                                                                        Email dài nhất có 32 kí tự.
+                                                                        </small>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="form-group input-group col-md-12 px-0">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text" id="basic-addon3"><i class="fas fa-phone"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" aria-label="Số điện thoại" aria-describedby="basic-addon3" required>
+                                                                    <input type="text" formControlName="phone" class="form-control" placeholder="Nhập số điện thoại của bạn" aria-label="Số điện thoại" aria-describedby="basic-addon3" required>
+                                                                    <div *ngIf="inforForm.get('phone').invalid && (inforForm.get('phone').dirty || inforForm.get('phone').touched)">
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.required">
+                                                                        SĐT không được để trống.
+                                                                    </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.pattern">
+                                                                        SĐT chỉ chứa số.
+                                                                    </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.minlength">
+                                                                        SĐT it nhất có 10 kí tự.
+                                                                    </small>
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.maxlength">
+                                                                        SĐT dài nhất có 12 kí tự.
+                                                                    </small>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="form-group input-group col-md-12 px-0">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text">Tin nhắn</span>
                                                                     </div>
-                                                                    <textarea class="form-control" aria-label="Tin nhắn" placeholder="Nhập tin nhắn của bạn"></textarea>
+                                                                    <textarea class="form-control" formControlName="mess"  aria-label="Tin nhắn" placeholder="Nhập tin nhắn của bạn"></textarea>
+                                                                    <div *ngIf="inforForm.get('mess').invalid && (inforForm.get('mess').dirty || inforForm.get('mess').touched)">
+                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('mess').errors.maxlength">
+                                                                            Nội dung dài nhất có 200 kí tự.
+                                                                        </small>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="form-group col-md-12 px-0">
-                                                                    <button type="submit" class="btn btn-primary btn-lg btn-block">Gửi</button>
+                                                                    <button type="submit" [disabled]="inforForm.invalid"  class="btn btn-primary btn-lg btn-block">Gửi</button>
                                                                 </div>
                                                             </form>
                                                         </div>
