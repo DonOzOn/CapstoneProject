@@ -162,7 +162,7 @@ export class ManageGuestCareComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã xóa thàng công thành công người quan tâm!' });
         this.fetch();
       } else {
-        this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Xóa  thất bại!' });
+        this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Xóa thất bại!' });
       }
     });
   }
