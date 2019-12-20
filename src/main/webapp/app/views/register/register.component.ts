@@ -20,8 +20,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   modalRef: NgbModalRef;
   checked: false;
   registerForm = this.fb.group({
-    firstName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[a-zA-Z]*$')]],
-    lastName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[a-zA-Z]*$')]],
+    firstName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[a-zA-Z- ]*$')]],
+    lastName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[a-zA-Z- ]*$')]],
     login: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[_.@A-Za-z0-9-]*$')]],
     confirm: [false, Validators.requiredTrue],
     email: [

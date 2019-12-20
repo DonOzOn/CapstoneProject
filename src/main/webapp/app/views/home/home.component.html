@@ -34,7 +34,8 @@
                             </div>
                             <!--end of col-->
                             <div class="col-auto">
-                                <button class="btn btn-lg btn-outline-primary" (click)="search()" type="submit">Tìm kiếm</button>
+                                <button class="btn btn-lg btn-outline-primary" (click)="search()" type="submit">Tìm
+                                    kiếm</button>
                             </div>
                             <!--end of col-->
                         </div>
@@ -43,15 +44,7 @@
             </div>
             <div class="carouselTop container-fluid ">
                 <!-- You can use owl-carousel selector to include its component -->
-                <owl-carousel [options]="{
-            items: 6,
-            dots: false,
-            navigation: false,
-            autoplay: true,
-            autoplayTimeout: 5000,
-            autoplayHoverPause: false,
-            loop: true
-          }" [items]="listProvinces" [carouselClasses]="['owl-theme', 'row', 'sliding']">
+                <owl-carousel [options]="carouselOptions" [items]="listProvinces" [carouselClasses]="['owl-theme', 'row', 'sliding']">
                     <div class="d-flex justify-content-center align-content-center carouselTopPanding" *ngFor="let item of listProvinces; let i = index">
                         <div class="" [ngStyle]="{ background: ' repeat scroll center center / 80px 80px' }">
                             <a class="" id="city" [routerLink]="['/listproduct', 'postByProvince', item.code, item.name]"><i
@@ -64,7 +57,7 @@
     </div>
 
     <div class="row mt-4">
-        <div class="col-md-12" style="background-color: #afc0cf;">
+        <div class="col-md-12 slide-home">
             <p-carousel class="px-1" [value]="list15HotPostProduct" styleClass="custom-carousel" [numVisible]="4" [numScroll]="3" [circular]="true" [autoplayInterval]="7000" [responsiveOptions]="responsiveOptions">
                 <p-header>
                     <a class="h3 font-weight-bold text-uppercase" href="#">NỔI BẬT NHẤT
@@ -126,7 +119,7 @@
     </div>
 
     <div class="row mt-4">
-        <div class="col-md-12" style="background-color: #acbfd1;">
+        <div class="col-md-12 slide-home">
             <p-carousel class="px-1 border-0" [value]="list15NewPostProduct" styleClass="custom-carousel" [numVisible]="4" [numScroll]="3" [circular]="true" [autoplayInterval]="7000" [responsiveOptions]="responsiveOptions">
                 <p-header>
                     <a class="h3 font-weight-bold text-uppercase" href="#">MỚI NHẤT
@@ -148,9 +141,7 @@
                         </div>
                         <div class="card-body text-center" style="font-family: 'Quicksand', sans-serif;">
                             <h5 class="card-title giveMeEllipsisSlide font-weight-bold" data-toggle="tooltip " data-placement="top " title="Liên hệ">
-                                <a [routerLink]="['/product', list15NewPostProduct.productPostResponseDTO.id, 'productdetail']">{{
-                                    list15NewPostProduct.productPostResponseDTO.productPostTitle
-                }}</a>
+                                <a [routerLink]="['/product', list15NewPostProduct.productPostResponseDTO.id, 'productdetail']">{{list15NewPostProduct.productPostResponseDTO.productPostTitle}}</a>
                             </h5>
                             <p class="font-weight-light font-italic giveMeEllipsisSlide">
                                 <i class="fas fa-map-marked-alt"></i>{{ list15NewPostProduct.productPostResponseDTO.ward.name }}, {{ list15NewPostProduct.productPostResponseDTO.district.name }}, {{ list15NewPostProduct.productPostResponseDTO.province.name
@@ -190,7 +181,7 @@
     </div>
 
     <div class="row mt-4">
-        <div class="col-md-12">
+        <div class="col-md-12 slide-home">
             <p-carousel class="px-1 border-0" [value]="listUsers" styleClass="custom-carousel" [numVisible]="4" [numScroll]="3" [circular]="true" [autoplayInterval]="7000" [responsiveOptions]="responsiveOptions">
                 <p-header>
                     <a class="h3 font-weight-bold text-uppercase">NGƯỜI DÙNG NỔI BẬT <sup><i
