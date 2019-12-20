@@ -192,8 +192,6 @@ export class HomeComponent implements OnInit {
   getList15HotPostProduct() {
     this.postService.query().subscribe(res => {
       this.listHotPost = res.body;
-      // eslint-disable-next-line
-      console.log('ListHotpost: ', this.listHotPost);
       this.listHotPost.sort(function(obj1, obj2) {
         return (
           obj2.productPostResponseDTO.totalLike - obj1.productPostResponseDTO.totalLike ||
@@ -220,7 +218,7 @@ export class HomeComponent implements OnInit {
     let ans = [];
     arr.forEach(element => {
       if (!isExist(ans, element)) {
-        this.postService.listAllByUserID(element.productPostResponseDTO.user.id).subscribe(res => {
+        this.postService.listAllByUserID({ id: element.productPostResponseDTO.user.id, page: 0, size: 10, sort: null }).subscribe(res => {
           element.productPostResponseDTO.totalReport = res.body.length;
         });
         ans.push(element);
