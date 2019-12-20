@@ -14,6 +14,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
@@ -896,7 +898,7 @@ public class Testunittest {
     @Test
     public void findAllByUserIDTest(){
         Gson gs = new Gson();
-        List<ProductPost> lst = new ArrayList<>();
+        List<ProductPost> lst = null;
         lst.add(new ProductPost(new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null),
             "projectname1",null,"productPostTitle1",33,12,11,11,null,null,null,"ha noi","Khong co gi 1","Nhieu lam 1",null,true));
         lst.add(new ProductPost(new User("don456","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null),
@@ -1430,13 +1432,13 @@ public class Testunittest {
     @Test
     public void findAllReviewByUserIdTest(){
         Gson gs = new Gson();
-        List<Review> lst = new ArrayList<>();
-        lst.add(new Review(new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null),"abc",11,22,33,null,null,null,"abc","bcd",true,"anhDep",true));
-        lst.add(new Review(new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null),"abc",44,55,66,null,null,null,"abc","bcd",true,"anhDep",true));
-        lst.add(new Review(new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null),"abc",77,88,99,null,null,null,"abc","bcd",true,"anhDep",true));
-        when(reviewRepository.findAllByStatusIsTrueAndUserId(1L)).thenReturn(lst);
-        List<Review> lstExpect = lst;
-        List<Review> lstActual = reviewService.findByUserId(1L);
+        Page<Review> lst = null;
+        lst.getContent().add(new Review(new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null),"abc",11,22,33,null,null,null,"abc","bcd",true,"anhDep",true));
+        lst.getContent().add(new Review(new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null),"abc",44,55,66,null,null,null,"abc","bcd",true,"anhDep",true));
+        lst.getContent().add(new Review(new User("don123","123abc","ngo","van","fdfsdf",null,null,null,null,"01223232",true,"abc.com",true,null,"abc",null,null,null,null),"abc",77,88,99,null,null,null,"abc","bcd",true,"anhDep",true));
+        when(reviewRepository.findAllByStatusIsTrueAndUserId(1L, null)).thenReturn(lst);
+        Page<Review> lstExpect = lst;
+        Page<Review> lstActual = reviewService.findByUserId(1L, null);
         String expect = gs.toJson(lstExpect);
         String actual = gs.toJson(lstActual);
         assertEquals(expect, actual);

@@ -1,6 +1,8 @@
 package com.realestatebrokerage.repository;
 
 import com.realestatebrokerage.domain.Review;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.Instant;
@@ -10,7 +12,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     public List<Review> findAllByStatusIsTrue();
 
-    public List<Review> findAllByStatusIsTrueAndUserId(Long id);
+    public Page<Review> findAllByStatusIsTrueAndUserId(Long id, Pageable pageable);
 
     /**
      * find all review
