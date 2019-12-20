@@ -1,10 +1,11 @@
-import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
-import { SelectItem, ConfirmationService, MessageService } from 'primeng/api';
+/* eslint-disable @typescript-eslint/tslint/config */
+import { Component, OnInit, ElementRef, Renderer, ViewChild } from '@angular/core';
+import { SelectItem, ConfirmationService, MessageService, LazyLoadEvent } from 'primeng/api';
 import { CarService } from 'app/core/service/car.service';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormControl } from '@angular/forms';
 import { ProductPost } from 'app/core/post/model/product-post.model';
 import { IUser } from 'app/core/user/user.model';
-import { PostRespone } from 'app/core/post/model/postRespone.model';
+import { PostRespone, IPostRespone } from 'app/core/post/model/postRespone.model';
 import { AddressService } from 'app/core/address/address.service';
 import { DirectionService } from 'app/core/direction/direction.service';
 import { LegalStatusService } from 'app/core/legal-status/legal-status.service';
@@ -16,9 +17,11 @@ import { PostService } from 'app/core/post/post.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { UserService } from 'app/core/user/user.service';
 import { Account } from 'app/core/user/account.model';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { PostRequest } from 'app/core/post/model/postRequest.model copy';
 import { SERVER_API_URL } from 'app/app.constants';
+import { tap } from 'rxjs/operators';
+import { Table } from 'primeng/table';
 
 export interface Car {
   vin: any;
@@ -34,6 +37,7 @@ export interface Car {
   providers: [ConfirmationService, MessageService]
 })
 export class ManageproductpostComponent implements OnInit {
+  @ViewChild('dv', { static: false }) dv: Table;
   imageUrl = SERVER_API_URL + '/api/upload/files/';
   currentAccount: Account;
   currentUser: IUser;
@@ -42,6 +46,8 @@ export class ManageproductpostComponent implements OnInit {
   types: SelectItem[];
   selectedUtility: string[] = [];
   isUploadedFile = false;
+  totalRecords = 0;
+  loading: boolean;
   text1 = '<div>Hello!</div><div>Chào mừng tới BDS</div><div><br></div>';
   formAddress = this.fb.group({
     address: [null, Validators.required],
@@ -93,6 +99,8 @@ export class ManageproductpostComponent implements OnInit {
     utilities: [null]
   });
 
+  id = new FormControl('');
+
   post: PostRequest = new PostRequest();
 
   posts: PostRespone[] = [];
@@ -139,9 +147,10 @@ export class ManageproductpostComponent implements OnInit {
       this.currentAccount = account;
       this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
         this.currentUser = userAuthen;
-        this.getListPostProduct();
+        this.id = this.currentUser.id;
       });
     });
+    this.loading = true;
     this.getlistCar();
     this.sortOptions = [{ label: 'Cũ nhất', value: 1 }, { label: 'Mới nhất', value: 2 }];
     this.getProvince();
@@ -168,10 +177,8 @@ export class ManageproductpostComponent implements OnInit {
       accept: () => {
         this.alertService.clear();
         this.postService.delete(id).subscribe(() => {
-          // eslint-disable-next-line
-          console.log('postId : ', id);
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã xóa bài đăng thành công!!' });
-          this.getListPostProduct();
+          this.fetch();
         });
       }
     });
@@ -179,6 +186,16 @@ export class ManageproductpostComponent implements OnInit {
 
   selectPostproduct(event: Event, post: PostRespone) {
     this.listUtilitiesSelected = [];
+    this.uploadedFiles.push(post.imageDTO.img1);
+    this.uploadedFiles.push(post.imageDTO.img2);
+    this.uploadedFiles.push(post.imageDTO.img3);
+    this.uploadedFiles.push(post.imageDTO.img4);
+    this.uploadedFiles.push(post.imageDTO.img5);
+    this.uploadedFiles.push(post.imageDTO.img6);
+    this.uploadedFiles.push(post.imageDTO.img7);
+    this.uploadedFiles.push(post.imageDTO.img8);
+    this.uploadedFiles.push(post.imageDTO.img9);
+    this.uploadedFiles.push(post.imageDTO.img10);
     this.selectedPost = post;
     this.displayDialog = true;
     this.selectedType = this.selectedPost.productPostResponseDTO.productPostType.id;
@@ -222,9 +239,15 @@ export class ManageproductpostComponent implements OnInit {
     event.preventDefault();
   }
 
-  loadData(event) {
-    event.first = true;
-    event.rows = 10;
+  loadData(event: LazyLoadEvent) {
+    this.loading = true;
+    // eslint-disable-next-line @typescript-eslint/tslint/config
+    // eslint-disable-next-line prefer-const
+    let sort = '';
+    setTimeout(() => {
+      this.fetch(event.first / event.rows, [sort]);
+      this.loading = false;
+    }, 500);
   }
 
   // selectPostproduct(event: Event, car: Car) {
@@ -236,36 +259,31 @@ export class ManageproductpostComponent implements OnInit {
    * get all post product
    */
   // eslint-disable-next-line
-  getListPostProduct() {
-    this.postService.listAllByUserID(this.currentUser.id).subscribe(res => {
-      this.posts = res.body;
-      // eslint-disable-next-line @typescript-eslint/tslint/config
-      // eslint-disable-next-line no-empty
-      for (let i = 0; i <= this.posts.length; i++) {
-        // eslint-disable-next-line @typescript-eslint/tslint/config
-        this.uploadedFiles.push(this.posts[i].imageDTO.img1);
-        this.uploadedFiles.push(this.posts[i].imageDTO.img2);
-        this.uploadedFiles.push(this.posts[i].imageDTO.img3);
-        this.uploadedFiles.push(this.posts[i].imageDTO.img4);
-        this.uploadedFiles.push(this.posts[i].imageDTO.img5);
-        this.uploadedFiles.push(this.posts[i].imageDTO.img6);
-        this.uploadedFiles.push(this.posts[i].imageDTO.img7);
-        this.uploadedFiles.push(this.posts[i].imageDTO.img8);
-        this.uploadedFiles.push(this.posts[i].imageDTO.img9);
-        this.uploadedFiles.push(this.posts[i].imageDTO.img10);
-      }
-      // eslint-disable-next-line
-      console.log('not sort : ', this.posts);
-      this.posts = this.posts.sort((a: any, b: any) => {
-        // eslint-disable-next-line
-        console.log('sort : ');
-        return new Date(b.productPostResponseDTO.createdDate).valueOf() - new Date(a.productPostResponseDTO.createdDate).valueOf();
-      });
-    });
+
+  fetch(page = 0, sort?) {
+    this.postService
+      .listAllByUserID({ id: this.id, page, size: 10, sort })
+      .pipe(tap(() => (this.loading = true)))
+      .subscribe(
+        (res: HttpResponse<IPostRespone[]>) => this.onSuccess(res.body, res.headers),
+        (res: HttpResponse<any>) => this.onError(res.body)
+      );
   }
+  private onSuccess(data, headers) {
+    this.loading = false;
+    this.totalRecords = headers.get('X-Total-Count');
+    this.posts = data;
+  }
+  private onError(error) {
+    this.loading = false;
+    this.alertService.error(error.error, error.message, null);
+  }
+  // getListPostProduct() {
+  //   this.postService.listAllByUserID(this.currentUser.id).subscribe(res => {
+  //     this.posts = res.body;
+  //   });
+  // }
   onSortChange(event: { value: any }) {
-    // eslint-disable-next-line
-    console.log('key : ', this.sortKey);
     const value = event.value;
     switch (value) {
       case 1: {
@@ -298,8 +316,6 @@ export class ManageproductpostComponent implements OnInit {
   /*  add picture to list */
   onUpload(event, fileUpload) {
     this.uploadedFiles = [];
-    // eslint-disable-next-line
-    console.log('da qua day');
     const listFile = [];
     for (const file of event.files) {
       listFile.push(file);
@@ -307,11 +323,7 @@ export class ManageproductpostComponent implements OnInit {
     listFile.forEach(element => {
       this.postService.upload(element).subscribe(
         res => {
-          // eslint-disable-next-line
-          console.log('element', element);
           this.uploadedFiles.push(res.body);
-          // eslint-disable-next-line
-          console.log('res-body', res.body);
           this.isUploadedFile = true;
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã tải ảnh thành công!!' });
         },
@@ -417,10 +429,7 @@ export class ManageproductpostComponent implements OnInit {
   /**
    * checkItemChecked
    */
-  checkItemChecked() {
-    // eslint-disable-next-line
-    console.log('checked value', this.listUtilitiesSelected);
-  }
+  checkItemChecked() {}
 
   redirectTo(uri: string) {
     this.router.navigateByUrl('/usermanage', { skipLocationChange: true }).then(() => this.router.navigate([uri]));
@@ -491,8 +500,6 @@ export class ManageproductpostComponent implements OnInit {
       status: true
     };
     this.post.productRequestDTO = product;
-    // eslint-disable-next-line
-    console.log('this.post.productRequestDTO :', this.post.productRequestDTO);
     this.post.productPostRequestDTO = productPost;
     this.post.imageDTO = image;
     this.post.usingImageRequestDTO = usingImage;
@@ -507,7 +514,7 @@ export class ManageproductpostComponent implements OnInit {
           // eslint-disable-next-line
           .subscribe(
             (res: any) => (
-              this.getListPostProduct(),
+              this.fetch(),
               this.router.navigate(['manage-product']),
               (this.displayDialog = false),
               this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã cập nhật bài đăng thành công!!' })

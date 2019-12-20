@@ -127,7 +127,7 @@ export class ManageGuestCareComponent implements OnInit {
 
   fetch(page = 0, sort?) {
     this.guestCareService
-      .query({ userid: this.userid, size: this.pageSize, sort })
+      .query({ userid: this.userid, page, size: this.pageSize, sort })
       .pipe(tap(() => (this.loading = true)))
       .subscribe((res: HttpResponse<IUser[]>) => this.onSuccess(res.body, res.headers), (res: HttpResponse<any>) => this.onError(res.body));
   }

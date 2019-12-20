@@ -8,6 +8,8 @@ import com.realestatebrokerage.service.dto.ReviewRequestDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -49,9 +51,9 @@ public class ReviewService {
     /**
      * get by userID
      * **/
-    public List<Review> findByUserId(Long id){
+    public Page<Review> findByUserId(Long id, Pageable pageable){
         log.debug("find review by user id : {}", id);
-        return reviewRepository.findAllByStatusIsTrueAndUserId(id);
+        return reviewRepository.findAllByStatusIsTrueAndUserId(id, pageable);
     }
 
     /**

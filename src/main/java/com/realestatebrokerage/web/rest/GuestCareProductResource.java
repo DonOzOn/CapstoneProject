@@ -43,7 +43,7 @@ public class GuestCareProductResource {
     }
 
     @GetMapping("/guest/{id}")
-    public ResponseEntity<GuestCareProductResponeDTO> getNews(@PathVariable("id") Long id) {
+    public ResponseEntity<GuestCareProductResponeDTO> getGuestCare(@PathVariable("id") Long id) {
         log.debug("get list news by id : {}", id);
         return new ResponseEntity<>(guestCareProductService.findById(id).map(GuestCareProductResponeDTO::new).orElse(null), HttpStatus.OK);
     }

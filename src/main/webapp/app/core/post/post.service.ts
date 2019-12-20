@@ -6,6 +6,7 @@ import { IPostRespone } from './model/postRespone.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { tap } from 'rxjs/operators';
 import { IPostRequest } from './model/postRequest.model copy';
+import { createRequestOption } from 'app/shared/util/request-util';
 // import { createRequestOption } from 'app/shared/util/request-util';
 
 @Injectable({
@@ -14,7 +15,7 @@ import { IPostRequest } from './model/postRequest.model copy';
 export class PostService {
   public resourceUrl = SERVER_API_URL + 'api/product-post';
   public resourceUrlImage = SERVER_API_URL + 'api/upload';
-
+  formData: IPostRequest[];
   constructor(private http: HttpClient, private alertService: JhiAlertService) {}
   create(post: IPostRequest): Observable<HttpResponse<IPostRequest>> {
     return this.http.post<IPostRequest>(this.resourceUrl, post, { observe: 'response' }).pipe(
@@ -84,8 +85,16 @@ export class PostService {
    * @param id
    * @returns all by user id
    */
-  listAllByUserID(id: any): Observable<HttpResponse<IPostRespone[]>> {
-    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/user/${id}`, { observe: 'response' });
+  listAllByUserID(req?: any): Observable<HttpResponse<IPostRespone[]>> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const options = createRequestOption(req);
+    this.http
+      .get(this.resourceUrl)
+      .toPromise()
+      .then(res => {
+        this.formData = res as IPostRespone[];
+      });
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/user`, { params: options, observe: 'response' });
   }
 
   /**

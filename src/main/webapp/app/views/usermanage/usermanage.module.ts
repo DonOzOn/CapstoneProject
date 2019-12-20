@@ -38,6 +38,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ManageGuestCareComponent } from './manage-guest-care-product/manage-guest-care-product.component';
 import { TableModule } from 'primeng/table';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     RealestatebrokerageSharedModule,
     OverlayPanelModule,
     NgxPaginationModule,
-    TableModule
+    TableModule,
+    PaginatorModule
   ],
   providers: [],
   exports: [
