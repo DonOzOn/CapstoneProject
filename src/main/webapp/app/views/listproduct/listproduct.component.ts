@@ -549,6 +549,10 @@ export class ListproductComponent implements OnInit {
   open(item) {
     // eslint-disable-next-line
     console.log('data clcik: ', item);
+    this.inforForm.controls.name.reset();
+    this.inforForm.controls.email.reset();
+    this.inforForm.controls.phone.reset();
+    this.inforForm.controls.mess.reset();
     this.currentProductPost = item;
   }
 }
