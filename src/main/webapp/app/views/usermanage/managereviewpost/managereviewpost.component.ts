@@ -1,6 +1,6 @@
-import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer, ViewChild } from '@angular/core';
 import { SelectItem, ConfirmationService, MessageService } from 'primeng/api';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormControl } from '@angular/forms';
 import { IUser } from 'app/core/user/user.model';
 import { AddressService } from 'app/core/address/address.service';
 import { ProductPostTypeService } from 'app/core/product-type/product-type.service';
@@ -10,10 +10,12 @@ import { PostService } from 'app/core/post/post.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { UserService } from 'app/core/user/user.service';
 import { Account } from 'app/core/user/account.model';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { SERVER_API_URL } from 'app/app.constants';
 import { IReview } from 'app/core/review/review.model';
 import { ReviewService } from 'app/core/review/review.service';
+import { tap } from 'rxjs/operators';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-managereviewpost',
@@ -22,6 +24,7 @@ import { ReviewService } from 'app/core/review/review.service';
   providers: [ConfirmationService, MessageService]
 })
 export class ManagereviewpostComponent implements OnInit {
+  @ViewChild('dv', { static: false }) dv: Table;
   imageUrl = SERVER_API_URL + '/api/upload/files/';
   /*  Item select button  */
   selectedType: number;
@@ -31,6 +34,8 @@ export class ManagereviewpostComponent implements OnInit {
   /* product post */
   account: Account;
   user: IUser;
+  totalRecords = 0;
+  loading: boolean;
   /*  List product type and product type child  */
   listProductTypeChild: [];
   listProductType: [];
@@ -65,6 +70,8 @@ export class ManagereviewpostComponent implements OnInit {
   currentAccount: Account;
 
   currentUser: IUser;
+
+  id = new FormControl('');
   constructor(
     private addressService: AddressService,
     private fb: FormBuilder,
@@ -85,6 +92,15 @@ export class ManagereviewpostComponent implements OnInit {
 
   ngOnInit() {
     // this.selectedType = 'Mua bán';
+    this.accountService.identity().subscribe((account: Account) => {
+      this.currentAccount = account;
+      this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
+        this.currentUser = userAuthen;
+        this.id = this.currentUser.id;
+      });
+    });
+    this.loading = true;
+    this.sortOptions = [{ label: 'Mới nhất', value: 1 }, { label: 'Cũ nhất', value: 2 }];
   }
 
   /**
@@ -102,7 +118,7 @@ export class ManagereviewpostComponent implements OnInit {
         this.alertService.clear();
         this.reviewService.delete(id).subscribe(() => {
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã xóa bài đăng thành công!!' });
-          this.getListReview(this.currentUser.id);
+          this.fetch(this.currentUser.id);
         });
       }
     });
@@ -141,31 +157,49 @@ export class ManagereviewpostComponent implements OnInit {
   }
 
   loadData(event) {
-    event.first = true;
-    event.rows = 10;
-    this.accountService.identity().subscribe((account: Account) => {
-      this.currentAccount = account;
-      this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
-        this.currentUser = userAuthen;
-        this.getListReview(this.currentUser.id);
-      });
-    });
-    this.sortOptions = [{ label: 'Mới nhất', value: 1 }, { label: 'Cũ nhất', value: 2 }];
+    this.loading = true;
+    const sort = '';
+    setTimeout(() => {
+      this.fetch(event.first / event.rows, [sort]);
+      this.loading = false;
+    }, 500);
   }
 
+  fetch(page = 0, sort?) {
+    this.reviewService
+      .listAllByUserID({ id: this.id, page, size: 10, sort })
+      .pipe(tap(() => (this.loading = true)))
+      .subscribe(
+        (res: HttpResponse<IReview[]>) => this.onSuccess(res.body, res.headers),
+        (res: HttpResponse<any>) => this.onError(res.body)
+      );
+  }
   /**
    * Gets list review
    * @param id
    */
-  getListReview(id: any) {
-    this.reviewService.listAllByUserID(id).subscribe(res => {
-      this.reviews = res.body;
-      this.reviews.sort(function(obj1: any, obj2: any) {
-        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
-      });
-      // eslint-disable-next-line
-      console.log('List all review : ', this.reviews);
-    });
+  // getListReview(id: any) {
+  //   this.reviewService.listAllByUserID(id).subscribe(res => {
+  //     this.reviews = res.body;
+  //     this.reviews.sort(function(obj1: any, obj2: any) {
+  //       return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
+  //     });
+  //     // eslint-disable-next-line
+  //     console.log('List all review : ', this.reviews);
+  //   });
+  // }
+
+  private onSuccess(data, headers) {
+    this.loading = false;
+    this.totalRecords = headers.get('X-Total-Count');
+    this.reviews = data;
+    // this.reviews = this.reviews.sort((a: any, b: any) => {
+    //   return new Date(b.productPostResponseDTO.createdDate).valueOf() - new Date(a.productPostResponseDTO.createdDate).valueOf();
+    // });
+  }
+  private onError(error) {
+    this.loading = false;
+    this.alertService.error(error.error, error.message, null);
   }
 
   /**
@@ -260,18 +294,20 @@ export class ManagereviewpostComponent implements OnInit {
         data.id = this.review.id;
         data.imageUrl = this.uploadedFiles[0];
         this.alertService.clear();
-        this.reviewService.update(data).subscribe(
-          () => (
-            (this.displayDialog = false),
-            this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã đăng bài thành công!' }),
-            this.alertService.success('Cập nhật thành công bài review ' + data.id, null, null)
-            // this.redirectTo('/manage-review')
-          )
-        ),
+        this.reviewService
+          .update(data)
+          .subscribe(
+            () => (
+              (this.displayDialog = false),
+              this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã cập nhật bài thành công!' }),
+              this.alertService.success('Cập nhật thành công bài review ' + data.id, null, null),
+              this.redirectTo('/manage-review')
+            )
+          ),
           // eslint-disable-next-line
           (err: any) => (
             this.alertService.error(err.error.title),
-            this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Đăng bài đăng thất bại!' })
+            this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Cập nhật bài đăng thất bại!' })
           );
       }
     });

@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,7 +51,7 @@ public class PostResource {
      * create product post
      * */
     @PostMapping("/product-post")
-    public ResponseEntity<PostResponeDTO> createProduct(@RequestBody PostRequestDTO postRequestDTO){
+    public ResponseEntity<PostResponeDTO> createProduct(@Valid @RequestBody PostRequestDTO postRequestDTO){
         log.debug("create  product post: {}", postRequestDTO);
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -152,13 +155,18 @@ public class PostResource {
      * {@code GET /Post} : get all Post by UserID.
      *
      */
-    @GetMapping("/product-post/user/{id}")
-    public ResponseEntity<List<PostResponeDTO>> getAllPostProductByUserID(@PathVariable Long id) {
+    @GetMapping("/product-post/user")
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProductByUserID(Long id, Pageable pageable) {
         log.debug("get by user id : {}", id);
         List<PostResponeDTO> responeDTOList = new ArrayList<>();
-        List<ProductPostResponseDTO> postList = productPostService.findAllByUserID(id).stream()
-            .map(ProductPostResponseDTO::new).collect(Collectors.toList());
-        if (postList != null) {
+        List<ProductPostResponseDTO> postList = productPostService.findAllByUserID(id).stream().map(ProductPostResponseDTO::new).collect(Collectors.toList());
+        Collections.sort(postList, new Comparator<ProductPostResponseDTO>() {
+            @Override
+            public int compare(ProductPostResponseDTO o1, ProductPostResponseDTO o2) {
+                return o2.getCreatedDate().compareTo(o1.getCreatedDate());
+            }
+        });
+        if (postList!= null) {
                     for (ProductPostResponseDTO pr : postList) {
                         PostResponeDTO postResponeDTO = new PostResponeDTO();
                         postResponeDTO.setProductPostResponseDTO(pr);
@@ -170,7 +178,21 @@ public class PostResource {
                         postResponeDTO.setImageDTO(imageDTO);
                         responeDTOList.add(postResponeDTO);
             }
-            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+            int pageSize = pageable.getPageSize();
+            int currentPage = pageable.getPageNumber();
+            int startItem = currentPage * pageSize;
+            List<PostResponeDTO> responeDTOList22;
+
+            if (responeDTOList.size() < startItem) {
+                responeDTOList22 = Collections.emptyList();
+            } else {
+                int toIndex = Math.min(startItem + pageSize, responeDTOList.size());
+                responeDTOList22 = responeDTOList.subList(startItem, toIndex);
+            }
+            Page<PostResponeDTO> postResponseDTOS = new PageImpl<PostResponeDTO>(responeDTOList22,PageRequest.of(currentPage, pageSize), responeDTOList.size());
+            log.debug("postResponse Pageall : {}", postResponseDTOS);
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), postResponseDTOS);
+            return new ResponseEntity<>(postResponseDTOS.getContent(), headers, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
@@ -288,9 +310,8 @@ public class PostResource {
                 }else{
                     postResponeDTO.setProductPostResponseDTO(null);
                 }
-
-
             }
+
             return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);

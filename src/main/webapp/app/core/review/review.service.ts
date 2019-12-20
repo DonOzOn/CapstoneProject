@@ -5,12 +5,14 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { tap } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IReview } from './review.model';
+import { createRequestOption } from 'app/shared/util/request-util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReviewService {
   public newsResourceUrl = SERVER_API_URL + 'api/review';
+  formData: IReview[];
   constructor(private http: HttpClient, private alertService: JhiAlertService) {}
 
   getListReview(): Observable<HttpResponse<IReview[]>> {
@@ -38,8 +40,16 @@ export class ReviewService {
     );
   }
 
-  listAllByUserID(id: any): Observable<HttpResponse<IReview[]>> {
-    return this.http.get<IReview[]>(`${this.newsResourceUrl}/user/${id}`, { observe: 'response' });
+  listAllByUserID(req?: any): Observable<HttpResponse<IReview[]>> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const options = createRequestOption(req);
+    this.http
+      .get(this.newsResourceUrl)
+      .toPromise()
+      .then(res => {
+        this.formData = res as IReview[];
+      });
+    return this.http.get<IReview[]>(`${this.newsResourceUrl}/user`, { params: options, observe: 'response' });
   }
 
   find(id: any): Observable<IReview> {

@@ -65,7 +65,7 @@ export class UserResolve implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const userId = route.params.userId ? route.params.userId : null;
     if (userId) {
-      return this.service.listAllByUserID(userId);
+      return this.service.listAllByUserID({ id: userId, page: 0, size: 10, sort: null });
     }
     return new this.detainew();
   }
