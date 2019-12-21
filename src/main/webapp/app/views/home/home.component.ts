@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
         autoplayTimeout: 4500,
         autoplayHoverPause: false
       },
-      1600: {
+      1440: {
         items: 5,
         autoplayTimeout: 5500,
         autoplayHoverPause: false
@@ -117,7 +117,7 @@ export class HomeComponent implements OnInit {
         numScroll: 5
       },
       {
-        breakpoint: '1600px',
+        breakpoint: '1440px',
         numVisible: 4,
         numScroll: 4
       },

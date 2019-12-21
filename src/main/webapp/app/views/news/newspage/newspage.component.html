@@ -39,11 +39,11 @@
                                         <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                             <!--title-->
                                             <a [routerLink]="[ '/news', item.id , 'detail' ]">
-                                                <h2 class="h3 post-title text-white my-1">{{item.title}}</h2>
+                                                <h2 class="h3 post-title text-white my-1 giveMeEllipsisTitle">{{item.title}}</h2>
                                             </a>
                                             <!-- meta title -->
                                             <div class="news-meta">
-                                                <p class="news-date">Ngày đăng: {{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</p>
+                                                <p class="news-date"><i class="fas fa-clock"></i> {{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -162,9 +162,9 @@
 
                                         <!--title-->
                                         <a [routerLink]="[ '/news', item.id , 'detail' ]">
-                                            <h2 class="h5 text-white my-1">{{item.title}}</h2>
+                                            <h5 class="h5 text-white my-1 pt-2 giveMeEllipsisTitle">{{item.title}}</h5>
                                         </a>
-                                        <p class="text-light">Ngày đăng: {{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</p>
+                                        <p class="text-light"><i class="fas fa-clock"></i> {{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</p>
                                     </div>
                                 </div>
                             </div>
