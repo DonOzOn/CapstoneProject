@@ -115,9 +115,13 @@ export class ManageNewsComponent implements OnInit {
         this.fromDate.setHours(0, 0, 0);
         this.toDate = new Date(this.to);
         this.toDate.setHours(0, 0, 0);
-        this.newsService.searchbyDate(this.fromDate.toISOString(), this.toDate.toISOString()).subscribe(res => {
-          this.news = res.body;
-        });
+        this.newsService
+          .searchbyDate({ from: this.fromDate.toISOString(), to: this.toDate.toISOString(), page: 0, size: 10, sort: null })
+          .pipe(tap(() => (this.loading = true)))
+          .subscribe(
+            (res: HttpResponse<INews[]>) => this.onSuccess(res.body, res.headers),
+            (res: HttpResponse<any>) => this.onError(res.body)
+          );
       }
     }
   }
@@ -140,9 +144,13 @@ export class ManageNewsComponent implements OnInit {
         this.fromDate.setHours(0, 0, 0);
         this.toDate = new Date(this.to);
         this.toDate.setHours(0, 0, 0);
-        this.newsService.searchbyDate(this.fromDate.toISOString(), this.toDate.toISOString()).subscribe(res => {
-          this.news = res.body;
-        });
+        this.newsService
+          .searchbyDate({ from: this.fromDate.toISOString(), to: this.toDate.toISOString(), page: 0, size: 10, sort: null })
+          .pipe(tap(() => (this.loading = true)))
+          .subscribe(
+            (res: HttpResponse<INews[]>) => this.onSuccess(res.body, res.headers),
+            (res: HttpResponse<any>) => this.onError(res.body)
+          );
       }
     }
   }
