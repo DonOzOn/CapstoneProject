@@ -38,13 +38,13 @@
                                                     </div>
                                                     <div class="ui-g-6 ui-md-4 p-0">
                                                         <div style="position:relative">
-                                                            <p-calendar dateFormat="dd/mm/yy" [styleClass]="{'width': '20px'}" [(ngModel)]="from" (onSelect)="fromChange(from)" placeholder="Từ ngày" (onBlur)="getListNew()" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+                                                            <p-calendar dateFormat="dd/mm/yy" [styleClass]="{'width': '20px'}" [(ngModel)]="from" (onSelect)="fromChange(from)" placeholder="Từ ngày" (onBlur)="fetch()" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
                                                             </p-calendar>
                                                         </div>
                                                     </div>
                                                     <div class="ui-g-6 ui-md-4 p-0">
                                                         <div>
-                                                            <p-calendar dateFormat="dd/mm/yy" [styleClass]="{'width': '10px'}" placeholder="Đến ngày" [(ngModel)]="to" (onSelect)="toChange(to)" (onBlur)="getListNew()" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+                                                            <p-calendar dateFormat="dd/mm/yy" [styleClass]="{'width': '10px'}" placeholder="Đến ngày" [(ngModel)]="to" (onSelect)="toChange(to)" (onBlur)="fetch()" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
                                                             </p-calendar>
                                                         </div>
                                                     </div>

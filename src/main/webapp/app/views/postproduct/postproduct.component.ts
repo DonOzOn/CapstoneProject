@@ -29,7 +29,7 @@ export class PostproductComponent implements OnInit {
   types: SelectItem[];
   selectedUtility: string[] = [];
   isUploadedFile = false;
-  text1 = '<div>Hello!</div><div>Chào mừng tới BDS</div><div><br></div>';
+  text1 = null;
   formAddress = this.fb.group({
     address: [null, Validators.required],
     provinceCode: [null, Validators.required],
@@ -108,6 +108,12 @@ export class PostproductComponent implements OnInit {
     this.getUtility();
     this.selectedType = this.types[0].value;
     // this.selectedType = 'Mua bán';
+  }
+
+  // eslint-disable-next-line @typescript-eslint/tslint/config
+  ngAfterViewInit(): void {
+    this.renderer.selectRootElement('#projectName').focus();
+    // this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#projectName'), 'focus', []);
   }
 
   /*  add picture to list */

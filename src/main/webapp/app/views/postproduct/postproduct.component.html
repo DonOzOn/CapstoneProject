@@ -180,13 +180,13 @@
                                                                 <span class="ui-float-label">
                                                                     <input id="float-input" class="form-control"
                                                                         type="text" formControlName="address" size="30"
-                                                                        pInputText required>
+                                                                        pInputText>
                                                                     <label for="float-input">Địa chỉ </label>
                                                                 </span>
-                                                                <div *ngIf="formAddress.controls.address.invalid && (formAddress.controls.address.dirty || formAddress.controls.address.touched)">
+                                                                <!-- <div *ngIf="formAddress.controls.address.invalid && (formAddress.controls.address.dirty || formAddress.controls.address.touched)">
                                                                     <small class="form-text text-danger" *ngIf="formAddress.controls.address.errors?.required">
                                                                         Địa chỉ không được để trống</small>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                         </div>
                                                     </form>
@@ -336,7 +336,6 @@
                                                 <div class="col-md-2 px-3">
                                                     <label class="m-0 py-1">Mô tả<label
                                                             style="color: Red;">*</label></label>
-
                                                 </div>
                                                 <div class="col-md-10 pl-4">
                                                     <span class="ui-float-label pl-2 ml-2">
@@ -347,9 +346,6 @@
                                                             icon="pi pi-times" (click)="text1=null"
                                                             [disabled]="!countContentNumber()"></button>
                                                     </span>
-                                                    <!-- <small class="form-text text-danger" *ngIf="productPostForm.get('content').errors.maxlength">
-                                                                Mô tải dài nhất có 255 một kí tự.
-                                                    </small> -->
                                                 </div>
 
                                             </div>
