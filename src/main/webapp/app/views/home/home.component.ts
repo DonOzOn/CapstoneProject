@@ -26,6 +26,47 @@ export class HomeComponent implements OnInit {
   chooseForm = this.fb.group({
     choose: ['']
   });
+
+  carouselOptions = {
+    dots: false,
+    navigation: false,
+    autoplay: true,
+    loop: true,
+    responsiveClass: true,
+    responsive: {
+      0: {
+        items: 1,
+        autoplayTimeout: 1500,
+        autoplayHoverPause: true,
+      },
+      520: {
+        items: 2,
+        autoplayTimeout: 2500,
+        autoplayHoverPause: true,
+      },
+      768: {
+        items: 3,
+        autoplayTimeout: 3500,
+        autoplayHoverPause: true,
+      },
+      1024: {
+        items: 4,
+        autoplayTimeout: 4500,
+        autoplayHoverPause: false,
+      },
+      1600: {
+        items: 5,
+        autoplayTimeout: 5500,
+        autoplayHoverPause: false,
+      },
+      1920: {
+        items: 6,
+        autoplayTimeout: 6500,
+        autoplayHoverPause: false,
+      }
+    }
+  };
+
   listProvinces = [];
   listNumPost = [];
   listUsers: IUser[] = [];
@@ -146,7 +187,7 @@ export class HomeComponent implements OnInit {
     self.userService.find(self.currentAccount.login).subscribe((userAuthen: IUser) => {
       self.currentUser = userAuthen;
       self.currentUser.token = e.detail;
-      self.userService.update(self.currentUser).subscribe(res => {});
+      self.userService.update(self.currentUser).subscribe(res => { });
     });
   }
   /**
@@ -165,7 +206,7 @@ export class HomeComponent implements OnInit {
       });
       // eslint-disable-next-line
       console.log('listUserTop: ', this.listUserTop);
-      this.listUsers = this.listUserTop.slice(0, 6);
+      this.listUsers = this.listUserTop.slice(0, 10);
       // eslint-disable-next-line
       console.log('listUsers: ', this.listUsers);
     });
@@ -242,7 +283,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/news', id, 'detail']);
   }
 
-  onChange($event) {}
+  onChange($event) { }
 
   /**
    * Searchs

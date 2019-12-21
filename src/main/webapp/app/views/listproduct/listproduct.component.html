@@ -28,7 +28,7 @@
                     </div>
                     <div class="text-center">
                         <select formControlName="province" (change)="selectedProvince()" class=" dropdown-info btn btn-secondary col-md-12">
-                            <option value="0">Tất cả</option>
+                            <option value="0" selected>Tất cả</option>
                             <option *ngFor="let item of listProvinces" value="{{item.code}}">{{item.name}}</option>
                         </select>
                     </div>
@@ -38,8 +38,8 @@
                         <p class="my-1">Quận/Huyện</p>
                     </div>
                     <div class="text-center">
-                        <select formControlName="district" (change)="selectedDistrict()" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
-                            <option value="0">Tất cả</option>
+                        <select formControlName="district" (change)="selectedDistrict()" class=" dropdown-info btn btn-secondary col-md-12">
+                            <option value="0" selected>Tất cả</option>
                             <option *ngFor="let district of listDistrict" value="{{district.code}}">{{ district.name }}</option>
                         </select>
                     </div>
@@ -49,8 +49,8 @@
                         <p class="my-1">Phường/Xã</p>
                     </div>
                     <div class="text-center">
-                        <select formControlName="ward" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
-                            <option value="0">Tất cả</option>
+                        <select formControlName="ward" class=" dropdown-info btn btn-secondary col-md-12">
+                            <option value="0" selected>Tất cả</option>
                             <option *ngFor="let item of listWard" value="{{item.code}}">{{ item.name }}</option>
                           </select>
                     </div>
@@ -62,8 +62,8 @@
                         <p class="my-1">Loại BDS</p>
                     </div>
                     <div class="text-center">
-                        <select formControlName="postType" class=" dropdown-info btn btn-secondary col-md-12">
-                            <option value="0">Tất cả</option>
+                        <select class=" dropdown-info btn btn-secondary col-md-12" formControlName="postType"> 
+                            <option value="0" selected>Tất cả</option>
                             <option value="1">Mua bán</option>
                             <option value="2">Cho thuê</option>
                           </select>
@@ -74,8 +74,8 @@
                         <p class="my-1">Khoảng giá</p>
                     </div>
                     <div class="text-center">
-                        <select formControlName="price" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
-                            <option value="0">Tất cả</option>
+                        <select formControlName="price" class="dropdown-info btn btn-secondary col-md-12">
+                            <option value="0" selected>Tất cả</option>
                             <option value="1">dưới 300 triệu</option>
                             <option value="2">300-500 triệu</option>
                             <option value="3">500-800 triệu</option>
@@ -96,8 +96,8 @@
                         <p class="my-1">Khoảng diện tích</p>
                     </div>
                     <div class="text-center">
-                        <select formControlName="area" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12">
-                            <option value="0" selected="selected">Tất cả</option>
+                        <select formControlName="area" class=" dropdown-info btn btn-secondary col-md-12">
+                            <option value="0" selected>Tất cả</option>
                             <option value="1">Dưới 30m2</option>
                             <option value="2">30 m2 - 50 m2</option>
                             <option value="3">50 m2 - 70 m2</option>
@@ -116,7 +116,7 @@
                         <p class="my-1">Hướng nhà</p>
                     </div>
                     <div class="text-center">
-                        <select formControlName="direction" class="mdb-select colorful-select dropdown-info btn btn-secondary col-md-12 select" placeholder="1-10">
+                        <select formControlName="direction" class=" dropdown-info btn btn-secondary col-md-12 select" placeholder="1-10">
                             <option value="0" selected>Tất cả</option>
                             <option *ngFor="let item of listDirection" value="{{item.id}}">{{ item.directionName }}</option>
                         </select>
@@ -168,7 +168,7 @@
     <div class="my-2 d-flex">
         <form class="justify-content-start " [formGroup]="chooseForm">
             <select *ngIf="post.length !== 0" (change)="onChange($event)" class="btn btn-secondary select2" formControlName="choose">
-                <option value="" disabled>Chọn sắp xếp</option>
+                <option value="" disabled selected hidden>Chọn sắp xếp</option>
                 <option *ngFor="let item of choose" [ngValue]="item.value">
                     {{ item.name }}
                 </option>
@@ -182,9 +182,9 @@
         <div class="row col-md-12 mx-0 px-0 content">
             <div class="col-md-8 px-0">
                 <div class="card rounded mb-4" *ngFor="let item of post | paginate: config">
-                    <div class="row no-gutters">
-                        <div class="col-md-4 waves-light">
-                            <img src="{{ imageUrl }}{{ item.imageDTO.img1 }}" class="card-img h-100 img-responsive rounded mx-auto d-block" style="max-height: 210px;" alt="..." />
+                    <div class="d-flex flex-row no-gutters">
+                        <div class="col-md-4">
+                            <img src="{{ imageUrl }}{{ item.imageDTO.img1 }}" class="card-img-list h-100 img-responsive rounded mx-auto d-block" alt="..." />
                             <div class="card-img-overlay col-md-12 p-2 d-flex align-items-start">
                                 <!-- <h4 class="card-text text-warning strong col-md-6 p-0 m-0 d-flexbox">
                                     70<span>&#37;</span></h4> -->

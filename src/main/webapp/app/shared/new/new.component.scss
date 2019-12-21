@@ -1,31 +1,44 @@
 /*Content, Title short*/
 
 .giveMeEllipsis {
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  line-height: 1.5em;
-  /* fallback */
-  max-height: 3.6em;
-  min-height: 1.2em;
-  /* fallback */
-  -webkit-line-clamp: 3;
-  /* number of lines to show */
-  -webkit-box-orient: vertical;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 1.4em;
+    /* fallback */
+    max-height: 2.9em;
+    min-height: 1.3em;
+    /* fallback */
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    -webkit-box-orient: vertical;
 }
 
 .giveMeEllipsisTitle {
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  line-height: 1.5em;
-  /* fallback */
-  max-height: 3.3em;
-  min-height: 3.3em;
-  /* fallback */
-  -webkit-line-clamp: 2;
-  /* number of lines to show */
-  -webkit-box-orient: vertical;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 1.4em;
+    /* fallback */
+    max-height: 3.2em;
+    min-height: 3.2em;
+    /* fallback */
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+img {
+    padding: 0;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    height: 25vh;
+    background-attachment: fixed;
+}
+
+a:hover {
+    color: #503acf;
 }
