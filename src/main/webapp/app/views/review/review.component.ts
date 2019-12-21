@@ -47,7 +47,7 @@ export class ReviewComponent implements OnInit {
   /*  Form product post */
   reviewPostForm = this.fb.group({
     title: [null, [Validators.maxLength(100), Validators.required]],
-    content: [this.text1, Validators.maxLength(255)],
+    content: [this.text1],
     decription: [null, [Validators.maxLength(200)]],
     type: [null]
   });

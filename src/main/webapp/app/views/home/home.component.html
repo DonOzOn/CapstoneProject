@@ -199,8 +199,8 @@
                             <div class="px-4 d-flex flex-column">
                                 <a [routerLink]="['/listproduct', 'user', listUser.productPostResponseDTO.user.id, listUser.productPostResponseDTO.user.login]" class="card title text-center justify-content-center text-capitalize text-truncate font-weight-bold" data-placement="top "
                                     title="{{ listUser.productPostResponseDTO.user.firstName }} {{ listUser.productPostResponseDTO.user.lastName }}"><span
-                                        class="px-1">{{ listUser.productPostResponseDTO.user.firstName }}
-                                        {{ listUser.productPostResponseDTO.user.lastName }}</span></a>
+                                        class="px-1">{{ listUser.productPostResponseDTO.user.login }}
+                                    </span></a>
                                 <div class="d-flex flex-row justify-content-center py-2">
                                     <i class="fas fa-star faa-burst animated"></i><i class="fas fa-star faa-burst animated"></i><i class="fas fa-star faa-burst animated"></i>
                                 </div>

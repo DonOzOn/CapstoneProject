@@ -130,7 +130,7 @@ export class ManagereAllReviewpostComponent implements OnInit {
   }
 
   selectReview(event: Event, review: IReview) {
-    this.alertService.success('Chọn ' + review.id, null, null), (this.displayDialog = true);
+    this.displayDialog = true;
     if (review.type === true) {
       this.selectedType = this.types[1].value;
     } else {
@@ -216,7 +216,8 @@ export class ManagereAllReviewpostComponent implements OnInit {
    * Determines whether dialog hide on
    */
   onDialogHide() {
-    this.redirectTo('/manage-review');
+    // this.redirectTo('/manage-review');
+    this.fetch();
   }
 
   /**

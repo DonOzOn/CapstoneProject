@@ -456,13 +456,13 @@ export class ListproductComponent implements OnInit {
 
   /*  get all product post */
   getListPostProduct() {
-    this.postService.query().subscribe(res => {
+    this.postService.getAllWithNoPaging().subscribe(res => {
       this.post = res.body;
     });
   }
   /*  get total page*/
   getTotalPage() {
-    this.postService.query().subscribe(res => {
+    this.postService.getAllWithNoPaging().subscribe(res => {
       this.count = res.body.length;
       return this.count;
     });

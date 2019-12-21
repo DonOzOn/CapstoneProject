@@ -139,6 +139,40 @@ public class PostResource {
 
     }
 
+    /**
+     * {@code GET /Post} : get all Post.
+     *
+     */
+    @GetMapping("/product-post/getall")
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProductWithNoPaging() {
+        List<PostResponeDTO> responeDTOList =  new ArrayList<>();
+        List<ProductPostResponseDTO> postList =  productPostService.findAll().stream()
+            .map(ProductPostResponseDTO::new).collect(Collectors.toList());
+        Collections.sort(postList, new Comparator<ProductPostResponseDTO>() {
+            @Override
+            public int compare(ProductPostResponseDTO o1, ProductPostResponseDTO o2) {
+                return o2.getCreatedDate().compareTo(o1.getCreatedDate());
+            }
+        });
+        if(postList != null){
+            for (ProductPostResponseDTO pr: postList) {
+                PostResponeDTO postResponeDTO = new PostResponeDTO();
+                postResponeDTO.setProductPostResponseDTO(pr);
+                ProductResponseDTO productResponseDTO = productService.findByID(pr.getProduct().getId()).map(ProductResponseDTO::new).orElse(null);
+                postResponeDTO.setProductResponseDTO(productResponseDTO);
+                UsingImageResponseDTO usingImageResponseDTO = usingImageService.findByProductPost(pr.getId()).map(UsingImageResponseDTO::new).orElse(null);
+                postResponeDTO.setUsingImageResponseDTO(usingImageResponseDTO);
+                ImageDTO imageDTO = imageService.findById(usingImageResponseDTO.getImage().getId()).map(ImageDTO::new).orElse(null);
+                postResponeDTO.setImageDTO(imageDTO);
+                responeDTOList.add(postResponeDTO);
+            }
+
+            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+
+
+    }
 
     /**
      * {@code GET /users} : get all users.

@@ -39,7 +39,7 @@ export class GalleryComponent implements OnInit {
   }
   /*  get total page in pagination*/
   getTotalPage() {
-    this.postService.query().subscribe(res => {
+    this.postService.getAllWithNoPaging().subscribe(res => {
       this.countImg = res.body.length;
       // // eslint-disable-next-line
       // console.log('count: ', this.countReview);
@@ -54,7 +54,7 @@ export class GalleryComponent implements OnInit {
     this.getTotalPage();
     // eslint-disable-next-line
     console.log('List product: ');
-    this.postService.query().subscribe(res => {
+    this.postService.getAllWithNoPaging().subscribe(res => {
       this.listProduct = res.body;
       // eslint-disable-next-line
       for (let i = 0; i < this.listProduct.length; i++) {
