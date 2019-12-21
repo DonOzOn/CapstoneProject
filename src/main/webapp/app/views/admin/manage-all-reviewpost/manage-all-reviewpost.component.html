@@ -22,7 +22,7 @@
                     <div class="col-md-12">
                         <div class="card-body">
                             <div class="row col-md-12 m-0 p-0 d-flex justify-content-center">
-                                <p-dataView #dv [value]="reviews" [paginator]="true" [lazy]="true" (onLazyLoad)="loadData($event)" [rows]="10" paginatorPosition="both" filterBy="title" [sortField]="sortField" [sortOrder]="sortOrder">
+                                <p-dataView #dv [value]="reviews" [totalRecords]="totalRecords" (onLazyLoad)="loadData($event)" [paginator]="true" [lazy]="true" [loading]="loading" [rows]="10" paginatorPosition="both" filterBy="title" [sortField]="sortField" [sortOrder]="sortOrder">
                                     <p-header>
                                         <div class="ui-helper-clearfix">
                                             <div class="ui-g">

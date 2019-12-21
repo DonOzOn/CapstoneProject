@@ -16,6 +16,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
@@ -704,13 +706,14 @@ public class Testunittest {
     @Test
     public void findAllNews(){
         Gson gs = new Gson();
-        List<News> lst = new ArrayList<>();
-        lst.add(new News("abc", "decription1","image1","content1",true));
-        lst.add(new News("title2", "decription2","image2","content2",true));
-        lst.add(new News("title3", "decription1","image1","content1",true));
-        when(newRepository.findAll()).thenReturn(lst);
-        List<News> lstExpect = lst;
-        List<News> lstActual = newService.findAll();
+        Pageable pageable = new PageRequest(0, 10) ;
+        Page<News> lst = null;
+        lst.getContent().add(new News("abc", "decription1","image1","content1",true));
+        lst.getContent().add(new News("title2", "decription2","image2","content2",true));
+        lst.getContent().add(new News("title3", "decription1","image1","content1",true));
+        when(newRepository.findAll(pageable)).thenReturn(lst);
+        Page<News> lstExpect = lst;
+        Page<News> lstActual = newService.findAll(pageable);
         String expect = gs.toJson(lstExpect);
         String actual = gs.toJson(lstActual);
         assertEquals(expect, actual);
@@ -1402,13 +1405,14 @@ public class Testunittest {
     @Test
     public void findAllReviewTest(){
         Gson gs = new Gson();
-        List<Review> lst = new ArrayList<>();
-        lst.add(new Review(null,"abc",11,22,33,null,null,null,"abc","bcd",true,"anhDep",true));
-        lst.add(new Review(null,"abc",44,55,66,null,null,null,"abc","bcd",true,"anhDep",true));
-        lst.add(new Review(null,"abc",77,88,99,null,null,null,"abc","bcd",true,"anhDep",true));
-        when(reviewRepository.findAll()).thenReturn(lst);
-        List<Review> lstExpect = lst;
-        List<Review> lstActual = reviewService.findAll();
+        Pageable pageable = new PageRequest(0, 10) ;
+        Page<Review> lst = null;
+        lst.getContent().add(new Review(null,"abc",11,22,33,null,null,null,"abc","bcd",true,"anhDep",true));
+        lst.getContent().add(new Review(null,"abc",44,55,66,null,null,null,"abc","bcd",true,"anhDep",true));
+        lst.getContent().add(new Review(null,"abc",77,88,99,null,null,null,"abc","bcd",true,"anhDep",true));
+        when(reviewRepository.findAll(pageable)).thenReturn(lst);
+        Page<Review> lstExpect = lst;
+        Page<Review> lstActual = reviewService.findAll(pageable);
         String expect = gs.toJson(lstExpect);
         String actual = gs.toJson(lstActual);
         assertEquals(expect, actual);

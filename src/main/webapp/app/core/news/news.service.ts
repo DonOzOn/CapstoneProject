@@ -5,16 +5,26 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { INews } from './news.model';
 import { tap } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
+import { createRequestOption } from 'app/shared/util/request-util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
+  formData: INews[];
   public newsResourceUrl = SERVER_API_URL + 'api/news';
   constructor(private http: HttpClient, private alertService: JhiAlertService) {}
 
-  getListNews(): Observable<HttpResponse<INews[]>> {
-    return this.http.get<INews[]>(this.newsResourceUrl, { observe: 'response' });
+  getListNews(req?: any): Observable<HttpResponse<INews[]>> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const options = createRequestOption(req);
+    this.http
+      .get(this.newsResourceUrl)
+      .toPromise()
+      .then(res => {
+        this.formData = res as INews[];
+      });
+    return this.http.get<INews[]>(this.newsResourceUrl, { params: options, observe: 'response' });
   }
 
   create(news: INews): Observable<HttpResponse<INews>> {

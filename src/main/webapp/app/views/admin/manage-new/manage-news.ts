@@ -1,5 +1,5 @@
-import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
-import { SelectItem, ConfirmationService, MessageService } from 'primeng/api';
+import { Component, OnInit, ElementRef, Renderer, ViewChild } from '@angular/core';
+import { SelectItem, ConfirmationService, MessageService, LazyLoadEvent } from 'primeng/api';
 import { Validators, FormBuilder } from '@angular/forms';
 import { ProductPost } from 'app/core/post/model/product-post.model';
 import { IUser } from 'app/core/user/user.model';
@@ -13,7 +13,9 @@ import { Account } from 'app/core/user/account.model';
 import { SERVER_API_URL } from 'app/app.constants';
 import { News, INews } from 'app/core/news/news.model';
 import { NewsService } from 'app/core/news/news.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-news',
@@ -22,9 +24,12 @@ import { HttpErrorResponse } from '@angular/common/http';
   providers: [ConfirmationService, MessageService]
 })
 export class ManageNewsComponent implements OnInit {
+  @ViewChild('dv', { static: false }) dv: Table;
   imageUrl = SERVER_API_URL + '/api/upload/files/';
   fromDate = new Date();
   toDate = new Date();
+  totalRecords = 0;
+  loading: boolean;
   // from = new FormControl('');
   // to = new FormControl('');
   from: any;
@@ -86,7 +91,7 @@ export class ManageNewsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getListNew();
+    this.loading = true;
     this.sortOptions = [{ label: 'Mới nhất', value: 1 }, { label: 'Cũ nhất', value: 2 }];
   }
 
@@ -97,7 +102,7 @@ export class ManageNewsComponent implements OnInit {
   toChange(value) {
     if (this.from == null) {
       if (this.to == null) {
-        this.getListNew();
+        this.fetch();
       }
     } else {
       if (this.from > this.to) {
@@ -122,11 +127,9 @@ export class ManageNewsComponent implements OnInit {
    * @param value
    */
   fromChange(value) {
-    // eslint-disable-next-line
-    console.log('select date: ', value);
     if (this.to == null) {
       if (this.to == null) {
-        this.getListNew();
+        this.fetch();
       }
       this.messageService.add({ severity: 'error', summary: 'Thiếu!', detail: 'Vui lòng chọn ngày kết thúc!' });
     } else {
@@ -148,15 +151,13 @@ export class ManageNewsComponent implements OnInit {
    * @param id
    */
   returnNews(id: any) {
-    // eslint-disable-next-line
-    console.log('id: ', id);
     this.confirmationService.confirm({
       message: 'Bạn có chắc chắn muốn hiển thị bài đăng này?',
       accept: () => {
         this.alertService.clear();
         this.newsService.delete(id).subscribe(() => {
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã hiển thị bài đăng thành công!!' });
-          this.getListNew();
+          this.fetch();
         });
       }
     });
@@ -166,15 +167,13 @@ export class ManageNewsComponent implements OnInit {
    * @param id
    */
   deleteNews(id: any) {
-    // eslint-disable-next-line
-    console.log('id: ', id);
     this.confirmationService.confirm({
       message: 'Bạn có chắc chắn muốn ẩn bài đăng này?',
       accept: () => {
         this.alertService.clear();
         this.newsService.delete(id).subscribe(() => {
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã ẩn bài đăng thành công!!' });
-          this.getListNew();
+          this.fetch();
         });
       }
     });
@@ -193,36 +192,18 @@ export class ManageNewsComponent implements OnInit {
     listFile.forEach(element => {
       this.userService.upload(element).subscribe(
         (res: any) => {
-          // eslint-disable-next-line
-          console.log('right: ', res.body);
           this.uploadedFiles.pop();
           this.uploadedFiles.push(res.body);
           this.isUploadedFile = true;
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã tải ảnh thành công!!' });
         },
         (err: HttpErrorResponse) => {
-          // eslint-disable-next-line
-          console.log('error: ', err);
           this.isUploadedFile = false;
           this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải ảnh thất bại!!' });
         }
       );
     });
     fileUpload.clear();
-  }
-
-  /**
-   * Gets list new
-   */
-  getListNew() {
-    this.newsService.getListNews().subscribe(res => {
-      this.news = res.body;
-      this.news.sort(function(obj1: any, obj2: any) {
-        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
-      });
-      // eslint-disable-next-line
-      console.log('list New: ', this.news);
-    });
   }
 
   /**
@@ -240,8 +221,6 @@ export class ManageNewsComponent implements OnInit {
    */
   selectNews(event: Event, news: INews) {
     this.displayDialog = true;
-    // eslint-disable-next-line
-    console.log('news', this.news);
     this.new = news;
     this.newsPostForm.controls.title.setValue(this.new.title);
     this.newsPostForm.controls.decription.setValue(this.new.decription);
@@ -250,13 +229,31 @@ export class ManageNewsComponent implements OnInit {
     event.preventDefault();
   }
 
-  /**
-   * Loads data
-   * @param event
-   */
-  loadData(event) {
-    event.first = true;
-    event.rows = 10;
+  loadData(event: LazyLoadEvent) {
+    this.loading = true;
+    // eslint-disable-next-line @typescript-eslint/tslint/config
+    // eslint-disable-next-line prefer-const
+    const sort = '';
+    setTimeout(() => {
+      this.fetch(event.first / event.rows, [sort]);
+      this.loading = false;
+    }, 500);
+  }
+
+  fetch(page = 0, sort?) {
+    this.newsService
+      .getListNews({ page, size: 10, sort })
+      .pipe(tap(() => (this.loading = true)))
+      .subscribe((res: HttpResponse<INews[]>) => this.onSuccess(res.body, res.headers), (res: HttpResponse<any>) => this.onError(res.body));
+  }
+  private onSuccess(data, headers) {
+    this.loading = false;
+    this.totalRecords = headers.get('X-Total-Count');
+    this.news = data;
+  }
+  private onError(error) {
+    this.loading = false;
+    this.alertService.error(error.error, error.message, null);
   }
 
   /**
@@ -312,22 +309,6 @@ export class ManageNewsComponent implements OnInit {
     if (this.newsPostForm.valid) {
       this.confirm();
     }
-  }
-
-  /**
-   * Determines whether success on
-   * @param data
-   */
-  private onSuccess(data) {
-    this.new = data;
-  }
-
-  /**
-   * Determines whether error on
-   * @param error
-   */
-  private onError(error) {
-    this.messageService.add({ severity: 'error', summary: 'Lỗi!', detail: 'Tải tin tức thất bại!' + error });
   }
 
   /**

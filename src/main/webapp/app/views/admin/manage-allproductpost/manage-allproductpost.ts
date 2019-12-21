@@ -1,10 +1,10 @@
-import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
-import { SelectItem, ConfirmationService, MessageService } from 'primeng/api';
+import { Component, OnInit, ElementRef, Renderer, ViewChild } from '@angular/core';
+import { SelectItem, ConfirmationService, MessageService, LazyLoadEvent } from 'primeng/api';
 import { CarService } from 'app/core/service/car.service';
 import { Validators, FormBuilder } from '@angular/forms';
 import { ProductPost } from 'app/core/post/model/product-post.model';
 import { IUser } from 'app/core/user/user.model';
-import { PostRespone } from 'app/core/post/model/postRespone.model';
+import { PostRespone, IPostRespone } from 'app/core/post/model/postRespone.model';
 import { AddressService } from 'app/core/address/address.service';
 import { DirectionService } from 'app/core/direction/direction.service';
 import { LegalStatusService } from 'app/core/legal-status/legal-status.service';
@@ -16,9 +16,11 @@ import { PostService } from 'app/core/post/post.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { UserService } from 'app/core/user/user.service';
 import { Account } from 'app/core/user/account.model';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { PostRequest } from 'app/core/post/model/postRequest.model copy';
 import { SERVER_API_URL } from 'app/app.constants';
+import { Table } from 'primeng/table';
+import { tap } from 'rxjs/operators';
 
 export interface Car {
   vin: any;
@@ -34,6 +36,7 @@ export interface Car {
   providers: [ConfirmationService, MessageService]
 })
 export class ManageAllProductpostComponent implements OnInit {
+  @ViewChild('dv', { static: false }) dv: Table;
   imageUrl = SERVER_API_URL + '/api/upload/files/';
   fromDate = new Date();
   toDate = new Date();
@@ -43,8 +46,9 @@ export class ManageAllProductpostComponent implements OnInit {
   selectedType: string;
   types: SelectItem[];
   selectedUtility: string[] = [];
-  isUploadedFile;
-  false;
+  isUploadedFile = false;
+  totalRecords = 0;
+  loading: boolean;
   text1 = '<div>Hello!</div><div>Chào mừng tới BDS</div><div><br></div>';
   formAddress = this.fb.group({
     address: [null, Validators.required],
@@ -137,8 +141,8 @@ export class ManageAllProductpostComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.getlistCar();
-    this.getListPostProduct();
     this.getProvince();
     this.getProductType();
     this.getDirection();
@@ -154,23 +158,25 @@ export class ManageAllProductpostComponent implements OnInit {
   toChange(value) {
     if (this.from == null) {
       if (this.to == null) {
-        this.getListPostProduct();
+        this.fetch();
       }
     } else {
       if (this.from > this.to.value) {
         if (this.to == null) {
-          this.getListPostProduct();
+          this.fetch();
         }
       } else {
         this.fromDate = new Date(this.from);
         this.fromDate.setHours(0, 0, 0);
         this.toDate = new Date(this.to);
         this.toDate.setHours(0, 0, 0);
-        this.postService.searchbyDate(this.fromDate.toISOString(), this.toDate.toISOString()).subscribe(res => {
-          this.posts = res.body;
-          // eslint-disable-next-line
-          console.log('post date', this.posts);
-        });
+        this.postService
+          .searchbyDate({ from: this.fromDate.toISOString(), to: this.toDate.toISOString(), page: 0, size: 10, sort: null })
+          .pipe(tap(() => (this.loading = true)))
+          .subscribe(
+            (res: HttpResponse<IPostRespone[]>) => this.onSuccess(res.body, res.headers),
+            (res: HttpResponse<any>) => this.onError(res.body)
+          );
       }
     }
   }
@@ -182,7 +188,7 @@ export class ManageAllProductpostComponent implements OnInit {
   fromChange(value) {
     if (this.to == null) {
       if (this.to == null) {
-        this.getListPostProduct();
+        this.fetch();
       }
       this.messageService.add({ severity: 'error', summary: 'Thiếu!', detail: 'Vui lòng chọn ngày kết thúc!' });
     } else {
@@ -193,11 +199,13 @@ export class ManageAllProductpostComponent implements OnInit {
         this.fromDate.setHours(0, 0, 0);
         this.toDate = new Date(this.to);
         this.toDate.setHours(0, 0, 0);
-        this.postService.searchbyDate(this.fromDate.toISOString(), this.toDate.toISOString()).subscribe(res => {
-          this.posts = res.body;
-          // eslint-disable-next-line
-          console.log('post date', this.posts);
-        });
+        this.postService
+          .searchbyDate({ from: this.fromDate.toISOString(), to: this.toDate.toISOString(), page: 0, size: 10, sort: null })
+          .pipe(tap(() => (this.loading = true)))
+          .subscribe(
+            (res: HttpResponse<IPostRespone[]>) => this.onSuccess(res.body, res.headers),
+            (res: HttpResponse<any>) => this.onError(res.body)
+          );
       }
     }
   }
@@ -225,7 +233,7 @@ export class ManageAllProductpostComponent implements OnInit {
         this.alertService.clear();
         this.postService.delete(id).subscribe(() => {
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã hiển thị bài đăng thành công!!' });
-          this.getListPostProduct();
+          this.fetch();
         });
       }
     });
@@ -245,7 +253,7 @@ export class ManageAllProductpostComponent implements OnInit {
         this.alertService.clear();
         this.postService.delete(id).subscribe(() => {
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã ẩn bài đăng thành công!!' });
-          this.getListPostProduct();
+          this.fetch();
         });
       }
     });
@@ -297,22 +305,43 @@ export class ManageAllProductpostComponent implements OnInit {
     event.preventDefault();
   }
 
-  loadData(event) {
-    event.first = true;
-    event.rows = 10;
+  loadData(event: LazyLoadEvent) {
+    this.loading = true;
+    // eslint-disable-next-line @typescript-eslint/tslint/config
+    // eslint-disable-next-line prefer-const
+    const sort = '';
+    setTimeout(() => {
+      this.fetch(event.first / event.rows, [sort]);
+      this.loading = false;
+    }, 500);
   }
 
+  fetch(page = 0, sort?) {
+    this.postService
+      .query({ page, size: 10, sort })
+      .pipe(tap(() => (this.loading = true)))
+      .subscribe(
+        (res: HttpResponse<IPostRespone[]>) => this.onSuccess(res.body, res.headers),
+        (res: HttpResponse<any>) => this.onError(res.body)
+      );
+  }
+  private onSuccess(data, headers) {
+    this.loading = false;
+    this.totalRecords = headers.get('X-Total-Count');
+    this.posts = data;
+  }
+  private onError(error) {
+    this.loading = false;
+    this.alertService.error(error.error, error.message, null);
+  }
   /**
    * get all post product
    */
-  getListPostProduct() {
-    this.postService.query().subscribe(res => {
-      this.posts = res.body;
-      this.posts = this.posts.sort(function(obj1: any, obj2: any) {
-        return new Date(obj2.productPostResponseDTO.createdDate).valueOf() - new Date(obj1.productPostResponseDTO.createdDate).valueOf();
-      });
-    });
-  }
+  // getListPostProduct() {
+  //   this.postService.query().subscribe(res => {
+  //     this.posts = res.body;
+  //   });
+  // }
   onSortChange(event: { value: any }) {
     const value = event.value;
     switch (value) {

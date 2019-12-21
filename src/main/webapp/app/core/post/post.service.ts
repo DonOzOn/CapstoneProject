@@ -166,8 +166,16 @@ export class PostService {
    * Querys post service
    * @returns query
    */
-  query(): Observable<HttpResponse<IPostRespone[]>> {
-    return this.http.get<IPostRespone[]>(this.resourceUrl, { observe: 'response' });
+  query(req?: any): Observable<HttpResponse<IPostRespone[]>> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const options = createRequestOption(req);
+    this.http
+      .get(this.resourceUrl)
+      .toPromise()
+      .then(res => {
+        this.formData = res as IPostRespone[];
+      });
+    return this.http.get<IPostRespone[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
   /**
@@ -176,12 +184,15 @@ export class PostService {
    * @param toDate
    * @returns date
    */
-  searchbyDate(fromDate: any, toDate: any): Observable<HttpResponse<IPostRespone[]>> {
-    const param = {
-      from: fromDate,
-      to: toDate
-    };
-    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/search-by-date`, { params: param, observe: 'response' });
+  searchbyDate(req?: any): Observable<HttpResponse<IPostRespone[]>> {
+    const options = createRequestOption(req);
+    this.http
+      .get(this.resourceUrl)
+      .toPromise()
+      .then(res => {
+        this.formData = res as IPostRespone[];
+      });
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/search-by-date`, { params: options, observe: 'response' });
   }
 
   /**
