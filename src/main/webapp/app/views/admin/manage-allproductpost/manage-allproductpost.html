@@ -22,7 +22,7 @@
                     <div class="col-md-12">
                         <div class="card-body">
                             <div class="row col-md-12 m-0 p-0 d-flex justify-content-center">
-                                <p-dataView #dv [value]="posts" [paginator]="true" [rows]="20" [lazy]="true" (onLazyLoad)="loadData($event)" paginatorPosition="both" filterBy="productPostResponseDTO.productPostTitle" [sortField]="sortField" [sortOrder]="sortOrder">
+                                <p-dataView #dv [value]="posts" [totalRecords]="totalRecords" (onLazyLoad)="loadData($event)" [paginator]="true" [lazy]="true" [loading]="loading" [rows]="10" paginatorPosition="both" filterBy="productPostResponseDTO.productPostTitle" [sortField]="sortField" [sortOrder]="sortOrder">
                                     <p-header>
                                         <div class="ui-helper-clearfix">
                                             <div class="ui-g">
@@ -37,13 +37,13 @@
                                                     </div>
                                                     <div class="ui-g-6 ui-md-4 p-0">
                                                         <div style="position:relative">
-                                                            <p-calendar dateFormat="dd/mm/yy" [styleClass]="{'width': '20px'}" [(ngModel)]="from" (onSelect)="fromChange(from)" (onBlur)="getListPostProduct()" placeholder="Từ ngày" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+                                                            <p-calendar dateFormat="dd/mm/yy" [styleClass]="{'width': '20px'}" [(ngModel)]="from" (onSelect)="fromChange(from)" (onBlur)="fetch()" placeholder="Từ ngày" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
                                                             </p-calendar>
                                                         </div>
                                                     </div>
                                                     <div class="ui-g-6 ui-md-4 p-0">
                                                         <div>
-                                                            <p-calendar dateFormat="dd/mm/yy" [styleClass]="{'width': '10px'}" [(ngModel)]="to" (onSelect)="toChange(to)" placeholder="Đến ngày" (onBlur)="getListPostProduct()" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+                                                            <p-calendar dateFormat="dd/mm/yy" [styleClass]="{'width': '10px'}" [(ngModel)]="to" (onSelect)="toChange(to)" placeholder="Đến ngày" (onBlur)="fetch()" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
                                                             </p-calendar>
                                                         </div>
                                                     </div>

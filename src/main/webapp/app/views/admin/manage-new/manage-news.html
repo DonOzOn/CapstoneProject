@@ -23,7 +23,7 @@
                                 </p-button>
                             </div>
                             <div class="row col-md-12 m-0 p-0 d-flex justify-content-center">
-                                <p-dataView #dv [value]="news" [paginator]="true" [rows]="20" [lazy]="true" (onLazyLoad)="loadData($event)" paginatorPosition="both" filterBy="title" [sortField]="sortField" [sortOrder]="sortOrder">
+                                <p-dataView #dv [value]="news" [totalRecords]="totalRecords" (onLazyLoad)="loadData($event)" [paginator]="true" [lazy]="true" [loading]="loading" [rows]="10" paginatorPosition="both" filterBy="title" [sortField]="sortField" [sortOrder]="sortOrder">
                                     <p-header>
                                         <div class="ui-helper-clearfix">
                                             <div class="ui-g">

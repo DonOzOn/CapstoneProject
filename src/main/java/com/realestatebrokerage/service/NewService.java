@@ -5,6 +5,8 @@ import com.realestatebrokerage.service.dto.NewsDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -28,9 +30,9 @@ public class NewService {
     /**
      * List all product
      * **/
-    public List<News> findAll(){
+    public Page<News> findAll(Pageable pageable){
         log.debug("getall");
-        return newRepository.findAll();
+        return newRepository.findAll(pageable);
     }
 
 
@@ -44,9 +46,9 @@ public class NewService {
     /**
      * List all news by date
      * **/
-    public List<News> findAllByDate(Instant from, Instant to){
+    public Page<News> findAllByDate(Instant from, Instant to, Pageable pageable){
         log.debug("getall by date: {} {}", from , to);
-        return newRepository.findAllByStatusTrueAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(from, to);
+        return newRepository.findAllByStatusTrueAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(from, to, pageable);
     }
 
 

@@ -3,13 +3,20 @@ package com.realestatebrokerage.web.rest;
 import com.realestatebrokerage.domain.News;
 import com.realestatebrokerage.service.NewService;
 import com.realestatebrokerage.service.dto.NewsDTO;
+import io.github.jhipster.web.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,9 +41,12 @@ public class NewResource {
 //    }
 
     @GetMapping("/news")
-    public ResponseEntity<List<NewsDTO>> getNews() {
+    public ResponseEntity<List<NewsDTO>> getNews(Pageable pageable) {
         log.debug("get list news : {}");
-        return new ResponseEntity<>(newService.findAll().stream().map(NewsDTO::new).collect(Collectors.toList()), HttpStatus.OK);
+        pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending() );
+        Page<NewsDTO> newsDTOList = newService.findAll(pageable).map(NewsDTO::new);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), newsDTOList);
+        return new ResponseEntity<>(newsDTOList.getContent(),headers , HttpStatus.OK);
     }
 
     @GetMapping("/news/{id}")
@@ -44,21 +54,22 @@ public class NewResource {
         log.debug("get list news by id : {}", id);
         return new ResponseEntity<>(newService.findById(id).map(NewsDTO::new).orElse(null), HttpStatus.OK);
     }
- 
+
     /**
      * {@code GET /Post} : get all Post.
      *
      */
     @GetMapping("/news/search-by-date")
-    public ResponseEntity<List<NewsDTO>> getAllNewByDate(@RequestParam(value = "from") String from, @RequestParam(value = "to") String to) throws ParseException
+    public ResponseEntity<List<NewsDTO>> getAllNewByDate(String from, String to, Pageable pageable) throws ParseException
     {
         Date fromDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(from);
         Instant fromIns = fromDate.toInstant();
         Date toDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(to);
         Instant toIns = toDate.toInstant();
-        List<NewsDTO> postList =  newService.findAllByDate(fromIns , toIns).stream()
-            .map(NewsDTO::new).collect(Collectors.toList());
-        return new ResponseEntity<>(postList, HttpStatus.OK);
+        pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending() );
+        Page<NewsDTO> postList =  newService.findAllByDate(fromIns , toIns, pageable).map(NewsDTO::new);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), postList);
+        return new ResponseEntity<>(postList.getContent(),headers , HttpStatus.OK);
     }
 
     /**

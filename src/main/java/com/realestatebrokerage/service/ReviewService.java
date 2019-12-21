@@ -34,9 +34,9 @@ public class ReviewService {
     /**
      * List all review
      * **/
-    public List<Review> findAll(){
+    public Page<Review> findAll(Pageable pageable){
         log.debug("getall");
-        return reviewRepository.findAll();
+        return reviewRepository.findAll(pageable);
     }
 
 

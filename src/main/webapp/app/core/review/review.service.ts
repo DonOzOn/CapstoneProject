@@ -15,8 +15,16 @@ export class ReviewService {
   formData: IReview[];
   constructor(private http: HttpClient, private alertService: JhiAlertService) {}
 
-  getListReview(): Observable<HttpResponse<IReview[]>> {
-    return this.http.get<IReview[]>(this.newsResourceUrl, { observe: 'response' });
+  getListReview(req?: any): Observable<HttpResponse<IReview[]>> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const options = createRequestOption(req);
+    this.http
+      .get(this.newsResourceUrl)
+      .toPromise()
+      .then(res => {
+        this.formData = res as IReview[];
+      });
+    return this.http.get<IReview[]>(this.newsResourceUrl, { params: options, observe: 'response' });
   }
 
   create(review: IReview): Observable<HttpResponse<IReview>> {
