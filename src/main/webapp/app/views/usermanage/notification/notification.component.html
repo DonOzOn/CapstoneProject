@@ -25,6 +25,7 @@
                                                     </div>
                                                 </div>
                                                 <div *ngIf="item.type == 1" class="media-body">
+                                                    <strong class="notification-title"><a [routerLink]="['/usermanage']"> {{item.userSend.login}}</a> {{item.content}}<a [routerLink]="['/notification']"> với bạn</a></strong>
                                                     <p class="notification-desc mb-0 font-weight-bold"> {{item.title}}</p>
                                                     <strong class="notification-title"><a href="#"> {{item.userSend.login}}</a> {{item.content}}<a href="#"> với bạn</a></strong>
                                                     <div class="notification-meta">

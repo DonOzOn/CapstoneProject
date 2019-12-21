@@ -37,32 +37,32 @@ export class HomeComponent implements OnInit {
       0: {
         items: 1,
         autoplayTimeout: 1500,
-        autoplayHoverPause: true,
+        autoplayHoverPause: true
       },
       520: {
         items: 2,
         autoplayTimeout: 2500,
-        autoplayHoverPause: true,
+        autoplayHoverPause: true
       },
       768: {
         items: 3,
         autoplayTimeout: 3500,
-        autoplayHoverPause: true,
+        autoplayHoverPause: true
       },
       1024: {
         items: 4,
         autoplayTimeout: 4500,
-        autoplayHoverPause: false,
+        autoplayHoverPause: false
       },
       1600: {
         items: 5,
         autoplayTimeout: 5500,
-        autoplayHoverPause: false,
+        autoplayHoverPause: false
       },
       1920: {
         items: 6,
         autoplayTimeout: 6500,
-        autoplayHoverPause: false,
+        autoplayHoverPause: false
       }
     }
   };
@@ -84,8 +84,8 @@ export class HomeComponent implements OnInit {
   listPagination: any[] = [];
   config: any;
   public labels: any = {
-    previousLabel: 'Previous',
-    nextLabel: 'Next'
+    previousLabel: 'Trước',
+    nextLabel: 'Sau'
   };
   responsiveOptions;
   window: any;
@@ -141,7 +141,7 @@ export class HomeComponent implements OnInit {
 
   /*  get total page in pagination*/
   getTotalPage() {
-    this.postService.query().subscribe(res => {
+    this.postService.getAllWithNoPaging().subscribe(res => {
       this.count = res.body.length;
       return this.count;
     });
@@ -157,16 +157,11 @@ export class HomeComponent implements OnInit {
     this.getListPostProduct();
     this.accountService.identity().subscribe((account: Account) => {
       this.currentAccount = account;
-      // eslint-disable-next-line
-      console.log('account: ', account);
     });
     self = this;
     this.window = window;
     this.window.addEventListener('saveToken', this.saveUserToken);
     this.window.addEventListener('messageRecieve', this.messageRecieved);
-
-    // eslint-disable-next-line
-    console.log('lolololololo: ', this.accountService.isAuthenticated());
 
     if (this.accountService.isAuthenticated() === true) {
       this.window.window.requestPermission();
@@ -187,28 +182,30 @@ export class HomeComponent implements OnInit {
     self.userService.find(self.currentAccount.login).subscribe((userAuthen: IUser) => {
       self.currentUser = userAuthen;
       self.currentUser.token = e.detail;
-      self.userService.update(self.currentUser).subscribe(res => { });
+      self.userService.update(self.currentUser).subscribe(res => {});
     });
   }
   /**
    * Gets list post product
    */
   getListPostProduct() {
-    this.postService.query().subscribe(res => {
+    this.postService.getAllWithNoPaging().subscribe(res => {
       this.post = res.body;
+      // eslint-disable-next-line no-console
+      console.log('list post: ', this.post);
       this.listUsers = this.deduplicate(this.post);
-      this.listUserTop = this.listUsers;
-      this.listUserTop.sort(function(obj1, obj2) {
-        return (
-          obj2.productPostResponseDTO.totalReport - obj1.productPostResponseDTO.totalReport ||
-          new Date(obj2.productPostResponseDTO.createdDate).valueOf() - new Date(obj1.productPostResponseDTO.createdDate).valueOf()
-        );
-      });
-      // eslint-disable-next-line
-      console.log('listUserTop: ', this.listUserTop);
-      this.listUsers = this.listUserTop.slice(0, 10);
-      // eslint-disable-next-line
-      console.log('listUsers: ', this.listUsers);
+      // this.listUserTop = this.listUsers;
+      // this.listUserTop.sort(function(obj1, obj2) {
+      //   return (
+      //     obj2.productPostResponseDTO.totalReport - obj1.productPostResponseDTO.totalReport ||
+      //     new Date(obj2.productPostResponseDTO.createdDate).valueOf() - new Date(obj1.productPostResponseDTO.createdDate).valueOf()
+      //   );
+      // });
+      // // eslint-disable-next-line
+      // console.log('listUserTop: ', this.listUserTop);
+      // this.listUsers = this.listUserTop.slice(0, 10);
+      // // eslint-disable-next-line
+      // console.log('listUsers: ', this.listUsers);
     });
   }
 
@@ -216,10 +213,8 @@ export class HomeComponent implements OnInit {
    * Gets list 15 new post product
    */
   getList15NewPostProduct() {
-    this.postService.query().subscribe(res => {
+    this.postService.getAllWithNoPaging().subscribe(res => {
       this.listNewPost = res.body;
-      // eslint-disable-next-line
-      console.log('Listnewpost: ', this.listNewPost);
       this.listNewPost.sort(function(obj1, obj2) {
         return new Date(obj2.productResponseDTO.createdDate).valueOf() - new Date(obj1.productResponseDTO.createdDate).valueOf();
       });
@@ -231,7 +226,7 @@ export class HomeComponent implements OnInit {
    * Gets list 15 hot post product
    */
   getList15HotPostProduct() {
-    this.postService.query().subscribe(res => {
+    this.postService.getAllWithNoPaging().subscribe(res => {
       this.listHotPost = res.body;
       this.listHotPost.sort(function(obj1, obj2) {
         return (
@@ -240,8 +235,6 @@ export class HomeComponent implements OnInit {
         );
       });
       this.list15HotPostProduct = this.listHotPost.slice(0, 15);
-      // eslint-disable-next-line
-      console.log('List15Hotpost: ', this.list15HotPostProduct);
     });
   }
 
@@ -265,6 +258,8 @@ export class HomeComponent implements OnInit {
         ans.push(element);
       }
     });
+    // eslint-disable-next-line no-console
+    console.log('list User: ', ans);
     return ans;
   }
   /*  get all provinces */
@@ -283,7 +278,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/news', id, 'detail']);
   }
 
-  onChange($event) { }
+  onChange($event) {}
 
   /**
    * Searchs

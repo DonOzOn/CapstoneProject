@@ -35,8 +35,8 @@ export class NotificationComponent implements OnInit {
   config: any;
   count: any;
   public labels: any = {
-    previousLabel: 'Previous',
-    nextLabel: 'Next'
+    previousLabel: 'Trước',
+    nextLabel: 'Sau'
   };
   constructor(
     private notificationService: NotificationService,

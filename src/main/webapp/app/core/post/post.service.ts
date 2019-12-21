@@ -179,6 +179,13 @@ export class PostService {
   }
 
   /**
+   * Querys post service
+   * @returns query
+   */
+  getAllWithNoPaging(): Observable<HttpResponse<IPostRespone[]>> {
+    return this.http.get<IPostRespone[]>(`${this.resourceUrl}/getall`, { observe: 'response' });
+  }
+  /**
    * Searchbys date
    * @param fromDate
    * @param toDate
