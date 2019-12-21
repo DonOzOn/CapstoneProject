@@ -97,10 +97,16 @@ public class PostResource {
      *
      */
     @GetMapping("/product-post")
-    public ResponseEntity<List<PostResponeDTO>> getAllPostProduct() {
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProduct(Pageable pageable) {
         List<PostResponeDTO> responeDTOList =  new ArrayList<>();
         List<ProductPostResponseDTO> postList =  productPostService.findAll().stream()
             .map(ProductPostResponseDTO::new).collect(Collectors.toList());
+        Collections.sort(postList, new Comparator<ProductPostResponseDTO>() {
+            @Override
+            public int compare(ProductPostResponseDTO o1, ProductPostResponseDTO o2) {
+                return o2.getCreatedDate().compareTo(o1.getCreatedDate());
+            }
+        });
         if(postList != null){
             for (ProductPostResponseDTO pr: postList) {
                 PostResponeDTO postResponeDTO = new PostResponeDTO();
@@ -113,7 +119,20 @@ public class PostResource {
                 postResponeDTO.setImageDTO(imageDTO);
                 responeDTOList.add(postResponeDTO);
             }
-            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+            int pageSize = pageable.getPageSize();
+            int currentPage = pageable.getPageNumber();
+            int startItem = currentPage * pageSize;
+            List<PostResponeDTO> responeDTOList22;
+
+            if (responeDTOList.size() < startItem) {
+                responeDTOList22 = Collections.emptyList();
+            } else {
+                int toIndex = Math.min(startItem + pageSize, responeDTOList.size());
+                responeDTOList22 = responeDTOList.subList(startItem, toIndex);
+            }
+            Page<PostResponeDTO> postResponseDTOS = new PageImpl<PostResponeDTO>(responeDTOList22,PageRequest.of(currentPage, pageSize), responeDTOList.size());
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), postResponseDTOS);
+            return new ResponseEntity<>(postResponseDTOS.getContent(), headers, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
 
@@ -326,7 +345,7 @@ public class PostResource {
      *
      */
     @GetMapping("/product-post/search-by-date")
-    public ResponseEntity<List<PostResponeDTO>> getAllPostProduct(@RequestParam(value = "from") String from, @RequestParam(value = "to") String to) throws ParseException {
+    public ResponseEntity<List<PostResponeDTO>> getAllPostProduct(String from,String to, Pageable pageable) throws ParseException {
 
         Date fromDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(from);
         Instant fromIns = fromDate.toInstant();
@@ -335,7 +354,7 @@ public class PostResource {
         List<PostResponeDTO> responeDTOList =  new ArrayList<>();
         List<ProductPostResponseDTO> postList =  productPostService.findAllFromTo(fromIns , toIns).stream()
             .map(ProductPostResponseDTO::new).collect(Collectors.toList());
-        log.debug("REST request to update Post Date: {}", postList);
+        Collections.sort(postList, (o1, o2) -> o1.getCreatedDate().compareTo(o2.getCreatedDate()));
         if(postList != null){
             for (ProductPostResponseDTO pr: postList) {
                 PostResponeDTO postResponeDTO = new PostResponeDTO();
@@ -348,7 +367,21 @@ public class PostResource {
                 postResponeDTO.setImageDTO(imageDTO);
                 responeDTOList.add(postResponeDTO);
             }
-            return new ResponseEntity<>(responeDTOList, HttpStatus.OK);
+            int pageSize = pageable.getPageSize();
+            int currentPage = pageable.getPageNumber();
+            int startItem = currentPage * pageSize;
+            List<PostResponeDTO> responeDTOList22;
+
+            if (responeDTOList.size() < startItem) {
+                responeDTOList22 = Collections.emptyList();
+            } else {
+                int toIndex = Math.min(startItem + pageSize, responeDTOList.size());
+                responeDTOList22 = responeDTOList.subList(startItem, toIndex);
+            }
+            Page<PostResponeDTO> postResponseDTOS = new PageImpl<PostResponeDTO>(responeDTOList22,PageRequest.of(currentPage, pageSize), responeDTOList.size());
+            log.debug("postResponse Pageall : {}", postResponseDTOS);
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), postResponseDTOS);
+            return new ResponseEntity<>(postResponseDTOS.getContent(), headers, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
     }

@@ -1,5 +1,5 @@
-import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
-import { SelectItem, ConfirmationService, MessageService } from 'primeng/api';
+import { Component, OnInit, ElementRef, Renderer, ViewChild } from '@angular/core';
+import { SelectItem, ConfirmationService, MessageService, LazyLoadEvent } from 'primeng/api';
 import { Validators, FormBuilder } from '@angular/forms';
 import { IUser } from 'app/core/user/user.model';
 import { AddressService } from 'app/core/address/address.service';
@@ -10,10 +10,12 @@ import { PostService } from 'app/core/post/post.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { UserService } from 'app/core/user/user.service';
 import { Account } from 'app/core/user/account.model';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { SERVER_API_URL } from 'app/app.constants';
 import { IReview } from 'app/core/review/review.model';
 import { ReviewService } from 'app/core/review/review.service';
+import { Table } from 'primeng/table';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-manage-all-reviewpost',
@@ -22,6 +24,7 @@ import { ReviewService } from 'app/core/review/review.service';
   providers: [ConfirmationService, MessageService]
 })
 export class ManagereAllReviewpostComponent implements OnInit {
+  @ViewChild('dv', { static: false }) dv: Table;
   imageUrl = SERVER_API_URL + '/api/upload/files/';
   /*  Item select button  */
   selectedType: number;
@@ -38,6 +41,8 @@ export class ManagereAllReviewpostComponent implements OnInit {
   countContent: any = 0;
   listUtilitiesSelected = [];
   listImageName = [];
+  totalRecords = 0;
+  loading: boolean;
   /*  Form product post */
   reviewPostForm = this.fb.group({
     title: [null, [Validators.maxLength(100), Validators.required]],
@@ -85,18 +90,23 @@ export class ManagereAllReviewpostComponent implements OnInit {
 
   ngOnInit() {
     // this.selectedType = 'Mua bán';
+    this.loading = true;
+    this.accountService.identity().subscribe((account: Account) => {
+      this.currentAccount = account;
+      this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
+        this.currentUser = userAuthen;
+      });
+    });
+    this.sortOptions = [{ label: 'Mới nhất', value: 1 }, { label: 'Cũ nhất', value: 2 }];
   }
   returnSelectReview(id: any) {
-    // eslint-disable-next-line
-    console.log('id: ', id);
-
     this.confirmationService.confirm({
       message: 'Bạn có chắc chắn muốn hiển thị bài đăng này?',
       accept: () => {
         this.alertService.clear();
         this.reviewService.delete(id).subscribe(() => {
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã hiển thị bài đăng thành công!!' });
-          this.getListReview();
+          this.fetch();
         });
       }
     });
@@ -107,16 +117,13 @@ export class ManagereAllReviewpostComponent implements OnInit {
    * @param post
    */
   deleteSelectReview(id: any) {
-    // eslint-disable-next-line
-    console.log('id: ', id);
-
     this.confirmationService.confirm({
       message: 'Bạn có chắc chắn muốn ẩn bài đăng này?',
       accept: () => {
         this.alertService.clear();
         this.reviewService.delete(id).subscribe(() => {
           this.messageService.add({ severity: 'success', summary: 'Chúc mừng!', detail: 'Đã ẩn bài đăng thành công!!' });
-          this.getListReview();
+          this.fetch();
         });
       }
     });
@@ -124,8 +131,6 @@ export class ManagereAllReviewpostComponent implements OnInit {
 
   selectReview(event: Event, review: IReview) {
     this.alertService.success('Chọn ' + review.id, null, null), (this.displayDialog = true);
-    // eslint-disable-next-line
-    console.log('IReview: ', review);
     if (review.type === true) {
       this.selectedType = this.types[1].value;
     } else {
@@ -145,8 +150,6 @@ export class ManagereAllReviewpostComponent implements OnInit {
    * @param event
    */
   selectOnchange(event) {
-    // eslint-disable-next-line
-    console.log('value select : ', event.value);
     if (event.value === 0) {
       this.reviewPostForm.controls.type.setValue(false);
     } else {
@@ -154,32 +157,34 @@ export class ManagereAllReviewpostComponent implements OnInit {
     }
   }
 
-  loadData(event) {
-    event.first = true;
-    event.rows = 10;
-    this.accountService.identity().subscribe((account: Account) => {
-      this.currentAccount = account;
-      this.userService.find(this.currentAccount.login).subscribe((userAuthen: IUser) => {
-        this.currentUser = userAuthen;
-      });
-    });
-    this.getListReview();
-    this.sortOptions = [{ label: 'Mới nhất', value: 1 }, { label: 'Cũ nhất', value: 2 }];
+  loadData(event: LazyLoadEvent) {
+    this.loading = true;
+    // eslint-disable-next-line @typescript-eslint/tslint/config
+    // eslint-disable-next-line prefer-const
+    const sort = '';
+    setTimeout(() => {
+      this.fetch(event.first / event.rows, [sort]);
+      this.loading = false;
+    }, 500);
   }
 
-  /**
-   * Gets list review
-   * @param id
-   */
-  getListReview() {
-    this.reviewService.getListReview().subscribe(res => {
-      this.reviews = res.body;
-      this.reviews.sort(function(obj1: any, obj2: any) {
-        return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
-      });
-      // eslint-disable-next-line
-      console.log('List all review : ', this.reviews);
-    });
+  fetch(page = 0, sort?) {
+    this.reviewService
+      .getListReview({ page, size: 10, sort })
+      .pipe(tap(() => (this.loading = true)))
+      .subscribe(
+        (res: HttpResponse<IReview[]>) => this.onSuccess(res.body, res.headers),
+        (res: HttpResponse<any>) => this.onError(res.body)
+      );
+  }
+  private onSuccess(data, headers) {
+    this.loading = false;
+    this.totalRecords = headers.get('X-Total-Count');
+    this.reviews = data;
+  }
+  private onError(error) {
+    this.loading = false;
+    this.alertService.error(error.error, error.message, null);
   }
 
   /**
@@ -187,8 +192,6 @@ export class ManagereAllReviewpostComponent implements OnInit {
    * @param event
    */
   onSortChange(event: { value: any }) {
-    // eslint-disable-next-line
-    console.log('key : ', this.sortKey);
     const value = event.value;
     switch (value) {
       case 1: {

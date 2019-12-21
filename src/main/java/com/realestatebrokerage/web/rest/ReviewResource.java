@@ -41,9 +41,12 @@ public class ReviewResource {
     private HibernateSearchService hibernateSearchService;
 
     @GetMapping("/review")
-    public ResponseEntity<List<ReviewResponeDTO>> getReviewNews() {
+    public ResponseEntity<List<ReviewResponeDTO>> getReviewNews(Pageable pageable) {
         log.debug("get list review : {}");
-        return new ResponseEntity<>(reviewService.findAll().stream().map(ReviewResponeDTO::new).collect(Collectors.toList()), HttpStatus.OK);
+        pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending() );
+        Page<ReviewResponeDTO> reviewList = reviewService.findAll(pageable).map(ReviewResponeDTO::new);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), reviewList);
+        return new ResponseEntity<>(reviewList.getContent(),headers , HttpStatus.OK);
     }
 
     /**
