@@ -50,12 +50,16 @@ export class NewsService {
   find(id: any): Observable<INews> {
     return this.http.get<INews>(`${this.newsResourceUrl}/${id}`);
   }
-  searchbyDate(fromDate: any, toDate: any): Observable<HttpResponse<INews[]>> {
-    const param = {
-      from: fromDate,
-      to: toDate
-    };
-    return this.http.get<INews[]>(`${this.newsResourceUrl}/search-by-date`, { params: param, observe: 'response' });
+  searchbyDate(req?: any): Observable<HttpResponse<INews[]>> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const options = createRequestOption(req);
+    this.http
+      .get(this.newsResourceUrl)
+      .toPromise()
+      .then(res => {
+        this.formData = res as INews[];
+      });
+    return this.http.get<INews[]>(`${this.newsResourceUrl}/search-by-date`, { params: options, observe: 'response' });
   }
 
   update(news: INews): Observable<INews> {
