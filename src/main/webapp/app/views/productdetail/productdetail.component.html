@@ -359,8 +359,11 @@
                                     </small>
                                 </div>
                             </div>
-                            <a class="button-contact pb-3" role="button">
+                            <a *ngIf="isAuthenticated()" class="button-contact pb-3" role="button">
                                 <button type="submit" [disabled]="inforForm.invalid" class="btn btn-outline-primary btn-lg btn-block"> Liên hệ</button>
+                            </a>
+                            <a *ngIf="!isAuthenticated()" class="button-contact pb-3" role="button">
+                                <button type="submit" [routerLink]="['/login']" data-toggle="tooltip" data-placement="top" title="Đăng nhập để liên hệ chủ bài đăng"  class="btn btn-outline-primary btn-lg btn-block"> Liên hệ</button>
                             </a>
                         </div>
                     </form>

@@ -62,7 +62,7 @@
                         <p class="my-1">Loại BDS</p>
                     </div>
                     <div class="text-center">
-                        <select class=" dropdown-info btn btn-secondary col-md-12" formControlName="postType"> 
+                        <select class=" dropdown-info btn btn-secondary col-md-12" formControlName="postType">
                             <option value="0" selected>Tất cả</option>
                             <option value="1">Mua bán</option>
                             <option value="2">Cho thuê</option>
@@ -171,7 +171,7 @@
             <div class="text-mute strong">"Có {{ post.length }} kết quả đươc tìm thấy"</div>
         </h4>
     </div>
-    <div class="container px-0 py-2">
+    <div class="container px-0 py-2"  [ngSwitch]="isAuthenticated()">
         <div class="row col-md-12 mx-0 px-0 content">
             <div class="col-md-8 px-0">
                 <div class="card rounded mb-4" *ngFor="let item of post | paginate: config">
@@ -288,7 +288,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" (click)="open(item)" type="button" data-toggle="modal" data-target="#contact">
+                                        <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" *ngSwitchCase="true" (click)="open(item)" type="button" data-toggle="modal" data-target="#contact">
+                                            <div class="col-md-3 px-1 ">
+                                                <img src="../../../content/img/chat-blue.svg" class="card-img img-responsive " alt="..." />
+                                            </div>
+                                            Chat ngay
+                                        </a>
+                                        <a class="my-1 pt-1 px-1 col-md-4 text-center small border-left d-inline-flex" *ngSwitchCase="false" data-toggle="tooltip" data-placement="top" title="Đăng nhập để liên hệ chủ bài đăng"  [routerLink]="['/login']"  type="button">
                                             <div class="col-md-3 px-1 ">
                                                 <img src="../../../content/img/chat-blue.svg" class="card-img img-responsive " alt="..." />
                                             </div>

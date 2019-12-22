@@ -191,8 +191,6 @@ export class HomeComponent implements OnInit {
   getListPostProduct() {
     this.postService.getAllWithNoPaging().subscribe(res => {
       this.post = res.body;
-      // eslint-disable-next-line no-console
-      console.log('list post: ', this.post);
       this.listUsers = this.deduplicate(this.post);
       // this.listUserTop = this.listUsers;
       // this.listUserTop.sort(function(obj1, obj2) {
@@ -258,8 +256,6 @@ export class HomeComponent implements OnInit {
         ans.push(element);
       }
     });
-    // eslint-disable-next-line no-console
-    console.log('list User: ', ans);
     return ans;
   }
   /*  get all provinces */

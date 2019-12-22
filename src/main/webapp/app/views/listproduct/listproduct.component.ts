@@ -88,6 +88,7 @@ export class ListproductComponent implements OnInit {
   });
   currentAccount: Account;
   currentUser: IUser;
+  textSearchParam: string;
   constructor(
     private alertService: JhiAlertService,
     private messageService: MessageService,
@@ -131,6 +132,9 @@ export class ListproductComponent implements OnInit {
       });
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     });
+    if (this.activatedRoute.firstChild.snapshot.params['textSearch'] !== null) {
+      this.searchText.setValue(this.activatedRoute.firstChild.snapshot.params['textSearch']);
+    }
     this.filterForm.valueChanges
       .pipe(
         debounceTime(200),
@@ -454,6 +458,10 @@ export class ListproductComponent implements OnInit {
     this.router.navigateByUrl('/404', { skipLocationChange: true }).then(() => this.router.navigate([uri]));
   }
 
+  isAuthenticated() {
+    return this.accountService.isAuthenticated();
+  }
+
   /*  get all product post */
   getListPostProduct() {
     this.postService.getAllWithNoPaging().subscribe(res => {
@@ -547,8 +555,6 @@ export class ListproductComponent implements OnInit {
   }
 
   open(item) {
-    // eslint-disable-next-line
-    console.log('data clcik: ', item);
     this.inforForm.controls.name.reset();
     this.inforForm.controls.email.reset();
     this.inforForm.controls.phone.reset();
