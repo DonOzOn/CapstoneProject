@@ -21,14 +21,10 @@ export class NewComponent implements OnInit {
   getlist4News() {
     this.newService.getListNews().subscribe(res => {
       this.list4News = res.body;
-      // eslint-disable-next-line
-      console.log('Listnew  : ', this.list4News);
       this.list4News.sort(function(obj1, obj2) {
         return new Date(obj2.createdDate).valueOf() - new Date(obj1.createdDate).valueOf();
       });
       this.list4News = res.body.slice(0, 5);
-      // eslint-disable-next-line
-      console.log('Listnew4  : ', this.list4News);
     });
   }
 
