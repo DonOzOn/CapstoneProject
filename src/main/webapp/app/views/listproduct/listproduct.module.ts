@@ -14,6 +14,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [ListproductComponent],
@@ -35,7 +36,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MessageModule,
     ToastModule,
     ModalModule,
-    NgbModule
+    NgbModule,
+    TooltipModule
   ],
   providers: [],
   exports: [ListproductComponent]
