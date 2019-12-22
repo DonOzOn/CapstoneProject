@@ -92,7 +92,7 @@ export class ManageproductpostComponent implements OnInit {
     // eslint-disable-next-line
     numFloor: [null, [Validators.maxLength(11), Validators.max(200), Validators.pattern('^[0-9]*$')]],
     // eslint-disable-next-line
-    numBathroom: [null, [Validators.maxLength(11), Validators.max(200), Validators.pattern('^[0-9]*$')]],
+    numBathroom: [null, [Validators.maxLength(11), Validators.max(20), Validators.pattern('^[0-9]*$')]],
     // eslint-disable-next-line
     numBedroom: [null, [Validators.maxLength(11), Validators.max(20), Validators.pattern('^[0-9]*$')]],
     content: [null],

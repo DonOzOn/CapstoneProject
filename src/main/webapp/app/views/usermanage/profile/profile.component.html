@@ -31,14 +31,14 @@
                                         <!-- Họ -->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
                                             <h6 class="first">Họ</h6>
-                                            <input id="input" type="text" class="form-control" formControlName="firstName">
+                                            <input id="input" type="text" class="form-control" formControlName="firstName" onkeypress='return !(event.charCode >= 33 && event.charCode <= 64 | event.charCode >= 91 && event.charCode <= 96 | event.charCode >= 123 && event.charCode <= 126)' required>
                                             <div *ngIf="profileForm.get('firstName').invalid && (profileForm.get('firstName').dirty || profileForm.get('firstName').touched)">
                                                 <small class="form-text text-danger" *ngIf="profileForm.get('firstName').errors.required">
                                                     Họ không được để trống.
                                                 </small>
-                                                <small class="form-text text-danger" *ngIf="profileForm.get('firstName').errors.pattern">
+                                                <!-- <small class="form-text text-danger" *ngIf="profileForm.get('firstName').errors.pattern">
                                                     Họ chỉ chứa chữ
-                                                </small>
+                                                </small> -->
                                                 <small class="form-text text-danger" *ngIf="profileForm.get('firstName').errors.minlength">
                                                     Họ it nhất có 1 một kí tự.
                                                 </small>
@@ -50,14 +50,14 @@
                                         <!-- Tên-->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
                                             <h6 class="first">Tên</h6>
-                                            <input id="input" type="text" class="form-control" formControlName="lastName">
+                                            <input id="input" type="text" class="form-control" formControlName="lastName" onkeypress='return !(event.charCode >= 33 && event.charCode <= 64 | event.charCode >= 91 && event.charCode <= 96 | event.charCode >= 123 && event.charCode <= 126)' required>
                                             <div *ngIf="profileForm.get('lastName').invalid && (profileForm.get('lastName').dirty || profileForm.get('lastName').touched)">
                                                 <small class="form-text text-danger" *ngIf="profileForm.get('lastName').errors.required">
                                                     Tên không được để trống.
                                                 </small>
-                                                <small class="form-text text-danger" *ngIf="profileForm.get('lastName').errors.pattern">
+                                                <!-- <small class="form-text text-danger" *ngIf="profileForm.get('lastName').errors.pattern">
                                                     Tên chỉ chứa chữ
-                                                </small>
+                                                </small> -->
                                                 <small class="form-text text-danger" *ngIf="profileForm.get('lastName').errors.minlength">
                                                     Tên it nhất có 1 một kí tự.
                                                 </small>
@@ -69,7 +69,7 @@
                                         <!-- Phone-->
                                         <div class="row col-md-8 m-0 p-0 mb-3">
                                             <h6 class="first">SĐT</h6>
-                                            <input id="input" type="text" placeholder="Nhập số điện thoại" class="form-control" formControlName="phone">
+                                            <input id="input" type="text" placeholder="Nhập số điện thoại" class="form-control" formControlName="phone" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
                                             <div *ngIf="profileForm.get('phone').invalid && (profileForm.get('phone').dirty || profileForm.get('phone').touched)">
                                                 <small class="form-text text-danger" *ngIf="profileForm.get('phone').errors.required">
                                                     SĐT không được để trống.

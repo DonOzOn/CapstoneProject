@@ -127,22 +127,15 @@
                         <p class="my-1">Số phòng ngủ</p>
                     </div>
                     <div class="text-center">
-                        <input type="text" class="form-control col-md-12 " placeholder="1-10" formControlName="numBedroom" list="test">
+                        <input type="text" class="form-control col-md-12 " placeholder="Nhập số phòng" formControlName="numBedroom" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required maxlength="2">
                     </div>
-                    <datalist id="test">
-                        <option value="1">
-                        <option value="2">
-                        <option value="3">
-                        <option value="4">
-                        <option value="5">
-                    </datalist>
                 </div>
                 <div class="col-md-4 d-inline-flexbox justify-content-center">
                     <div>
                         <p class="my-1">Số phòng tắm</p>
                     </div>
                     <div class="text-center">
-                        <input type="text" class="form-control col-md-12" placeholder="1-10" formControlName="numBathroom">
+                        <input type="text" class="form-control col-md-12" placeholder="Nhập số phòng" formControlName="numBathroom" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required maxlength="2">
                     </div>
                 </div>
             </div>
@@ -327,17 +320,18 @@
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                                                                         </div>
-                                                                        <input type="text" class="form-control" placeholder="Nhập tên của bạn" formControlName="name" aria-label="Tên" aria-describedby="basic-addon1" required>
+                                                                        <input type="text" class="form-control" placeholder="Nhập tên của bạn" formControlName="name" aria-label="Tên" aria-describedby="basic-addon1" onkeypress='return !(event.charCode >= 33 && event.charCode <= 64 | event.charCode >= 91 && event.charCode <= 96 | event.charCode >= 123 && event.charCode <= 126)'
+                                                                            required>
                                                                     </div>
                                                                     <div *ngIf="inforForm.get('name').invalid && (inforForm.get('name').dirty || inforForm.get('name').touched)">
-                                                                        <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.pattern">
+                                                                        <!-- <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.pattern">
                                                                             Tên chỉ chứa chữ.
-                                                                        </small>
+                                                                        </small> -->
                                                                         <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.required">
                                                                             Tên không được để trống.
                                                                         </small>
                                                                         <small class="form-text text-danger" *ngIf="inforForm.get('name').errors.maxlength">
-                                                                         Tên dài nhất có 32 kí tự.
+                                                                         Tên dài nhất có 50 kí tự.
                                                                          </small>
                                                                     </div>
                                                                 </div>
@@ -368,7 +362,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text" id="basic-addon3"><i class="fas fa-phone"></i></span>
                                                                         </div>
-                                                                        <input type="text" formControlName="phone" class="form-control" placeholder="Nhập số điện thoại của bạn" aria-label="Số điện thoại" aria-describedby="basic-addon3" required>
+                                                                        <input type="text" formControlName="phone" class="form-control" placeholder="Nhập số điện thoại của bạn" aria-label="Số điện thoại" aria-describedby="basic-addon3" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
                                                                     </div>
                                                                     <div *ngIf="inforForm.get('phone').invalid && (inforForm.get('phone').dirty || inforForm.get('phone').touched)">
                                                                         <small class="form-text text-danger" *ngIf="inforForm.get('phone').errors.required">

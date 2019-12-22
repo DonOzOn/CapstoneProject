@@ -36,14 +36,15 @@
                                 <div class="col">
                                     <!-- First name -->
                                     <label class="form-control-label" for="firstName">Họ</label>
-                                    <input formControlName="firstName" type="text" id="firstName" name="firstName" class="form-control" placeholder="Họ" required>
+                                    <input formControlName="firstName" type="text" id="firstName" name="firstName" class="form-control" placeholder="Họ" onkeypress='return !(event.charCode >= 33 && event.charCode <= 64 | event.charCode >= 91 && event.charCode <= 96 | event.charCode >= 123 && event.charCode <= 126)'
+                                        required>
                                     <div *ngIf="registerForm.get('firstName').invalid && (registerForm.get('firstName').dirty || registerForm.get('firstName').touched)">
                                         <small class="form-text text-danger" *ngIf="registerForm.get('firstName').errors.required">
                                                     Họ không được để trống.
                                                 </small>
-                                        <small class="form-text text-danger" *ngIf="registerForm.get('firstName').errors.pattern">
+                                        <!-- <small class="form-text text-danger" *ngIf="registerForm.get('firstName').errors.pattern">
                                                     Họ chỉ chứa chữ
-                                                </small>
+                                                </small> -->
                                         <small class="form-text text-danger" *ngIf="registerForm.get('firstName').errors.minlength">
                                                     Họ it nhất có 1 một kí tự.
                                                 </small>
@@ -59,14 +60,15 @@
                             <div class="form-row mb-4">
                                 <div class="col">
                                     <label class="form-control-label" for="lastName">Tên</label>
-                                    <input type="text" formControlName="lastName" id="lastName" name="lastName" class="form-control" placeholder="Tên" required>
+                                    <input type="text" formControlName="lastName" id="lastName" name="lastName" class="form-control" placeholder="Tên" onkeypress='return !(event.charCode >= 33 && event.charCode <= 64 | event.charCode >= 91 && event.charCode <= 96 | event.charCode >= 123 && event.charCode <= 126)'
+                                        required>
                                     <div *ngIf="registerForm.get('lastName').invalid && (registerForm.get('lastName').dirty || registerForm.get('lastName').touched)">
                                         <small class="form-text text-danger" *ngIf="registerForm.get('lastName').errors.required">
                                                     Tên không được để trống.
                                                 </small>
-                                        <small class="form-text text-danger" *ngIf="registerForm.get('lastName').errors.pattern">
+                                        <!-- <small class="form-text text-danger" *ngIf="registerForm.get('lastName').errors.pattern">
                                                     Tên chỉ chứa chữ
-                                                </small>
+                                                </small> -->
                                         <small class="form-text text-danger" *ngIf="registerForm.get('lastName').errors.minlength">
                                                     Tên it nhất có 1 một kí tự.
                                                 </small>
