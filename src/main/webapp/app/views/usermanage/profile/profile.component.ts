@@ -45,8 +45,8 @@ export class ProfileComponent implements OnInit {
   listDistrict = [];
   listWard = [];
   profileForm = this.fb.group({
-    firstName: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[a-zA-Z- ]*$')]],
-    lastName: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[a-zA-Z- ]*$')]],
+    firstName: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[^0-9]*[ ]*[^!@#$%^&*()_+=-][^":;<>,.?|/]$')]],
+    lastName: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[^0-9]*[ ]*[^!@#$%^&*()_+=-][^":;<>,.?|/]$')]],
     gender: [null, Validators.required],
     phone: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(12), Validators.pattern('^[0-9]*$')]],
     provinceCode: [null, Validators.required],

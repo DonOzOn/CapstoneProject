@@ -31,7 +31,7 @@
                                         <span class="font-italic small"> {{item.createdDate | date: 'dd/MM/yyyy'}}</span>
                                     </div>
                                     <div class="col-md-4 forum-info px-0">
-                                        <span *ngIf="item.totalLike === null">0</span> {{item.totalLike}} <i class="fas fa-thumbs-up text-primary"></i>
+                                        <span *ngIf="item.totalLike === null">0</span> <span *ngIf="item.totalLike !== null">{{item.totalLike}}</span> <i class="fas fa-thumbs-up text-primary"></i>
                                     </div>
                                 </div>
                             </div>

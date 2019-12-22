@@ -186,8 +186,8 @@
                     <div class="d-flex flex-row col-md-12">
                         <div class="d-flex col-md-4 px-0 justify-content-center align-items-center">
                             <p class="h5 col-md-6 m-0 px-0 faa-pulse animated align-items-center justify-content-center">
-                                <i class="fas fa-hand-holding-usd text-info"></i><span *ngIf="productdetail.productPostResponseDTO.product.price >= 100000000">{{ productdetail.productPostResponseDTO.product.price / 1000000000 }}tỷ</span>
-                                <span *ngIf="productdetail.productPostResponseDTO.product.price < 100000000 && productdetail.productPostResponseDTO.product.price >= 1000000">{{ productdetail.productPostResponseDTO.product.price / 1000000 }}triệu</span>
+                                <i class="fas fa-hand-holding-usd text-info"></i><span *ngIf="productdetail.productPostResponseDTO.product.price >= 1000000000">{{ productdetail.productPostResponseDTO.product.price / 1000000000 }}tỷ</span>
+                                <span *ngIf="productdetail.productPostResponseDTO.product.price < 1000000000 && productdetail.productPostResponseDTO.product.price >= 1000000">{{ productdetail.productPostResponseDTO.product.price / 1000000 }}triệu</span>
                                 <span *ngIf="productdetail.productPostResponseDTO.product.price < 1000000">>{{ productdetail.productPostResponseDTO.product.price / 1000 }}nghìn</span>
                             </p>
                             <p class="h5 col-md-6 m-0 px-0 faa-pulse animated align-items-center justify-content-center">
@@ -200,7 +200,7 @@
                                 <!-- <button class="btn btn-outline-danger mx-2"><i class="fas fa-bullhorn"></i> Báo xấu</button> -->
                                 <button *ngIf="!liked && isAuthenticated()" class="btn btn-outline-primary btn-sm" matTooltip="Thích" (click)="checkLike(productdetail.productPostResponseDTO.id)"><i class="fas fa-thumbs-up"></i> Thích</button>
                                 <button *ngIf="liked && isAuthenticated()" class="btn btn-primary btn-sm" matTooltip="Bỏ thích" (click)="checkLike(productdetail.productPostResponseDTO.id)"><i class="fas fa-thumbs-up"></i> Thích</button>
-                                <div id="buttonshare" class="fb-share-button px-2 pt-1 btn btn-sm" data-size="large" [attr.data-href]="currentUrl" data-layout="button_count"></div>
+                                <div id="buttonshare" class="fb-share-button btn btn-sm ml-4 pb-1" data-size="large" [attr.data-href]="currentUrl" data-layout="button_count"></div>
                             </div>
                             <p class="d-flex justify-content-end align-items-end col-md-12 m-0 px-0 font-italic pr-1">
                                 {{ productdetail.productPostResponseDTO.address }}, {{ productdetail.productPostResponseDTO.ward.name }}, {{ productdetail.productPostResponseDTO.district.name }}, {{ productdetail.productPostResponseDTO.province.name }}
