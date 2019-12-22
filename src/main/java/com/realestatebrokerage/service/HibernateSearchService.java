@@ -49,7 +49,7 @@ public class HibernateSearchService {
             .withEditDistanceUpTo(2)
             .withPrefixLength(0)
             .onFields("productPostTitle","projectName",
-                "province.name","ward.name","district.name","product.price",
+                "province.name","ward.name","district.name",
                 "product.area","product.direction_directionName")
             .matching(searchTerm).createQuery())
               .must(qb.keyword().onField("status").matching(true).createQuery())

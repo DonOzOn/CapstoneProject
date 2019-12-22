@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { PostService } from '../../core/post/post.service';
 import { PostRespone } from 'app/core/post/model/postRespone.model';
 import { SERVER_API_URL } from 'app/app.constants';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Ng7DynamicBreadcrumbService } from 'ng7-dynamic-breadcrumb';
 import { AddressService } from 'app/core/address/address.service';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
@@ -102,7 +102,8 @@ export class ListproductComponent implements OnInit {
     private notificationService: NotificationService,
     private accountService: AccountService,
     private userService: UserService,
-    public activeModal: NgbModal
+    public activeModal: NgbModal,
+    public route22: ActivatedRouteSnapshot
   ) {
     for (let i = 0; i < this.count; i++) {
       this.listPost.push({
@@ -131,6 +132,10 @@ export class ListproductComponent implements OnInit {
       });
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     });
+    // // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // const textSearchParam = this.route22.params.textSearch ? this.route22.params.textSearch : null;
+    // // eslint-disable-next-line no-console
+    // console.log('textSearchParam: ', textSearchParam);
     this.filterForm.valueChanges
       .pipe(
         debounceTime(200),
@@ -452,6 +457,10 @@ export class ListproductComponent implements OnInit {
    */
   redirectTo(uri: string) {
     this.router.navigateByUrl('/404', { skipLocationChange: true }).then(() => this.router.navigate([uri]));
+  }
+
+  isAuthenticated() {
+    return this.accountService.isAuthenticated();
   }
 
   /*  get all product post */

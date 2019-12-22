@@ -39,13 +39,9 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @Field
-    @FieldBridge(impl = LongBridge.class)
     @Column(name = "price")
     private Long price;
-
-
+    
     @Field
     @FieldBridge(impl = LongBridge.class)
     @Column(name = "area")
