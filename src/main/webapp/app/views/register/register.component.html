@@ -128,10 +128,12 @@
 
                         <!-- Password -->
                         <div class="form-group">
-                            <div class="form-row mb-4">
+                            <div class="form-row mb-2">
                                 <div class="col">
                                     <label class="form-control-label" for="password">Mật khẩu</label>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" formControlName="password" required>
+                                    <show-hide-password btnStyle="secondary" [btnOutline]="false">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" formControlName="password" required>
+                                    </show-hide-password>
                                     <div *ngIf="registerForm.get('password').invalid && (registerForm.get('password').dirty || registerForm.get('password').touched)">
                                         <small class="form-text text-danger" *ngIf="registerForm.get('password').errors.required">
                                                             Mật khẩu không được để trống.
@@ -152,7 +154,9 @@
                             <div class="form-row mb-4">
                                 <div class="col">
                                     <label class="form-control-label" for="confirmPassword">Xác nhận mật khẩu</label>
-                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Xác nhận mật khẩu" formControlName="confirmPassword" required>
+                                    <show-hide-password btnStyle="secondary" [btnOutline]="false">
+                                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Xác nhận mật khẩu" formControlName="confirmPassword" required>
+                                    </show-hide-password>
                                     <div *ngIf="registerForm.get('confirmPassword').invalid && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched)">
                                         <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword').errors.required">
                                                             Xác nhận mật khẩu không được để trống.
@@ -164,6 +168,9 @@
                                                             Xác nhận mật khẩu dài nhất có 50 kí tự.
                                                         </small>
                                     </div>
+                                    <small class="form-text text-danger" *ngIf="registerForm.errors?.invalid && registerForm.get('confirmPassword').touched">
+                                        Mật khẩu không khớp.
+                                    </small>
                                 </div>
                             </div>
                         </div>

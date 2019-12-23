@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Register } from 'app/core/service/register.service';
 import { LoginModalService } from 'app/core/login/login-modal.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   success: boolean;
   modalRef: NgbModalRef;
   checked: false;
+
   registerForm = this.fb.group({
     firstName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[^0-9]*[ ]*[^!@#$%^&*()_+=-][^":;<>,.?|/]$')]],
     lastName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[^0-9]*[ ]*[^!@#$%^&*()_+=-][^":;<>,.?|/]$')]],
@@ -30,7 +31,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     ],
     password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]]
-  });
+  }, { validator: this.passwordConfirming });
 
   constructor(
     private loginModalService: LoginModalService,
@@ -38,8 +39,12 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     private elementRef: ElementRef,
     private renderer: Renderer,
     private fb: FormBuilder
-  ) {}
-
+  ) { }
+  passwordConfirming(c: AbstractControl): { invalid: boolean } {
+    if (c.get('password').value !== c.get('confirmPassword').value) {
+      return { invalid: true };
+    }
+  }
   ngOnInit() {
     this.success = false;
   }

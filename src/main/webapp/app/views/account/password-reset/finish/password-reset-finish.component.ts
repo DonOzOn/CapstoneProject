@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -20,9 +20,9 @@ export class PasswordResetFinishComponent implements OnInit, AfterViewInit {
   key: string;
 
   passwordForm = this.fb.group({
-    newPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-    confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]]
-  });
+    newPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
+    confirmPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]]
+  }, { validator: this.passwordConfirming });
 
   constructor(
     private passwordResetFinishService: PasswordResetFinishService,
@@ -32,7 +32,11 @@ export class PasswordResetFinishComponent implements OnInit, AfterViewInit {
     private renderer: Renderer,
     private fb: FormBuilder
   ) {}
-
+  passwordConfirming(c: AbstractControl): { invalid: boolean } {
+    if (c.get('password').value !== c.get('confirmPassword').value) {
+      return { invalid: true };
+    }
+  }
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.key = params['key'];

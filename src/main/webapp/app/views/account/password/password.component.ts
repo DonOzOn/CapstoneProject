@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -18,12 +18,16 @@ export class PasswordComponent implements OnInit {
   account$: Observable<Account>;
   passwordForm = this.fb.group({
     currentPassword: ['', [Validators.required]],
-    newPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-    confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]]
-  });
+    newPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
+    confirmPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]]
+  }, { validator: this.passwordConfirming });
 
   constructor(private passwordService: PasswordService, private accountService: AccountService, private fb: FormBuilder) {}
-
+  passwordConfirming(c: AbstractControl): { invalid: boolean } {
+    if (c.get('password').value !== c.get('confirmPassword').value) {
+      return { invalid: true };
+    }
+  }
   ngOnInit() {
     this.account$ = this.accountService.identity();
   }
