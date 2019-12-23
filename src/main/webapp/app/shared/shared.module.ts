@@ -8,9 +8,10 @@ import { PasswordStrengthBarComponent } from './password-strength/password-stren
 import { NewComponent } from './new/new.component';
 import { RouterModule } from '@angular/router';
 import { CareYouComponent } from './care-you/care-you.component';
+import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 
 @NgModule({
-  imports: [RealestatebrokerageSharedLibsModule, RouterModule],
+  imports: [RealestatebrokerageSharedLibsModule, RouterModule, ShowHidePasswordModule],
   declarations: [
     JhiAlertComponent,
     JhiAlertErrorComponent,

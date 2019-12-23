@@ -18,7 +18,9 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Mật khẩu</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu của bạn" formControlName="password">
+                    <show-hide-password btnStyle="secondary" [btnOutline]="false">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu của bạn" formControlName="password">
+                    </show-hide-password>
                 </div>
                 <div class="form-check">
                     <label class="form-check-label" for="rememberMe">

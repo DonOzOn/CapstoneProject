@@ -18,6 +18,8 @@ import { RegisterComponent } from '../register/register.component';
 import { RealestatebrokerageAccountModule } from '../account/account.module';
 import { RealestatebrokerageSharedLibsModule } from 'app/shared/shared-libs.module';
 import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
+import { ShowHidePasswordModule } from 'ngx-show-hide-password';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -27,6 +29,8 @@ import { RealestatebrokerageSharedModule } from 'app/shared/shared.module';
     WavesModule.forRoot(),
     IconsModule,
     TooltipModule,
+    MatFormFieldModule,
+    ShowHidePasswordModule,
     PopoverModule,
     ButtonsModule,
     ModalModule,

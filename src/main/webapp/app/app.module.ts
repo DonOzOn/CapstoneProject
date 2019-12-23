@@ -31,6 +31,7 @@ import { MessageModule } from 'primeng/message';
 import { LoginModule } from './views/login/login.module';
 import { RouterModule } from '@angular/router';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent],
@@ -39,6 +40,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ShowHidePasswordModule,
     LayoutModule,
     FlexLayoutModule,
     MDBBootstrapModule.forRoot(),
