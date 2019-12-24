@@ -74,16 +74,13 @@ export class ListproductComponent implements OnInit {
     choose: ['']
   });
   public labels: any = {
-    previousLabel: 'Previous',
-    nextLabel: 'Next'
+    previousLabel: 'Trang trước',
+    nextLabel: 'Trang kế'
   };
   inforForm = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[^0-9]*[ ]*[^!@#$%^&*()_+=-][^":;<>,.?|/]$')]],
     phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(12), Validators.pattern('^[0-9]*$')]],
-    email: [
-      '',
-      [Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9._]+@[a-z0-9.-]+.[a-z]{2,}$')]
-    ],
+    email: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9._]+@[a-z0-9.-]+.[a-z]{2,}$')]],
     mess: ['', [Validators.maxLength(200)]]
   });
   currentAccount: Account;

@@ -263,21 +263,32 @@
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text" id="basic-addon2"><i class="fas fa-phone"></i></span>
                                                                                     </div>
-                                                                                    <input type="text" class="form-control bg-white" placeholder="{{currentProductPost.productPostResponseDTO.user.phone}}" aria-label="Phone" aria-describedby="basic-addon2" disabled>
+                                                                                    <input *ngIf="currentProductPost.productPostResponseDTO.user.phone !== null" type="text" class="form-control bg-white" placeholder="{{currentProductPost.productPostResponseDTO.user.phone}}" aria-label="Phone" aria-describedby="basic-addon2" disabled>
+                                                                                    <input *ngIf="currentProductPost.productPostResponseDTO.user.phone === null" type="text" class="form-control bg-white" placeholder="Chưa cập nhật" aria-label="Phone" aria-describedby="basic-addon2" disabled>
                                                                                 </div>
                                                                                 <div class="input-group col-md-12 px-0 my-2">
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text" id="basic-addon3"><i class="fas fa-birthday-cake"></i></span>
                                                                                     </div>
-                                                                                    <input type="text" class="form-control bg-white" placeholder="{{currentProductPost.productPostResponseDTO.user.dob | date: 'dd/MM/yyyy'}}" aria-label="Birthday" aria-describedby="basic-addon3" disabled>
+                                                                                    <input *ngIf="currentProductPost.productPostResponseDTO.user.dob!== null" type="text" class="form-control bg-white" placeholder="{{currentProductPost.productPostResponseDTO.user.dob | date: 'dd/MM/yyyy'}}" aria-label="Birthday" aria-describedby="basic-addon3" disabled>
+                                                                                    <input *ngIf="currentProductPost.productPostResponseDTO.user.dob === null" type="text" class="form-control bg-white" placeholder="Chưa cập nhật" aria-label="Birthday" aria-describedby="basic-addon3" disabled>
+
                                                                                 </div>
-                                                                                <div class="input-group col-md-12 px-0 my-2">
+                                                                                <!-- <div class="input-group col-md-12 px-0 my-2">
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text" id="basic-addon4"><i class="fas fa-street-view"></i></span>
                                                                                     </div>
-                                                                                    <textarea class="form-control bg-white" placeholder="{{currentProductPost.productPostResponseDTO.user.ward.name}}, {{currentProductPost.productPostResponseDTO.user.district.name}}, {{currentProductPost.productPostResponseDTO.user.province.name}}" aria-label="Location"
+                                                                                    <textarea *ngIf="currentProductPost.productPostResponseDTO.user.ward.name !== null
+                                                                                    || currentProductPost.productPostResponseDTO.user.district.name !== null
+                                                                                    || currentProductPost.productPostResponseDTO.user.province.name !== null
+                                                                                    " class="form-control bg-white" placeholder="{{currentProductPost.productPostResponseDTO.user.ward.name}}, {{currentProductPost.productPostResponseDTO.user.district.name}}, {{currentProductPost.productPostResponseDTO.user.province.name}}" aria-label="Location"
                                                                                         aria-describedby="basic-addon4" disabled></textarea>
-                                                                                </div>
+                                                                                        <textarea *ngIf="currentProductPost.productPostResponseDTO.user.ward.name === null
+                                                                                        || currentProductPost.productPostResponseDTO.user.district.name === null
+                                                                                        || currentProductPost.productPostResponseDTO.user.province.name === null
+                                                                                        " class="form-control bg-white" placeholder="Chưa cập nhật" aria-label="Location"
+                                                                                            aria-describedby="basic-addon4" disabled></textarea>
+                                                                                </div> -->
                                                                             </div>
                                                                         </div>
                                                                     </div>
