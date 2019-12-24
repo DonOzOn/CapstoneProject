@@ -34,6 +34,7 @@ public class ReviewRequestDTO {
         this.province =  review.getProvince().getCode();
         this.district =  review.getDistrict().getCode();
         this.ward =  review.getWard().getCode();
+        this.totalLike = review.getTotalLike();
         this.status = review.isStatus();
         this.imageUrl = review.getImageUrl();
         this.type = review.isType();

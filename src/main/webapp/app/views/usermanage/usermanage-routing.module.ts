@@ -57,7 +57,7 @@ const routes: Routes = [
               url: '/usermanage'
             },
             {
-              label: 'Quản lí bài đăng review - câu hỏi',
+              label: 'Quản lí bài đăng diễn đàn',
               url: ''
             }
           ]

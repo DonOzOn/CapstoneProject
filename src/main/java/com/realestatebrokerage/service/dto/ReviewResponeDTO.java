@@ -37,6 +37,7 @@ public class ReviewResponeDTO {
         this.district =  review.getDistrict();
         this.ward =  review.getWard();
         this.status = review.isStatus();
+        this.totalLike = review.getTotalLike();
         this.imageUrl = review.getImageUrl();
         this.type = review.isType();
         this.user = review.getUser();
