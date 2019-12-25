@@ -121,7 +121,7 @@ export class ProductdetailComponent implements OnInit {
     this.notification = new Notification();
     this.notification.type = 1;
     this.notification.userSend = this.currentUser.id;
-    this.notification.content = 'muốn liên hệ với bạn';
+    this.notification.content = ' muốn liên hệ với bạn';
     this.notification.userReceive = this.productdetail.productPostResponseDTO.user.id;
     this.notification.title = 'Liên hệ';
     this.guestCareProductService

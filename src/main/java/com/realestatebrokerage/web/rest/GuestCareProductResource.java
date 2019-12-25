@@ -12,7 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -105,6 +107,7 @@ public class GuestCareProductResource {
     @GetMapping("/guest/getAllGuest")
     public ResponseEntity<List<GuestCareProductResponeDTO>> getAllGuest(Long userid, Pageable pageable) {
         log.debug("id: {}", userid );
+        pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending() );
         final Page<GuestCareProductResponeDTO> page = guestCareProductService.getAllGuest(userid, pageable).map(GuestCareProductResponeDTO::new);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

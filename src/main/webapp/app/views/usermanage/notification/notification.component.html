@@ -25,7 +25,7 @@
                                                 </div>
                                                 <div *ngIf="item.type == 1" class="media-body">
                                                     <p class="notification-desc mb-0 font-weight-bold"> {{item.title}}</p>
-                                                    <strong class="notification-title"><a [routerLink]="['/manage-guest-care']"> {{item.userSend.login}}</a> {{item.content}}<a [routerLink]="['/usermanage']"> với bạn</a></strong>
+                                                    <strong class="notification-title"><a [routerLink]="['/manage-guest-care']"> {{item.userSend.login}}</a> {{item.content}}</strong>
                                                     <div class="notification-meta">
                                                         <small class="timestamp"> {{item.createdDate | date:'HH:mm dd/MM/yyyy'}}</small>
                                                         <span *ngIf="item.status" (click)="seen(item.id)" class="badge badge-success">Chưa xem</span>

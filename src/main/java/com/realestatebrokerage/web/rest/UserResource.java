@@ -157,6 +157,7 @@ public class UserResource {
         log.debug("REST request to update User : {}", userDTO);
         Optional<UserDTO> updatedUser = userService.updateUserToken(userDTO);
 //return null;
+
         return ResponseUtil.wrapOrNotFound(updatedUser,
             HeaderUtil.createAlert(applicationName, "A user is updated with identifier " + userDTO.getLogin(), userDTO.getLogin()));
     }

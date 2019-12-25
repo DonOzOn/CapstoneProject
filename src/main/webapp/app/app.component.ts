@@ -72,21 +72,15 @@ export class AppComponent implements OnInit {
     this.window = window;
     this.window.addEventListener('saveToken', this.saveUserToken);
     const messageRecieve = e => {
-      // eslint-disable-next-line
-      console.log('don123: ', e.detail);
       this.messageService.add({ severity: 'info', summary: e.detail.notification.title, detail: e.detail.notification.body });
     };
     this.window.addEventListener('messageRecieve', messageRecieve);
     if (this.accountService.isAuthenticated() === true) {
-      // eslint-disable-next-line
-      console.log('addEventListener');
       this.window.window.requestPermission();
     }
   }
 
   messageRecieve(e) {
-    // eslint-disable-next-line
-    console.log('don123: ', e.detail);
     this.name = e.detail;
   }
   saveUserToken(e) {
@@ -95,14 +89,9 @@ export class AppComponent implements OnInit {
       self.currentUser.token = e.detail;
       self.userService.update(self.currentUser).subscribe(res => {
         // eslint-disable-next-line
-        console.log('update..fdfdf: ', res.body);
+        console.log('update..fdfdf: ');
       });
-      // eslint-disable-next-line
-      console.log('save token: ', e.detail);
     });
-
-    // eslint-disable-next-line
-    console.log('e.detail: ', e.detail);
   }
 
   // initFacebookService(): void {
