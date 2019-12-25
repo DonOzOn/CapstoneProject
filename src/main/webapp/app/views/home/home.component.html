@@ -100,14 +100,16 @@
                                 <i class="fas fa-dollar-sign fa-lg"></i>{{ list15HotPostProduct.productPostResponseDTO.product.price / 1000 }}ngàn
                             </h5>
                         </div>
-                        <div class="card-footer text-muted d-flex flex-row p-3">
-                            <img *ngIf="list15HotPostProduct.productPostResponseDTO.user.imageUrl !== null" src="{{ imageUrl }}{{ list15HotPostProduct.productPostResponseDTO.user.imageUrl }}" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{ list15HotPostProduct.productPostResponseDTO.createdBy }}"
-                            />
-                            <img *ngIf="list15HotPostProduct.productPostResponseDTO.user.imageUrl === null" src="../../../content/img/default-avar.png" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{ list15HotPostProduct.productPostResponseDTO.createdBy }}"
-                            />
-                            <a class="card-text my-0  pl-2 pt-2 pr-0 text-left text-capitalize text-truncate" data-placement="top " title="{{ list15HotPostProduct.productPostResponseDTO.user.firstName }} {{ list15HotPostProduct.productPostResponseDTO.user.lastName }}" style="width:150px;">{{ list15HotPostProduct.productPostResponseDTO.user.firstName }}
-                                {{ list15HotPostProduct.productPostResponseDTO.user.lastName }}</a>
-                            <div class="d-flex px-0 justify-content-end card-body py-0">
+                        <div class="card-footer col-md-12 text-muted d-flex flex-row p-3">
+                            <div class="col-md-6 justify-content-start px-0 text-truncate d-flex flex-row">
+                                <img *ngIf="list15HotPostProduct.productPostResponseDTO.user.imageUrl !== null" src="{{ imageUrl }}{{ list15HotPostProduct.productPostResponseDTO.user.imageUrl }}" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{ list15HotPostProduct.productPostResponseDTO.createdBy }}"
+                                />
+                                <img *ngIf="list15HotPostProduct.productPostResponseDTO.user.imageUrl === null" src="../../../content/img/default-avar.png" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{ list15HotPostProduct.productPostResponseDTO.createdBy }}"
+                                />
+                                <a class="card-text my-0  pl-2 pt-2 pr-0 text-left text-capitalize text-truncate" data-placement="top " title="{{ list15HotPostProduct.productPostResponseDTO.user.firstName }} {{ list15HotPostProduct.productPostResponseDTO.user.lastName }}" style="width:150px;">
+                                {{ list15HotPostProduct.productPostResponseDTO.createdBy }}</a>
+                            </div>
+                            <div class="d-flex px-0 justify-content-end card-body p-0 col-md-6">
                                 <a class="btn blue-gradient rounded text-light" [routerLink]="['/product', list15HotPostProduct.productPostResponseDTO.id, 'productdetail']" role="button">Chi
                                     tiết</a>
                             </div>
@@ -162,14 +164,16 @@
                                 <i class="fas fa-dollar-sign fa-lg"></i>{{ list15NewPostProduct.productPostResponseDTO.product.price / 1000 }}nghìn
                             </h5>
                         </div>
-                        <div class="card-footer text-muted d-flex flex-row p-3">
-                            <img *ngIf="list15NewPostProduct.productPostResponseDTO.user.imageUrl !== null" src="{{ imageUrl }}{{ list15NewPostProduct.productPostResponseDTO.user.imageUrl }}" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{ list15NewPostProduct.productPostResponseDTO.createdBy }}"
-                            />
-                            <img *ngIf="list15NewPostProduct.productPostResponseDTO.user.imageUrl === null" src="../../../content/img/default-avar.png" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{ list15NewPostProduct.productPostResponseDTO.createdBy }}"
-                            />
-                            <a class="card-text my-0  pl-2 pt-2 pr-0 text-left text-capitalize text-truncate" data-placement="top " title="{{list15NewPostProduct.productPostResponseDTO.user.firstName }} {{ list15NewPostProduct.productPostResponseDTO.user.lastName }}" style="width:150px;">{{ list15NewPostProduct.productPostResponseDTO.user.firstName }}
-                                {{ list15NewPostProduct.productPostResponseDTO.user.lastName }}</a>
-                            <div class="d-flex px-0 justify-content-end card-body py-0">
+                        <div class="card-footer col-md-12 text-muted d-flex flex-row p-3">
+                            <div class="col-md-6 justify-content-start px-0 text-truncate d-flex flex-row">
+                                <img *ngIf="list15NewPostProduct.productPostResponseDTO.user.imageUrl !== null" src="{{ imageUrl }}{{ list15NewPostProduct.productPostResponseDTO.user.imageUrl }}" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{ list15NewPostProduct.productPostResponseDTO.createdBy }}"
+                                />
+                                <img *ngIf="list15NewPostProduct.productPostResponseDTO.user.imageUrl === null" src="../../../content/img/default-avar.png" style="width:40px; height:40px " class="d-flex justify-content-start rounded-circle" alt="{{ list15NewPostProduct.productPostResponseDTO.createdBy }}"
+                                />
+                                <a class="card-text my-0  pl-2 pt-2 pr-0 text-left text-capitalize text-truncate" data-placement="top " title="{{list15NewPostProduct.productPostResponseDTO.user.firstName }} {{ list15NewPostProduct.productPostResponseDTO.user.lastName }}" style="width:150px;">
+                                {{ list15NewPostProduct.productPostResponseDTO.createdBy }}</a>
+                            </div>
+                            <div class="d-flex justify-content-end card-body p-0 col-md-6">
                                 <a class="btn blue-gradient rounded text-light" [routerLink]="['/product', list15NewPostProduct.productPostResponseDTO.id, 'productdetail']" role="button">Chi
                                     tiết</a>
                             </div>
@@ -204,9 +208,9 @@
                                 <div class="d-flex flex-row justify-content-center py-2">
                                     <i class="fas fa-star faa-burst animated"></i><i class="fas fa-star faa-burst animated"></i><i class="fas fa-star faa-burst animated"></i>
                                 </div>
-                                <div class="card body border-0 d-flex flex-row pb-2">Số bài đăng: {{listUser.productPostResponseDTO.totalReport}}
+                                <div class="card body border-0 d-flex flex-row pb-2 text-truncate" style="font-size: 10px;">Số bài đăng: {{listUser.productPostResponseDTO.totalReport}}
                                 </div>
-                                <div class="card body border-0 d-flex flex-row pb-2">Liên hệ: {{ listUser.productPostResponseDTO.user.phone }}</div>
+                                <div class="card body border-0 d-flex flex-row pb-2 text-truncate" style="font-size: 10px;">Liên hệ: {{ listUser.productPostResponseDTO.user.phone }}</div>
                             </div>
                         </div>
                     </div>

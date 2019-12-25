@@ -217,6 +217,8 @@ export class HomeComponent implements OnInit {
         return new Date(obj2.productResponseDTO.createdDate).valueOf() - new Date(obj1.productResponseDTO.createdDate).valueOf();
       });
       this.list15NewPostProduct = this.listNewPost.slice(0, 15);
+      // eslint-disable-next-line
+    console.log('get list: ', this.listNewPost);
     });
   }
 
