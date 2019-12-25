@@ -78,6 +78,8 @@ export class AppComponent implements OnInit {
     };
     this.window.addEventListener('messageRecieve', messageRecieve);
     if (this.accountService.isAuthenticated() === true) {
+      // eslint-disable-next-line
+      console.log('addEventListener');
       this.window.window.requestPermission();
     }
   }

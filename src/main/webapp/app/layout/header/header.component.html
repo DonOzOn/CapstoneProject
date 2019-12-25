@@ -102,7 +102,7 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link faa-pulse animated-hover text-uppercase" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link faa-pulse animated-hover text-uppercase" [routerLink]="[ '/fengshui']" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Tiện ích
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -156,7 +156,6 @@
                         <li class="mt-2" *jhiHasAnyAuthority="'ROLE_USER'" [routerLink]="[ '/usermanage']"><a>Quản lí tài khoản</a></li>
                         <li class="mt-2" *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLink]="[ '/admin']"><a>Quản lí chung</a></li>
                         <li *jhiHasAnyAuthority="'ROLE_USER'" [routerLink]="['/notification']"><a>Thông báo</a></li>
-                        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLink]="['/notification']"><a>Quản lí tài khoản</a></li>
                         <li *jhiHasAnyAuthority="'ROLE_USER'" (click)="requestChangePassword()"><a>Đổi mật khẩu</a></li>
                         <li class="mb-2" (click)="logout()"><a>Đăng xuất</a></li>
                     </ul>

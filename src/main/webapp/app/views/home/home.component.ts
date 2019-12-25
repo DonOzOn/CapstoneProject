@@ -157,15 +157,17 @@ export class HomeComponent implements OnInit {
     this.getListPostProduct();
     this.accountService.identity().subscribe((account: Account) => {
       this.currentAccount = account;
+      // eslint-disable-next-line
+      console.log('account: ', account);
+      this.window.window.requestPermission();
     });
     self = this;
     this.window = window;
     this.window.addEventListener('saveToken', this.saveUserToken);
     this.window.addEventListener('messageRecieve', this.messageRecieved);
-
-    if (this.accountService.isAuthenticated() === true) {
-      this.window.window.requestPermission();
-    }
+    // if (this.accountService.isAuthenticated() === true) {
+    //   this.window.window.requestPermission();
+    // }
 
     // this.window.addEventListener('subcribeTopicScript', this.test);
   }

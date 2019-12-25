@@ -74,7 +74,7 @@ export class HeaderComponent implements OnInit {
   fetch(page = 0, sort?) {
     this.notiService
       .getListNotiByStatus({ userid: this.currentUser.id, page, size: this.pageSize, sort })
-      .pipe()
+      // .pipe()
       .subscribe(
         (res: HttpResponse<INotification[]>) => this.onSuccess(res.body, res.headers),
         (res: HttpResponse<any>) => this.onError(res.body)
