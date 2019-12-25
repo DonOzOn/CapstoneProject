@@ -12,20 +12,20 @@
                                     </div>
                                     <div class="news-cats">
                                         <ul class="list-unstyled list-inline mb-1">
-                                            <li class="list-inline-item">
+                                            <!-- <li class="list-inline-item">
                                                 <i class="fa fa-folder-open fa-lg text-warning"></i>
                                                 <a href="#"><small>
                                                     <span *ngIf="!detailReview.type; else elseBlock">Đánh giá</span>
                                                     <ng-template #elseBlock>Câu hỏi</ng-template>
                                                 </small> </a>
+                                            </li> -->
+                                            <li class="list-inline-item">
+                                                <i class="fa fa-folder-open fa-lg text-warning"></i>
+                                                <a><small>{{detailReview.createdBy}}</small> </a>
                                             </li>
                                             <li class="list-inline-item">
                                                 <i class="fa fa-folder-open fa-lg text-warning"></i>
-                                                <a href="#"><small>{{detailReview.createdBy}}</small> </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <i class="fa fa-folder-open fa-lg text-warning"></i>
-                                                <a href="#"><small>{{detailReview.createdDate | date:'HH:mm dd/MM/yyyy'}}</small></a>
+                                                <a><small>{{detailReview.createdDate | date:'HH:mm dd/MM/yyyy'}}</small></a>
                                             </li>
 
                                         </ul>
