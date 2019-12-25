@@ -276,6 +276,7 @@ public class UserDTO {
             ", phone='" + phone + '\'' +
             ", gender=" + gender +
             ", ward=" + ward +
+            ", token=" + token +
             ", province=" + province +
             ", district=" + district +
             ", imageUrl='" + imageUrl + '\'' +

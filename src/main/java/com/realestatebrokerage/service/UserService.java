@@ -219,6 +219,7 @@ public class UserService {
      * @return updated user.
      */
     public Optional<UserDTO> updateUser(UserRequestDTO userDTO) {
+        System.out.println("run in update user: "+userDTO);
         return Optional.of(userRepository
             .findById(userDTO.getId()))
             .filter(Optional::isPresent)
@@ -255,6 +256,23 @@ public class UserService {
                     .filter(Optional::isPresent)
                     .map(Optional::get)
                     .forEach(managedAuthorities::add);
+                this.clearUserCaches(user);
+                log.debug("Changed Information for User: {}", user);
+                return user;
+            })
+            .map(UserDTO::new);
+    }
+    public Optional<UserDTO> updateUserToken(UserRequestDTO userDTO) {
+        System.out.println("run in update user: "+userDTO);
+        return Optional.of(userRepository
+            .findById(userDTO.getId()))
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .map(user -> {
+                this.clearUserCaches(user);
+
+                user.setToken(userDTO.getToken());
+
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
                 return user;
