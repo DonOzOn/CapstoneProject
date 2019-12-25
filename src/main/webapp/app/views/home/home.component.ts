@@ -155,16 +155,14 @@ export class HomeComponent implements OnInit {
     this.getList15NewPostProduct();
     this.getProvince();
     this.getListPostProduct();
-    this.accountService.identity().subscribe((account: Account) => {
-      this.currentAccount = account;
-      // eslint-disable-next-line
-      console.log('account: ', account);
-      this.window.window.requestPermission();
-    });
     self = this;
     this.window = window;
     this.window.addEventListener('saveToken', this.saveUserToken);
     this.window.addEventListener('messageRecieve', this.messageRecieved);
+    this.accountService.identity().subscribe((account: Account) => {
+      this.currentAccount = account;
+      this.window.window.requestPermission();
+    });
     // if (this.accountService.isAuthenticated() === true) {
     //   this.window.window.requestPermission();
     // }
@@ -184,7 +182,10 @@ export class HomeComponent implements OnInit {
     self.userService.find(self.currentAccount.login).subscribe((userAuthen: IUser) => {
       self.currentUser = userAuthen;
       self.currentUser.token = e.detail;
-      self.userService.update(self.currentUser).subscribe(res => {});
+      const user = { id: self.currentUser.id, token: self.currentUser.token };
+      self.userService.updateToken(user).subscribe(res => {});
+      // eslint-disable-next-line
+      console.log('save token to db: ', e.detail);
     });
   }
   /**

@@ -265,7 +265,7 @@ public class UserRequestDTO {
             ", imageUrl='" + imageUrl + '\'' +
             ", activated=" + activated +
             ", langKey='" + langKey + '\'' +
-            ", authorities=" + authorities +
+            ", token=" + token +
             '}';
     }
 }

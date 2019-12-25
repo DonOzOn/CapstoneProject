@@ -151,7 +151,15 @@ public class UserResource {
         return ResponseUtil.wrapOrNotFound(updatedUser,
             HeaderUtil.createAlert(applicationName, "A user is updated with identifier " + userDTO.getLogin(), userDTO.getLogin()));
     }
-
+    @PutMapping("/users-token")
+//    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<UserDTO> updateUserToken(@Valid @RequestBody UserRequestDTO userDTO) {
+        log.debug("REST request to update User : {}", userDTO);
+        Optional<UserDTO> updatedUser = userService.updateUserToken(userDTO);
+//return null;
+        return ResponseUtil.wrapOrNotFound(updatedUser,
+            HeaderUtil.createAlert(applicationName, "A user is updated with identifier " + userDTO.getLogin(), userDTO.getLogin()));
+    }
 
     /**
      * {@code PUT /users} : Updates an existing User.

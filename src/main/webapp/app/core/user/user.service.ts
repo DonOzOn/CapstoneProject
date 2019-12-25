@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IUser } from './user.model';
-
+import * as _ from 'lodash';
 @Injectable({ providedIn: 'root' })
 export class UserService {
   public resourceUrl = SERVER_API_URL + 'api/users';
+  public resourceUrlToken = SERVER_API_URL + 'api/users-token';
   public resourceUrlImage = SERVER_API_URL + 'api/upload';
   formData: IUser[];
   constructor(private http: HttpClient) {}
@@ -19,6 +20,10 @@ export class UserService {
     return this.http.put<IUser>(this.resourceUrl, user, { observe: 'response' });
   }
 
+  updateToken(data: any): Observable<HttpResponse<IUser>> {
+    const request = _.pickBy(data);
+    return this.http.put<IUser>(this.resourceUrlToken, request, { observe: 'response' });
+  }
   updateActive(user: IUser): Observable<HttpResponse<IUser>> {
     return this.http.put<IUser>(`${this.resourceUrl}/updateActive`, user, { observe: 'response' });
   }
